@@ -1,0 +1,21 @@
+<template>
+  <lightning-card title="Example">
+    <div class="blog-container">
+      <template
+        if:true={cardList}
+        for:each={cardList}
+        for:item="blog"
+        for:index="index"
+      >
+        <div key={blog.Id} class="card-container">
+          <c-blog-card
+            color={blog.color}
+            sections={blog.sections}
+            card-icon={blog.cardIcon}
+            header-title={blog.headerTitle}
+          ></c-blog-card>
+        </div>
+      </template>
+    </div>
+  </lightning-card>
+</template>
