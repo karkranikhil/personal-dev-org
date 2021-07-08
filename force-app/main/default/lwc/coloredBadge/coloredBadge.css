@@ -1,0 +1,13 @@
+.badge {
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 35px 35px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #393e46;
+}
+h2 {
+  font-weight: bold;
+  color: white;
+}
