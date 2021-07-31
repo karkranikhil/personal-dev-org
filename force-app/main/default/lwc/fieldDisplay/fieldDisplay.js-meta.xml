@@ -4,6 +4,8 @@
     <isExposed>true</isExposed>
     <targets>
         <target>lightning__RecordPage</target>
+         <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__RecordPage">
@@ -14,6 +16,12 @@
         required="true"
       />
       <property name="title" label="Title of the Card" type="String" />
+        </targetConfig>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="title" type="String" default="Card Title" />
+            <property name="fieldApiName" type="String" default="Name" />
+            <property name="recordId" type="String" />
+            <property name="objectApiName" type="String" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
