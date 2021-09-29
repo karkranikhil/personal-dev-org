@@ -1,0 +1,17 @@
+<template>
+    <article class='card'>
+        <div class="icon-container">
+            <lightning-icon if:true={iconName} icon-name={iconName} alternative-text={iconName} ></lightning-icon>
+            <lightning-icon if:false={iconName} icon-name="utility:user" alternative-text="User" ></lightning-icon>
+            <!--More icon please visit : https://www.lightningdesignsystem.com/icons/ -->
+        </div>
+        <div class="date-container">
+            <h4 if:true={date}><lightning-formatted-date-time value={date}></lightning-formatted-date-time></h4>
+            <h4 if:false={date}>No date to display</h4>
+        </div>
+        <div class="label-container">
+            <h3 if:true={label}>{label}</h3>
+            <h3 if:false={label}>No Label to Display</h3>
+        </div>
+    </article>
+</template>

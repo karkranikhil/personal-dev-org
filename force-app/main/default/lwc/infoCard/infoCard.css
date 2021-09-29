@@ -1,0 +1,17 @@
+.card {
+  padding:0.25rem;
+    background-color:#f2f8ff ;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+h3,h4{
+  color: #44a8fb;
+}
+
+h4{
+  font-weight: bold;
+}
+
+.slds-icon{
+  --sds-c-icon-color-foreground: #44a8fb;
+}

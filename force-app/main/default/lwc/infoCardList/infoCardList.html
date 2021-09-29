@@ -1,0 +1,7 @@
+<template>
+    <div class="container">
+        <template if:true={cards} for:each={cards} for:item="card" for:index="index">
+           <c-info-card class='item' key={card.Id} label={card.label} date={card.date} icon-name={card.iconName}> </c-info-card>
+        </template> 
+    </div>
+</template>
