@@ -1,8 +1,0 @@
-<template>
-  <h2>Account Datatable</h2>
-  <template if:true={accList}>
-    <lightning-datatable data={accList} columns={columns} key-field="Id">
-    </lightning-datatable>
-  </template>
-  <template if:true={error}> {error} </template>
-</template>

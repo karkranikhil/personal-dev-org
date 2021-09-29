@@ -1,0 +1,20 @@
+<template>
+  <div class="card-article">
+    <article class="card-link" onclick={navigateToCommunityPage}>
+      <div class="container-img">
+        <img class="card-img" src={cardImage} alt="Card Image" />
+      </div>
+      <div class="card-info">
+        <h4>{title}</h4>
+        <p>{description}</p>
+        <lightning-button
+          variant="brand"
+          label={callToAction}
+          title="Primary action"
+          onclick={handleClick}
+          class="slds-m-top_x-small"
+        ></lightning-button>
+      </div>
+    </article>
+  </div>
+</template>

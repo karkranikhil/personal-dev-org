@@ -1,7 +1,11 @@
 <apex:page>
-<!-- Begin Default Content REMOVE THIS -->>
+<!-- Begin Default Content REMOVE THIS -->
 <!-- Calendly inline widget begin -->
-<div class="calendly-inline-widget" data-url="https://calendly.com/sixto-developer" style="min-width:320px;height:630px;"></div>
+<body  style="overflow-y:hidden">
+
+<div class="calendly-inline-widget" data-url="https://calendly.com/sixto-developer" style="min-width:320px;height:650px;overflow-y:auto;"></div>
 <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" ></script>
+</body>
+
 <!-- Calendly inline widget end -->
 </apex:page>

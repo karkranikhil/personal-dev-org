@@ -1,0 +1,55 @@
+:host {
+  --primary-color: rgb(91, 185, 213);
+  --hover-color: rgba(91, 185, 213, 0.4);
+}
+.card-article {
+  display: block;
+  background: white;
+  margin-bottom: 1rem;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  margin-bottom: 2rem;
+  background-color: rgb(252, 252, 252);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.card-article:hover {
+  box-shadow: 0px 5px 5px var(--hover-color);
+  -webkit-box-shadow: 0px 5px 5px var(--hover-color); /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow: 0px 5px 5px var(--hover-color); /* Firefox 3.5 - 3.6 */
+}
+
+.card-img {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(368px, 1fr));
+  column-gap: 2rem;
+  height: 13.75rem;
+}
+
+.card {
+  display: grid;
+  height: 100%;
+  grid-template-rows: auto 1fr;
+}
+
+.card-img {
+  width: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.card-info {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 1.5rem 1rem;
+}
+h4 {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+p {
+  font-size: 1.15rem;
+}
