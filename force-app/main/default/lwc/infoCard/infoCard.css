@@ -10,6 +10,7 @@
   justify-content: space-evenly;
   align-content: center;
   border-radius: 2px;
+  cursor: pointer;
 }
 
 h3,

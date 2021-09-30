@@ -8,7 +8,6 @@ export default class InfoCardDemo extends LightningElement {
 
   connectedCallback() {
     getAccounts().then((result) => {
-      console.log(JSON.parse(JSON.stringify(result)));
       this.accounts = result.map((account) => ({
         ...account,
         label: account.Name,
@@ -17,7 +16,6 @@ export default class InfoCardDemo extends LightningElement {
       }));
     });
     getContacts().then((result) => {
-      console.log(JSON.parse(JSON.stringify(result)));
       this.contacts = result.map((contact) => ({
         ...contact,
         label: contact.Name,
@@ -25,5 +23,16 @@ export default class InfoCardDemo extends LightningElement {
         iconName: "utility:user"
       }));
     });
+  }
+
+  handleAccountSelect(event) {
+    let Id = event.detail;
+
+    console.log("Account Id Selected:", Id);
+  }
+  handleContactSelect(event) {
+    let Id = event.detail;
+
+    console.log("Contact Id Selected:", Id);
   }
 }

@@ -21,6 +21,12 @@
       <h4 if:true={date}>
         <lightning-formatted-date-time
           value={date}
+          year="2-digit"
+          month="short"
+          day="2-digit"
+          hour="2-digit"
+          minute="2-digit"
+          time-zone-name="short"
         ></lightning-formatted-date-time>
       </h4>
       <h4 if:false={date}>No date to display</h4>
