@@ -12,15 +12,17 @@ export default class InfoCardDemo extends LightningElement {
         ...account,
         label: account.Name,
         date: account.CreatedDate,
-        iconName: "utility:company"
+        iconName: "utility:company",
+        focused: false
       }));
     });
     getContacts().then((result) => {
-      this.contacts = result.map((contact) => ({
+      this.contacts = result.map((contact, index) => ({
         ...contact,
         label: contact.Name,
         date: contact.CreatedDate,
-        iconName: "utility:user"
+        iconName: "utility:user",
+        focused: index === 5 ? true : false
       }));
     });
   }
