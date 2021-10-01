@@ -13,7 +13,7 @@ export default class InfoCardDemo extends LightningElement {
         label: account.Name,
         date: account.CreatedDate,
         iconName: "utility:company",
-        focused: false
+        focused: false //?Set all to false if none should be focused, so the scroll starts at the left corner
       }));
     });
     getContacts().then((result) => {
@@ -22,19 +22,17 @@ export default class InfoCardDemo extends LightningElement {
         label: contact.Name,
         date: contact.CreatedDate,
         iconName: "utility:user",
-        focused: index === 5 ? true : false
+        focused: index === 5 ? true : false //? Set true the element you want to focus (in this scenario, the element with index 5)
       }));
     });
   }
 
   handleAccountSelect(event) {
     let Id = event.detail;
-
     console.log("Account Id Selected:", Id);
   }
   handleContactSelect(event) {
     let Id = event.detail;
-
     console.log("Contact Id Selected:", Id);
   }
 }
