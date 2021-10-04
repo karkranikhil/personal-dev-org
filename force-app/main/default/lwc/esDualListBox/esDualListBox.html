@@ -1,0 +1,153 @@
+<template>
+  <div
+    class="slds-form-element"
+    role="group"
+    aria-labelledby="picklist-group-label"
+  >
+    <span
+      id="picklist-group-label"
+      class="slds-form-element__label slds-form-element__legend"
+      >{label}</span
+    >
+    <div class="slds-form-element__control">
+      <div class="slds-dueling-list">
+        <div class="slds-dueling-list__column">
+          <span class="slds-form-element__label" id="label-107"
+            >{availableColumnLabel}</span
+          >
+          <div class="slds-dueling-list__options">
+            <ul
+              aria-describedby="option-drag-label"
+              aria-labelledby="label-107"
+              aria-multiselectable="true"
+              class="slds-listbox slds-listbox_vertical"
+              role="listbox"
+            >
+              <template
+                if:true={available}
+                for:each={available}
+                for:item="element"
+                for:index="index"
+              >
+                <li
+                  key={element.Value}
+                  role="presentation"
+                  class="slds-listbox__item"
+                >
+                  <div
+                    if:false={element.Disabled}
+                    class="slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                    aria-selected="false"
+                    draggable="true"
+                    role="option"
+                    tabindex="-1"
+                  >
+                    <span class="slds-media__body">
+                      <span
+                        class="slds-text-body_regular slds-truncate"
+                        title={element.Tooltip}
+                        >{element.Label}</span
+                      >
+                    </span>
+                  </div>
+                  <div
+                    if:true={element.Disabled}
+                    aria-disabled="true"
+                    class="disabled slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                    aria-selected="false"
+                    draggable="true"
+                    role="option"
+                    tabindex="-1"
+                  >
+                    <span class="slds-media__body">
+                      <span
+                        class="slds-text-body_regular slds-truncate"
+                        title={element.Tooltip}
+                        >{element.Label}</span
+                      >
+                    </span>
+                  </div>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </div>
+        <div class="slds-dueling-list__column" style="justify-content: center">
+          <lightning-button-icon
+            variant="border-filled"
+            size="small"
+            icon-name="utility:right"
+            alternative-text="selected"
+          ></lightning-button-icon>
+          <lightning-button-icon
+            variant="border-filled"
+            size="small"
+            icon-name="utility:left"
+            alternative-text="deselected"
+          ></lightning-button-icon>
+        </div>
+        <div class="slds-dueling-list__column">
+          <span class="slds-form-element__label" id="label-108"
+            >{selectedColumnLabel}</span
+          >
+          <div class="slds-dueling-list__options">
+            <ul
+              aria-describedby="option-drag-label"
+              aria-labelledby="label-108"
+              aria-multiselectable="true"
+              class="slds-listbox slds-listbox_vertical"
+              role="listbox"
+            >
+              <template
+                if:true={selected}
+                for:each={selected}
+                for:item="element"
+                for:index="index"
+              >
+                <li
+                  key={element.Value}
+                  role="presentation"
+                  class="slds-listbox__item"
+                >
+                  <div
+                    if:false={element.Disabled}
+                    class="slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                    aria-selected="false"
+                    draggable="true"
+                    role="option"
+                    tabindex="-1"
+                  >
+                    <span class="slds-media__body">
+                      <span
+                        class="slds-text-body_regular slds-truncate"
+                        title={element.Tooltip}
+                        >{element.Label}</span
+                      >
+                    </span>
+                  </div>
+                  <div
+                    if:true={element.Disabled}
+                    aria-disabled="true"
+                    class="disabled slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                    aria-selected="false"
+                    draggable="true"
+                    role="option"
+                    tabindex="-1"
+                  >
+                    <span class="slds-media__body">
+                      <span
+                        class="slds-text-body_regular slds-truncate"
+                        title={element.Tooltip}
+                        >{element.Label}</span
+                      >
+                    </span>
+                  </div>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
