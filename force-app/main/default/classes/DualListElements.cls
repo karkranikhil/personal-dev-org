@@ -11,9 +11,6 @@ public with sharing class DualListElements {
   @AuraEnabled
   public String Tooltip;
 
-    @AuraEnabled
-  public Boolean Disabled;
-
   @AuraEnabled
-  public Boolean Selected;
+  public Boolean Disabled;
 }

@@ -1,3 +1,16 @@
 .disabled {
-  background-color: darkgray !important;
+  background-color: #9f9f9f !important;
+  opacity: 0.85;
+}
+.item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.icon {
+  margin-left: 10px;
 }

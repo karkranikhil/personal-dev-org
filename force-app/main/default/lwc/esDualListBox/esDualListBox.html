@@ -7,7 +7,9 @@
     <span
       id="picklist-group-label"
       class="slds-form-element__label slds-form-element__legend"
-      >{label}</span
+    >
+      <abbr if:true={required} class="slds-required" title="required">* </abbr>
+      {label}</span
     >
     <div class="slds-form-element__control">
       <div class="slds-dueling-list">
@@ -34,38 +36,66 @@
                   role="presentation"
                   class="slds-listbox__item"
                 >
-                  <div
-                    if:false={element.Disabled}
-                    class="slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
-                    aria-selected="false"
-                    draggable="true"
-                    role="option"
-                    tabindex="-1"
-                  >
-                    <span class="slds-media__body">
-                      <span
-                        class="slds-text-body_regular slds-truncate"
-                        title={element.Tooltip}
-                        >{element.Label}</span
-                      >
-                    </span>
-                  </div>
+                  <template if:false={element.Disabled}>
+                    <div
+                      if:false={element.Selected}
+                      name={element.Value}
+                      onclick={handleSelect}
+                      class="item slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                      aria-selected="false"
+                      role="option"
+                      tabindex="-1"
+                    >
+                      <span class="slds-media__body">
+                        <span
+                          name={element.Value}
+                          class="slds-text-body_regular slds-truncate"
+                          title={element.Tooltip}
+                          >{element.Label}</span
+                        >
+                      </span>
+                    </div>
+                    <div
+                      if:true={element.Selected}
+                      name={element.Value}
+                      onclick={handleSelect}
+                      class="item slds-is-selected slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                      aria-selected="true"
+                      role="option"
+                      tabindex="-1"
+                    >
+                      <span class="slds-media__body">
+                        <span
+                          name={element.Value}
+                          class="slds-text-body_regular slds-truncate"
+                          title={element.Tooltip}
+                          >{element.Label}</span
+                        >
+                      </span>
+                    </div>
+                  </template>
                   <div
                     if:true={element.Disabled}
                     aria-disabled="true"
-                    class="disabled slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                    class="disabled item slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
                     aria-selected="false"
-                    draggable="true"
                     role="option"
                     tabindex="-1"
                   >
                     <span class="slds-media__body">
                       <span
+                        name={element.Value}
                         class="slds-text-body_regular slds-truncate"
                         title={element.Tooltip}
                         >{element.Label}</span
                       >
                     </span>
+                    <lightning-icon
+                      class="icon"
+                      icon-name={element.IconName}
+                      alternative-text={element.Tooltip}
+                      size="xx-small"
+                    ></lightning-icon>
                   </div>
                 </li>
               </template>
@@ -109,38 +139,67 @@
                   role="presentation"
                   class="slds-listbox__item"
                 >
-                  <div
-                    if:false={element.Disabled}
-                    class="slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
-                    aria-selected="false"
-                    draggable="true"
-                    role="option"
-                    tabindex="-1"
-                  >
-                    <span class="slds-media__body">
-                      <span
-                        class="slds-text-body_regular slds-truncate"
-                        title={element.Tooltip}
-                        >{element.Label}</span
-                      >
-                    </span>
-                  </div>
+                  <template if:false={element.Disabled}>
+                    <div
+                      if:false={element.Selected}
+                      name={element.Value}
+                      onclick={handleSelect}
+                      class="item slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                      aria-selected="false"
+                      role="option"
+                      tabindex="-1"
+                    >
+                      <span class="slds-media__body">
+                        <span
+                          name={element.Value}
+                          class="slds-text-body_regular slds-truncate"
+                          title={element.Tooltip}
+                          >{element.Label}</span
+                        >
+                      </span>
+                    </div>
+                    <div
+                      if:true={element.Selected}
+                      name={element.Value}
+                      onclick={handleSelect}
+                      class="item slds-is-selected slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                      aria-selected="true"
+                      role="option"
+                      tabindex="-1"
+                    >
+                      <span class="slds-media__body">
+                        <span
+                          name={element.Value}
+                          class="slds-text-body_regular slds-truncate"
+                          title={element.Tooltip}
+                          >{element.Label}</span
+                        >
+                      </span>
+                    </div>
+                  </template>
                   <div
                     if:true={element.Disabled}
                     aria-disabled="true"
-                    class="disabled slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                    class="disabled item slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
                     aria-selected="false"
-                    draggable="true"
                     role="option"
                     tabindex="-1"
                   >
                     <span class="slds-media__body">
                       <span
+                        name={element.Value}
                         class="slds-text-body_regular slds-truncate"
                         title={element.Tooltip}
                         >{element.Label}</span
                       >
                     </span>
+                    <lightning-icon
+                      class="icon"
+                      icon-name={element.IconName}
+                      alternative-text={element.Tooltip}
+                      size="xx-small"
+                    ></lightning-icon>
+                    <!--More icon please visit : https://www.lightningdesignsystem.com/icons/ -->
                   </div>
                 </li>
               </template>

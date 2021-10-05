@@ -11,10 +11,40 @@
     </targets>
      <targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
+                <property
+        name="required"
+        type="Boolean"
+        label="Required"
+        role="inputOnly"
+      />
+          <property
+        name="label"
+        type="String"
+        label="Label for the DualBox"
+        role="inputOnly"
+      />
+          <property
+        name="availableColumnLabel"
+        type="String"
+        label="Label for Available Column"
+        role="inputOnly"
+      />
+          <property
+        name="selectedColumnLabel"
+        type="String"
+        label="Label for Selected Column"
+        role="inputOnly"
+      />
             <property
-        name="elements"
+        name="selectedElements"
         type="apex://DualListElements[]"
-        label="Elements"
+        label="Selected Elements"
+        role="inputOnly"
+      />
+            <property
+        name="availableElements"
+        type="apex://DualListElements[]"
+        label="Available Elements"
         role="inputOnly"
       />
         </targetConfig>
