@@ -9,7 +9,7 @@ export default class EsDualListBox extends LightningElement {
     {
       Label: "English",
       Value: "123-English",
-      IconName: "utility:clear",
+      IconName: "",
       Tooltip: "Your Tooltip",
       Disabled: true
     },
@@ -24,7 +24,7 @@ export default class EsDualListBox extends LightningElement {
       Label: "French",
       Value: "123-French",
       IconName: "utility:ban",
-      Tooltip: null,
+      Tooltip: "Banned",
       Disabled: true
     },
     {
@@ -32,7 +32,7 @@ export default class EsDualListBox extends LightningElement {
       Value: "123-German",
       IconName: "",
       Tooltip: null,
-      Disabled: true
+      Disabled: false
     }
   ];
   @api selectedElements = [
