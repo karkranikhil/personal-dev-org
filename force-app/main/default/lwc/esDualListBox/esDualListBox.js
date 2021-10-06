@@ -64,16 +64,24 @@ export default class EsDualListBox extends LightningElement {
       "Selected Elements",
       JSON.parse(JSON.stringify(this.selectedElements))
     );
-    this.available = this.availableElements.map((element) =>
-      !element.Disabled
-        ? { ...element, Tooltip: element.Name, Selected: false }
-        : { ...element, Selected: false }
-    );
-    this.selected = this.selectedElements.map((element) =>
-      !element.Disabled
-        ? { ...element, Tooltip: element.Name, Selected: false }
-        : { ...element, Selected: false }
-    );
+    this.available = this.availableElements
+      .map((element) =>
+        !element.Disabled
+          ? { ...element, Tooltip: element.Label, Selected: false }
+          : { ...element, Selected: false }
+      )
+      .sort((element) => {
+        return element.Disabled ? 1 : -1; // `false` values first
+      });
+    this.selected = this.selectedElements
+      .map((element) =>
+        !element.Disabled
+          ? { ...element, Tooltip: element.Label, Selected: false }
+          : { ...element, Selected: false }
+      )
+      .sort((element) => {
+        return element.Disabled ? 1 : -1; // `false` values first
+      });
   }
 
   handleSelect(event) {
@@ -82,20 +90,44 @@ export default class EsDualListBox extends LightningElement {
     console.log("Value", value);
     this.available = this.available.map((element) =>
       element.Value === value
-        ? { ...element, Selected: true }
+        ? { ...element, Selected: !element.Selected }
         : { ...element, Selected: false }
     );
     this.selected = this.selected.map((element) =>
       element.Value === value
-        ? { ...element, Selected: true }
+        ? { ...element, Selected: !element.Selected }
         : { ...element, Selected: false }
     );
-    let selected = this.available.find((element) => element.Value === value);
-    selected =
-      selected !== undefined
-        ? selected
-        : this.selected.find((element) => element.Value === value);
+  }
 
-    console.log("Selected", JSON.parse(JSON.stringify(selected)));
+  handleMoveRight() {
+    console.log("Right");
+    let selectedElement = this.available.find((element) => element.Selected);
+    if (selectedElement) {
+      this.selected.push(selectedElement);
+      this.selected.sort((element) => {
+        return element.Disabled ? 1 : -1; // `false` values first
+      });
+    }
+    this.available = this.available
+      .filter((element) => !element.Selected)
+      .sort((element) => {
+        return element.Disabled ? 1 : -1; // `false` values first
+      });
+  }
+  handleMoveLeft() {
+    console.log("Left");
+    let selectedElement = this.selected.find((element) => element.Selected);
+    if (selectedElement) {
+      this.available.push(selectedElement);
+      this.available.sort((element) => {
+        return element.Disabled ? 1 : -1; // `false` values first
+      });
+    }
+    this.selected = this.selected
+      .filter((element) => !element.Selected)
+      .sort((element) => {
+        return element.Disabled ? 1 : -1; // `false` values first
+      });
   }
 }
