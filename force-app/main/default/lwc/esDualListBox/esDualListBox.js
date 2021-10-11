@@ -2,6 +2,7 @@ import { LightningElement, api, track } from "lwc";
 
 export default class EsDualListBox extends LightningElement {
   @api label = "DualList Label";
+  @api errorMessage = "You must select at least one value.";
   @api availableColumnLabel = "Available Column Label";
   @api selectedColumnLabel = "Selected Column Label";
   @api required = false;
@@ -51,9 +52,18 @@ export default class EsDualListBox extends LightningElement {
       Disabled: false
     }
   ];
-
   @track selected;
   @track available;
+
+  @api get returnedElements() {
+    return this.selected.map((element) => ({
+      Label: element.Label,
+      Value: element.Value,
+      IconName: element.IconName,
+      Tooltip: element.Tooltip,
+      Disabled: element.Disabled
+    }));
+  }
 
   connectedCallback() {
     console.log(
@@ -129,5 +139,17 @@ export default class EsDualListBox extends LightningElement {
       .sort((element) => {
         return element.Disabled ? 1 : -1; // `false` values first
       });
+  }
+  @api
+  validate() {
+    if (this.required && this.selected.length === 0) {
+      return {
+        isValid: false,
+        errorMessage: this.errorMessage
+      };
+    }
+    return {
+      isValid: true
+    };
   }
 }

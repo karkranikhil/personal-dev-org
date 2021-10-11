@@ -24,6 +24,12 @@
         role="inputOnly"
       />
           <property
+        name="errorMessage"
+        type="String"
+        label="Error Message when no value is selected and the input is required"
+        role="inputOnly"
+      />
+          <property
         name="availableColumnLabel"
         type="String"
         label="Label for Available Column"
@@ -38,7 +44,7 @@
             <property
         name="selectedElements"
         type="apex://DualListElements[]"
-        label="Selected Elements"
+        label="Default Selected Elements"
         role="inputOnly"
       />
             <property
@@ -46,6 +52,12 @@
         type="apex://DualListElements[]"
         label="Available Elements"
         role="inputOnly"
+      />
+            <property
+        name="returnedElements"
+        type="apex://DualListElements[]"
+        label="Returned Selected Elements"
+        role="outputOnly"
       />
         </targetConfig>
     </targetConfigs>
