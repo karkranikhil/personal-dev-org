@@ -8,13 +8,17 @@ export default class InfoCardDemo extends LightningElement {
 
   connectedCallback() {
     getAccounts().then((result) => {
-      this.accounts = result.map((account) => ({
+      this.accounts = result.map((account, index) => ({
         ...account,
         label: account.Name,
         date: account.CreatedDate,
         iconName: "utility:company",
-        focused: false //?Set all to false if none should be focused, so the scroll starts at the left corner
+        focused: false, //?Set all to false if none should be focused, so the scroll starts at the left corner
+        checked: index === 1 ? true : false, //? Set true the element you want to highlight (in this scenario, the element with index 1)
+        highlighted: index === 0 ? true : false //? Set true the element you want to highlight (in this scenario, the element with index 1)
       }));
+
+      console.log(JSON.parse(JSON.stringify(this.accounts)));
     });
     getContacts().then((result) => {
       this.contacts = result.map((contact, index) => ({

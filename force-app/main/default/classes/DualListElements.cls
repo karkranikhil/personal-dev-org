@@ -1,4 +1,7 @@
 public with sharing class DualListElements {
+  public DualListElements() {
+    
+  }
   @AuraEnabled
   public String Label;
 

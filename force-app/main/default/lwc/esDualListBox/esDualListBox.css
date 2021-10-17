@@ -1,6 +1,7 @@
 .disabled {
   background-color: #9f9f9f !important;
   opacity: 0.85;
+  color: rgba(255, 255, 255, 0.85);
 }
 .item {
   display: flex;

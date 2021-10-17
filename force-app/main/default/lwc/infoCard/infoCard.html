@@ -1,5 +1,6 @@
 <template>
-  <article class="card">
+  <!-- *Normal Card -->
+  <article if:false={highlighted} class="card">
     <div class="icon-container">
       <lightning-icon
         class="my-icon"
@@ -34,6 +35,58 @@
     <div class="label-container">
       <h3 if:true={label}>{label}</h3>
       <h3 if:false={label}>No Label to Display</h3>
+    </div>
+
+    <div if:true={checked} class="checkmark-container">
+      <lightning-icon
+        icon-name="standard:task2"
+        alternative-text="Checked"
+      ></lightning-icon>
+    </div>
+  </article>
+
+  <!-- *Highlighted Card -->
+  <article if:true={highlighted} class="card highlighted">
+    <div class="icon-container">
+      <lightning-icon
+        class="my-icon"
+        if:true={iconName}
+        size="small"
+        icon-name={iconName}
+        alternative-text={iconName}
+      ></lightning-icon>
+      <lightning-icon
+        class="my-icon"
+        if:false={iconName}
+        size="small"
+        icon-name="utility:user"
+        alternative-text="User"
+      ></lightning-icon>
+      <!--More icon please visit : https://www.lightningdesignsystem.com/icons/ -->
+    </div>
+    <div class="date-container">
+      <h4 if:true={date}>
+        <lightning-formatted-date-time
+          value={date}
+          year="2-digit"
+          month="short"
+          day="2-digit"
+          hour="2-digit"
+          minute="2-digit"
+          time-zone-name="short"
+        ></lightning-formatted-date-time>
+      </h4>
+      <h4 if:false={date}>No date to display</h4>
+    </div>
+    <div class="label-container">
+      <h3 if:true={label}>{label}</h3>
+      <h3 if:false={label}>No Label to Display</h3>
+    </div>
+    <div if:true={checked} class="checkmark-container">
+      <lightning-icon
+        icon-name="standard:task2"
+        alternative-text="Checked"
+      ></lightning-icon>
     </div>
   </article>
 </template>

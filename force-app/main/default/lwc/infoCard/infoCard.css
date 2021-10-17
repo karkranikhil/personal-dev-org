@@ -1,5 +1,7 @@
 .card {
+  position: relative;
   min-width: 200px;
+  max-width: 225px;
   min-height: 150px;
   padding: 12px;
   background-color: #f2f8ff;
@@ -12,7 +14,17 @@
   border-radius: 2px;
   cursor: pointer;
 }
-
+.card.highlighted {
+  border: 3px solid #e73c37;
+  box-shadow: 0 4px 5px -2px rgb(231 61 55 / 50%);
+}
+.checkmark-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 5px 5px 0 0;
+  z-index: 10;
+}
 h3,
 h4 {
   color: #44a8fb;
