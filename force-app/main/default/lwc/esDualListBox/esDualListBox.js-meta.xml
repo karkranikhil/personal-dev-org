@@ -41,6 +41,24 @@
         label="Label for Selected Column"
         role="inputOnly"
       />
+          <property
+        name="disabledColor"
+        type="String"
+        label="Color of the Text when the option is disabled"
+        role="inputOnly"
+      />
+          <property
+        name="disabledBackground"
+        type="String"
+        label="Color of the background when the option is disabled"
+        role="inputOnly"
+      />
+          <property
+        name="iconVariant"
+        type="String"
+        label="Icon Variant for all the icons (sucess, error,warning,inverse)"
+        role="inputOnly"
+      />
             <property
         name="selectedElements"
         type="apex://DualListElements[]"

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>52.0</apiVersion>
     <assignments>
@@ -301,8 +301,25 @@
                     <stringValue>DualBox Demo</stringValue>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
+            <inputParameters>
+                <name>disabledBackground</name>
+                <value>
+                    <elementReference>Disabled_Background</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>disabledColor</name>
+                <value>
+                    <elementReference>Disabled_Color</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>iconVariant</name>
+                <value>
+                    <elementReference>Icon_Variant</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
                 <assignToReference>ReturnedElements</assignToReference>
@@ -325,8 +342,7 @@
         </connector>
         <fields>
             <name>AvailableHeader</name>
-            <fieldText
-      >&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 18px;&quot;&gt;Available Options&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 18px;&quot;&gt;Available Options&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -336,6 +352,52 @@
                 <name>FlowCollectionDefinition_Section1_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
+                    <name>Disabled_Color</name>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <stringValue>#c4d0ffd9</stringValue>
+                    </defaultValue>
+                    <fieldText>Disabled Color</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>Disabled_Background</name>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <stringValue>#f70d0dd9</stringValue>
+                    </defaultValue>
+                    <fieldText>Disabled Background</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>Icon_Variant</name>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <stringValue>success</stringValue>
+                    </defaultValue>
+                    <fieldText>Icon Variant</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>false</isRequired>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>12</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>FlowCollectionDefinition_Section2</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>FlowCollectionDefinition_Section2_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
                     <name>Label_of_Element_1</name>
                     <dataType>String</dataType>
                     <defaultValue>
@@ -343,8 +405,7 @@
                     </defaultValue>
                     <fieldText>Label of Element 1</fieldText>
                     <fieldType>InputField</fieldType>
-                    <helpText
-          >&lt;p&gt;This is the text the component will show. &lt;/p&gt;</helpText>
+                    <helpText>&lt;p&gt;This is the text the component will show. &lt;/p&gt;</helpText>
                     <isRequired>true</isRequired>
                 </fields>
                 <fields>
@@ -362,8 +423,7 @@
                     </defaultValue>
                     <fieldText>Disabled?</fieldText>
                     <fieldType>InputField</fieldType>
-                    <helpText
-          >&lt;p&gt;Set to true if you want this option to be grayed out&lt;/p&gt;</helpText>
+                    <helpText>&lt;p&gt;Set to true if you want this option to be grayed out&lt;/p&gt;</helpText>
                     <isRequired>true</isRequired>
                 </fields>
                 <inputParameters>
@@ -375,7 +435,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>FlowCollectionDefinition_Section1_Column2</name>
+                <name>FlowCollectionDefinition_Section2_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Value_of_Element_1</name>
@@ -385,8 +445,7 @@
                     </defaultValue>
                     <fieldText>Value of Element 1</fieldText>
                     <fieldType>InputField</fieldType>
-                    <helpText
-          >&lt;p&gt;Usually this would be the record Id&lt;/p&gt;</helpText>
+                    <helpText>&lt;p&gt;Usually this would be the record Id&lt;/p&gt;</helpText>
                     <isRequired>true</isRequired>
                 </fields>
                 <fields>
@@ -394,8 +453,7 @@
                     <dataType>String</dataType>
                     <fieldText>Icon Name of Element 1</fieldText>
                     <fieldType>InputField</fieldType>
-                    <helpText
-          >&lt;p&gt;Use the Icon Name following Salesforce SLDS icon nomenclarut(for example, utility:user) &lt;/p&gt;</helpText>
+                    <helpText>&lt;p&gt;Use the Icon Name following Salesforce SLDS icon nomenclarut(for example, utility:user) &lt;/p&gt;</helpText>
                     <isRequired>false</isRequired>
                 </fields>
                 <inputParameters>
@@ -409,10 +467,10 @@
             <isRequired>false</isRequired>
         </fields>
         <fields>
-            <name>FlowCollectionDefinition_Section2</name>
+            <name>FlowCollectionDefinition_Section3</name>
             <fieldType>RegionContainer</fieldType>
             <fields>
-                <name>FlowCollectionDefinition_Section2_Column1</name>
+                <name>FlowCollectionDefinition_Section3_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Label_of_Element_2</name>
@@ -453,7 +511,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>FlowCollectionDefinition_Section2_Column2</name>
+                <name>FlowCollectionDefinition_Section3_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Value_of_Element_2</name>
@@ -486,10 +544,10 @@
             <isRequired>false</isRequired>
         </fields>
         <fields>
-            <name>FlowCollectionDefinition_Section3</name>
+            <name>FlowCollectionDefinition_Section4</name>
             <fieldType>RegionContainer</fieldType>
             <fields>
-                <name>FlowCollectionDefinition_Section3_Column1</name>
+                <name>FlowCollectionDefinition_Section4_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Label_of_Element_3</name>
@@ -530,7 +588,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>FlowCollectionDefinition_Section3_Column2</name>
+                <name>FlowCollectionDefinition_Section4_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Value_of_Element_3</name>
@@ -561,15 +619,14 @@
         </fields>
         <fields>
             <name>SelectedHeader</name>
-            <fieldText
-      >&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 18px;&quot;&gt;Selected options&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 18px;&quot;&gt;Selected options&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
-            <name>FlowCollectionDefinition_Section4</name>
+            <name>FlowCollectionDefinition_Section5</name>
             <fieldType>RegionContainer</fieldType>
             <fields>
-                <name>FlowCollectionDefinition_Section4_Column1</name>
+                <name>FlowCollectionDefinition_Section5_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Label_of_Element_4</name>
@@ -610,7 +667,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>FlowCollectionDefinition_Section4_Column2</name>
+                <name>FlowCollectionDefinition_Section5_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Value_of_Element_4</name>
@@ -643,10 +700,10 @@
             <isRequired>false</isRequired>
         </fields>
         <fields>
-            <name>FlowCollectionDefinition_Section5</name>
+            <name>FlowCollectionDefinition_Section6</name>
             <fieldType>RegionContainer</fieldType>
             <fields>
-                <name>FlowCollectionDefinition_Section5_Column1</name>
+                <name>FlowCollectionDefinition_Section6_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Label_of_Element_5</name>
@@ -684,7 +741,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>FlowCollectionDefinition_Section5_Column2</name>
+                <name>FlowCollectionDefinition_Section6_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Value_of_Element_5</name>
@@ -713,8 +770,7 @@
             </fields>
             <isRequired>false</isRequired>
         </fields>
-        <helpText
-    >&lt;p&gt;Use this screen to set a Collection of 5 elements.  Each element has properties that will set a behavior for the DualBox component&lt;/p&gt;</helpText>
+        <helpText>&lt;p&gt;Use this screen to set a Collection of 5 elements.  Each element has properties that will set a behavior for the DualBox component&lt;/p&gt;</helpText>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
@@ -728,8 +784,7 @@
         <allowPause>true</allowPause>
         <fields>
             <name>Display_Returned</name>
-            <fieldText
-      >&lt;p&gt;Returned Elements:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!ReturnedElements}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;Returned Elements:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!ReturnedElements}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>

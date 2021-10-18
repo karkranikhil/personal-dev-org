@@ -1,5 +1,5 @@
 .disabled {
-  background-color: #9f9f9f !important;
+  background-color: #9f9f9f;
   opacity: 0.85;
   color: rgba(255, 255, 255, 0.85);
 }

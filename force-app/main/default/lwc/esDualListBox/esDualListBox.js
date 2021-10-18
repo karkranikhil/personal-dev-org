@@ -5,6 +5,9 @@ export default class EsDualListBox extends LightningElement {
   @api errorMessage = "You must select at least one value.";
   @api availableColumnLabel = "Available Column Label";
   @api selectedColumnLabel = "Selected Column Label";
+  @api disabledColor = "white";
+  @api disabledBackground = "#9f9f9";
+  @api iconVariant = "default";
   @api required = false;
   @api availableElements = [
     {
@@ -92,6 +95,19 @@ export default class EsDualListBox extends LightningElement {
       .sort((element) => {
         return element.Disabled ? 1 : -1; // `false` values first
       });
+  }
+
+  renderedCallback() {
+    if (!this.hasRendered) {
+      this.template.querySelectorAll(".icon").forEach((icon) => {
+        icon.variant = this.iconVariant;
+      });
+      this.template.querySelectorAll(".disabled").forEach((disabled) => {
+        disabled.style.backgroundColor = this.disabledBackground;
+        disabled.style.color = this.disabledColor;
+      });
+      this.hasRendered = true;
+    }
   }
 
   handleSelect(event) {
