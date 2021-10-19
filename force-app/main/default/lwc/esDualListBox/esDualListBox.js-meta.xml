@@ -46,12 +46,14 @@
         type="String"
         label="Color of the Text when the option is disabled"
         role="inputOnly"
+        default="white"
       />
           <property
         name="disabledBackground"
         type="String"
         label="Color of the background when the option is disabled"
         role="inputOnly"
+        default="#9f9f9"
       />
           <property
         name="iconVariant"

@@ -15,3 +15,9 @@
 .icon {
   margin-left: 10px;
 }
+.icon-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-top: 3px;
+}
