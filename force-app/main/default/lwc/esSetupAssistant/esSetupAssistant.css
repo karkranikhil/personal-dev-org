@@ -19,6 +19,6 @@ p.item-description {
   align-items: flex-end;
   justify-content: flex-start;
 }
-span.badge {
+.badge {
   margin-top: 1rem;
 }

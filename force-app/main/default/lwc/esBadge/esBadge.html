@@ -1,0 +1,15 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 12-05-2021
+  @last modified by  : ErickSixto
+-->
+<template>
+  <span if:true={isDefault} class="slds-badge">{label}</span>
+  <span if:true={isLight} class="slds-badge slds-badge_lightest">{label}</span>
+  <span if:true={isDark} class="slds-badge slds-badge_inverse">{label}</span>
+  <span if:true={isSuccess} class="slds-badge slds-theme_success">{label}</span>
+  <span if:true={isWarning} class="slds-badge slds-theme_warning">{label}</span>
+  <span if:true={isError} class="slds-badge slds-theme_error">{label}</span>
+</template>
