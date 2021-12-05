@@ -1,3 +1,9 @@
+ol.slds-setup-assistant {
+  padding: 0;
+}
+.item {
+  margin: 2rem 0;
+}
 p.item-additional-info {
   font-size: 0.85rem;
   color: #696969;
