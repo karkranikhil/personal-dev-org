@@ -32,6 +32,6 @@ export default class EsSetupAssistant extends LightningElement {
 
   handleClick(event) {
     this.selectedValue = event.target.name;
-    console.log(this.output);
+    window.alert(this.selectedValue);
   }
 }
