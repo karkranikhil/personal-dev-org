@@ -13,9 +13,9 @@ import {
 export default class EsSetupAssistant extends LightningElement {
   @api completed = false;
   @api index = 1;
-  @api title = "Item Title";
-  @api description = "Description";
-  @api additionalInfo = "Additional Info";
+  @api title;
+  @api description;
+  @api additionalInfo;
   @api badge;
   @api badgeVariant = "default";
   @api firstLabel;
