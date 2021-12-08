@@ -14,7 +14,7 @@
         <div class="slds-setup-assistant__step-summary">
           <div class="slds-media">
             <div class="slds-media__figure">
-              <!--! Use this insead for Completed items  -->
+              <!--! Use for Completed items  -->
               <div
                 if:true={completed}
                 class="slds-progress-ring slds-progress-ring_complete slds-progress-ring_large"
@@ -72,7 +72,7 @@
                   </svg>
                 </div>
                 <!--! Here goes the Item Number -->
-                <div class="slds-progress-ring__content">2</div>
+                <div class="slds-progress-ring__content">{index}</div>
               </div>
             </div>
             <div class="slds-media__body slds-m-top_x-small">
@@ -83,17 +83,10 @@
                   <h3
                     class="slds-setup-assistant__step-summary-title item-title"
                   >
-                    Here goes the card Title
+                    {title}
                   </h3>
-                  <p class="item-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-                  <p class="item-additional-info">
-                    Here goes the additional info
-                  </p>
+                  <p class="item-description">{description}</p>
+                  <p class="item-additional-info">{additionalInfo}</p>
                 </div>
                 <div
                   class="slds-media__figure slds-media__figure_reverse item-actions"
@@ -101,29 +94,35 @@
                   <!--!  Here goes the Buttons -->
                   <div class="buttons-container">
                     <lightning-button-icon
-                      icon-name="utility:add"
-                      alternative-text="Add Item"
+                      name={firstLabel}
+                      icon-name={firstIconName}
+                      alternative-text={firstLabel}
                       class="slds-m-left_xx-small"
-                      title="Add Item"
+                      title={firstLabel}
+                      onclick={handleClick}
                     ></lightning-button-icon>
                     <lightning-button-icon
-                      icon-name="utility:help"
-                      alternative-text="help"
+                      name={secondLabel}
+                      icon-name={secondIconName}
+                      alternative-text={secondLabel}
                       class="slds-m-left_xx-small"
-                      title="Help"
+                      title={secondLabel}
+                      onclick={handleClick}
                     ></lightning-button-icon>
                     <lightning-button-icon
-                      icon-name="utility:clear"
-                      alternative-text="Clear"
+                      name={thirdLabel}
+                      icon-name={thirdIconName}
+                      alternative-text={thirdLabel}
                       class="slds-m-left_xx-small"
-                      title="Clear"
+                      title={thirdLabel}
+                      onclick={handleClick}
                     ></lightning-button-icon>
                   </div>
                   <!--!  Here goes the Badge -->
                   <c-es-badge
                     class="badge"
-                    variant="error"
-                    label="Error badge"
+                    variant={badgeVariant}
+                    label={badge}
                   ></c-es-badge>
                 </div>
               </div>

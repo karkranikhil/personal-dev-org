@@ -9,76 +9,111 @@
         <target>lightning__FlowScreen</target>
         <target>lightningCommunity__Page</target>
     </targets>
-    <!-- <targetConfigs>
+     <targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
                 <property
-        name="required"
+        name="completed"
         type="Boolean"
-        label="Required"
+        label="Completed"
         role="inputOnly"
       />
           <property
-        name="label"
-        type="String"
-        label="Label for the DualBox"
+        name="index"
+        type="Integer"
+        label="Ring number of the Item"
         role="inputOnly"
       />
           <property
-        name="errorMessage"
+        name="title"
         type="String"
-        label="Error Message when no value is selected and the input is required"
+        label="Title of the Item"
         role="inputOnly"
       />
           <property
-        name="availableColumnLabel"
+        name="description"
         type="String"
-        label="Label for Available Column"
+        label="Description text"
         role="inputOnly"
       />
           <property
-        name="selectedColumnLabel"
+        name="additionalInfo"
         type="String"
-        label="Label for Selected Column"
+        label="Additional Info Text"
         role="inputOnly"
       />
           <property
-        name="disabledColor"
+        name="badge"
         type="String"
-        label="Color of the Text when the option is disabled"
+        label="Badge Label"
         role="inputOnly"
-        default="white"
       />
           <property
-        name="disabledBackground"
+        name="badgeVariant"
         type="String"
-        label="Color of the background when the option is disabled"
+        label="Badge Variant: default, light, dark, success, warning or error"
         role="inputOnly"
-        default="#9f9f9"
       />
           <property
-        name="iconVariant"
+        name="firstLabel"
         type="String"
-        label="Icon Variant for all the icons (sucess, error,warning,inverse)"
+        label="Label of the first button"
         role="inputOnly"
       />
+          <property
+        name="firstValue"
+        type="String"
+        label="Value of the first button"
+        role="inputOnly"
+      />
+          <property
+        name="firstIconName"
+        type="String"
+        label="Icon Name of the first button in slds format (example: 'utility:help')"
+        role="inputOnly"
+      />
+          <property
+        name="secondLabel"
+        type="String"
+        label="Label of the second button"
+        role="inputOnly"
+      />
+          <property
+        name="secondValue"
+        type="String"
+        label="Value of the second button"
+        role="inputOnly"
+      />
+          <property
+        name="secondIconName"
+        type="String"
+        label="Icon Name of the second button in slds format (example: 'utility:help')"
+        role="inputOnly"
+      />
+          <property
+        name="thirdLabel"
+        type="String"
+        label="Label of the third button"
+        role="inputOnly"
+      />
+          <property
+        name="thirdValue"
+        type="String"
+        label="Value of the third button"
+        role="inputOnly"
+      />
+          <property
+        name="thirdIconName"
+        type="String"
+        label="Icon Name of the third button in slds format (example: 'utility:help')"
+        role="inputOnly"
+      />
+    
             <property
-        name="selectedElements"
-        type="apex://DualListElements[]"
-        label="Default Selected Elements"
-        role="inputOnly"
-      />
-            <property
-        name="availableElements"
-        type="apex://DualListElements[]"
-        label="Available Elements"
-        role="inputOnly"
-      />
-            <property
-        name="returnedElements"
-        type="apex://DualListElements[]"
-        label="Returned Selected Elements"
+        name="output"
+        type="String"
+        label="Output Value"
         role="outputOnly"
       />
         </targetConfig>
-    </targetConfigs> -->
+    </targetConfigs> 
 </LightningComponentBundle>
