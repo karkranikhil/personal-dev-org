@@ -6,7 +6,10 @@
  * @last modified by  : ErickSixto
  **/
 import { LightningElement, api } from "lwc";
-
+import {
+  FlowNavigationFinishEvent,
+  FlowNavigationNextEvent
+} from "lightning/flowSupport";
 export default class EsSetupAssistant extends LightningElement {
   @api completed = false;
   @api index = 1;
@@ -25,6 +28,9 @@ export default class EsSetupAssistant extends LightningElement {
   @api thirdValue;
   @api thirdIconName;
 
+  @api
+  availableActions = [];
+
   @api get output() {
     return this.selectedValue;
   }
@@ -32,6 +38,26 @@ export default class EsSetupAssistant extends LightningElement {
 
   handleClick(event) {
     this.selectedValue = event.target.name;
-    window.alert(this.selectedValue);
+    this.handleGoNext();
+  }
+
+  handleGoNext() {
+    // check if NEXT is allowed on this screen
+    if (this.availableActions.find((action) => action === "NEXT")) {
+      // navigate to the next screen
+      const navigateNextEvent = new FlowNavigationNextEvent();
+      this.dispatchEvent(navigateNextEvent);
+    }
+    // check if NEXT is allowed on this screen
+    if (this.availableActions.find((action) => action === "FINISH")) {
+      // navigate to the next screen
+      const navigateFinishEvent = new FlowNavigationFinishEvent();
+      this.dispatchEvent(navigateFinishEvent);
+    }
+  }
+
+  @api
+  validate() {
+    return true;
   }
 }
