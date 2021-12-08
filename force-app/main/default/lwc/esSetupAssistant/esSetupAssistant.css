@@ -5,16 +5,17 @@ ol.slds-setup-assistant {
   margin: 2rem 0;
 }
 p.item-additional-info {
-  font-size: 0.85rem;
+  font-size: 0.8125rem;
   color: #696969;
   margin-top: 1rem;
 }
 p.item-description {
-  font-size: 1rem;
+  font-size: 0.8125rem;
   color: black;
 }
 .item-title {
-  font-size: 1.05rem;
+  margin-top: -3px;
+  font-size: 1rem;
   color: black;
   font-weight: bold;
 }

@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 12-07-2021
+  @last modified on  : 12-08-2021
   @last modified by  : ErickSixto
 -->
 
@@ -94,6 +94,7 @@
                   <!--!  Here goes the Buttons -->
                   <div class="buttons-container">
                     <lightning-button-icon
+                      if:true={firstIconName}
                       name={firstLabel}
                       icon-name={firstIconName}
                       alternative-text={firstLabel}
@@ -102,6 +103,7 @@
                       onclick={handleClick}
                     ></lightning-button-icon>
                     <lightning-button-icon
+                      if:true={secondIconName}
                       name={secondLabel}
                       icon-name={secondIconName}
                       alternative-text={secondLabel}
@@ -110,6 +112,7 @@
                       onclick={handleClick}
                     ></lightning-button-icon>
                     <lightning-button-icon
+                      if:true={thirdIconName}
                       name={thirdLabel}
                       icon-name={thirdIconName}
                       alternative-text={thirdLabel}
@@ -120,6 +123,7 @@
                   </div>
                   <!--!  Here goes the Badge -->
                   <c-es-badge
+                    if:true={badge}
                     class="badge"
                     variant={badgeVariant}
                     label={badge}
