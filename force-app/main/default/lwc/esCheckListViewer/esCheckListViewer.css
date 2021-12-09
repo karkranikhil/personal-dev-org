@@ -2,18 +2,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 10px;
 }
 .header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 0.5rem;
+  margin: 10px;
 }
 .title {
   font-size: 1.2rem;
   margin-left: 1rem;
   font-weight: bold;
 }
-.content {
-  padding: 1rem;
+.progress {
+  min-width: 60%;
 }
