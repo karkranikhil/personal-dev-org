@@ -1,0 +1,75 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 12-08-2021
+  @last modified by  : ErickSixto
+-->
+<template>
+  <lightning-quick-action-panel title="Quick Action Title">
+    <!--* CONTENT -->
+    <!--* Header -->
+    <article class="container">
+      <div class="header">
+        <lightning-icon
+          icon-name="action:new_task"
+          alternative-text="Checklist"
+          size="x-small"
+        ></lightning-icon>
+        <h2 class="title">Checklist Viewer</h2>
+      </div>
+    </article>
+    <!--* Progress Indicator -->
+    <lightning-progress-indicator
+      class="progress"
+      current-step={step}
+      type="base"
+      has-error={error}
+      variant="base"
+    >
+      <lightning-progress-step
+        label="Step 1"
+        value="1"
+      ></lightning-progress-step>
+      <lightning-progress-step
+        label="Step 2"
+        value="2"
+      ></lightning-progress-step>
+    </lightning-progress-indicator>
+    <div class="content">
+      <c-es-checklist-selector if:true={isFirst}> </c-es-checklist-selector>
+      <h1 if:true={isSecond}>Second Step</h1>
+    </div>
+    <!--* FOOTER -->
+    <div class="footer" slot="footer">
+      <lightning-button
+        if:true={isFirst}
+        variant="neutral"
+        label="Cancel"
+        icon-name="utility:close"
+        onclick={closeAction}
+      ></lightning-button>
+      <lightning-button
+        if:true={isFirst}
+        variant="brand"
+        label="Next"
+        icon-name="utility:add"
+        onclick={handleNext}
+      ></lightning-button>
+      <lightning-button
+        if:true={isSecond}
+        variant="neutral"
+        label="Back"
+        icon-name="utility:back"
+        onclick={handlePrevious}
+      ></lightning-button>
+      <lightning-button
+        if:true={isSecond}
+        variant="brand"
+        label="Finish"
+        icon-name="utility:close"
+        onclick={closeAction}
+      ></lightning-button>
+    </div>
+  </lightning-quick-action-panel>
+</template>
