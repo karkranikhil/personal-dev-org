@@ -1,0 +1,76 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 12-09-2021
+  @last modified by  : ErickSixto
+-->
+<template>
+  <div if:true={loading}>
+    <lightning-spinner
+      variant="brand"
+      alternative-text="Loading"
+      size="medium"
+    ></lightning-spinner>
+  </div>
+  <lightning-tabset variant="vertical">
+    <lightning-tab label="Opportunity Data">
+      <section class="content">
+        <div class="form-container">
+          <lightning-record-edit-form
+            id="opportunityData"
+            record-id={recordId}
+            object-api-name="Opportunity"
+            onsubmit={handleSubmit}
+            onsuccess={handleSuccess}
+            onerror={handleError}
+          >
+            <lightning-input-field field-name="Name"></lightning-input-field>
+            <lightning-input-field field-name="Amount"></lightning-input-field>
+            <!-- submit -->
+            <div class="submit">
+              <lightning-button
+                class="button"
+                type="submit"
+                label="Update"
+              ></lightning-button>
+            </div>
+          </lightning-record-edit-form>
+        </div>
+      </section>
+    </lightning-tab>
+    <lightning-tab label="Contact Data">
+      <section class="content">Section Two Content</section>
+    </lightning-tab>
+    <lightning-tab label="Check List">
+      <section class="content">
+        <div class="form-container">
+          <h3 class="form-title">Final Checks</h3>
+          <lightning-record-edit-form
+            id="checkList"
+            record-id={recordId}
+            object-api-name="Opportunity"
+            onsubmit={handleSubmit}
+            onsuccess={handleSuccess}
+            onerror={handleError}
+          >
+            <lightning-input-field
+              field-name="Test_Checkbox__c"
+            ></lightning-input-field>
+            <lightning-input-field
+              field-name="Checkbox_Field__c"
+            ></lightning-input-field>
+            <!-- submit -->
+            <div class="submit">
+              <lightning-button
+                class="button"
+                type="submit"
+                label="Update"
+              ></lightning-button>
+            </div>
+          </lightning-record-edit-form>
+        </div>
+      </section>
+    </lightning-tab>
+  </lightning-tabset>
+</template>

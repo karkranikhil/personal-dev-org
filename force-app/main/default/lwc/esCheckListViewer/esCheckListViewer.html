@@ -22,7 +22,9 @@
 
     <div class="content">
       <c-es-checklist-selector if:true={isFirst}> </c-es-checklist-selector>
-      <h1 if:true={isSecond}>Second Step</h1>
+      <h1 if:true={isSecond}>
+        <c-es-checklist-tabset record-id={recordId}></c-es-checklist-tabset>
+      </h1>
     </div>
     <!--* FOOTER -->
     <div class="footer" slot="footer">
