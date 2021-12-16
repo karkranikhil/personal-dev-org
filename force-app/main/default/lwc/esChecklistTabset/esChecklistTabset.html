@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 12-09-2021
+  @last modified on  : 12-15-2021
   @last modified by  : ErickSixto
 -->
 <template>
@@ -40,7 +40,17 @@
       </section>
     </lightning-tab>
     <lightning-tab label="Contact Data">
-      <section class="content">Section Two Content</section>
+      <section class="content">
+        <h3 class="form-title">Clients</h3>
+        <lightning-datatable
+          key-field="id"
+          data={data}
+          suppress-bottom-bar
+          hide-checkbox-column
+          columns={columns}
+        >
+        </lightning-datatable>
+      </section>
     </lightning-tab>
     <lightning-tab label="Check List">
       <section class="content">
