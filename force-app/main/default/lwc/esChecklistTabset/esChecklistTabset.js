@@ -13,6 +13,7 @@ const columns = [
       target: "_self"
     }
   },
+  //! The 'FielName' must be the Apiname of the Target Object for the update to work (example, Not use Contact__r.Name, but Name)
   { label: "Name", fieldName: "Name", type: "text", editable: true },
   { label: "Phone", fieldName: "Phone", type: "phone", editable: true },
   { label: "Email", fieldName: "Email", type: "email", editable: true }
@@ -53,7 +54,6 @@ export default class EsChecklistTabset extends LightningElement {
   getFinalChecks() {
     getRelatedRecordMap({ recordId: this.recordId }).then((result) => {
       this.relatedRecord = result;
-      console.log(result);
     });
   }
 
@@ -64,9 +64,11 @@ export default class EsChecklistTabset extends LightningElement {
 
   //* Table Handling
   handleSave(event) {
+    this.setLoading(true);
     this.saveDraftValues = event.detail.draftValues;
+    console.log(this.saveDraftValues);
     saveDraftValues({ data: this.saveDraftValues })
-      .then(() => {
+      .then((result) => {
         this.dispatchEvent(
           new ShowToastEvent({
             title: "Success",
@@ -74,12 +76,15 @@ export default class EsChecklistTabset extends LightningElement {
             variant: "success"
           })
         );
+        console.log("response", result);
+        this.draftValues = [];
         //Get the updated list.
         this.getRelatedRecords();
       })
       .catch((error) => {
         console.log("error : " + JSON.stringify(error));
-      });
+      })
+      .finally(() => this.setLoading(false));
   }
 
   //* Toasts

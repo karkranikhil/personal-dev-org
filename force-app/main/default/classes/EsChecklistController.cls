@@ -45,8 +45,9 @@ public class EsChecklistController{
         }
     }
     @AuraEnabled
-    public static void saveDraftValues(Object data){
+    public static List<Contact> saveDraftValues(Object data){
         List<Contact> listOfContacts = (List<Contact>)JSON.deserialize(JSON.serialize(data), List<Contact>.class);
         update listOfContacts;
+        return listOfContacts;
     }
 }
