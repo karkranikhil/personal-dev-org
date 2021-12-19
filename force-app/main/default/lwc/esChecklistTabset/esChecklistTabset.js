@@ -68,7 +68,7 @@ export default class EsChecklistTabset extends LightningElement {
     this.saveDraftValues = event.detail.draftValues;
     console.log(this.saveDraftValues);
     saveDraftValues({ data: this.saveDraftValues })
-      .then((result) => {
+      .then(() => {
         this.dispatchEvent(
           new ShowToastEvent({
             title: "Success",
@@ -76,7 +76,6 @@ export default class EsChecklistTabset extends LightningElement {
             variant: "success"
           })
         );
-        console.log("response", result);
         this.draftValues = [];
         //Get the updated list.
         this.getRelatedRecords();
