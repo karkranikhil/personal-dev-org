@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 12-15-2021
+  @last modified on  : 12-19-2021
   @last modified by  : ErickSixto
 -->
 <template>
@@ -43,11 +43,11 @@
       <section class="content">
         <h3 class="form-title">Clients</h3>
         <lightning-datatable
-          key-field="id"
+          key-field="Id"
           data={data}
-          suppress-bottom-bar
           hide-checkbox-column
           columns={columns}
+          onsave={handleSave}
         >
         </lightning-datatable>
       </section>
@@ -56,19 +56,22 @@
       <section class="content">
         <div class="form-container">
           <h3 class="form-title">Final Checks</h3>
+          <!--? Gets the RecordID and Object Apiname from apex -->
           <lightning-record-edit-form
             id="checkList"
-            record-id={recordId}
-            object-api-name="Opportunity"
+            if:true={relatedRecord}
+            record-id={relatedRecord.Id}
+            object-api-name={relatedRecord.Object}
             onsubmit={handleSubmit}
             onsuccess={handleSuccess}
             onerror={handleError}
           >
+            <!--? Must Place the desired fields mannually -->
             <lightning-input-field
-              field-name="Test_Checkbox__c"
+              field-name="Is_Tested__c"
             ></lightning-input-field>
             <lightning-input-field
-              field-name="Checkbox_Field__c"
+              field-name="Is_Reviewed__c"
             ></lightning-input-field>
             <!-- submit -->
             <div class="submit">
