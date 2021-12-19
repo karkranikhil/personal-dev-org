@@ -81,7 +81,13 @@ export default class EsChecklistTabset extends LightningElement {
         this.getRelatedRecords();
       })
       .catch((error) => {
-        console.log("error : " + JSON.stringify(error));
+        this.dispatchEvent(
+          new ShowToastEvent({
+            title: "Error",
+            message: JSON.stringify(error),
+            variant: "error"
+          })
+        );
       })
       .finally(() => this.setLoading(false));
   }
