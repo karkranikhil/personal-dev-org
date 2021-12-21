@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 12-19-2021
+  @last modified on  : 12-20-2021
   @last modified by  : ErickSixto
 -->
 <template>
@@ -25,8 +25,19 @@
             onsuccess={handleSuccess}
             onerror={handleError}
           >
-            <lightning-input-field field-name="Name"></lightning-input-field>
-            <lightning-input-field field-name="Amount"></lightning-input-field>
+            <div class="grid">
+              <!--? Here you can add/modify fields by copy and pasting the 'lightning input field' elements and changing the 'field-name' by the one you wish -->
+              <lightning-input-field field-name="Name"></lightning-input-field>
+              <lightning-input-field
+                field-name="Amount"
+              ></lightning-input-field>
+              <lightning-input-field
+                field-name="StageName"
+              ></lightning-input-field>
+              <lightning-input-field
+                field-name="TrackingNumber__c"
+              ></lightning-input-field>
+            </div>
             <!-- submit -->
             <div class="submit">
               <lightning-button
@@ -83,6 +94,7 @@
               ></lightning-button>
             </div>
           </lightning-record-edit-form>
+          <h3 if:false={relatedRecord} class="not-found">No record found</h3>
         </div>
       </section>
     </lightning-tab>

@@ -14,9 +14,16 @@ const columns = [
     }
   },
   //! The 'FielName' must be the Apiname of the Target Object for the update to work (example, Not use Contact__r.Name, but Name)
-  { label: "Name", fieldName: "Name", type: "text", editable: true },
+  { label: "First Name", fieldName: "FirstName", type: "text", editable: true },
+  { label: "Last Name", fieldName: "LastName", type: "text", editable: true },
   { label: "Phone", fieldName: "Phone", type: "phone", editable: true },
-  { label: "Email", fieldName: "Email", type: "email", editable: true }
+  {
+    label: "Email",
+    fieldName: "Email",
+    type: "email",
+    title: "Email",
+    editable: true
+  }
 ];
 export default class EsChecklistTabset extends LightningElement {
   @api recordId;
@@ -42,7 +49,8 @@ export default class EsChecklistTabset extends LightningElement {
         //? Map the fields to the ones described on the 'colums' const
         Id: record.Contact__c, //! CHANGE THE ID OF THE JUNCTION OBJECT WITH THE ID OF THE TARGET
         urlId: "/" + record.Contact__c,
-        Name: record.Contact__r.Name,
+        FirstName: record.Contact__r.FirstName,
+        LastName: record.Contact__r.LastName,
         Email: record.Contact__r.Email,
         Phone: record.Contact__r.Phone
         //? ... Here you can map more fields if needed
