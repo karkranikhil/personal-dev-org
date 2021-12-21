@@ -74,7 +74,7 @@ export default class EsChecklistTabset extends LightningElement {
   handleSave(event) {
     this.setLoading(true);
     this.saveDraftValues = event.detail.draftValues;
-    console.log(this.saveDraftValues);
+    console.log(JSON.stringify(this.saveDraftValues));
     saveDraftValues({ data: this.saveDraftValues })
       .then(() => {
         this.dispatchEvent(
