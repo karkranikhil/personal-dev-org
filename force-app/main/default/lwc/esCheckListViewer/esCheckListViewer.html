@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 12-09-2021
+  @last modified on  : 12-23-2021
   @last modified by  : ErickSixto
 -->
 <template>
@@ -21,9 +21,18 @@
     </article>
 
     <div class="content">
-      <c-es-checklist-selector if:true={isFirst}> </c-es-checklist-selector>
+      <c-es-checklist-selector
+        if:true={isFirst}
+        value={selected}
+        options={options}
+        onselect={handleSelected}
+      >
+      </c-es-checklist-selector>
       <h1 if:true={isSecond}>
-        <c-es-checklist-tabset record-id={recordId}></c-es-checklist-tabset>
+        <c-es-checklist-tabset
+          record-id={recordId}
+          selected-option={selected}
+        ></c-es-checklist-tabset>
       </h1>
     </div>
     <!--* FOOTER -->

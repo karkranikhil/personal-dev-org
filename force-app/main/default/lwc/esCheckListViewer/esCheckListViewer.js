@@ -3,13 +3,23 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 12-09-2021
+ * @last modified on  : 12-23-2021
  * @last modified by  : ErickSixto
  **/
 import { LightningElement, api } from "lwc";
 import { CloseActionScreenEvent } from "lightning/actions";
 
 export default class EsCheckListViewer extends LightningElement {
+  //? Use the Value to identify the selected option
+  options = [
+    { label: "Close Win Checklist", value: "closewin" },
+    { label: "Document X Checklist", value: "docX" },
+    { label: "Document Y Checklist", value: "docY" }
+  ];
+
+  //! Select option1 by default
+  selected = "closewin";
+
   //? Stepper
   step = "1";
   isFirst = true;
@@ -38,6 +48,9 @@ export default class EsCheckListViewer extends LightningElement {
   }
 
   //* Utility
+  handleSelected(e) {
+    this.selected = e.detail.selectedOption;
+  }
   sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }

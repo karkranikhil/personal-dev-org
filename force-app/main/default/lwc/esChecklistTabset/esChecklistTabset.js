@@ -27,11 +27,13 @@ const columns = [
 ];
 export default class EsChecklistTabset extends LightningElement {
   @api recordId;
+  @api selectedOption;
   @track data;
   @track relatedRecord; //* Used for tab 3
   columns = columns;
   loading = true;
 
+  //* Life Cycle methods
   connectedCallback() {
     this.getRelatedRecords();
     this.getFinalChecks();
@@ -39,6 +41,18 @@ export default class EsChecklistTabset extends LightningElement {
 
   renderedCallback() {
     this.setLoading(false);
+  }
+
+  //* Getters
+  //? Match the 'values' of the radiobutons on the checklist viewer
+  get isCloseWin() {
+    return this.selectedOption === "closewin";
+  }
+  get isDocX() {
+    return this.selectedOption === "docX";
+  }
+  get isDocY() {
+    return this.selectedOption === "docY";
   }
 
   //* Data to be rendered at tab 2 (table)

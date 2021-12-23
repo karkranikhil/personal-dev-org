@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 12-20-2021
+  @last modified on  : 12-23-2021
   @last modified by  : ErickSixto
 -->
 <template>
@@ -14,7 +14,8 @@
     ></lightning-spinner>
   </div>
   <lightning-tabset variant="vertical">
-    <lightning-tab label="Opportunity Data">
+    <!--* TAB SET FOR THE 'CLOSE WIN' OPTION -->
+    <lightning-tab if:true={isCloseWin} label="Opportunity Data">
       <section class="content">
         <div class="form-container">
           <lightning-record-edit-form
@@ -50,7 +51,7 @@
         </div>
       </section>
     </lightning-tab>
-    <lightning-tab label="Contact Data">
+    <lightning-tab if:true={isCloseWin} label="Contact Data">
       <section class="content">
         <h3 class="form-title">Clients</h3>
         <lightning-datatable
@@ -64,7 +65,7 @@
         </lightning-datatable>
       </section>
     </lightning-tab>
-    <lightning-tab label="Check List">
+    <lightning-tab if:true={isCloseWin} label="Check List">
       <section class="content">
         <div class="form-container">
           <h3 class="form-title">Final Checks</h3>
@@ -96,6 +97,39 @@
           </lightning-record-edit-form>
           <h3 if:false={relatedRecord} class="not-found">No record found</h3>
         </div>
+      </section>
+    </lightning-tab>
+    <!--* TAB SET FOR THE 'DOC X' OPTION -->
+    <lightning-tab if:true={isDocX} label="Tab 1">
+      <section class="content">
+        <h3 class="form-title">Here goes a section</h3>
+        <p class="not-found">
+          Render here any element you want to show for the DOC X option
+        </p>
+      </section>
+    </lightning-tab>
+    <lightning-tab if:true={isDocX} label="Tab 2">
+      <section class="content">
+        <h3 class="form-title">Here goes another section</h3>
+        <p class="not-found">
+          Render here any element you want to show for the DOC X option
+        </p>
+      </section>
+    </lightning-tab>
+
+    <!--* TAB SET FOR THE 'DOC Y' OPTION -->
+    <lightning-tab if:true={isDocY} label="Tab 1">
+      <section class="content">
+        <h3 class="form-title">Here goes a section</h3>
+        <p class="not-found">I am a tab content. Change with your components</p>
+      </section>
+    </lightning-tab>
+    <lightning-tab if:true={isDocY} label="Tab 2">
+      <section class="content">
+        <h3 class="form-title">Here goes another section</h3>
+        <p class="not-found">
+          Render here any element you want to show for the DOC Y option
+        </p>
       </section>
     </lightning-tab>
   </lightning-tabset>
