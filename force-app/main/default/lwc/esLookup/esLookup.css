@@ -1,0 +1,10 @@
+.icon-btn {
+  margin: 12px 0.25rem 0 0;
+}
+
+.lookup-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}

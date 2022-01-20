@@ -8,62 +8,48 @@
 <template>
   <lightning-card title="Sample Lookup (Lightning Web Component)">
     <div class="slds-form slds-form_stacked slds-var-m-around_xx-large">
-      <div class="slds-grid slds-gutters">
-        <div class="slds-col">
-          <lightning-input
-            type="toggle"
-            label="Mutli entry lookup"
-            checked={isMultiEntry}
-            onchange={handleLookupTypeChange}
-          ></lightning-input>
-        </div>
-        <div class="slds-col" if:true={isMultiEntry}>
-          <lightning-input
-            type="number"
-            label="Max selected items"
-            min="1"
-            value={maxSelectionSize}
-            onchange={handleMaxSelectionSizeChange}
-            required
-          ></lightning-input>
-        </div>
-      </div>
-
-      <p class="slds-var-m-vertical_large">
-        <strong>Note:</strong> new record creation options only work in
-        Lightning Experience.
-      </p>
-
-      <c-lookup
-        selection={initialSelection}
-        errors={errors}
-        onsearch={handleLookupSearch}
-        onselectionchange={handleLookupSelectionChange}
-        label="Search"
-        placeholder="Search Salesforce"
-        is-multi-entry={isMultiEntry}
-        new-record-options={newRecordOptions}
-        required
-      >
-      </c-lookup>
-
-      <div class="slds-var-m-top_large">
-        <c-es-button-icon-popover
+      <div class="lookup-container">
+        <c-lookup
+          selection={initialSelection}
+          errors={errors}
+          onsearch={handleLookupSearch}
+          onselectionchange={handleLookupSelectionChange}
+          label="Search"
+          placeholder="Search Salesforce"
+          is-multi-entry={isMultiEntry}
+          new-record-options={newRecordOptions}
+          required
+        >
+        </c-lookup>
+        <lightning-button-icon
+          class="icon-btn"
           variant="bare"
+          size="small"
           icon-name="utility:clear"
-          tooltip="Reset"
+          alternative-text="Reset"
+        ></lightning-button-icon>
+        <c-es-button-icon-popover
+          class="icon-btn"
+          variant="bare"
+          icon-name="utility:setup"
+          tooltip="Setup"
           popover-size="small"
           placement="auto"
         >
           <p slot="title" class="slds-text-heading_small">Setup Unique Field</p>
-          <p>Here goes the setup unique field component</p>
+          <lightning-input label="Unique Field" type="text"></lightning-input>
+          <lightning-input
+            label="Value"
+            type="text"
+            read-only
+          ></lightning-input>
         </c-es-button-icon-popover>
-        <lightning-button label="Clear" onclick={handleClear}></lightning-button
-        >&nbsp;
+      </div>
+
+      <div class="slds-var-m-top_large">
         <lightning-button
-          variant="brand"
-          label="Submit"
-          onclick={handleSubmit}
+          label="Clear"
+          onclick={handleClear}
         ></lightning-button>
       </div>
     </div>

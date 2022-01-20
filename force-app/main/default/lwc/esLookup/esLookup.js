@@ -89,16 +89,6 @@ export default class EsLookup extends LightningElement {
 
   // All functions below are part of the sample app form (not required by the lookup).
 
-  handleLookupTypeChange(event) {
-    this.initialSelection = [];
-    this.errors = [];
-    this.isMultiEntry = event.target.checked;
-  }
-
-  handleMaxSelectionSizeChange(event) {
-    this.maxSelectionSize = event.target.value;
-  }
-
   handleSubmit() {
     this.checkForErrors();
     if (this.errors.length === 0) {
