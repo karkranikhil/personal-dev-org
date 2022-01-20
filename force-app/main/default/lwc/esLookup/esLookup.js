@@ -22,10 +22,6 @@ export default class EsLookup extends LightningElement {
   ];
   errors = [];
   recentlyViewed = [];
-  newRecordOptions = [
-    { value: "Account", label: "New Account" },
-    { value: "Opportunity", label: "New Opportunity" }
-  ];
 
   /**
    * Loads recently viewed records and set them as default lookpup search results (optional)
@@ -110,10 +106,10 @@ export default class EsLookup extends LightningElement {
         message: `You may only select up to ${this.maxSelectionSize} items.`
       });
     }
-    // Enforcing required field
-    if (selection.length === 0) {
-      this.errors.push({ message: "Please make a selection." });
-    }
+    // // Enforcing required field
+    // if (selection.length === 0) {
+    //   this.errors.push({ message: "Please make a selection." });
+    // }
   }
 
   notifyUser(title, message, variant) {
