@@ -1,0 +1,788 @@
+/**
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2021, Avonni Labs, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * - Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * - Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+.avonni-profile-card__flex-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.avonni-profile-card_color-background {
+    background-color: var(--avonni-profile-card-color-background, #ffffff);
+}
+
+.slds-media {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.avonni-profile-card__icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avonni-profile-card__avatar-img {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    background-position: center center;
+    background-size: cover;
+    border: 4px solid rgb(255, 255, 255);
+    height: 9.25rem;
+    width: 9.25rem;
+    transition: border-color 0.2s ease;
+    z-index: 50;
+}
+
+.avonni-profile-card__avatar-img-circle {
+    border-radius: 50%;
+}
+
+.avonni-profile-card__avatar_size-x-small {
+    height: 3.25rem;
+    width: 3.25rem;
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.avonni-profile-card__avatar_size-small {
+    height: 4.5rem;
+    width: 4.5rem;
+    border: 2px solid rgb(255, 255, 255);
+}
+
+.avonni-profile-card__avatar_size-medium {
+    height: 5.75rem;
+    width: 5.75rem;
+    border: 3px solid rgb(255, 255, 255);
+}
+
+.avonni-profile-card__avatar_size-large {
+    height: 9.25rem;
+    width: 9.25rem;
+    border: 4px solid rgb(255, 255, 255);
+}
+
+.avonni-profile-card__avatar_size-x-large {
+    height: 11.25rem;
+    width: 11.25rem;
+    border: 5px solid rgb(255, 255, 255);
+}
+
+.avonni-profile-card__background_size-x-small {
+    min-height: 56px;
+    width: 100%;
+}
+
+.avonni-profile-card__background_size-small {
+    min-height: 70px;
+    width: 100%;
+}
+
+.avonni-profile-card__background_size-medium {
+    min-height: 96px;
+    width: 100%;
+}
+
+.avonni-profile-card__background_size-large {
+    min-height: 144px;
+    width: 100%;
+}
+
+.avonni-profile-card__background_size-x-large {
+    min-height: 182px;
+    width: 100%;
+}
+
+.avonni-profile-card__title {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: var(--avonni-profile-card-title-font-size, 18px);
+    font-style: var(--avonni-profile-card-title-font-style, normal);
+    font-weight: var(--avonni-profile-card-title-font-weight, 400);
+    color: var(--avonni-profile-card-title-text-color, #000000);
+    line-height: 1.33333em;
+    overflow: hidden;
+}
+
+.avonni-profile-card__subtitle {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: var(--avonni-profile-card-subtitle-font-size, 14px);
+    font-weight: var(--avonni-profile-card-subtitle-font-weight, 400);
+    font-style: var(--avonni-profile-card-subtitle-font-style, normal);
+    color: var(--avonni-profile-card-subtitle-text-color, #000000);
+    line-height: 1.71429em;
+    overflow: hidden;
+}
+
+.avonni-profile-card__avatar-actions {
+    position: absolute;
+}
+
+.avonni-profile-card__card_size-x-small .avonni-profile-card__avatar-actions,
+.avonni-profile-card__card_size-small .avonni-profile-card__avatar-actions,
+.avonni-profile-card__card_size-medium .avonni-profile-card__avatar-actions {
+    bottom: 0;
+    right: 0;
+}
+
+.slds-card__body {
+    margin-top: var(--lwc-varSpacingVerticalSmall, 0.75rem);
+    margin-bottom: var(--lwc-varSpacingVerticalSmall, 0.75rem);
+}
+
+.avonni-profile-card__card_size-medium .slds-card__body {
+    padding: 0 1.25rem;
+}
+
+.avonni-profile-card__card_size-large .slds-card__body {
+    padding: 0 1.5rem;
+}
+
+.avonni-profile-card__card_size-x-large .slds-card__body {
+    padding: 0 1.75rem;
+}
+
+.avonni-profile-card__card_size-large .avonni-profile-card__avatar-actions {
+    bottom: 0.25rem;
+    right: 0.25rem;
+}
+
+.avonni-profile-card__card_size-x-large .avonni-profile-card__avatar-actions {
+    bottom: 0.5rem;
+    right: 0.5rem;
+}
+
+.avonni-profile-card__title-container {
+    width: 100%;
+}
+
+@media (min-width: 480px) {
+    .avonni-profile-card__flex-container_align-center {
+        align-items: center;
+    }
+
+    .avonni-profile-card__flex-container_align-end {
+        align-items: flex-end;
+    }
+
+    .avonni-profile-card__actions-right {
+        position: absolute;
+        right: 0.5rem;
+        top: 0.5rem;
+        z-index: 1000;
+    }
+
+    .avonni-profile-card__actions-left {
+        position: absolute;
+        left: 0.5rem;
+        top: 0.5rem;
+        z-index: 1000;
+    }
+
+    [class^='top-'].avonni-profile-card__card_size-x-small {
+        margin-top: 0.75rem;
+    }
+
+    [class^='top-'].avonni-profile-card__card_size-x-small
+        .avonni-profile-card__avatar-img {
+        top: -0.75rem;
+    }
+
+    [class^='bottom-'].avonni-profile-card__card_size-x-small
+        .avonni-profile-card__avatar-img {
+        top: 0.75rem;
+    }
+
+    [class*='-left-desktop'][class$='card_size-x-small']
+        .avonni-profile-card__avatar-img {
+        left: 0.75rem;
+    }
+
+    [class*='-right-desktop'][class$='card_size-x-small']
+        .avonni-profile-card__avatar-img {
+        right: 0.75rem;
+    }
+
+    [class^='top-'].avonni-profile-card__card_size-small {
+        margin-top: 1rem;
+    }
+
+    [class^='top-'].avonni-profile-card__card_size-small
+        .avonni-profile-card__avatar-img {
+        top: -1rem;
+    }
+
+    [class^='bottom-'].avonni-profile-card__card_size-small
+        .avonni-profile-card__avatar-img {
+        top: 1rem;
+    }
+
+    [class*='-left-desktop'][class$='card_size-small']
+        .avonni-profile-card__avatar-img {
+        left: 1rem;
+    }
+
+    [class*='-right-desktop'][class$='card_size-small']
+        .avonni-profile-card__avatar-img {
+        right: 1rem;
+    }
+
+    [class^='top-'].avonni-profile-card__card_size-medium {
+        margin-top: 1.25rem;
+    }
+
+    [class^='top-'].avonni-profile-card__card_size-medium
+        .avonni-profile-card__avatar-img {
+        top: -1.25rem;
+    }
+
+    [class^='bottom-'].avonni-profile-card__card_size-medium
+        .avonni-profile-card__avatar-img {
+        top: 1.25rem;
+    }
+
+    [class*='-left-desktop'][class$='card_size-medium']
+        .avonni-profile-card__avatar-img {
+        left: 1.25rem;
+    }
+
+    [class*='-right-desktop'][class$='card_size-medium']
+        .avonni-profile-card__avatar-img {
+        right: 1.25rem;
+    }
+
+    [class^='top-'].avonni-profile-card__card_size-large {
+        margin-top: 1.5rem;
+    }
+
+    [class^='top-'].avonni-profile-card__card_size-large
+        .avonni-profile-card__avatar-img {
+        top: -1.5rem;
+    }
+
+    [class^='bottom-'].avonni-profile-card__card_size-large
+        .avonni-profile-card__avatar-img {
+        top: 1.5rem;
+    }
+
+    [class*='-left-desktop'][class$='card_size-large']
+        .avonni-profile-card__avatar-img {
+        left: 1.5rem;
+    }
+
+    [class*='-right-desktop'][class$='card_size-large']
+        .avonni-profile-card__avatar-img {
+        right: 1.5rem;
+    }
+
+    [class^='top-'].avonni-profile-card__card_size-x-large {
+        margin-top: 1.75rem;
+    }
+
+    [class^='top-'].avonni-profile-card__card_size-x-large
+        .avonni-profile-card__avatar-img {
+        top: -1.75rem;
+    }
+
+    [class^='bottom-'].avonni-profile-card__card_size-x-large
+        .avonni-profile-card__avatar-img {
+        top: 1.75rem;
+    }
+
+    [class*='-left-desktop'][class$='card_size-x-large']
+        .avonni-profile-card__avatar-img {
+        left: 1.75rem;
+    }
+
+    [class*='-right-desktop'][class$='card_size-x-large']
+        .avonni-profile-card__avatar-img {
+        right: 1.75rem;
+    }
+
+    .bottom-center-desktop .avonni-profile-card__title-container {
+        padding: 0 1rem;
+    }
+
+    .bottom-center-desktop.avonni-profile-card__card_size-x-small
+        .avonni-profile-card__title-container {
+        margin-top: 1.5rem;
+    }
+
+    .bottom-center-desktop.avonni-profile-card__card_size-small
+        .avonni-profile-card__title-container {
+        margin-top: 1.75rem;
+    }
+
+    .bottom-center-desktop.avonni-profile-card__card_size-medium
+        .avonni-profile-card__title-container {
+        margin-top: 2rem;
+    }
+
+    .bottom-center-desktop.avonni-profile-card__card_size-large
+        .avonni-profile-card__title-container {
+        margin-top: 2.25rem;
+    }
+
+    .bottom-center-desktop.avonni-profile-card__card_size-x-large
+        .avonni-profile-card__title-container {
+        margin-top: 2.5rem;
+        padding: 0 1rem;
+    }
+
+    .top-center-desktop .avonni-profile-card__title-container {
+        padding: 1rem 1rem 0 1rem;
+    }
+
+    .bottom-center-desktop .avonni-profile-card__title-container {
+        padding: 0 1rem;
+    }
+
+    [class*='-left-desktop'][class$='card_size-x-small']
+        .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 0.5rem;
+        padding-left: 4.75rem;
+        padding-right: 0.75rem;
+    }
+
+    [class*='-left-desktop'][class$='card_size-small']
+        .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 0.8rem;
+        padding-left: 6.5rem;
+        padding-right: 1rem;
+    }
+
+    [class*='-left-desktop'][class$='card_size-medium']
+        .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 1.5rem;
+        padding-left: 8.25rem;
+        padding-right: 1.25rem;
+    }
+
+    [class*='-left-desktop'][class$='card_size-large']
+        .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 2.8rem;
+        padding-left: 12.25rem;
+        padding-right: 1.5rem;
+    }
+
+    [class*='-left-desktop'][class$='card_size-x-large']
+        .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 3.8rem;
+        padding-left: 14.75rem;
+        padding-right: 1.75rem;
+    }
+
+    [class*='-right-desktop'][class$='card_size-x-small']
+        .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 0.5rem;
+        padding-right: 4.75rem;
+        padding-left: 0.75rem;
+    }
+
+    [class*='-right-desktop'][class$='card_size-small']
+        .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 0.8rem;
+        padding-right: 6.5rem;
+        padding-left: 1rem;
+    }
+
+    [class*='-right-desktop'][class$='card_size-medium']
+        .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 1.5rem;
+        padding-right: 8.25rem;
+        padding-left: 1.25rem;
+    }
+
+    [class*='-right-desktop'][class$='card_size-large']
+        .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 2.8rem;
+        padding-right: 12.25rem;
+        padding-left: 1.5rem;
+    }
+
+    [class*='-right-desktop'][class$='card_size-x-large']
+        .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 3.8rem;
+        padding-right: 14.75rem;
+        padding-left: 1.75rem;
+    }
+
+    .bottom-left-desktop.avonni-profile-card__card_size-x-small
+        .slds-card__body,
+    .bottom-right-desktop.avonni-profile-card__card_size-x-small
+        .slds-card__body {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .bottom-left-desktop.avonni-profile-card__card_size-small .slds-card__body,
+    .bottom-right-desktop.avonni-profile-card__card_size-small
+        .slds-card__body {
+        margin-top: 1.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .bottom-left-desktop.avonni-profile-card__card_size-medium .slds-card__body,
+    .bottom-right-desktop.avonni-profile-card__card_size-medium
+        .slds-card__body {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .bottom-left-desktop.avonni-profile-card__card_size-large .slds-card__body,
+    .bottom-right-desktop.avonni-profile-card__card_size-large
+        .slds-card__body {
+        margin-top: 2.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .bottom-left-desktop.avonni-profile-card__card_size-x-large
+        .slds-card__body,
+    .bottom-right-desktop.avonni-profile-card__card_size-x-large
+        .slds-card__body {
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    [class^='top-'].avonni-profile-card__card_size-x-small {
+        margin-top: 0.75rem;
+    }
+
+    [class^='top-'].avonni-profile-card__card_size-x-small
+        .avonni-profile-card__avatar-img {
+        top: -0.75rem;
+    }
+
+    [class^='bottom-'].avonni-profile-card__card_size-x-small
+        .avonni-profile-card__avatar-img {
+        top: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .avonni-profile-card__flex-container-mobile_align-center {
+        align-items: center;
+    }
+
+    .avonni-profile-card__flex-container-mobile_align-end {
+        align-items: flex-end;
+    }
+
+    .avonni-mobile-actions-right {
+        position: absolute;
+        right: 0.5rem;
+        top: 0.5rem;
+        z-index: 1000;
+    }
+    .avonni-mobile-actions-left {
+        position: absolute;
+        left: 0.5rem;
+        top: 0.5rem;
+        z-index: 1000;
+    }
+
+    [class*='mobile-top-'].avonni-profile-card__card_size-x-small {
+        margin-top: 0.75rem;
+    }
+
+    [class*='mobile-top-'].avonni-profile-card__card_size-x-small
+        .avonni-profile-card__avatar-img {
+        top: -0.75rem;
+    }
+
+    [class*='mobile-bottom-'].avonni-profile-card__card_size-x-small
+        .avonni-profile-card__avatar-img {
+        top: 0.75rem;
+    }
+
+    [class$='-left card_size-x-small'] .avonni-profile-card__avatar-img {
+        left: 0.75rem;
+    }
+
+    [class$='-right card_size-x-small'] .avonni-profile-card__avatar-img {
+        right: 0.75rem;
+    }
+
+    [class*='mobile-top-'].avonni-profile-card__card_size-small {
+        margin-top: 1rem;
+    }
+
+    [class*='mobile-top-'].avonni-profile-card__card_size-small
+        .avonni-profile-card__avatar-img {
+        top: -1rem;
+    }
+
+    [class*='mobile-bottom-'].avonni-profile-card__card_size-small
+        .avonni-profile-card__avatar-img {
+        top: 1rem;
+    }
+
+    [class$='-left card_size-small'] .avonni-profile-card__avatar-img {
+        left: 1rem;
+    }
+
+    [class$='-right card_size-small'] .avonni-profile-card__avatar-img {
+        right: 1rem;
+    }
+
+    [class*='mobile-top-'].avonni-profile-card__card_size-medium {
+        margin-top: 1.25rem;
+    }
+
+    [class*='mobile-top-'].avonni-profile-card__card_size-medium
+        .avonni-profile-card__avatar-img {
+        top: -1.25rem;
+    }
+
+    [class*='mobile-bottom-'].avonni-profile-card__card_size-medium
+        .avonni-profile-card__avatar-img {
+        top: 1.25rem;
+    }
+
+    [class$='-left card_size-medium'] .avonni-profile-card__avatar-img {
+        left: 1.25rem;
+    }
+
+    [class$='-right card_size-medium'] .avonni-profile-card__avatar-img {
+        right: 1.25rem;
+    }
+
+    [class*='mobile-top-'].avonni-profile-card__card_size-large {
+        margin-top: 1.5rem;
+    }
+
+    [class*='mobile-top-'].avonni-profile-card__card_size-large
+        .avonni-profile-card__avatar-img {
+        top: -1.5rem;
+    }
+
+    [class*='mobile-bottom-'].avonni-profile-card__card_size-large
+        .avonni-profile-card__avatar-img {
+        top: 1.5rem;
+    }
+
+    [class$='-left card_size-large'] .avonni-profile-card__avatar-img {
+        left: 1.5rem;
+    }
+
+    [class$='-right card_size-large'] .avonni-profile-card__avatar-img {
+        right: 1.5rem;
+    }
+
+    [class*='mobile-top-'].avonni-profile-card__card_size-x-large {
+        margin-top: 1.75rem;
+    }
+
+    [class*='mobile-top-'].avonni-profile-card__card_size-x-large
+        .avonni-profile-card__avatar-img {
+        top: -1.75rem;
+    }
+
+    [class*='mobile-bottom-'].avonni-profile-card__card_size-x-large
+        .avonni-profile-card__avatar-img {
+        top: 1.75rem;
+    }
+
+    [class$='-left card_size-x-large'] .avonni-profile-card__avatar-img {
+        left: 1.75rem;
+    }
+
+    [class$='-right card_size-x-large'] .avonni-profile-card__avatar-img {
+        right: 1.75rem;
+    }
+
+    .mobile-bottom-center .avonni-profile-card__title-container {
+        padding: 0 1rem;
+    }
+
+    .mobile-bottom-center.avonni-profile-card__card_size-x-small
+        .avonni-profile-card__title-container {
+        margin-top: 1.5rem;
+    }
+
+    .mobile-bottom-center.avonni-profile-card__card_size-small
+        .avonni-profile-card__title-container {
+        margin-top: 1.75rem;
+    }
+
+    .mobile-bottom-center.avonni-profile-card__card_size-medium
+        .avonni-profile-card__title-container {
+        margin-top: 2rem;
+    }
+
+    .mobile-bottom-center.avonni-profile-card__card_size-large
+        .avonni-profile-card__title-container {
+        margin-top: 2.25rem;
+    }
+
+    .mobile-bottom-center.avonni-profile-card__card_size-x-large
+        .avonni-profile-card__title-container {
+        margin-top: 2.5rem;
+        padding: 0 1rem;
+    }
+
+    .mobile-top-center .avonni-profile-card__title-container {
+        padding: 1rem 1rem 0 1rem;
+    }
+
+    .mobile-bottom-center .avonni-profile-card__title-container {
+        padding: 0 1rem;
+    }
+
+    [class$='-left card_size-x-small'] .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 0.5rem;
+        padding-left: 4.75rem;
+        padding-right: 0.75rem;
+    }
+
+    [class$='-left card_size-small'] .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 0.8rem;
+        padding-left: 6.5rem;
+        padding-right: 1rem;
+    }
+
+    [class$='-left card_size-medium'] .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 1.5rem;
+        padding-left: 8.25rem;
+        padding-right: 1.25rem;
+    }
+
+    [class$='-left card_size-large'] .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 2.8rem;
+        padding-left: 12.25rem;
+        padding-right: 1.5rem;
+    }
+
+    [class$='-left card_size-x-large'] .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 3.8rem;
+        padding-left: 14.75rem;
+        padding-right: 1.75rem;
+    }
+
+    [class$='-right card_size-x-small'] .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 0.5rem;
+        padding-right: 4.75rem;
+        padding-left: 0.75rem;
+    }
+
+    [class$='-right card_size-small'] .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 0.8rem;
+        padding-right: 6.5rem;
+        padding-left: 1rem;
+    }
+
+    [class$='-right card_size-medium'] .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 1.5rem;
+        padding-right: 8.25rem;
+        padding-left: 1.25rem;
+    }
+
+    [class$='-right card_size-large'] .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 2.8rem;
+        padding-right: 12.25rem;
+        padding-left: 1.5rem;
+    }
+
+    [class$='-right card_size-x-large'] .avonni-profile-card__title-container {
+        position: absolute;
+        padding: 3.8rem;
+        padding-right: 14.75rem;
+        padding-left: 1.75rem;
+    }
+
+    .mobile-bottom-left.avonni-profile-card__card_size-x-small .slds-card__body,
+    .mobile-bottom-right.avonni-profile-card__card_size-x-small
+        .slds-card__body {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .mobile-bottom-left.avonni-profile-card__card_size-small .slds-card__body,
+    .mobile-bottom-right.avonni-profile-card__card_size-small .slds-card__body {
+        margin-top: 1.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .mobile-bottom-left.avonni-profile-card__card_size-medium .slds-card__body,
+    .mobile-bottom-right.avonni-profile-card__card_size-medium
+        .slds-card__body {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .mobile-bottom-left.avonni-profile-card__card_size-large .slds-card__body,
+    .mobile-bottom-right.avonni-profile-card__card_size-large .slds-card__body {
+        margin-top: 2.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .mobile-bottom-left.avonni-profile-card__card_size-x-large .slds-card__body,
+    .mobile-bottom-right.avonni-profile-card__card_size-x-large
+        .slds-card__body {
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    [class*='mobile-top-'].avonni-profile-card__card_size-x-small {
+        margin-top: 0.75rem;
+    }
+
+    [class*='mobile-top-'].avonni-profile-card__card_size-x-small
+        .avonni-profile-card__avatar-img {
+        top: -0.75rem;
+    }
+
+    [class*='mobile-bottom-'].avonni-profile-card__card_size-x-small
+        .avonni-profile-card__avatar-img {
+        top: 0.75rem;
+    }
+}

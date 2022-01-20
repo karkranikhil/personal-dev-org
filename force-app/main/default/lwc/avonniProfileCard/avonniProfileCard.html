@@ -1,0 +1,102 @@
+<!--
+/**
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2021, Avonni Labs, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * - Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * - Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+-->
+
+<template>
+    <div class={computedMainContainerClass}>
+        <article class="slds-card">
+            <div class={computedContainerClass}>
+                <header class={computedHeaderClass} data-element-id="header">
+                    <span
+                        if:true={backgroundAlternativeText}
+                        class="slds-assistive-text"
+                        >{backgroundAlternativeText}</span
+                    >
+                </header>
+                <div class={computedAvatarClass}>
+                    <div if:true={isError} class={isCircle}>
+                        <lightning-icon
+                            icon-name={avatarFallbackIconName}
+                            size="large"
+                            alternative-text={avatarAlternativeText}
+                            data-element-id="lightning-icon"
+                        ></lightning-icon>
+                    </div>
+                    <img
+                        if:false={isError}
+                        class={isCircle}
+                        alt={avatarAlternativeText}
+                        src={avatarSrc}
+                        data-element-id="img"
+                        onerror={setFallbackIcon}
+                    />
+                    <template if:true={showAvatarActions}>
+                        <div class="avonni-profile-card__avatar-actions">
+                            <slot name="avataractions"></slot>
+                        </div>
+                    </template>
+                </div>
+
+                <div
+                    class="
+                        avonni-profile-card__flex-container
+                        avonni-profile-card__title-container
+                    "
+                >
+                    <template if:true={showHeaderSlot}>
+                        <slot name="header"></slot>
+                    </template>
+                    <template if:false={showHeaderSlot}>
+                        <span class="avonni-profile-card__title">{title}</span>
+                        <span class="avonni-profile-card__subtitle"
+                            >{subtitle}</span
+                        >
+                    </template>
+                </div>
+                <template if:true={showActions}>
+                    <div class="avonni-actions">
+                        <slot name="actions"></slot>
+                    </div>
+                </template>
+            </div>
+            <div class="slds-card__body slds-card__body_inner">
+                <slot></slot>
+            </div>
+            <template if:true={showFooter}>
+                <footer class="slds-card__footer">
+                    <slot name="footer"></slot>
+                </footer>
+            </template>
+        </article>
+    </div>
+</template>

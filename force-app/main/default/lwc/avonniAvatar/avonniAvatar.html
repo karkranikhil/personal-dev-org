@@ -1,0 +1,142 @@
+<!--
+/**
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2021, Avonni Labs, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * - Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * - Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+-->
+
+<template>
+    <c-avonni-primitive-avatar
+        if:true={hideAvatarDetails}
+        alternative-text={alternativeText}
+        fallback-icon-name={fallbackIconName}
+        initials={initials}
+        size={size}
+        src={src}
+        variant={variant}
+        status={status}
+        status-title={statusTitle}
+        status-position={statusPosition}
+        presence={presence}
+        presence-title={presenceTitle}
+        presence-position={presencePosition}
+        entity-icon-name={entityIconName}
+        entity-initials={entityInitials}
+        entity-variant={entityVariant}
+        entity-src={entitySrc}
+        entity-title={entityTitle}
+        entity-position={entityPosition}
+        data-element-id="avonni-primitive-avatar-no-details"
+    ></c-avonni-primitive-avatar>
+    <c-avonni-media-object
+        if:false={hideAvatarDetails}
+        inline={computedMediaObjectInline}
+        class={mediaObjectClass}
+        data-element-id="avonni-media-object"
+    >
+        <template if:true={showAvatar}>
+            <div if:true={textPositionLeft} slot="figure-inverse">
+                <c-avonni-primitive-avatar
+                    alternative-text={alternativeText}
+                    fallback-icon-name={fallbackIconName}
+                    initials={initials}
+                    size={size}
+                    src={src}
+                    variant={variant}
+                    status={status}
+                    status-title={statusTitle}
+                    status-position={statusPosition}
+                    presence={presence}
+                    presence-title={presenceTitle}
+                    presence-position={presencePosition}
+                    entity-icon-name={entityIconName}
+                    entity-initials={entityInitials}
+                    entity-variant={entityVariant}
+                    entity-src={entitySrc}
+                    entity-title={entityTitle}
+                    entity-position={entityPosition}
+                    data-element-id="avonni-primitive-avatar-details-left"
+                ></c-avonni-primitive-avatar>
+            </div>
+            <div if:false={textPositionLeft} slot="figure">
+                <c-avonni-primitive-avatar
+                    alternative-text={alternativeText}
+                    fallback-icon-name={fallbackIconName}
+                    initials={initials}
+                    size={size}
+                    src={src}
+                    variant={variant}
+                    status={status}
+                    status-title={statusTitle}
+                    status-position={statusPosition}
+                    presence={presence}
+                    presence-title={presenceTitle}
+                    presence-position={presencePosition}
+                    entity-icon-name={entityIconName}
+                    entity-initials={entityInitials}
+                    entity-variant={entityVariant}
+                    entity-src={entitySrc}
+                    entity-title={entityTitle}
+                    entity-position={entityPosition}
+                    data-element-id="avonni-primitive-avatar-details-right"
+                ></c-avonni-primitive-avatar>
+            </div>
+        </template>
+        <p
+            class="slds-text-title_bold avonni-avatar__primary-text"
+            data-element-id="avonni-avatar-primary-text"
+        >
+            {primaryText}
+        </p>
+        <p
+            class="avonni-avatar__secondary-text"
+            data-element-id="avonni-avatar-secondary-text"
+        >
+            {secondaryText}
+        </p>
+        <p
+            if:true={showTertiaryText}
+            class="avonni-avatar__tertiary-text"
+            data-element-id="avonni-avatar-tertiary-text"
+        >
+            {tertiaryText}
+        </p>
+        <div if:true={tags} class="slds-m-top_xx-small">
+            <template for:each={computedTags} for:item="tag">
+                <lightning-badge
+                    class={tag.class}
+                    key={tag.label}
+                    label={tag.label}
+                    data-element-id="lightning-badge"
+                ></lightning-badge>
+            </template>
+        </div>
+    </c-avonni-media-object>
+</template>

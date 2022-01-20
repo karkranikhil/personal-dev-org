@@ -1,0 +1,183 @@
+/**
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2021, Avonni Labs, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * - Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * - Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+.avonni-dual-listbox__list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    clear: left;
+}
+
+.avonni-dual-listbox__list-column {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.avonni-dual-listbox__option {
+    background-color: var(
+        --avonni-dual-listbox-option-color-background,
+        #ffffff
+    );
+    color: var(--avonni-dual-listbox-option-text-color, #706e6b);
+}
+
+.avonni-dual-listbox__option:hover {
+    background-color: var(
+        --avonni-dual-listbox-option-color-background-hover,
+        #f3f2f2
+    );
+    color: var(--avonni-dual-listbox-option-text-color-hover, #706e6b);
+}
+
+.avonni-dual-listbox__buttons_centered .button {
+    margin: var(--lwc-spacingSmall, 0.75rem) 0;
+}
+
+.avonni-dual-listbox__buttons_centered {
+    justify-content: center;
+    margin: var(--lwc-spacingMedium, 1rem);
+}
+
+.avonni-dual-listbox__list-column_responsive_small {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 1 15rem;
+    flex: 0 1 15rem;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    overflow: hidden;
+    min-width: 6rem;
+}
+
+.avonni-dual-listbox__list-column_responsive_medium {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 1 20rem;
+    flex: 0 1 20rem;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    overflow: hidden;
+    min-width: 6rem;
+}
+
+.avonni-dual-listbox__list-column_responsive_large {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 1 25rem;
+    flex: 0 1 25rem;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    overflow: hidden;
+    min-width: 6rem;
+}
+
+.avonni-dual-listbox__list-column_responsive {
+    width: auto;
+    max-width: 100%;
+}
+
+.avonni-dual-listbox__search-container {
+    position: relative;
+    top: 3px;
+    background: #ffffff;
+    border-radius: 0.25rem 0.25rem 0 0;
+    border: 1px solid #dddbda;
+    padding: var(--lwc-spacingXSmall, 0.5rem) !important;
+}
+
+.avonni-dual-listbox__selected-list-with-search {
+    margin-top: 3px;
+}
+
+.avonni-dual-listbox__boxes {
+    padding: 0;
+    border: var(--avonni-dual-listbox-boxes-sizing-border, 1px)
+        var(--avonni-dual-listbox-boxes-styling-border, solid)
+        var(--avonni-dual-listbox-boxes-color-border, #dddbda);
+}
+
+.avonni-dual-listbox__boxes.slds-dueling-list__options [aria-selected='true'] {
+    background: var(
+        --avonni-dual-listbox-option-color-background-selected,
+        #edeceb
+    );
+    color: var(--avonni-dual-listbox-option-text-color-selected, #706e6b);
+}
+
+.avonni-dual-listbox__option_border-bottom {
+    border-bottom: var(--avonni-dual-listbox-option-sizing-border, 1px)
+        var(--avonni-dual-listbox-option-styling-border, solid)
+        var(--avonni-dual-listbox-option-color-border, #dddbda);
+}
+
+.avonni-dual-listbox__empty-column {
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avonni-dual-listbox__list-item_min-height {
+    min-height: 41px;
+}
+
+.avonni-dual-listbox__box_size-small {
+    width: var(--lwc-sizeSmall, 15rem);
+}
+
+.avonni-dual-listbox__box_size-medium {
+    width: var(--lwc-sizeMedium, 20rem);
+}
+
+.avonni-dual-listbox__box_size-large {
+    width: var(--lwc-sizeLarge, 25rem);
+}
+
+.avonni-dual-listbox__option_dragging {
+    opacity: 0.2;
+}
+
+.avonni-dual-listbox__header {
+    color: var(--avonni-dual-listbox-header-text-color, #3e3e3c);
+    font-size: var(--avonni-dual-listbox-header-font-size, 0.75rem);
+    font-style: var(--avonni-dual-listbox-header-font-style, normal);
+    font-weight: var(--avonni-dual-listbox-header-font-weight, 700);
+}
+
+.avonni-dual-listbox__boxes-label {
+    color: var(--avonni-dual-listbox-boxes-label-text-color, #3e3e3c);
+    font-size: var(--avonni-dual-listbox-boxes-label-font-size, 0.75rem);
+    font-style: var(--avonni-dual-listbox-boxes-label-font-style, normal);
+    font-weight: var(--avonni-dual-listbox-boxes-label-font-weight, 400);
+}

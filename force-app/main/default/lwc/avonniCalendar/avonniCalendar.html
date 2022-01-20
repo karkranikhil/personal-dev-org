@@ -1,0 +1,184 @@
+<!--
+/**
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2021, Avonni Labs, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * - Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * - Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+-->
+
+<template>
+    <div
+        class="avonni-calendar__container"
+        onfocus={handleFocus}
+        onblur={handleBlur}
+        tabindex="0"
+    >
+        <div class="slds-form-element avonni-calendar__background_color">
+            <div class="slds-datepicker">
+                <div class="slds-datepicker__filter slds-grid">
+                    <div
+                        class="
+                            slds-datepicker__filter_month
+                            slds-grid slds-grid_align-spread
+                            slds-grow
+                        "
+                    >
+                        <div class="slds-align-middle">
+                            <lightning-button-icon
+                                icon-name="utility:left"
+                                variant="container"
+                                alternative-text="Previous Month"
+                                title="Previous Month"
+                                onclick={handlerPreviousMonth}
+                                disabled={disabledPrevious}
+                                data-element-id="previous-lightning-button-icon"
+                                onfocus={handleFocus}
+                                onblur={handleBlur}
+                            ></lightning-button-icon>
+                        </div>
+                        <h2
+                            class="
+                                slds-align-middle
+                                avonni-calendar__month_color
+                            "
+                            data-element-id="h2"
+                        >
+                            {month}
+                        </h2>
+                        <div class="slds-align-middle">
+                            <lightning-button-icon
+                                icon-name="utility:right"
+                                variant="container"
+                                alternative-text="Next Month"
+                                title="Next Month"
+                                disabled={disabledNext}
+                                data-element-id="next-lightning-button-icon"
+                                onclick={handlerNextMonth}
+                                onfocus={handleFocus}
+                                onblur={handleBlur}
+                            ></lightning-button-icon>
+                        </div>
+                    </div>
+                    <lightning-combobox
+                        name="years"
+                        label="Years"
+                        variant="label-hidden"
+                        dropdown-alignment="right"
+                        value={year}
+                        placeholder={year}
+                        options={yearsList}
+                        disabled={disabled}
+                        data-element-id="lightning-combobox"
+                        onchange={handleYearChange}
+                        onfocus={handleFocus}
+                        onblur={handleBlur}
+                    >
+                    </lightning-combobox>
+                </div>
+                <table
+                    aria-labelledby="month"
+                    aria-multiselectable="true"
+                    class="slds-datepicker__month"
+                    role="grid"
+                >
+                    <thead>
+                        <tr id="weekdays">
+                            <template
+                                for:each={days}
+                                for:item="day"
+                                for:index="index"
+                            >
+                                <th
+                                    key={day}
+                                    id={index}
+                                    scope="col"
+                                    class="avonni-calendar__weekdays_color"
+                                >
+                                    <abbr>{day}</abbr>
+                                </th>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={calendarData} for:item="week">
+                            <tr key={generateKey}>
+                                <template for:each={week} for:item="day">
+                                    <td
+                                        class={day.class}
+                                        role="gridcell"
+                                        key={generateKey}
+                                        aria-selected={day.selected}
+                                        aria-current={day.currentDate}
+                                        onmouseover={handleMouseOver}
+                                        onmouseout={handleMouseOut}
+                                        data-cell-day={day.fullDate}
+                                        data-day={day.fullDate}
+                                    >
+                                        <span
+                                            class={day.dayClass}
+                                            data-day={day.fullDate}
+                                            data-date={day.label}
+                                            data-element-id="span-day-label"
+                                            onclick={handlerSelectDate}
+                                            >{day.label}
+                                        </span>
+                                        <div
+                                            if:true={day.marked}
+                                            class="slds-is-relative"
+                                        >
+                                            <div
+                                                class="
+                                                    avonni-calendar__marker-container
+                                                "
+                                            >
+                                                <template
+                                                    for:each={day.markedColors}
+                                                    for:item="marker"
+                                                >
+                                                    <div
+                                                        key={generateKey}
+                                                        class="
+                                                            avonni-calendar__marked-cells
+                                                        "
+                                                        data-element-id="div-marked-cells"
+                                                        style={marker.color}
+                                                    ></div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </template>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</template>

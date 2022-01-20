@@ -1,0 +1,183 @@
+<!--
+/**
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2021, Avonni Labs, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * - Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * - Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+-->
+
+<template>
+    <div class="slds-carousel slds-scrollable_x">
+        <lightning-layout vertical-align="center">
+            <template if:false={hidePreviousNextPanelNavigation}>
+                <lightning-layout-item>
+                    <!-- Previous navigation -->
+                    <lightning-button-icon
+                        alternative-text={assistiveText.previousPanel}
+                        class="
+                            slds-m-right_medium
+                            slds-m-bottom_large
+                            avonni-carousel__nav-button
+                        "
+                        disabled={previousPanelNavigationDisabled}
+                        icon-name="utility:chevronleft"
+                        size="small"
+                        title={assistiveText.previousPanel}
+                        variant="border-filled"
+                        data-element-id="lightning-button-icon-previous"
+                        onclick={previous}
+                    ></lightning-button-icon>
+                </lightning-layout-item>
+            </template>
+            <lightning-layout-item flexibility="auto">
+                <div class="slds-carousel__stage">
+                    <!-- Carousel panels -->
+                    <div class="slds-carousel__panels" style={panelStyle}>
+                        <template
+                            for:each={panelItems}
+                            for:item="panel"
+                            for:index="panelIndex"
+                        >
+                            <div
+                                class="avonni-carousel__panel"
+                                key={panel.key}
+                                aria-hidden={panel.ariaHidden}
+                                role="tabpanel"
+                                tabindex={panel.tabIndex}
+                            >
+                                <template
+                                    for:each={panel.items}
+                                    for:item="item"
+                                    for:index="itemIndex"
+                                >
+                                    <!-- Carousel items -->
+                                    <div
+                                        key={item.key}
+                                        class="
+                                            slds-carousel__panel
+                                            slds-p-horizontal_x-small
+                                        "
+                                        style={carouselItemStyle}
+                                    >
+                                        <c-avonni-primitive-carousel-item
+                                            title={item.title}
+                                            description={item.description}
+                                            image-assistive-text={item.imageAssistiveText}
+                                            href={item.href}
+                                            src={item.src}
+                                            actions={item.actions}
+                                            actions-position={actionsPosition}
+                                            actions-variant={actionsVariant}
+                                            panel-index={panelIndex}
+                                            item-index={itemIndex}
+                                            panel-items={panelItems}
+                                            onitemclick={handleItemClicked}
+                                            onactionclick={handleActionClicked}
+                                        >
+                                        </c-avonni-primitive-carousel-item>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                    <ul
+                        class="slds-carousel__indicators"
+                        role="tablist"
+                        onkeydown={keyDownHandler}
+                    >
+                        <!-- Pagination items -->
+                        <template
+                            if:false={hideIndicator}
+                            for:each={paginationItems}
+                            for:item="paginationItem"
+                            for:index="paginationIndex"
+                        >
+                            <li
+                                key={paginationItem.key}
+                                class="slds-carousel__indicator"
+                                role="presentation"
+                                onclick={onPanelSelect}
+                                data-element-id="li-pagination"
+                                data-index={paginationIndex}
+                            >
+                                <a
+                                    id={paginationItem.id}
+                                    class={paginationItem.className}
+                                    href="javascript:void(0);"
+                                    role="tab"
+                                    tabindex={paginationItem.tabIndex}
+                                    aria-selected={paginationItem.ariaSelected}
+                                    title={paginationItem.tabTitle}
+                                    data-element-id="a-pagination"
+                                >
+                                    <span class="slds-assistive-text"
+                                        >{paginationItem.tabTitle}</span
+                                    >
+                                </a>
+                            </li>
+                        </template>
+                    </ul>
+                    <!-- Autoplay button -->
+                    <template if:false={disableAutoScroll}>
+                        <lightning-button-icon
+                            alternative-text={assistiveText.autoplayButton}
+                            class={computedAutoScrollAutoplayButton}
+                            icon-name={autoScrollIcon}
+                            size="x-small"
+                            title={assistiveText.autoplayButton}
+                            variant="border-filled"
+                            data-element-id="lightning-button-icon"
+                            onclick={toggleAutoScroll}
+                        ></lightning-button-icon>
+                    </template>
+                </div>
+            </lightning-layout-item>
+            <template if:false={hidePreviousNextPanelNavigation}>
+                <!-- Next navigation -->
+                <lightning-layout-item>
+                    <lightning-button-icon
+                        alternative-text={assistiveText.nextPanel}
+                        class="
+                            slds-m-left_medium
+                            slds-m-bottom_large
+                            avonni-carousel__nav-button
+                        "
+                        disabled={nextPanelNavigationDisabled}
+                        icon-name="utility:chevronright"
+                        size="small"
+                        title={assistiveText.nextPanel}
+                        variant="border-filled"
+                        data-element-id="lightning-button-icon-next"
+                        onclick={next}
+                    ></lightning-button-icon>
+                </lightning-layout-item>
+            </template>
+        </lightning-layout>
+    </div>
+</template>

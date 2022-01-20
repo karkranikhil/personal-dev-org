@@ -1,0 +1,339 @@
+/**
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2021, Avonni Labs, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * - Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * - Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+.slds-progress-ring__progress {
+    position: initial;
+}
+
+.avonni-progress-circle {
+    position: relative;
+    display: inline-block;
+    background: var(--avonni-progress-circle-bar-color-background, #dddbda);
+}
+
+.avonni-progress-circle__title {
+    color: var(--avonni-progress-circle-title-text-color, #080707);
+    font-style: var(--progress-circle-title-font-style, normal);
+    font-weight: var(--progress-circle-title-font-weight, 400);
+}
+
+.avonni-progress-circle__title_top {
+    top: 35px;
+}
+
+.avonni-progress-circle__title-top_position {
+    position: absolute;
+    width: 100%;
+}
+
+.avonni-progress-circle_size-x-small {
+    height: 26px;
+    width: 26px;
+    border-radius: 26px;
+}
+
+.avonni-progress-circle_size-small {
+    height: 52px;
+    width: 52px;
+    border-radius: 52px;
+}
+
+.avonni-progress-circle_size-medium {
+    height: 104px;
+    width: 104px;
+    border-radius: 104px;
+}
+
+.avonni-progress-circle_size-large {
+    height: 152px;
+    width: 152px;
+    border-radius: 152px;
+}
+
+.avonni-progress-circle_size-x-large {
+    height: 208px;
+    width: 208px;
+    border-radius: 208px;
+}
+
+.avonni-progress-circle__content {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgb(255, 255, 255);
+}
+
+.avonni-progress-circle__content_size-x-small {
+    border-radius: 26px;
+    left: 4px;
+    bottom: 4px;
+    top: 4px;
+    right: 4px;
+    font-size: 6px;
+}
+
+.avonni-progress-circle__content_size-small {
+    border-radius: 52px;
+    left: 6px;
+    bottom: 6px;
+    top: 6px;
+    right: 6px;
+    font-size: 10px;
+}
+
+.avonni-progress-circle__content_size-medium {
+    border-radius: 104px;
+    left: 9px;
+    bottom: 9px;
+    top: 9px;
+    right: 9px;
+    font-size: 19px;
+}
+
+.avonni-progress-circle__content_size-large {
+    border-radius: 152px;
+    left: 11px;
+    bottom: 11px;
+    top: 11px;
+    right: 11px;
+    font-size: 26px;
+}
+
+.avonni-progress-circle__content_size-x-large {
+    border-radius: 208px;
+    left: 13px;
+    bottom: 13px;
+    top: 13px;
+    right: 13px;
+    font-size: 30px;
+}
+
+.avonni-progress-circle__title_size-x-small {
+    font-size: 6px;
+}
+
+.avonni-progress-circle__title-top_size_size-x-small {
+    font-size: 6px;
+    top: -12px;
+}
+
+.avonni-progress-circle__title_size-small {
+    font-size: 10px;
+}
+
+.avonni-progress-circle__title-top_size-small {
+    font-size: 10px;
+    top: -21px;
+}
+
+.avonni-progress-circle__title_size-medium {
+    font-size: 19px;
+}
+
+.avonni-progress-circle__title-top_size-medium {
+    font-size: 19px;
+    top: -39px;
+}
+
+.avonni-progress-circle__title_size-large {
+    font-size: 26px;
+}
+
+.avonni-progress-circle__title-top_size-large {
+    font-size: 26px;
+    top: -48px;
+}
+
+.avonni-progress-circle__title_size-x-large {
+    font-size: 30px;
+}
+
+.avonni-progress-circle__title-top_size-x-large {
+    font-size: 30px;
+    top: -52px;
+}
+
+.avonni-progress-circle_thickness-x-small {
+    left: 3px;
+    bottom: 3px;
+    top: 3px;
+    right: 3px;
+}
+
+.avonni-progress-circle_thickness-x-small-size-x-small {
+    left: 1px;
+    bottom: 1px;
+    top: 1px;
+    right: 1px;
+}
+
+.avonni-progress-circle_thickness-x-small-size-small {
+    left: 2px;
+    bottom: 2px;
+    top: 2px;
+    right: 2px;
+}
+
+.avonni-progress-circle_thickness-small {
+    left: 6px;
+    bottom: 6px;
+    top: 6px;
+    right: 6px;
+}
+
+.avonni-progress-circle_thickness-small-size-x-small {
+    left: 2px;
+    bottom: 2px;
+    top: 2px;
+    right: 2px;
+}
+
+.avonni-progress-circle_thickness-small-size-small {
+    left: 4px;
+    bottom: 4px;
+    top: 4px;
+    right: 4px;
+}
+
+.avonni-progress-circle_thickness-small-size-large {
+    left: 8px;
+    bottom: 8px;
+    top: 8px;
+    right: 8px;
+}
+
+.avonni-progress-circle_thickness-small-size-x-large {
+    left: 10px;
+    bottom: 10px;
+    top: 10px;
+    right: 10px;
+}
+
+.avonni-progress-circle_thickness-large {
+    left: 12px;
+    bottom: 12px;
+    top: 12px;
+    right: 12px;
+}
+
+.avonni-progress-circle_thickness-large-size-x-small {
+    left: 5px;
+    bottom: 5px;
+    top: 5px;
+    right: 5px;
+    font-size: 5px;
+}
+
+.avonni-progress-circle_thickness-large-size-small {
+    left: 7px;
+    bottom: 7px;
+    top: 7px;
+    right: 7px;
+}
+
+.avonni-progress-circle_thickness-large-size-large {
+    left: 16px;
+    bottom: 16px;
+    top: 16px;
+    right: 16px;
+}
+
+.avonni-progress-circle_thickness-large-size-x-large {
+    left: 20px;
+    bottom: 20px;
+    top: 20px;
+    right: 20px;
+}
+
+.avonni-progress-circle_thickness-x-large {
+    left: 15px;
+    bottom: 15px;
+    top: 15px;
+    right: 15px;
+}
+
+.avonni-progress-circle_thickness-x-large-size-x-small {
+    left: 6px;
+    bottom: 6px;
+    top: 6px;
+    right: 6px;
+    font-size: 4px;
+}
+
+.avonni-progress-circle_thickness-x-large-size-small {
+    left: 8px;
+    bottom: 8px;
+    top: 8px;
+    right: 8px;
+}
+
+.avonni-progress-circle_thickness-x-large-size-large {
+    left: 19px;
+    bottom: 19px;
+    top: 19px;
+    right: 19px;
+}
+
+.avonni-progress-circle_thickness-x-large-size-x-large {
+    left: 23px;
+    bottom: 23px;
+    top: 23px;
+    right: 23px;
+}
+
+.avonni-progress-circle__label {
+    color: var(--avonni-progress-circle-label-text-color, #706e6b);
+    font-style: var(--avonni-progress-circle-label-font-style, normal);
+    font-weight: var(--avonni-progress-circle-label-font-weight ,400);
+}
+
+.avonni-progress-circle__label_size-x-small {
+    font-size: 3px;
+}
+
+.avonni-progress-circle__label_size-small {
+    font-size: 5px;
+}
+
+.avonni-progress-circle__label_size-medium {
+    font-size: 12px;
+}
+
+.avonni-progress-circle__label_size-large {
+    font-size: 14px;
+}
+
+.avonni-progress-circle__label_size-x-large {
+    font-size: 16px;
+}

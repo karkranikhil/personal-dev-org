@@ -1,0 +1,184 @@
+<!--
+/**
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2021, Avonni Labs, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * - Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * - Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+-->
+
+<template>
+    <lightning-layout
+        vertical-align="center"
+        multiple-rows="true"
+        pull-to-boundary="small"
+        class="avonni-height_full"
+    >
+        <!-- Previous button -->
+        <lightning-layout-item
+            if:false={hidePreviousButton}
+            class={previousButtonColClass}
+        >
+            <lightning-button
+                icon-name={previousButtonIconName}
+                icon-position={previousButtonIconPosition}
+                label={previousButtonLabel}
+                variant={previousButtonVariant}
+                data-action="previous"
+                data-element-id="lightning-button-previous"
+                class="slds-m-right_xx-small slds-m-left_small"
+                onclick={handleButtonClick}
+            ></lightning-button>
+        </lightning-layout-item>
+
+        <!-- Indicator -->
+        <lightning-layout-item
+            flexibility="auto"
+            class={progressColClass}
+            padding="horizontal-small"
+        >
+            <template if:true={showIndicator}>
+                <!-- Progress indicator -->
+                <template if:true={showProgressIndicator}>
+                    <template if:false={sideNavigation}>
+                        <lightning-progress-indicator
+                            current-step={currentStep}
+                            has-error={currentStepHasError}
+                            type={progressIndicatorType}
+                            variant={progressIndicatorVariant}
+                            data-element-id="lightning-progress-indicator"
+                        >
+                            <template for:each={steps} for:item="step">
+                                <lightning-progress-step
+                                    key={step.name}
+                                    label={step.label}
+                                    value={step.name}
+                                ></lightning-progress-step>
+                            </template>
+                        </lightning-progress-indicator>
+                    </template>
+                    <template if:true={sideNavigation}>
+                        <c-avonni-vertical-progress-indicator
+                            current-step={currentStep}
+                            has-error={currentStepHasError}
+                            variant={progressIndicatorVariant}
+                            data-element-id="avonni-vertical-progress-indicator"
+                        >
+                            <template for:each={steps} for:item="step">
+                                <c-avonni-vertical-progress-step
+                                    key={step.name}
+                                    label={step.label}
+                                    value={step.name}
+                                ></c-avonni-vertical-progress-step>
+                            </template>
+                        </c-avonni-vertical-progress-indicator>
+                    </template>
+                </template>
+
+                <!-- Bullets -->
+                <template if:true={showBulletIndicator}>
+                    <ul
+                        class="slds-carousel__indicators slds-text-align_center slds-m-top_small"
+                        aria-label="Progress indicator"
+                    >
+                        <template for:each={_steps} for:item="step">
+                            <li key={step.name} class={carouselIndicatorClass}>
+                                <span
+                                    class={step.bulletClass}
+                                    title={step.label}
+                                    aria-selected={step.selected}
+                                    data-element-id="span-bullet"
+                                >
+                                    <span class="slds-assistive-text"
+                                        >{step.label}</span
+                                    >
+                                </span>
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+
+                <!-- Fraction indicator -->
+                <template if:true={showFractionIndicator}>
+                    <p class="fractions-indicator">
+                        {fractionPrefixLabel} {fractionCurrentStep}
+                        {fractionLabel} {fractionTotalSteps}
+                    </p>
+                </template>
+
+                <!-- Bar indicator -->
+                <template if:true={showBarIndicator}>
+                    <c-avonni-progress-bar
+                        value={progressBarValue}
+                        orientation={progressBarOrientation}
+                        thickness="large"
+                        data-element-id="avonni-progress-bar"
+                    ></c-avonni-progress-bar>
+                </template>
+            </template>
+        </lightning-layout-item>
+        <!-- Actions slot and Next/Finish buttons -->
+        <lightning-layout-item
+            class={actionsNextFinishButtonColClass}
+            if:false={sideNavigation}
+        >
+            <lightning-layout class="slds-m-right_small">
+                <lightning-layout-item class={actionsSlotColClass}>
+                    <slot></slot>
+                </lightning-layout-item>
+                <lightning-layout-item
+                    if:false={hideNextFinishButton}
+                    class={nextFinishButtonColClass}
+                >
+                    <lightning-button
+                        if:false={lastStep}
+                        icon-name={nextButtonIconName}
+                        icon-position={nextButtonIconPosition}
+                        label={nextButtonLabel}
+                        data-action="next"
+                        variant={nextButtonVariant}
+                        class="slds-m-left_xx-small"
+                        data-element-id="lightning-button-next"
+                        onclick={handleButtonClick}
+                    ></lightning-button>
+                    <lightning-button
+                        if:true={lastStep}
+                        icon-name={finishButtonIconName}
+                        icon-position={finishButtonIconPosition}
+                        data-action="finish"
+                        label={finishButtonLabel}
+                        variant={finishButtonVariant}
+                        data-element-id="lightning-button-last"
+                        class="slds-m-left_xx-small"
+                        onclick={handleButtonClick}
+                    ></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

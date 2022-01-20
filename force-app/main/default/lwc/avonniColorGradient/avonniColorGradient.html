@@ -1,0 +1,191 @@
+<!--
+/**
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2021, Avonni Labs, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * - Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * - Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+-->
+
+<template>
+    <div class="slds-color-picker__custom">
+        <div
+            class="slds-color-picker__custom-range"
+            onclick={handlerClickPalet}
+        >
+            <div
+                if:false={disabled}
+                class="slds-color-picker__range-indicator"
+                aria-live="assertive"
+                aria-atomic="true"
+                aria-describedby="color-picker-instructions"
+                onmousedown={handlerMouseDown}
+            ></div>
+        </div>
+        <div class="slds-color-picker__hue-and-preview">
+            <input
+                type="range"
+                class="slds-color-picker__hue-slider"
+                disabled={disabledInput}
+                min="0"
+                max="359"
+                value={colors.H}
+                data-element-id="input"
+                onblur={handleBlur}
+                onfocus={handleFocus}
+                oninput={handlerInput}
+            />
+            <span class="slds-swatch"></span>
+        </div>
+        <div
+            if:true={opacity}
+            class="slds-color-picker__hue-and-preview avonni-opacity"
+        >
+            <input
+                type="range"
+                class="slds-color-picker__hue-slider avonni-opacity-input"
+                disabled={disabledInput}
+                min="0"
+                max="1"
+                step="0.01"
+                value={colors.A}
+                data-element-id="input"
+                onblur={handleBlur}
+                onfocus={handleFocus}
+                oninput={handlerInputOpacity}
+            />
+        </div>
+        <div class="slds-color-picker__custom-inputs">
+            <div
+                if:true={opacity}
+                class="slds-form-element slds-color-picker__input-custom-hex"
+            >
+                <label class="slds-form-element__label">Hexa</label>
+                <div class="slds-form-element__control">
+                    <input
+                        type="text"
+                        class="slds-input"
+                        value={colorValue}
+                        disabled={disabledInput}
+                        data-element-id="input"
+                        onblur={handleBlur}
+                        onfocus={handleFocus}
+                        oninput={handleInputColor}
+                    />
+                </div>
+            </div>
+            <div
+                if:false={opacity}
+                class="slds-form-element slds-color-picker__input-custom-hex"
+            >
+                <label class="slds-form-element__label">Hex</label>
+                <div class="slds-form-element__control">
+                    <input
+                        type="text"
+                        class="slds-input"
+                        value={colors.hex}
+                        disabled={disabledInput}
+                        data-element-id="input"
+                        onblur={handleBlur}
+                        onfocus={handleFocus}
+                        oninput={handleInputColor}
+                    />
+                </div>
+            </div>
+            <div class="slds-form-element avonni-color-input">
+                <label class="slds-form-element__label">
+                    <abbr title="Red">R</abbr>
+                </label>
+                <div class="slds-form-element__control">
+                    <input
+                        type="text"
+                        class="slds-input"
+                        value={colors.R}
+                        disabled={disabledInput}
+                        data-element-id="input"
+                        onblur={handleBlur}
+                        onfocus={handleFocus}
+                        oninput={handleInputRed}
+                    />
+                </div>
+            </div>
+            <div class="slds-form-element avonni-color-input">
+                <label class="slds-form-element__label">
+                    <abbr title="Green">G</abbr>
+                </label>
+                <div class="slds-form-element__control">
+                    <input
+                        type="text"
+                        class="slds-input"
+                        value={colors.G}
+                        disabled={disabledInput}
+                        data-element-id="input"
+                        onblur={handleBlur}
+                        onfocus={handleFocus}
+                        oninput={handleInputGreen}
+                    />
+                </div>
+            </div>
+            <div class="slds-form-element avonni-color-input">
+                <label class="slds-form-element__label">
+                    <abbr title="blue">B</abbr>
+                </label>
+                <div class="slds-form-element__control">
+                    <input
+                        type="text"
+                        class="slds-input"
+                        value={colors.B}
+                        disabled={disabledInput}
+                        data-element-id="input"
+                        onblur={handleBlur}
+                        onfocus={handleFocus}
+                        oninput={handleInputBlue}
+                    />
+                </div>
+            </div>
+            <div if:true={opacity} class="slds-form-element avonni-color-input">
+                <label class="slds-form-element__label">
+                    <abbr title="alpha">A</abbr>
+                </label>
+                <div class="slds-form-element__control">
+                    <input
+                        type="text"
+                        class="slds-input"
+                        value={colors.A}
+                        disabled={disabledInput}
+                        data-element-id="input"
+                        onblur={handleBlur}
+                        onfocus={handleFocus}
+                        oninput={handleInputAlpha}
+                    />
+                </div>
+            </div>
+        </div>
+        <p if:true={showError} class="slds-form-error">{messageWhenBadInput}</p>
+    </div>
+</template>

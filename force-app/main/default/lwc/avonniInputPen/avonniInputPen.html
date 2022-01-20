@@ -1,0 +1,136 @@
+<!--
+/**
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2021, Avonni Labs, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * - Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * - Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+-->
+
+<template>
+    <div class="avonni-input-pen__label-container">
+        <label if:true={label} class="slds-form-element__label slds-no-flex">
+            <abbr if:true={required} title="required" class="slds-required"
+                >*</abbr
+            >
+            {label}
+        </label>
+        <lightning-helptext
+            if:true={fieldLevelHelp}
+            content={fieldLevelHelp}
+        ></lightning-helptext>
+    </div>
+    <div class="slds-form-element">
+        <div class="slds-form-element__control">
+            <div
+                class="
+                    slds-rich-text-editor slds-grid slds-grid_vertical
+                    slds-nowrap
+                "
+            >
+                <div
+                    if:false={hideControls}
+                    role="toolbar"
+                    class="slds-rich-text-editor__toolbar slds-shrink-none"
+                >
+                    <ul class="slds-button-group-list">
+                        <li if:true={showPen}>
+                            <lightning-button-icon
+                                icon-name="utility:edit"
+                                variant="border-filled"
+                                alternative-text="Draw"
+                                title="Draw"
+                                onclick={setDraw}
+                                disabled={disabled}
+                            ></lightning-button-icon>
+                        </li>
+                        <li if:true={showErase}>
+                            <lightning-button-icon
+                                icon-name="utility:close"
+                                variant="border-filled"
+                                alternative-text="Erase"
+                                title="Erase"
+                                onclick={setErase}
+                                disabled={disabled}
+                            ></lightning-button-icon>
+                        </li>
+                        <li if:true={showClear}>
+                            <lightning-button-icon
+                                icon-name="utility:delete"
+                                variant="border-filled"
+                                alternative-text="Clear"
+                                title="Clear"
+                                onclick={clear}
+                                disabled={disabled}
+                            ></lightning-button-icon>
+                        </li>
+                    </ul>
+                    <ul class="slds-button-group-list">
+                        <li if:true={showSize}>
+                            <lightning-combobox
+                                class="avonni-input-pen__combobox"
+                                name="size"
+                                label="Size"
+                                variant="label-hidden"
+                                dropdown-alignment="right"
+                                value={size}
+                                options={sizeList}
+                                onchange={handleSizeChange}
+                                disabled={disabled}
+                            >
+                            </lightning-combobox>
+                        </li>
+                    </ul>
+                    <ul class="slds-button-group-list">
+                        <li if:true={showColor}>
+                            <c-avonni-color-picker
+                                value={color}
+                                hide-color-input
+                                disabled={disabled}
+                                variant="label-hidden"
+                                onchange={handleColorChange}
+                            ></c-avonni-color-picker>
+                        </li>
+                    </ul>
+                </div>
+                <div
+                    class="slds-rich-text-editor__textarea slds-grid"
+                    onmousedown={handleMouseDown}
+                    onmouseenter={handleMouseEnter}
+                    onmouseleave={handleMouseLeave}
+                >
+                    <canvas data-element-id="canvas"></canvas>
+                    <div
+                        class="avonni-input-pen__cursor"
+                        data-element-id="input-pen-cursor"
+                    ></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

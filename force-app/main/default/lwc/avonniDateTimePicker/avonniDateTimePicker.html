@@ -1,0 +1,315 @@
+<!--
+/**
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2021, Avonni Labs, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * - Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * - Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+-->
+
+<template>
+    <!-- Input label -->
+    <p
+        class="slds-form-element__legend slds-form-element__label avonni-date-time-picker__label"
+        if:false={hideLabel}
+    >
+        <abbr
+            if:true={required}
+            title="required"
+            aria-label="required"
+            class="slds-required"
+            >*</abbr
+        >
+        {label}
+    </p>
+
+    <!-- Help text -->
+    <lightning-helptext
+        if:true={fieldLevelHelp}
+        content={fieldLevelHelp}
+        data-element-id="lightning-helptext"
+    ></lightning-helptext>
+
+    <lightning-layout multiple-rows="true" pull-to-boundary="small">
+        <!-- Current date range -->
+        <lightning-layout-item flexibility="auto" padding="horizontal-small">
+            <p
+                class="slds-text-heading_medium slds-m-bottom_small slds-grid slds-grid_vertical-align-center"
+            >
+                {currentDateRangeString}
+            </p>
+        </lightning-layout-item>
+
+        <!-- Time zone -->
+        <lightning-layout-item padding="horizontal-small" flexibility="auto">
+            <lightning-combobox
+                if:true={showTimeZone}
+                name="timezone"
+                label="Time zone"
+                value={selectedTimeZone}
+                placeholder="Select time zone"
+                options={timeZones}
+                variant="label-hidden"
+                class="slds-m-bottom_small avonni-date-time-picker__time-zone"
+                data-element-id="lightning-combobox"
+                onchange={handleTimeZoneChange}
+            ></lightning-combobox>
+        </lightning-layout-item>
+
+        <!-- Navigation -->
+        <lightning-layout-item
+            if:false={hideNavigation}
+            padding="horizontal-small"
+        >
+            <lightning-button-group class="slds-m-bottom_small">
+                <lightning-button-icon
+                    alternative-text="Previous dates"
+                    icon-name="utility:left"
+                    onclick={handlePrevNextClick}
+                    title="Previous dates"
+                    variant="border-filled"
+                    disabled={prevButtonIsDisabled}
+                    data-direction="previous"
+                    data-element-id="lightning-button-icon-previous"
+                ></lightning-button-icon>
+                <lightning-button
+                    label="Today"
+                    data-element-id="lightning-button-today"
+                    onclick={handleTodayClick}
+                ></lightning-button>
+                <lightning-button-icon
+                    alternative-text="Next dates"
+                    icon-name="utility:right"
+                    onclick={handlePrevNextClick}
+                    title="Next dates"
+                    variant="border-filled"
+                    disabled={nextButtonIsDisabled}
+                    data-direction="next"
+                    data-element-id="lightning-button-icon-next"
+                ></lightning-button-icon>
+            </lightning-button-group>
+        </lightning-layout-item>
+
+        <!-- Date picker -->
+        <lightning-layout-item
+            if:false={hideDatePicker}
+            padding="horizontal-small"
+        >
+            <lightning-input
+                label="Date"
+                name={name}
+                max={maxToString}
+                min={minToString}
+                type="date"
+                value={datePickerValue}
+                variant="label-hidden"
+                data-element-id="lightning-input"
+                onchange={handleDateChange}
+            ></lightning-input>
+        </lightning-layout-item>
+    </lightning-layout>
+
+    <template if:true={entirePeriodIsDisabled}>
+        <p if:false={isMonthly} data-element-id="p-empty-message">No available time slots for this period.</p>
+    </template>
+
+    <lightning-layout multiple-rows="true" pull-to-boundary="medium">
+        <template if:true={isMonthly}>
+            <lightning-layout-item padding="horizontal-medium">
+                <!-- Monthly calendar -->
+                <c-avonni-calendar
+                    value={firstWeekDayToString}
+                    disabled-dates={calendarDisabledDates}
+                    disabled={disabled}
+                    max={max}
+                    min={min}
+                    data-element-id="avonni-calendar"
+                    onchange={handleDateChange}
+                ></c-avonni-calendar>
+            </lightning-layout-item>
+        </template>
+
+        <lightning-layout-item flexibility="auto" padding="horizontal-medium">
+            <template if:true={entirePeriodIsDisabled}>
+                <p if:true={isMonthly} class="slds-text-align_right">
+                    No available time slots for this period.
+                </p>
+            </template>
+            <!-- Hour table -->
+            <div class="slds-grid">
+                <template for:each={table} for:item="day">
+                    <template if:true={day.show}>
+                        <div class={dayClass} key={day.key}>
+                            <!-- Day label -->
+                            <div
+                                if:true={day.label}
+                                aria-selected={day.selected}
+                                data-today={day.isToday}
+                                class="avonni-date-time-picker__day-label slds-p-around_medium"
+                                onblur={handleValueBlur}
+                                onfocus={handleValueFocus}
+                            >
+                                {day.label}
+                            </div>
+                            <!-- Hours -->
+                            <template for:each={day.times} for:item="time">
+                                <!-- Timeline variant -->
+                                <template if:true={isTimeline}>
+                                    <div
+                                        class="slds-grid avonni-date-time-picker__timeline"
+                                        key={time.hour}
+                                    >
+                                        <div
+                                            class="avonni-date-time-picker__timeline-hour-col slds-p-around_medium slds-text-align_center"
+                                        >
+                                            <lightning-formatted-date-time
+                                                value={time.hour}
+                                                time-zone={selectedTimeZone}
+                                                hour={timeFormatHour}
+                                                minute={timeFormatMinute}
+                                                second={timeFormatSecond}
+                                                hour12={timeFormatHour12}
+                                            ></lightning-formatted-date-time>
+                                        </div>
+                                        <div class="slds-col">
+                                            <div class="slds-grid slds-wrap">
+                                                <template
+                                                    for:each={time.times}
+                                                    for:item="timelineTime"
+                                                >
+                                                    <template
+                                                        if:true={timelineTime.show}
+                                                    >
+                                                        <div
+                                                            class="avonni-date-time-picker__time"
+                                                            key={timelineTime.startTimeISO}
+                                                        >
+                                                            <button
+                                                                aria-selected={timelineTime.selected}
+                                                                class="avonni-date-time-picker__time-button slds-p-around_medium slds-theme_default"
+                                                                disabled={timelineTime.disabled}
+                                                                type="button"
+                                                                onclick={handleTimeSlotClick}
+                                                                aria-readonly={readOnly}
+                                                                onblur={handleValueBlur}
+                                                                onfocus={handleValueFocus}
+                                                            >
+                                                                <lightning-formatted-date-time
+                                                                    value={timelineTime.startTimeISO}
+                                                                    time-zone={selectedTimeZone}
+                                                                    hour={timeFormatHour}
+                                                                    minute={timeFormatMinute}
+                                                                    second={timeFormatSecond}
+                                                                    hour12={timeFormatHour12}
+                                                                ></lightning-formatted-date-time>
+                                                                <template
+                                                                    if:true={showEndTime}
+                                                                >
+                                                                    &nbsp;-&nbsp;
+                                                                    <lightning-formatted-date-time
+                                                                        class="date-time-picker__formatted-end-time"
+                                                                        value={timelineTime.endTimeISO}
+                                                                        time-zone={selectedTimeZone}
+                                                                        hour={timeFormatHour}
+                                                                        minute={timeFormatMinute}
+                                                                        second={timeFormatSecond}
+                                                                        hour12={timeFormatHour12}
+                                                                    ></lightning-formatted-date-time>
+                                                                </template>
+                                                            </button>
+                                                        </div>
+                                                    </template>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+
+                                <!-- Default -->
+                                <template if:false={isTimeline}>
+                                    <template if:true={time.show}>
+                                        <div
+                                            class="avonni-date-time-picker__time"
+                                            key={time.startTimeISO}
+                                        >
+                                            <button
+                                                aria-selected={time.selected}
+                                                class="avonni-date-time-picker__time-button slds-p-around_medium slds-theme_default"
+                                                disabled={time.disabled}
+                                                type="button"
+                                                aria-readonly={readOnly}
+                                                data-element-id="button-default"
+                                                onclick={handleTimeSlotClick}
+                                                onblur={handleValueBlur}
+                                                onfocus={handleValueFocus}
+                                            >
+                                                <lightning-formatted-date-time
+                                                    value={time.startTimeISO}
+                                                    time-zone={selectedTimeZone}
+                                                    hour={timeFormatHour}
+                                                    minute={timeFormatMinute}
+                                                    second={timeFormatSecond}
+                                                    hour12={timeFormatHour12}
+                                                    data-element-id="lightning-formatted-date-time-default-start"
+                                                ></lightning-formatted-date-time>
+                                                <template if:true={showEndTime}>
+                                                    &nbsp;-&nbsp;
+                                                    <lightning-formatted-date-time
+                                                        class="date-time-picker__formatted-end-time"
+                                                        value={time.endTimeISO}
+                                                        time-zone={selectedTimeZone}
+                                                        hour={timeFormatHour}
+                                                        minute={timeFormatMinute}
+                                                        second={timeFormatSecond}
+                                                        hour12={timeFormatHour12}
+                                                        data-element-id="lightning-formatted-date-time-default-end"
+                                                    ></lightning-formatted-date-time>
+                                                </template>
+                                            </button>
+                                        </div>
+                                    </template>
+                                </template>
+                            </template>
+                        </div>
+                    </template>
+                </template>
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
+    <!-- Error message -->
+    <div class="slds-has-error" if:true={helpMessage}>
+        <div
+            id="help-message"
+            class="slds-form-element__help"
+            data-help-message
+            role="alert"
+        >
+            {helpMessage}
+        </div>
+    </div>
+</template>
