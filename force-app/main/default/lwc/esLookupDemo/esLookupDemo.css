@@ -1,0 +1,20 @@
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 5px; /* 5px rounded corners */
+  transition: 0.3s;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+lightning-input,
+c-es-lookup {
+  width: 100%;
+}

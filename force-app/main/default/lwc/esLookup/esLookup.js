@@ -8,15 +8,13 @@ import getRecentlyViewed from "@salesforce/apex/esLookupController.getRecentlyVi
 export default class EsLookup extends LightningElement {
   // Use alerts instead of toasts (LEX only) to notify user
   @api notifyViaAlerts = false;
-
-  isMultiEntry = false;
   maxSelectionSize = 2;
   initialSelection = [
     {
       id: "na",
       sObjectType: "na",
-      icon: "standard:lightning_component",
-      title: "Inital selection",
+      icon: "standard:contact",
+      title: "Random Contact",
       subtitle: "Not a valid record"
     }
   ];

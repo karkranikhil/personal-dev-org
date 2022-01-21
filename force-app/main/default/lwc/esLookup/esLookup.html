@@ -2,53 +2,43 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 01-20-2022
+  @last modified on  : 01-21-2022
   @last modified by  : ErickSixto
 -->
 <template>
-  <lightning-card title="Sample Lookup (Lightning Web Component)">
-    <div class="slds-form slds-form_stacked slds-var-m-around_xx-large">
-      <div class="lookup-container">
-        <c-lookup
-          selection={initialSelection}
-          errors={errors}
-          onsearch={handleLookupSearch}
-          onselectionchange={handleLookupSelectionChange}
-          label="Optional SKU"
-          placeholder="Search Records..."
-        >
-        </c-lookup>
-        <lightning-button-icon
-          class="icon-btn"
-          variant="bare"
-          size="small"
-          icon-name="utility:clear"
-          alternative-text="Reset"
-        ></lightning-button-icon>
-        <c-es-button-icon-popover
-          class="icon-btn"
-          variant="bare"
-          icon-name="utility:setup"
-          tooltip="Setup"
-          popover-size="small"
-          placement="auto"
-        >
-          <p slot="title" class="slds-text-heading_small">Setup Unique Field</p>
-          <lightning-input label="Unique Field" type="text"></lightning-input>
-          <lightning-input
-            label="Value"
-            type="text"
-            read-only
-          ></lightning-input>
-        </c-es-button-icon-popover>
-      </div>
-
-      <div class="slds-var-m-top_large">
-        <lightning-button
-          label="Clear"
-          onclick={handleClear}
-        ></lightning-button>
-      </div>
-    </div>
-  </lightning-card>
+  <div class="lookup-container">
+    <c-lookup
+      class="custom-lookup"
+      selection={initialSelection}
+      errors={errors}
+      onsearch={handleLookupSearch}
+      onselectionchange={handleLookupSelectionChange}
+      label="Optional SKU"
+      placeholder="Search Records..."
+    >
+    </c-lookup>
+    <lightning-button-icon
+      class="icon-btn"
+      variant="bare"
+      size="medium"
+      icon-name="utility:clear"
+      onclick={handleClear}
+      alternative-text="Reset"
+    ></lightning-button-icon>
+    <c-es-button-icon-popover
+      class="icon-btn"
+      variant="bare"
+      icon-name="utility:setup"
+      tooltip="Setup"
+      popover-size="small"
+      size="medium"
+      placement="auto"
+    >
+      <p slot="title" class="slds-text-heading_small">
+        <b>Setup Unique Field</b>
+      </p>
+      <lightning-input label="Unique Field" type="text"></lightning-input>
+      <lightning-input label="Value" type="text" read-only></lightning-input>
+    </c-es-button-icon-popover>
+  </div>
 </template>

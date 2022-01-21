@@ -1,0 +1,43 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 01-21-2022
+  @last modified by  : ErickSixto
+-->
+<template>
+  <article class="card">
+    <div class="container">
+      <lightning-input
+        type="text"
+        variant="standard"
+        name="recordId"
+        label="Record Id"
+        placeholder=""
+      ></lightning-input>
+      <lightning-input
+        type="text"
+        variant="standard"
+        name="object"
+        label="Object"
+        placeholder="SObject Apiname"
+      ></lightning-input>
+      <lightning-input
+        type="text"
+        variant="standard"
+        name="uniquefield"
+        label="Unique Field Apiname"
+      ></lightning-input>
+      <lightning-input
+        type="text"
+        variant="standard"
+        name="value"
+        label="Unique Field Value"
+        read-only
+      ></lightning-input>
+    </div>
+    <div class="container">
+      <c-es-lookup></c-es-lookup>
+    </div>
+  </article>
+</template>
