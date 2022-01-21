@@ -1,3 +1,10 @@
+/**
+ * @description       :
+ * @author            : ErickSixto
+ * @group             :
+ * @last modified on  : 01-21-2022
+ * @last modified by  : ErickSixto
+ **/
 import { LightningElement, api, wire } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
@@ -6,24 +13,53 @@ import search from "@salesforce/apex/esLookupController.search";
 import getRecentlyViewed from "@salesforce/apex/esLookupController.getRecentlyViewed";
 
 export default class EsLookup extends LightningElement {
-  // Use alerts instead of toasts (LEX only) to notify user
-  @api notifyViaAlerts = false;
-  maxSelectionSize = 2;
-  initialSelection = [
-    {
-      id: "na",
-      sObjectType: "na",
-      icon: "standard:contact",
-      title: "Random Contact",
-      subtitle: "Not a valid record"
-    }
-  ];
+  //* ---------------------------- VARIABLES ------------------------------------------------//
+  recordId = null;
+  sobject = "";
+  uniqueField = "";
+  uniqueFieldValue = "";
+  icon = "standard:default";
   errors = [];
   recentlyViewed = [];
+  initialSelection = [
+    {
+      id: this.recordId,
+      sObjectType: this.sobject,
+      icon: this.icon,
+      title: "Passed Record",
+      subtitle: this.sobject
+    }
+  ];
 
-  /**
-   * Loads recently viewed records and set them as default lookpup search results (optional)
-   */
+  //* ---------------------------- GETTERS AND SETTERS ---------------------------------------//
+  @api
+  get lookupData() {
+    return {
+      recordId: this.recordId,
+      sobject: this.sobject,
+      uniqueField: this.uniqueField,
+      uniqueFieldValue: this.uniqueFieldValue
+    };
+  }
+  set lookupData(data) {
+    console.log("Received Data", JSON.parse(JSON.stringify(data)));
+    this.recordId = data.recordId;
+    this.sobject = data.sobject;
+    this.uniqueField = data.uniqueField;
+    this.uniqueFieldValue = data.uniqueFieldValue;
+    this.icon =
+      "standard:" + data.sobject.includes("__c")
+        ? "default"
+        : data.sobject.toLowerCase();
+  }
+
+  //* ---------------------------- LIFE CYCLE ----------------------------------------------//
+  connectedCallback() {
+    this.initLookupDefaultResults();
+  }
+
+  //* ---------------------------- BACKEND CALLS ------------------------------------------//
+
   @wire(getRecentlyViewed)
   getRecentlyViewed({ data }) {
     if (data) {
@@ -32,13 +68,11 @@ export default class EsLookup extends LightningElement {
     }
   }
 
-  connectedCallback() {
-    this.initLookupDefaultResults();
-  }
+  //* ---------------------------- LOOKUP METHODS ------------------------------------------//
 
-  /**
-   * Initializes the lookup default results with a list of recently viewed records (optional)
-   */
+  // Loads recently viewed records and set them as default lookpup search results (optional)
+
+  //Initializes the lookup default results with a list of recently viewed records (optional)
   initLookupDefaultResults() {
     // Make sure that the lookup is present and if so, set its default results
     const lookup = this.template.querySelector("c-lookup");
@@ -95,30 +129,19 @@ export default class EsLookup extends LightningElement {
     this.errors = [];
   }
 
+  //* ---------------------------- UTILITY METHODS ------------------------------------------//
+
   checkForErrors() {
     this.errors = [];
     const selection = this.template.querySelector("c-lookup").getSelection();
-    // Custom validation rule
-    if (this.isMultiEntry && selection.length > this.maxSelectionSize) {
-      this.errors.push({
-        message: `You may only select up to ${this.maxSelectionSize} items.`
-      });
-    }
-    // // Enforcing required field
-    // if (selection.length === 0) {
-    //   this.errors.push({ message: "Please make a selection." });
-    // }
+    //TODO Error Handling
+    this.errors.push({
+      message: `Error Test`
+    });
   }
 
   notifyUser(title, message, variant) {
-    if (this.notifyViaAlerts) {
-      // Notify via alert
-      // eslint-disable-next-line no-alert
-      alert(`${title}\n${message}`);
-    } else {
-      // Notify via toast (only works in LEX)
-      const toastEvent = new ShowToastEvent({ title, message, variant });
-      this.dispatchEvent(toastEvent);
-    }
+    const toastEvent = new ShowToastEvent({ title, message, variant });
+    this.dispatchEvent(toastEvent);
   }
 }

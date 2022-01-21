@@ -17,28 +17,30 @@
       placeholder="Search Records..."
     >
     </c-lookup>
-    <lightning-button-icon
-      class="icon-btn"
-      variant="bare"
-      size="medium"
-      icon-name="utility:clear"
-      onclick={handleClear}
-      alternative-text="Reset"
-    ></lightning-button-icon>
-    <c-es-button-icon-popover
-      class="icon-btn"
-      variant="bare"
-      icon-name="utility:setup"
-      tooltip="Setup"
-      popover-size="small"
-      size="medium"
-      placement="auto"
-    >
-      <p slot="title" class="slds-text-heading_small">
-        <b>Setup Unique Field</b>
-      </p>
-      <lightning-input label="Unique Field" type="text"></lightning-input>
-      <lightning-input label="Value" type="text" read-only></lightning-input>
-    </c-es-button-icon-popover>
+    <div class="icon-btn-container">
+      <lightning-button-icon
+        class="icon-btn"
+        variant="bare"
+        size="medium"
+        icon-name="utility:clear"
+        onclick={handleClear}
+        alternative-text="Reset"
+      ></lightning-button-icon>
+      <c-es-button-icon-popover
+        class="icon-btn"
+        variant="bare"
+        icon-name="utility:setup"
+        tooltip="Setup"
+        popover-size="small"
+        size="medium"
+        placement="auto"
+      >
+        <p slot="title" class="slds-text-heading_small">
+          <b>Setup Unique Field</b>
+        </p>
+        <lightning-input label="Unique Field" type="text"></lightning-input>
+        <lightning-input label="Value" type="text" read-only></lightning-input>
+      </c-es-button-icon-popover>
+    </div>
   </div>
 </template>
