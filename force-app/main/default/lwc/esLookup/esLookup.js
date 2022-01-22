@@ -60,7 +60,7 @@ export default class EsLookup extends LightningElement {
 
   //* ---------------------------- BACKEND CALLS ------------------------------------------//
 
-  @wire(getRecentlyViewed, { objectApiName: this.sobject })
+  @wire(getRecentlyViewed, { objectApiName: "$sobject" })
   getRecentlyViewed({ data }) {
     if (data) {
       this.recentlyViewed = data.map((record) => ({
@@ -79,6 +79,7 @@ export default class EsLookup extends LightningElement {
       let iconUrl = this.themeInfo.iconUrl || null;
       console.log("Theme Info", JSON.parse(JSON.stringify(this.themeInfo)));
       this.setIconName(iconUrl);
+      this.initLookupDefaultResults();
     }
     if (error) {
       //TODO error handling
@@ -94,7 +95,11 @@ export default class EsLookup extends LightningElement {
     // Make sure that the lookup is present and if so, set its default results
     const lookup = this.template.querySelector("c-lookup");
     if (lookup) {
-      lookup.setDefaultResults(this.recentlyViewed);
+      let records = this.recentlyViewed.map((record) => ({
+        ...record,
+        icon: this.icon
+      }));
+      lookup.setDefaultResults(records);
     }
   }
 
