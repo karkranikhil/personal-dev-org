@@ -2,107 +2,81 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 01-20-2022
+ * @last modified on  : 01-21-2022
  * @last modified by  : ErickSixto
  **/
 public with sharing class esLookupController {
+  //* ---------------------------- VARIABLES ------------------------------------------------//
   private final static Integer MAX_RESULTS = 5;
+
+  //* ---------------------------- UI METHODS ---------------------------------------//
 
   @AuraEnabled(Cacheable=true)
   public static List<LookupSearchResult> search(
     String searchTerm,
-    List<String> selectedIds
+    List<String> selectedIds,
+    String objectApiName
   ) {
-    // Prepare query paramters
-    searchTerm += '*';
+    if (!isObjectExist(objectApiName)) {
+      throw new AuraHandledException('Not a valid SObject');
+    }
 
-    // Execute search query
-    List<List<SObject>> searchResults = [
-      FIND :searchTerm
-      IN ALL FIELDS
-      RETURNING
-        Account(Id, Name, BillingCity WHERE id NOT IN :selectedIds),
-        Opportunity(Id, Name, StageName WHERE id NOT IN :selectedIds)
-      LIMIT :MAX_RESULTS
-    ];
-
-    // Prepare results
     List<LookupSearchResult> results = new List<LookupSearchResult>();
+    String wildSearchTerm = '%' + String.escapeSingleQuotes(searchTerm) + '%';
+    String queryTemplate =
+      'SELECT Id, Name FROM ' +
+      objectApiName +
+      ' WHERE Name LIKE:wildSearchTerm ORDER BY Name DESC LIMIT :MAX_RESULTS';
 
-    // Extract Accounts & convert them into LookupSearchResult
-    String accountIcon = 'standard:account';
-    Account[] accounts = (List<Account>) searchResults[0];
-    for (Account account : accounts) {
-      String subtitle = account.BillingCity == null
-        ? 'Account'
-        : 'Account • ' + account.BillingCity;
+    List<SObject> records = Database.query(queryTemplate);
+    // Prepare results
+    for (SObject record : records) {
       results.add(
         new LookupSearchResult(
-          account.Id,
-          'Account',
-          accountIcon,
-          account.Name,
-          subtitle
+          record.Id,
+          objectApiName,
+          '',
+          (String) record.get('Name'),
+          objectApiName
         )
       );
     }
-
-    // Extract Opportunities & convert them into LookupSearchResult
-    String opptyIcon = 'standard:opportunity';
-    Opportunity[] opptys = (List<Opportunity>) searchResults[1];
-    for (Opportunity oppty : opptys) {
-      results.add(
-        new LookupSearchResult(
-          oppty.Id,
-          'Opportunity',
-          opptyIcon,
-          oppty.Name,
-          'Opportunity • ' + oppty.StageName
-        )
-      );
-    }
-
-    // Optionnaly sort all results on title
     results.sort();
-
     return results;
   }
 
   @AuraEnabled(Cacheable=true)
-  public static List<LookupSearchResult> getRecentlyViewed() {
+  public static List<LookupSearchResult> getRecentlyViewed(
+    String objectApiName
+  ) {
     List<LookupSearchResult> results = new List<LookupSearchResult>();
-    // Get recently viewed records of type Account or Opportunity
-    List<RecentlyViewed> recentRecords = [
-      SELECT Id, Name, Type
-      FROM RecentlyViewed
-      WHERE Type = 'Account' OR Type = 'Opportunity'
-      ORDER BY LastViewedDate DESC
-      LIMIT 5
-    ];
+    if (!isObjectExist(objectApiName)) {
+      throw new AuraHandledException('Not a valid SObject');
+    }
+    // Get recently viewed records for the selected Object
+    List<RecentlyViewed> recentRecords = [SELECT Id, Name FROM RecentlyViewed WHERE Type = :objectApiName ORDER BY LastViewedDate DESC LIMIT : MAX_RESULTS];
     // Convert recent records into LookupSearchResult
     for (RecentlyViewed recentRecord : recentRecords) {
-      if (recentRecord.Type == 'Account') {
-        results.add(
-          new LookupSearchResult(
-            recentRecord.Id,
-            'Account',
-            'standard:account',
-            recentRecord.Name,
-            'Account • ' + recentRecord.Name
-          )
-        );
-      } else {
-        results.add(
-          new LookupSearchResult(
-            recentRecord.Id,
-            'Opportunity',
-            'standard:opportunity',
-            recentRecord.Name,
-            'Opportunity • ' + recentRecord.Name
-          )
-        );
-      }
+      results.add(
+        new LookupSearchResult(
+          recentRecord.Id,
+          objectApiName,
+          '',
+          recentRecord.Name,
+          objectApiName
+        )
+      );
     }
     return results;
+  }
+
+  //* ---------------------------- UTILITY METHODS ------------------------------------------//
+
+  private static boolean isObjectExist(String objectApiName) {
+    Type objName = Type.forName(objectApiName);
+    if (objName != null) {
+      return true;
+    }
+    return false;
   }
 }

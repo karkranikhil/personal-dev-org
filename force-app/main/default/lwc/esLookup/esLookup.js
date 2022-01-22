@@ -7,29 +7,32 @@
  **/
 import { LightningElement, api, wire } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
-
+import { getObjectInfo } from "lightning/uiObjectInfoApi";
 /** Apex methods from EsLookupController */
 import search from "@salesforce/apex/esLookupController.search";
 import getRecentlyViewed from "@salesforce/apex/esLookupController.getRecentlyViewed";
 
+const DEFAULT_ICON = "standard:default";
 export default class EsLookup extends LightningElement {
   //* ---------------------------- VARIABLES ------------------------------------------------//
   recordId = null;
   sobject = "";
   uniqueField = "";
   uniqueFieldValue = "";
-  icon = "standard:default";
+  icon = DEFAULT_ICON;
+  objectInformation;
   errors = [];
   recentlyViewed = [];
-  initialSelection = [
-    {
-      id: this.recordId,
-      sObjectType: this.sobject,
-      icon: this.icon,
-      title: "Passed Record",
-      subtitle: this.sobject
-    }
-  ];
+  initialSelection = null;
+  // initialSelection = [
+  //   {
+  //     id: this.recordId,
+  //     sObjectType: this.sobject,
+  //     icon: this.icon,
+  //     title: "Passed Record",
+  //     subtitle: this.sobject
+  //   }
+  // ];
 
   //* ---------------------------- GETTERS AND SETTERS ---------------------------------------//
   @api
@@ -47,24 +50,38 @@ export default class EsLookup extends LightningElement {
     this.sobject = data.sobject;
     this.uniqueField = data.uniqueField;
     this.uniqueFieldValue = data.uniqueFieldValue;
-    this.icon =
-      "standard:" + data.sobject.includes("__c")
-        ? "default"
-        : data.sobject.toLowerCase();
   }
 
   //* ---------------------------- LIFE CYCLE ----------------------------------------------//
   connectedCallback() {
     this.initLookupDefaultResults();
+    console.log("Recently Viewed", this.recentlyViewed);
   }
 
   //* ---------------------------- BACKEND CALLS ------------------------------------------//
 
-  @wire(getRecentlyViewed)
+  @wire(getRecentlyViewed, { objectApiName: this.sobject })
   getRecentlyViewed({ data }) {
     if (data) {
-      this.recentlyViewed = data;
+      this.recentlyViewed = data.map((record) => ({
+        ...record,
+        icon: this.icon
+      }));
       this.initLookupDefaultResults();
+    }
+  }
+
+  @wire(getObjectInfo, { objectApiName: "$sobject" })
+  handleResult({ error, data }) {
+    if (data) {
+      this.objectInformation = data;
+      this.themeInfo = data.themeInfo || null;
+      let iconUrl = this.themeInfo.iconUrl || null;
+      console.log("Theme Info", JSON.parse(JSON.stringify(this.themeInfo)));
+      this.setIconName(iconUrl);
+    }
+    if (error) {
+      //TODO error handling
     }
   }
 
@@ -88,10 +105,13 @@ export default class EsLookup extends LightningElement {
    */
   handleLookupSearch(event) {
     const lookupElement = event.target;
+    console.log(JSON.parse(JSON.stringify(event.detail)));
     // Call Apex endpoint to search for records and pass results to the lookup
-    search(event.detail)
+    search({ ...event.detail, objectApiName: this.sobject })
       .then((results) => {
-        lookupElement.setSearchResults(results);
+        let records = results.map((record) => ({ ...record, icon: this.icon }));
+        console.log(records);
+        lookupElement.setSearchResults(records);
       })
       .catch((error) => {
         this.notifyUser(
@@ -135,13 +155,29 @@ export default class EsLookup extends LightningElement {
     this.errors = [];
     const selection = this.template.querySelector("c-lookup").getSelection();
     //TODO Error Handling
-    this.errors.push({
-      message: `Error Test`
-    });
+    // this.errors.push({
+    //   message: `Error Message`
+    // });
   }
 
   notifyUser(title, message, variant) {
     const toastEvent = new ShowToastEvent({ title, message, variant });
     this.dispatchEvent(toastEvent);
+  }
+
+  setIconName(iconUrl) {
+    if (iconUrl) {
+      let array = iconUrl.split("/");
+      let iconName =
+        array[array.length - 2] +
+        ":" +
+        array[array.length - 1].substring(
+          0,
+          array[array.length - 1].lastIndexOf("_")
+        );
+      this.icon = iconName;
+    } else {
+      this.icon = DEFAULT_ICON;
+    }
   }
 }

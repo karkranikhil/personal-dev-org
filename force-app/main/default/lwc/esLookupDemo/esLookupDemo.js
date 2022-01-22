@@ -2,8 +2,8 @@ import { LightningElement } from "lwc";
 
 export default class EsLookupDemo extends LightningElement {
   data = {
-    recordId: "0015f00000DlcuSAAR",
-    sobject: "Contact",
+    recordId: "",
+    sobject: "Account",
     uniqueField: "SSN__c",
     uniqueFieldValue: ""
   };
