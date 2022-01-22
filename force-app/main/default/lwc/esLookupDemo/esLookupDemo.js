@@ -3,7 +3,7 @@ import { LightningElement } from "lwc";
 export default class EsLookupDemo extends LightningElement {
   data = {
     recordId: "",
-    sobject: "Account",
+    sobject: "Task",
     uniqueField: "SSN__c",
     uniqueFieldValue: ""
   };
@@ -14,6 +14,5 @@ export default class EsLookupDemo extends LightningElement {
     let copy = { ...this.data };
     copy[name] = value;
     this.data = { ...copy };
-    console.log(this.data);
   }
 }

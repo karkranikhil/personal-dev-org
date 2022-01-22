@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 01-21-2022
+ * @last modified on  : 01-22-2022
  * @last modified by  : ErickSixto
  **/
 public with sharing class esLookupController {
@@ -22,11 +22,19 @@ public with sharing class esLookupController {
     }
 
     List<LookupSearchResult> results = new List<LookupSearchResult>();
+    String nameField = getNameField(objectApiName);
+
     String wildSearchTerm = '%' + String.escapeSingleQuotes(searchTerm) + '%';
     String queryTemplate =
-      'SELECT Id, Name FROM ' +
+      'SELECT Id, ' +
+      nameField +
+      ' FROM ' +
       objectApiName +
-      ' WHERE Name LIKE:wildSearchTerm ORDER BY Name DESC LIMIT :MAX_RESULTS';
+      ' WHERE ' +
+      nameField +
+      ' LIKE:wildSearchTerm ORDER BY ' +
+      nameField +
+      ' DESC LIMIT :MAX_RESULTS';
 
     List<SObject> records = Database.query(queryTemplate);
     // Prepare results
@@ -36,7 +44,7 @@ public with sharing class esLookupController {
           record.Id,
           objectApiName,
           '',
-          (String) record.get('Name'),
+          (String) record.get(nameField),
           objectApiName
         )
       );
@@ -54,7 +62,13 @@ public with sharing class esLookupController {
       throw new AuraHandledException('Not a valid SObject');
     }
     // Get recently viewed records for the selected Object
-    List<RecentlyViewed> recentRecords = [SELECT Id, Name FROM RecentlyViewed WHERE Type = :objectApiName ORDER BY LastViewedDate DESC LIMIT : MAX_RESULTS];
+    List<RecentlyViewed> recentRecords = [
+      SELECT Id, Name
+      FROM RecentlyViewed
+      WHERE Type = :objectApiName
+      ORDER BY LastViewedDate DESC
+      LIMIT :MAX_RESULTS
+    ];
     // Convert recent records into LookupSearchResult
     for (RecentlyViewed recentRecord : recentRecords) {
       results.add(
@@ -72,11 +86,23 @@ public with sharing class esLookupController {
 
   //* ---------------------------- UTILITY METHODS ------------------------------------------//
 
-  private static boolean isObjectExist(String objectApiName) {
+  private static Boolean isObjectExist(String objectApiName) {
     Type objName = Type.forName(objectApiName);
     if (objName != null) {
       return true;
     }
     return false;
+  }
+
+  private static String getNameField(String objectApiName) {
+    return [
+      SELECT QualifiedApiName
+      FROM FieldDefinition
+      WHERE
+        EntityDefinition.QualifiedApiName = :objectApiName
+        AND IsNameField = TRUE
+      LIMIT 1
+    ]
+    .QualifiedApiName;
   }
 }

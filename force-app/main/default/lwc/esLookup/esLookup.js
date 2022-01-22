@@ -1,13 +1,15 @@
 /**
- * @description       :
+ * @description       : Custom Lookup - Wont work for certain objects like 'Task, Event, ...'
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 01-21-2022
+ * @last modified on  : 01-22-2022
  * @last modified by  : ErickSixto
  **/
 import { LightningElement, api, wire } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
+import { refreshApex } from "@salesforce/apex";
+
 /** Apex methods from EsLookupController */
 import search from "@salesforce/apex/esLookupController.search";
 import getRecentlyViewed from "@salesforce/apex/esLookupController.getRecentlyViewed";
@@ -45,7 +47,6 @@ export default class EsLookup extends LightningElement {
     };
   }
   set lookupData(data) {
-    console.log("Received Data", JSON.parse(JSON.stringify(data)));
     this.recordId = data.recordId;
     this.sobject = data.sobject;
     this.uniqueField = data.uniqueField;
@@ -55,7 +56,6 @@ export default class EsLookup extends LightningElement {
   //* ---------------------------- LIFE CYCLE ----------------------------------------------//
   connectedCallback() {
     this.initLookupDefaultResults();
-    console.log("Recently Viewed", this.recentlyViewed);
   }
 
   //* ---------------------------- BACKEND CALLS ------------------------------------------//
@@ -67,6 +67,10 @@ export default class EsLookup extends LightningElement {
         ...record,
         icon: this.icon
       }));
+      console.log(
+        "Recently Viewed Wire",
+        JSON.parse(JSON.stringify(this.recentlyViewed))
+      );
       this.initLookupDefaultResults();
     }
   }
@@ -77,6 +81,10 @@ export default class EsLookup extends LightningElement {
       this.objectInformation = data;
       this.themeInfo = data.themeInfo || null;
       let iconUrl = this.themeInfo.iconUrl || null;
+      console.log(
+        "Object Info",
+        JSON.parse(JSON.stringify(this.objectInformation))
+      );
       console.log("Theme Info", JSON.parse(JSON.stringify(this.themeInfo)));
       this.setIconName(iconUrl);
       this.initLookupDefaultResults();
@@ -88,10 +96,9 @@ export default class EsLookup extends LightningElement {
 
   //* ---------------------------- LOOKUP METHODS ------------------------------------------//
 
-  // Loads recently viewed records and set them as default lookpup search results (optional)
-
   //Initializes the lookup default results with a list of recently viewed records (optional)
   initLookupDefaultResults() {
+    console.log("INIT DEFAULT RESULTS");
     // Make sure that the lookup is present and if so, set its default results
     const lookup = this.template.querySelector("c-lookup");
     if (lookup) {
@@ -99,7 +106,8 @@ export default class EsLookup extends LightningElement {
         ...record,
         icon: this.icon
       }));
-      lookup.setDefaultResults(records);
+      lookup.setSearchResults(records);
+      //lookup.setDefaultResults(records);
     }
   }
 
@@ -115,7 +123,6 @@ export default class EsLookup extends LightningElement {
     search({ ...event.detail, objectApiName: this.sobject })
       .then((results) => {
         let records = results.map((record) => ({ ...record, icon: this.icon }));
-        console.log(records);
         lookupElement.setSearchResults(records);
       })
       .catch((error) => {
