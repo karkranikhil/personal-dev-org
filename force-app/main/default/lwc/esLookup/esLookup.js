@@ -91,7 +91,10 @@ export default class EsLookup extends LightningElement {
       this.initLookupDefaultResults();
     }
     if (error) {
-      //TODO error handling
+      console.log(error);
+      if (error.body.errorCode === "INVALID_TYPE") {
+        this.icon = DEFAULT_ICON;
+      }
     }
   }
 
@@ -99,9 +102,8 @@ export default class EsLookup extends LightningElement {
 
   //Initializes the lookup default results with a list of recently viewed records (optional)
   initLookupDefaultResults() {
-    console.log("INIT DEFAULT RESULTS");
     // Make sure that the lookup is present and if so, set its default results
-    const lookup = this.template.querySelector("c-lookup");
+    const lookup = this.template.querySelector("c-lookup.record-lookup");
     if (lookup) {
       let records = this.recentlyViewed.map((record) => ({
         ...record,
@@ -127,14 +129,12 @@ export default class EsLookup extends LightningElement {
         lookupElement.setSearchResults(records);
       })
       .catch((error) => {
-        this.notifyUser(
-          "Lookup Error",
-          "An error occured while searching with the lookup field.",
-          "error"
-        );
+        this.notifyUser("Lookup Error", error.body.message, "error");
         // eslint-disable-next-line no-console
         console.error("Lookup error", JSON.stringify(error));
-        this.errors = [error];
+        this.errors.push({
+          message: error.body.message
+        });
       });
   }
   /**
@@ -152,14 +152,12 @@ export default class EsLookup extends LightningElement {
         lookupElement.setSearchResults(options);
       })
       .catch((error) => {
-        this.notifyUser(
-          "Lookup Error",
-          "An error occured while searching with the lookup field.",
-          "error"
-        );
+        this.notifyUser("Lookup Error", error.body.message, "error");
         // eslint-disable-next-line no-console
         console.error("Lookup error", JSON.stringify(error));
-        this.errors = [error];
+        this.errors.push({
+          message: error.body.message
+        });
       });
   }
 
@@ -169,17 +167,23 @@ export default class EsLookup extends LightningElement {
    * The event contains the list of selected ids.
    */
   // eslint-disable-next-line no-unused-vars
-  handleLookupSelectionChange(event) {
-    this.checkForErrors();
+  handleObjectSelectionChange(event) {
+    const selection = event.target.getSelection();
+    this.sobject = selection[0].sObjectType;
   }
-
-  // All functions below are part of the sample app form (not required by the lookup).
-
-  handleSubmit() {
+  handleLookupSelectionChange(event) {
+    const selection = event.target.getSelection()[0];
     this.checkForErrors();
-    if (this.errors.length === 0) {
-      this.notifyUser("Success", "The form was submitted.", "success");
-    }
+    console.log(JSON.parse(JSON.stringify(selection)));
+    const selectEvent = new CustomEvent("selected", {
+      detail: {
+        recordId: selection.id,
+        sobject: selection.sObjectType,
+        uniqueField: "Test",
+        uniqueFieldValue: ""
+      }
+    });
+    this.dispatchEvent(selectEvent);
   }
 
   handleClear() {
@@ -189,20 +193,25 @@ export default class EsLookup extends LightningElement {
 
   //* ---------------------------- UTILITY METHODS ------------------------------------------//
 
+  //*Sets errors based on selection (not used but you can add your scenarios)
   checkForErrors() {
     this.errors = [];
-    const selection = this.template.querySelector("c-lookup").getSelection();
-    //TODO Error Handling
+    const selection = this.template
+      .querySelector("c-lookup.record-lookup")
+      .getSelection();
+    //TODO Error Handling: Here you can type your custom error scenarios - ErickSixto
     // this.errors.push({
     //   message: `Error Message`
     // });
   }
 
+  //*Shows a toast with passed parameters
   notifyUser(title, message, variant) {
     const toastEvent = new ShowToastEvent({ title, message, variant });
     this.dispatchEvent(toastEvent);
   }
 
+  //* Sets the SLDS iconname from the iconURL
   setIconName(iconUrl) {
     if (iconUrl) {
       let array = iconUrl.split("/");

@@ -44,7 +44,10 @@
       ></lightning-input>
     </div>
     <div class="container">
-      <c-es-lookup lookup-data={data}></c-es-lookup>
+      <c-es-lookup
+        lookup-data={data}
+        onselected={handleSelection}
+      ></c-es-lookup>
     </div>
   </article>
 </template>

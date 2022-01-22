@@ -8,7 +8,8 @@
 <template>
   <div class="lookup-container">
     <c-lookup
-      class="custom-lookup"
+      if:false={sobject}
+      class="custom-lookup object-lookup"
       errors={errors}
       onsearch={handleObjectSearch}
       onselectionchange={handleObjectSelectionChange}
@@ -17,7 +18,8 @@
     >
     </c-lookup>
     <c-lookup
-      class="custom-lookup"
+      if:true={sobject}
+      class="custom-lookup record-lookup"
       errors={errors}
       onsearch={handleLookupSearch}
       onselectionchange={handleLookupSelectionChange}
