@@ -187,6 +187,10 @@ export default class EsLookup extends LightningElement {
   }
 
   handleClear() {
+    this.recordId = null;
+    this.sobject = null;
+    this.uniqueField = null;
+    this.uniqueFieldValue = null;
     this.initialSelection = [];
     this.errors = [];
   }

@@ -151,26 +151,26 @@ public with sharing class esLookupController {
     for (Schema.DescribeTabResult tr : tabDesc) {
       if (sObjectName == tr.getSobjectName()) {
         if (tr.isCustom() == true) {
-          iconDesc.addAll(tr.getIcons());
+          u = 'standard:default';
         } else {
           u = 'standard:' + sObjectName.toLowerCase();
-          return u;
         }
       }
     }
-    if (iconDesc.size() > 0) {
-      for (Schema.DescribeIconResult ir : iconDesc) {
-        if (ir.getContentType() == 'image/svg+xml') {
-          u =
-            'custom:' +
-            ir.getUrl()
-              .substringBetween('custom/', '.svg')
-              .substringBefore('_');
-          break;
-        }
-      }
-      return u;
-    }
-    return 'standard:default';
+    return u;
+    //! Logic to get the custom icons (DOES NOT WORK WITH ALL CUSTOM ICONS)
+    // if (iconDesc.size() > 0) {
+    //   for (Schema.DescribeIconResult ir : iconDesc) {
+    //     if (ir.getContentType() == 'image/svg+xml') {
+    //       u =
+    //         'custom:' +
+    //         ir.getUrl()
+    //           .substringBetween('custom/', '.svg')
+    //           .substringBefore('_');
+    //       break;
+    //     }
+    //   }
+    //   return u;
+    // }
   }
 }
