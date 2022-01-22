@@ -83,6 +83,38 @@ public with sharing class esLookupController {
     }
     return results;
   }
+  @AuraEnabled(Cacheable=true)
+  public static List<LookupSearchResult> getObjectOptions(String searchTerm) {
+    List<LookupSearchResult> results = new List<LookupSearchResult>();
+    String wildSearchTerm = '%' + String.escapeSingleQuotes(searchTerm) + '%';
+    // Get recently viewed records for the selected Object
+    List<EntityDefinition> objectOptions = [
+      SELECT Label, QualifiedApiName
+      FROM EntityDefinition
+      WHERE
+        Label LIKE :wildSearchTerm
+        AND isQueryable = TRUE
+        AND IsRetrieveable = TRUE
+        AND IsSearchable = TRUE
+        AND IsTriggerable = TRUE
+        AND IsApexTriggerable = TRUE
+      ORDER BY QualifiedApiName
+      LIMIT :MAX_RESULTS
+    ];
+    // Convert recent records into LookupSearchResult
+    for (EntityDefinition objectOption : objectOptions) {
+      results.add(
+        new LookupSearchResult(
+          null,
+          objectOption.QualifiedApiName,
+          getIconName(objectOption.QualifiedApiName),
+          objectOption.Label,
+          ''
+        )
+      );
+    }
+    return results;
+  }
 
   //* ---------------------------- UTILITY METHODS ------------------------------------------//
 
@@ -104,5 +136,41 @@ public with sharing class esLookupController {
       LIMIT 1
     ]
     .QualifiedApiName;
+  }
+
+  private static String getIconName(String sObjectName) {
+    String u;
+    List<Schema.DescribeTabSetResult> tabSetDesc = Schema.describeTabs();
+    List<Schema.DescribeTabResult> tabDesc = new List<Schema.DescribeTabResult>();
+    List<Schema.DescribeIconResult> iconDesc = new List<Schema.DescribeIconResult>();
+
+    for (Schema.DescribeTabSetResult tsr : tabSetDesc) {
+      tabDesc.addAll(tsr.getTabs());
+    }
+
+    for (Schema.DescribeTabResult tr : tabDesc) {
+      if (sObjectName == tr.getSobjectName()) {
+        if (tr.isCustom() == true) {
+          iconDesc.addAll(tr.getIcons());
+        } else {
+          u = 'standard:' + sObjectName.toLowerCase();
+          return u;
+        }
+      }
+    }
+    if (iconDesc.size() > 0) {
+      for (Schema.DescribeIconResult ir : iconDesc) {
+        if (ir.getContentType() == 'image/svg+xml') {
+          u =
+            'custom:' +
+            ir.getUrl()
+              .substringBetween('custom/', '.svg')
+              .substringBefore('_');
+          break;
+        }
+      }
+      return u;
+    }
+    return 'standard:default';
   }
 }

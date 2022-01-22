@@ -2,11 +2,20 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 01-21-2022
+  @last modified on  : 01-22-2022
   @last modified by  : ErickSixto
 -->
 <template>
   <div class="lookup-container">
+    <c-lookup
+      class="custom-lookup"
+      errors={errors}
+      onsearch={handleObjectSearch}
+      onselectionchange={handleObjectSelectionChange}
+      label="Object"
+      placeholder="Search for an Object"
+    >
+    </c-lookup>
     <c-lookup
       class="custom-lookup"
       errors={errors}

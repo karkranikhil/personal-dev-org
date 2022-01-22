@@ -13,6 +13,7 @@ import { refreshApex } from "@salesforce/apex";
 /** Apex methods from EsLookupController */
 import search from "@salesforce/apex/esLookupController.search";
 import getRecentlyViewed from "@salesforce/apex/esLookupController.getRecentlyViewed";
+import getObjectOptions from "@salesforce/apex/esLookupController.getObjectOptions";
 
 const DEFAULT_ICON = "standard:default";
 export default class EsLookup extends LightningElement {
@@ -124,6 +125,31 @@ export default class EsLookup extends LightningElement {
       .then((results) => {
         let records = results.map((record) => ({ ...record, icon: this.icon }));
         lookupElement.setSearchResults(records);
+      })
+      .catch((error) => {
+        this.notifyUser(
+          "Lookup Error",
+          "An error occured while searching with the lookup field.",
+          "error"
+        );
+        // eslint-disable-next-line no-console
+        console.error("Lookup error", JSON.stringify(error));
+        this.errors = [error];
+      });
+  }
+  /**
+   * Handles the lookup search event.
+   * Calls the server to perform the search and returns the resuls to the lookup.
+   * @param {event} event `search` event emmitted by the lookup
+   */
+  handleObjectSearch(event) {
+    const lookupElement = event.target;
+    console.log(JSON.parse(JSON.stringify(event.detail)));
+    // Call Apex endpoint to search for records and pass results to the lookup
+    getObjectOptions({ searchTerm: event.detail.searchTerm })
+      .then((results) => {
+        let options = results.map((option) => ({ ...option }));
+        lookupElement.setSearchResults(options);
       })
       .catch((error) => {
         this.notifyUser(
