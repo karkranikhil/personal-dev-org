@@ -12,6 +12,12 @@
      <targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
                 <property
+        name="size"
+        type="Integer"
+        label="Size of List Box (Visible items)"
+        role="inputOnly"
+      />
+                <property
         name="required"
         type="Boolean"
         label="Required"

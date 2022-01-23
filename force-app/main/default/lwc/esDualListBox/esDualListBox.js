@@ -14,6 +14,7 @@ export default class EsDualListBox extends LightningElement {
   @api required = false;
   @api min;
   @api max;
+  @api size = null;
 
   @api availableElements = [
     {
@@ -112,6 +113,13 @@ export default class EsDualListBox extends LightningElement {
         disabled.style.backgroundColor = this.disabledBackground;
         disabled.style.color = this.disabledColor;
       });
+      if (this.size) {
+        this.template
+          .querySelectorAll(".slds-dueling-list__options")
+          .forEach((box) => {
+            box.style.height = (this.size * 40).toString() + "px";
+          });
+      }
       this.hasRendered = true;
     }
   }
