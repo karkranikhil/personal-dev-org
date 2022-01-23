@@ -17,6 +17,18 @@
         label="Required"
         role="inputOnly"
       />
+                <property
+        name="min"
+        type="Integer"
+        label="Min"
+        role="inputOnly"
+      />
+                <property
+        name="max"
+        type="Integer"
+        label="Max"
+        role="inputOnly"
+      />
           <property
         name="label"
         type="String"

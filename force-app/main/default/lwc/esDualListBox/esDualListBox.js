@@ -1,14 +1,20 @@
 import { LightningElement, api, track } from "lwc";
 
+const REQUIRED_ERROR_MESSAGE = "You must select at least one value.";
+const MIN_ERROR_MESSAGE = "You must select a minimum of * values.";
+const MAX_ERROR_MESSAGE = "You must select a maximum of * values.";
 export default class EsDualListBox extends LightningElement {
   @api label = "DualList Label";
-  @api errorMessage = "You must select at least one value.";
   @api availableColumnLabel = "Available Column Label";
   @api selectedColumnLabel = "Selected Column Label";
   @api disabledColor = "white";
   @api disabledBackground = "#9f9f9";
   @api iconVariant = "default";
+  @api errorMessage = REQUIRED_ERROR_MESSAGE;
   @api required = false;
+  @api min;
+  @api max;
+
   @api availableElements = [
     {
       Label: "English",
@@ -162,6 +168,18 @@ export default class EsDualListBox extends LightningElement {
       return {
         isValid: false,
         errorMessage: this.errorMessage
+      };
+    }
+    if (this.min && this.selected.length < this.min) {
+      return {
+        isValid: false,
+        errorMessage: MIN_ERROR_MESSAGE.replace("*", this.min)
+      };
+    }
+    if (this.max && this.selected.length > this.max) {
+      return {
+        isValid: false,
+        errorMessage: MAX_ERROR_MESSAGE.replace("*", this.max)
       };
     }
     return {
