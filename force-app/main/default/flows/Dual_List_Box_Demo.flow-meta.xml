@@ -229,8 +229,6 @@
             <targetReference>Add_Variables_to_Collection</targetReference>
         </connector>
     </assignments>
-    <description>- Added min/max
-- Added size config</description>
     <interviewLabel>Dual List Box Demo {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Dual List Box Demo</label>
     <processMetadataValues>
@@ -282,7 +280,7 @@
             <inputParameters>
                 <name>required</name>
                 <value>
-                    <elementReference>Required_General</elementReference>
+                    <elementReference>Required_Global</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -336,7 +334,19 @@
             <inputParameters>
                 <name>size</name>
                 <value>
-                    <elementReference>Size_of_List_Box_Visible_Items</elementReference>
+                    <elementReference>Size</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>maxErrorMessage</name>
+                <value>
+                    <stringValue>You must select a maximum of * values. </stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>minErrorMessage</name>
+                <value>
+                    <stringValue>You must select a minimum of * values. </stringValue>
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
@@ -360,45 +370,6 @@
         <connector>
             <targetReference>Element_Assignement</targetReference>
         </connector>
-        <fields>
-            <name>general</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 18px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;General Configuration&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>Required_General</name>
-            <dataType>Boolean</dataType>
-            <defaultValue>
-                <booleanValue>true</booleanValue>
-            </defaultValue>
-            <fieldText>Required?</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Min</name>
-            <dataType>Number</dataType>
-            <fieldText>Min</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
-            <scale>0</scale>
-        </fields>
-        <fields>
-            <name>Max</name>
-            <dataType>Number</dataType>
-            <fieldText>Max</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
-            <scale>0</scale>
-        </fields>
-        <fields>
-            <name>Size_of_List_Box_Visible_Items</name>
-            <dataType>Number</dataType>
-            <fieldText>Size of List Box (Visible Items)</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
-            <scale>0</scale>
-        </fields>
         <fields>
             <name>AvailableHeader</name>
             <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 18px;&quot;&gt;Available Options&lt;/b&gt;&lt;/p&gt;</fieldText>
@@ -439,6 +410,49 @@
                     <fieldText>Icon Variant</fieldText>
                     <fieldType>InputField</fieldType>
                     <isRequired>false</isRequired>
+                </fields>
+                <fields>
+                    <name>Max</name>
+                    <dataType>Number</dataType>
+                    <defaultValue>
+                        <numberValue>5.0</numberValue>
+                    </defaultValue>
+                    <fieldText>Max</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>false</isRequired>
+                    <scale>0</scale>
+                </fields>
+                <fields>
+                    <name>Min</name>
+                    <dataType>Number</dataType>
+                    <defaultValue>
+                        <numberValue>2.0</numberValue>
+                    </defaultValue>
+                    <fieldText>Min</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>false</isRequired>
+                    <scale>0</scale>
+                </fields>
+                <fields>
+                    <name>Size</name>
+                    <dataType>Number</dataType>
+                    <defaultValue>
+                        <numberValue>4.0</numberValue>
+                    </defaultValue>
+                    <fieldText>Size</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>false</isRequired>
+                    <scale>0</scale>
+                </fields>
+                <fields>
+                    <name>Required_Global</name>
+                    <dataType>Boolean</dataType>
+                    <defaultValue>
+                        <booleanValue>true</booleanValue>
+                    </defaultValue>
+                    <fieldText>Required?</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>true</isRequired>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -555,7 +569,7 @@
                     <name>Disabled_of_Element_2</name>
                     <dataType>Boolean</dataType>
                     <defaultValue>
-                        <booleanValue>true</booleanValue>
+                        <booleanValue>false</booleanValue>
                     </defaultValue>
                     <fieldText>Disabled?</fieldText>
                     <fieldType>InputField</fieldType>
@@ -711,7 +725,7 @@
                     <name>Disabled_of_Element_4</name>
                     <dataType>Boolean</dataType>
                     <defaultValue>
-                        <booleanValue>true</booleanValue>
+                        <booleanValue>false</booleanValue>
                     </defaultValue>
                     <fieldText>Disabled?</fieldText>
                     <fieldType>InputField</fieldType>

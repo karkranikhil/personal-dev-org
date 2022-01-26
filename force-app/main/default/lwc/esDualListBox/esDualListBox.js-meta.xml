@@ -48,6 +48,20 @@
         role="inputOnly"
       />
           <property
+        name="minErrorMessage"
+        type="String"
+        label="Error Message when selected options are less than the Min (Type * to replace the symbol with the number of min selected options)"
+        role="inputOnly"
+        default="You must select a minimum of * values."
+      />
+          <property
+        name="maxErrorMessage"
+        type="String"
+        label="Error Message when selected options are greater than the Max (Type * to replace the symbol with the number of max selected options)"
+        role="inputOnly"
+        default="You must select a maximum of * values."
+      />
+          <property
         name="availableColumnLabel"
         type="String"
         label="Label for Available Column"

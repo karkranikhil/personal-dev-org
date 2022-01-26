@@ -11,6 +11,8 @@ export default class EsDualListBox extends LightningElement {
   @api disabledBackground = "#9f9f9";
   @api iconVariant = "default";
   @api errorMessage = REQUIRED_ERROR_MESSAGE;
+  @api minErrorMessage = MIN_ERROR_MESSAGE;
+  @api maxErrorMessage = MAX_ERROR_MESSAGE;
   @api required = false;
   @api min;
   @api max;
@@ -178,16 +180,21 @@ export default class EsDualListBox extends LightningElement {
         errorMessage: this.errorMessage
       };
     }
+    if (!this.required && this.selected.length === 0) {
+      return {
+        isValid: true
+      };
+    }
     if (this.min && this.selected.length < this.min) {
       return {
         isValid: false,
-        errorMessage: MIN_ERROR_MESSAGE.replace("*", this.min)
+        errorMessage: this.minErrorMessage.replace("*", this.min)
       };
     }
     if (this.max && this.selected.length > this.max) {
       return {
         isValid: false,
-        errorMessage: MAX_ERROR_MESSAGE.replace("*", this.max)
+        errorMessage: this.maxErrorMessage.replace("*", this.max)
       };
     }
     return {
