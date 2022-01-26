@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 01-22-2022
+  @last modified on  : 01-25-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -23,11 +23,12 @@
       errors={errors}
       onsearch={handleLookupSearch}
       onselectionchange={handleLookupSelectionChange}
-      label="Optional SKU"
+      onclear={handleRecordClear}
+      label={objectLabel}
       placeholder="Search Records..."
     >
     </c-lookup>
-    <div class="icon-btn-container">
+    <div if:true={sobject} class="icon-btn-container">
       <lightning-button-icon
         class="icon-btn"
         variant="bare"
@@ -43,13 +44,29 @@
         tooltip="Setup"
         popover-size="small"
         size="medium"
-        placement="auto"
+        placement="bottom-left"
       >
         <p slot="title" class="slds-text-heading_small">
           <b>Setup Unique Field</b>
         </p>
-        <lightning-input label="Unique Field" type="text"></lightning-input>
-        <lightning-input label="Value" type="text" read-only></lightning-input>
+        <label for="uniqueField">Unique Field</label>
+        <select
+          class="slds-select"
+          id="uniqueField"
+          onchange={handleSelectedUniqueField}
+        >
+          <template for:each={uniqueFields} for:item="field">
+            <option key={field.apiName} value={field.apiName}>
+              {field.label}
+            </option>
+          </template>
+        </select>
+        <lightning-input
+          label="Value"
+          value={uniqueFieldValue}
+          type="text"
+          disabled
+        ></lightning-input>
       </c-es-button-icon-popover>
     </div>
   </div>

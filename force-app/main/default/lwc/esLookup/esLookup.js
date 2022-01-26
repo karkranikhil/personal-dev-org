@@ -2,12 +2,13 @@
  * @description       : Custom Lookup - Wont work for certain objects like 'Task, Event, ...'
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 01-22-2022
+ * @last modified on  : 01-25-2022
  * @last modified by  : ErickSixto
  **/
 import { LightningElement, api, wire } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { refreshApex } from "@salesforce/apex";
 
 /** Apex methods from EsLookupController */
@@ -18,12 +19,23 @@ import getObjectOptions from "@salesforce/apex/esLookupController.getObjectOptio
 const DEFAULT_ICON = "standard:default";
 export default class EsLookup extends LightningElement {
   //* ---------------------------- VARIABLES ------------------------------------------------//
+  //? Input/Output parameters
   recordId = null;
   sobject = "";
-  uniqueField = "";
-  uniqueFieldValue = "";
+  uniqueField;
+  uniqueFieldValue;
+
+  //? Record Specific
+  recordUniqueFields;
+
+  //?Object Specific
   icon = DEFAULT_ICON;
   objectInformation;
+  objectLabel = "";
+  uniqueFields = [];
+  uniqueFieldsWire;
+
+  //? Utility
   errors = [];
   recentlyViewed = [];
   initialSelection = null;
@@ -82,13 +94,22 @@ export default class EsLookup extends LightningElement {
       this.objectInformation = data;
       this.themeInfo = data.themeInfo || null;
       let iconUrl = this.themeInfo.iconUrl || null;
+      this.objectLabel = this.objectInformation.label
+        ? this.objectInformation.label
+        : "Record";
+      this.setUniqueFields(this.objectInformation.fields);
+      this.setIconName(iconUrl);
+      this.initLookupDefaultResults();
+
       console.log(
         "Object Info",
         JSON.parse(JSON.stringify(this.objectInformation))
       );
       console.log("Theme Info", JSON.parse(JSON.stringify(this.themeInfo)));
-      this.setIconName(iconUrl);
-      this.initLookupDefaultResults();
+      console.log(
+        "Unique Fields",
+        JSON.parse(JSON.stringify(this.uniqueFields))
+      );
     }
     if (error) {
       console.log(error);
@@ -98,11 +119,42 @@ export default class EsLookup extends LightningElement {
     }
   }
 
+  @wire(getRecord, { recordId: "$recordId", fields: "$uniqueFieldsWire" })
+  wiredRecord({ error, data }) {
+    if (error) {
+      let message = "Unknown error";
+      if (Array.isArray(error.body)) {
+        message = error.body.map((e) => e.message).join(", ");
+      } else if (typeof error.body.message === "string") {
+        message = error.body.message;
+      }
+      this.dispatchEvent(
+        new ShowToastEvent({
+          title: "Error loading fields",
+          message,
+          variant: "error"
+        })
+      );
+    } else if (data) {
+      this.recordUniqueFields = data.fields;
+      this.setUniqueFieldValue();
+      console.log(JSON.parse(JSON.stringify(data)));
+      const selectEvent = new CustomEvent("selected", {
+        detail: {
+          recordId: data.id,
+          sobject: this.sobject,
+          uniqueField: this.uniqueField,
+          uniqueFieldValue: this.uniqueFieldValue
+        }
+      });
+      this.dispatchEvent(selectEvent);
+    }
+  }
+
   //* ---------------------------- LOOKUP METHODS ------------------------------------------//
 
   //Initializes the lookup default results with a list of recently viewed records (optional)
   initLookupDefaultResults() {
-    // Make sure that the lookup is present and if so, set its default results
     const lookup = this.template.querySelector("c-lookup.record-lookup");
     if (lookup) {
       let records = this.recentlyViewed.map((record) => ({
@@ -170,20 +222,16 @@ export default class EsLookup extends LightningElement {
   handleObjectSelectionChange(event) {
     const selection = event.target.getSelection();
     this.sobject = selection[0].sObjectType;
+    this.objectLabel = selection[0].title;
   }
   handleLookupSelectionChange(event) {
     const selection = event.target.getSelection()[0];
     this.checkForErrors();
-    console.log(JSON.parse(JSON.stringify(selection)));
-    const selectEvent = new CustomEvent("selected", {
-      detail: {
-        recordId: selection.id,
-        sobject: selection.sObjectType,
-        uniqueField: "Test",
-        uniqueFieldValue: ""
-      }
-    });
-    this.dispatchEvent(selectEvent);
+    console.log("Selection", JSON.parse(JSON.stringify(selection)));
+    this.recordId = selection.id;
+  }
+  handleRecordClear(event) {
+    this.recordId = null;
   }
 
   handleClear() {
@@ -200,10 +248,10 @@ export default class EsLookup extends LightningElement {
   //*Sets errors based on selection (not used but you can add your scenarios)
   checkForErrors() {
     this.errors = [];
-    const selection = this.template
-      .querySelector("c-lookup.record-lookup")
-      .getSelection();
     //TODO Error Handling: Here you can type your custom error scenarios - ErickSixto
+    // const selection = this.template
+    //   .querySelector("c-lookup.record-lookup")
+    //   .getSelection();
     // this.errors.push({
     //   message: `Error Message`
     // });
@@ -230,5 +278,45 @@ export default class EsLookup extends LightningElement {
     } else {
       this.icon = DEFAULT_ICON;
     }
+  }
+
+  //* Sets the Unique Fields combobox options
+  setUniqueFields(uniqueFields) {
+    let filteredFields = Object.fromEntries(
+      Object.entries(uniqueFields).filter(
+        ([key, value]) => value?.unique || value.apiName === "Id"
+      )
+    );
+
+    let fields = Object.keys(filteredFields).map((key) => {
+      return filteredFields[key];
+    });
+
+    this.uniqueFields = fields.map((field) => ({
+      ...field,
+      value: field.apiName
+    }));
+
+    this.uniqueField = this.uniqueFields[0]?.value;
+
+    this.uniqueFieldsWire = this.uniqueFields.map(
+      (field) => this.sobject + "." + field.apiName
+    );
+    console.log(JSON.parse(JSON.stringify(this.uniqueFieldsWire)));
+    console.log(JSON.parse(JSON.stringify(this.uniqueFields)));
+  }
+
+  //* Sets the UniqueFieldApiname
+  handleSelectedUniqueField(event) {
+    this.uniqueField = event.target.value;
+    this.setUniqueFieldValue();
+  }
+
+  //* Sets the UniqueFieldValue
+  setUniqueFieldValue() {
+    console.log("HEEEEY");
+    console.log(this.uniqueField);
+    console.log(this.recordUniqueFields);
+    this.uniqueFieldValue = this.recordUniqueFields[this.uniqueField]?.value;
   }
 }
