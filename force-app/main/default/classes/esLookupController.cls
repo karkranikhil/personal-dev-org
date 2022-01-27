@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 01-22-2022
+ * @last modified on  : 01-25-2022
  * @last modified by  : ErickSixto
  **/
 public with sharing class esLookupController {
@@ -109,7 +109,7 @@ public with sharing class esLookupController {
           objectOption.QualifiedApiName,
           getIconName(objectOption.QualifiedApiName),
           objectOption.Label,
-          ''
+          objectOption.QualifiedApiName
         )
       );
     }
