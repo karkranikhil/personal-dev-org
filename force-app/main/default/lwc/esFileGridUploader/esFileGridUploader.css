@@ -1,0 +1,42 @@
+.es-file-grid-uploader {
+}
+
+.card {
+  border-radius: 5px; /* 5px rounded corners */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  transition: 0.3s;
+}
+
+.header {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+.title {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  color: #212121c4;
+}
+
+.grid {
+  column-gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 1rem 5rem;
+  padding: 1rem;
+  row-gap: 1rem;
+}
+
+.zone {
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f5f5f5;
+  display: flex;
+  height: 100%;
+  min-height: 150px;
+  border-radius: 5px;
+  width: 100%;
+}

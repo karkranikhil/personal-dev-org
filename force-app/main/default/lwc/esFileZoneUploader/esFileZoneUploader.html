@@ -1,0 +1,20 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 01-27-2022
+  @last modified by  : ErickSixto
+-->
+<template>
+  <article class="container">
+    <lightning-file-upload
+      label=""
+      class="upload"
+      name="fileUploader"
+      accept=".csv,.doc,.xsl,.pdf"
+      record-id={recordId}
+      onuploadfinished={handleUploadFinished}
+    >
+    </lightning-file-upload>
+  </article>
+</template>

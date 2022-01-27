@@ -1,0 +1,33 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 01-27-2022
+  @last modified by  : ErickSixto
+-->
+<template>
+  <article class="es-file-grid-uploader">
+    <div class="card header"><h2>What do you want to upload?</h2></div>
+    <div class="grid">
+      <template
+        if:true={fieldApiNamesList}
+        for:each={fieldApiNamesList}
+        for:item="field"
+        for:index="index"
+      >
+        <div key={field} class="zone">
+          <h3 class="title">{field.label}</h3>
+          <c-es-file-zone-uploader
+            field-api-name={field.apiname}
+            field-label={field.label}
+            record-id={recordId}
+            object-api-name={objectApiName}
+          ></c-es-file-zone-uploader>
+        </div>
+      </template>
+      <div if:false={fieldApiNamesList} class="message">
+        <h2>No Fields/Files are configured</h2>
+      </div>
+    </div>
+  </article>
+</template>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Grid File Uploader</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+
+<!-- Configuring the design attributes -->
+<targetConfigs>
+    <targetConfig targets="lightning__RecordPage">
+        <property
+        name="fieldApiNames"
+        type="String"
+        default="aktuelle_Selbstauskunft__c, Einwertungsbogen__c, Gehaltsnachweis__c, Eigenkapitalnachweis__c, Steuerbescheid__c"
+        label="Comma separated list of Apinames for the Checkbox fields related to each File"
+      />
+    </targetConfig>
+</targetConfigs>
+</LightningComponentBundle>
