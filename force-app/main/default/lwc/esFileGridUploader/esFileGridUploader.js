@@ -1,6 +1,5 @@
 import { LightningElement, api, track, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
-/* https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.reference_lightning_ui_api_record */
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
 
 export default class EsFileGridUploader extends LightningElement {
@@ -38,7 +37,6 @@ export default class EsFileGridUploader extends LightningElement {
       console.log(message);
     } else if (data) {
       this.record = data;
-      console.log("Record", JSON.parse(JSON.stringify(this.record)));
     }
   }
   @wire(getObjectInfo, { objectApiName: "$objectApiName" })
@@ -46,15 +44,10 @@ export default class EsFileGridUploader extends LightningElement {
     if (error) {
       console.error(error);
     } else if (data) {
-      console.log(JSON.parse(JSON.stringify(data)));
       this.fieldApiNamesList = this.fieldApiNamesList.map((field) => ({
         ...field,
         label: data.fields[field.apiname].label
       }));
-      console.log(
-        "Updated fieldlist",
-        JSON.parse(JSON.stringify(this.fieldApiNamesList))
-      );
     }
   }
 }
