@@ -5,6 +5,7 @@ import TITLE_FIELD from "@salesforce/schema/ContentDocument.Title";
 import ID_FIELD from "@salesforce/schema/ContentDocument.Id";
 export default class EsFileZoneUploader extends LightningElement {
   @api recordId;
+  @api recordName;
   @api fieldApiName;
   @api fieldLabel;
   @api objectApiName;
@@ -16,7 +17,7 @@ export default class EsFileZoneUploader extends LightningElement {
     let documentId = uploadedFiles[0].documentId;
     const fields = {};
     fields[ID_FIELD.fieldApiName] = documentId;
-    fields[TITLE_FIELD.fieldApiName] = this.fieldLabel;
+    fields[TITLE_FIELD.fieldApiName] = this.fieldLabel + "_" + this.recordName;
     const recordInput = { fields };
 
     updateRecord(recordInput)

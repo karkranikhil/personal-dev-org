@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 01-27-2022
+  @last modified on  : 01-29-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -10,7 +10,7 @@
     <div class="card header"><h2>What do you want to upload?</h2></div>
     <div class="grid">
       <template
-        if:true={fieldApiNamesList}
+        if:true={isRenderList}
         for:each={fieldApiNamesList}
         for:item="field"
         for:index="index"
@@ -21,6 +21,7 @@
             field-api-name={field.apiname}
             field-label={field.label}
             record-id={recordId}
+            record-name={record.fields.Name.value}
             object-api-name={objectApiName}
           ></c-es-file-zone-uploader>
         </div>
