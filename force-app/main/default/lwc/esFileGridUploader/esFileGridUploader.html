@@ -7,6 +7,27 @@
 -->
 <template>
   <article class="es-file-grid-uploader">
+    <div class="card header"><h2>Documents</h2></div>
+    <lightning-record-view-form
+      class="form"
+      record-id={recordId}
+      object-api-name={objectApiName}
+    >
+      <div class="grid">
+        <template
+          if:true={isRenderList}
+          for:each={fieldApiNamesList}
+          for:item="field"
+          for:index="index"
+        >
+          <div key={field} class="field-display">
+            <lightning-output-field
+              field-name={field.apiname}
+            ></lightning-output-field>
+          </div>
+        </template>
+      </div>
+    </lightning-record-view-form>
     <div class="card header"><h2>What do you want to upload?</h2></div>
     <div class="grid">
       <template
