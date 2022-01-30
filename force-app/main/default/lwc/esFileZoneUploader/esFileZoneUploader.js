@@ -14,11 +14,35 @@ export default class EsFileZoneUploader extends LightningElement {
     // Get the list of uploaded files
     const uploadedFiles = event.detail.files;
     let documentId = uploadedFiles[0].documentId;
+    this.updateDocument(documentId);
+  }
+
+  updateDocument(documentId) {
     const fields = {};
     fields[ID_FIELD.fieldApiName] = documentId;
     fields[TITLE_FIELD.fieldApiName] = this.fieldLabel + "_" + this.recordName;
     const recordInput = { fields };
 
+    updateRecord(recordInput)
+      .then(() => {
+        this.updateField();
+      })
+      .catch((error) => {
+        this.dispatchEvent(
+          new ShowToastEvent({
+            title: "Error Uploading File",
+            message: error.body.message,
+            variant: "error"
+          })
+        );
+      });
+  }
+
+  updateField() {
+    const fields = {};
+    fields.Id = this.recordId;
+    fields[this.fieldApiName] = true;
+    const recordInput = { fields };
     updateRecord(recordInput)
       .then(() => {
         this.dispatchEvent(
@@ -32,7 +56,7 @@ export default class EsFileZoneUploader extends LightningElement {
       .catch((error) => {
         this.dispatchEvent(
           new ShowToastEvent({
-            title: "Error Uploading File",
+            title: "Error Updating Record",
             message: error.body.message,
             variant: "error"
           })

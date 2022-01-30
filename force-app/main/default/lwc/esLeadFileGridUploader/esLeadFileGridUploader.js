@@ -1,5 +1,4 @@
 import { LightningElement, api, wire } from "lwc";
-import LEAD from "@salesforce/schema/Lead";
 import BERUFSSTATUS_FIELD from "@salesforce/schema/Lead.Berufsstatus__c";
 import PARTNER_BERUFSSTATUS_FIELD from "@salesforce/schema/Lead.Partner_Berufsstatus__c";
 import EINWERTUNG_FIELD from "@salesforce/schema/Lead.Einwertung__c";
