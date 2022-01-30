@@ -52,4 +52,37 @@ export default class EsLeadFileGridUploader extends LightningElement {
       );
     }
   }
+
+  //* ---------UTILITY ---------*//
+  setConditionalFields() {
+    const berufsstatus = this.recordFields.Berufsstatus__c.value.toLowerCase();
+    const partnerBerufsstatus =
+      this.recordFields.Partner_Berufsstatus__c.value.toLowerCase();
+    const einwertung = this.recordFields.Einwertung__c.value.toLowerCase();
+
+    //? First Scenario
+    if (
+      (partnerBerufsstatus === "selbstständig" ||
+        berufsstatus === "selbstständig") &&
+      einwertung === "gemeinsam"
+    ) {
+      console.log("First Scenario");
+    }
+    //? Second Scenario
+    if (
+      partnerBerufsstatus === "selbstständig" &&
+      berufsstatus === "selbstständig"
+    ) {
+      console.log("Second Scenario");
+    }
+    //? Third Scenario
+    if (
+      einwertung === "alleine" &&
+      berufsstatus === "privatier/ohne beschäftigung"
+    ) {
+      console.log("Third Scenario");
+    }
+
+    //? Fourth Scenario Goes Here
+  }
 }
