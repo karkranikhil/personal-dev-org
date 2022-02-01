@@ -2,11 +2,12 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 01-28-2022
+  @last modified on  : 01-31-2022
   @last modified by  : ErickSixto
 -->
 <template>
   <div class="lookup-container">
+    <!--* OBJECT SEARCH *-->
     <c-lookup
       if:false={sobject}
       class="custom-lookup object-lookup"
@@ -17,6 +18,7 @@
       placeholder="Search for an Object"
     >
     </c-lookup>
+    <!--* RECORD SEARCH *-->
     <c-lookup
       if:true={sobject}
       class="custom-lookup record-lookup"
@@ -26,6 +28,7 @@
       onclear={handleRecordClear}
       label={objectLabel}
       placeholder="Search Records..."
+      selection={initialSelection}
     >
     </c-lookup>
     <div if:true={sobject} class="icon-btn-container">

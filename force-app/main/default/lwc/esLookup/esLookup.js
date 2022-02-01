@@ -2,7 +2,7 @@
  * @description       : Custom Lookup - Wont work for certain objects like 'Task, Event, ...'
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 01-25-2022
+ * @last modified on  : 01-31-2022
  * @last modified by  : ErickSixto
  **/
 import { LightningElement, api, wire } from "lwc";
@@ -38,7 +38,7 @@ export default class EsLookup extends LightningElement {
   //? Utility
   errors = [];
   recentlyViewed = [];
-  initialSelection = null;
+  initialSelection = [];
   // initialSelection = [
   //   {
   //     id: this.recordId,
@@ -139,6 +139,17 @@ export default class EsLookup extends LightningElement {
       this.recordUniqueFields = data.fields;
       this.setUniqueFieldValue();
       console.log(JSON.parse(JSON.stringify(data)));
+      if (this.initialSelection.length === 0) {
+        this.initialSelection = [
+          {
+            id: this.recordId,
+            sObjectType: this.sobject,
+            icon: this.icon,
+            title: "Passed Record",
+            subtitle: this.sobject
+          }
+        ];
+      }
       const selectEvent = new CustomEvent("selected", {
         detail: {
           recordId: data.id,
@@ -302,8 +313,6 @@ export default class EsLookup extends LightningElement {
     this.uniqueFieldsWire = this.uniqueFields.map(
       (field) => this.sobject + "." + field.apiName
     );
-    console.log(JSON.parse(JSON.stringify(this.uniqueFieldsWire)));
-    console.log(JSON.parse(JSON.stringify(this.uniqueFields)));
   }
 
   //* Sets the UniqueFieldApiname
@@ -314,9 +323,6 @@ export default class EsLookup extends LightningElement {
 
   //* Sets the UniqueFieldValue
   setUniqueFieldValue() {
-    console.log("HEEEEY");
-    console.log(this.uniqueField);
-    console.log(this.recordUniqueFields);
     this.uniqueFieldValue = this.recordUniqueFields[this.uniqueField]?.value;
   }
 }
