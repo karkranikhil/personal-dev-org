@@ -139,13 +139,16 @@ export default class EsLookup extends LightningElement {
       this.recordUniqueFields = data.fields;
       this.setUniqueFieldValue();
       console.log(JSON.parse(JSON.stringify(data)));
+      let nameField = this.uniqueFields.find(
+        (field) => field.nameField
+      ).apiName;
       if (this.initialSelection.length === 0) {
         this.initialSelection = [
           {
             id: this.recordId,
             sObjectType: this.sobject,
             icon: this.icon,
-            title: "Passed Record",
+            title: data.fields[nameField].value,
             subtitle: this.sobject
           }
         ];
@@ -295,7 +298,8 @@ export default class EsLookup extends LightningElement {
   setUniqueFields(uniqueFields) {
     let filteredFields = Object.fromEntries(
       Object.entries(uniqueFields).filter(
-        ([key, value]) => value?.unique || value.apiName === "Id"
+        ([key, value]) =>
+          value?.unique || value.apiName === "Id" || value?.nameField
       )
     );
 
