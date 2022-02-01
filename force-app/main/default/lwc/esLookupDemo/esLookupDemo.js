@@ -8,6 +8,8 @@ export default class EsLookupDemo extends LightningElement {
     uniqueFieldValue: "Wint"
   };
 
+  showLookup = false;
+
   handleChange(event) {
     let name = event.target.name;
     let value = event.target.value;
@@ -19,5 +21,9 @@ export default class EsLookupDemo extends LightningElement {
     console.log("Received From Child", { ...event.detail });
     this.data = { ...event.detail };
     // eslint-disable-next-line no-alert
+  }
+  handleInitialize(event) {
+    let checked = event.target.checked;
+    this.showLookup = checked;
   }
 }

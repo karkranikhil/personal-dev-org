@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 01-22-2022
+  @last modified on  : 01-31-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -42,8 +42,18 @@
         value={data.uniqueFieldValue}
         onchange={handleChange}
       ></lightning-input>
+
+      <lightning-input
+        type="toggle"
+        variant="standard"
+        name="Initialize"
+        label="Initialize"
+        message-toggle-inactive=""
+        message-toggle-active=""
+        onchange={handleInitialize}
+      ></lightning-input>
     </div>
-    <div class="container">
+    <div if:true={showLookup} class="container">
       <c-es-lookup
         lookup-data={data}
         onselected={handleSelection}
