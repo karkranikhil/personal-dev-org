@@ -312,7 +312,12 @@ export default class EsLookup extends LightningElement {
       value: field.apiName
     }));
 
-    this.uniqueField = this.uniqueFields[0]?.value;
+    let lastUniqueField = this.uniqueFields.find(
+      (field) => field.apiName === this.uniqueField
+    )?.value;
+    this.uniqueField = lastUniqueField
+      ? lastUniqueField
+      : this.uniqueFields[0]?.value;
 
     this.uniqueFieldsWire = this.uniqueFields.map(
       (field) => this.sobject + "." + field.apiName

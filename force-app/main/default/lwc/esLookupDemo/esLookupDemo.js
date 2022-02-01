@@ -4,8 +4,8 @@ export default class EsLookupDemo extends LightningElement {
   data = {
     recordId: "0015f00000DlcuSAAR",
     sobject: "Account",
-    uniqueField: "",
-    uniqueFieldValue: ""
+    uniqueField: "SSN__c",
+    uniqueFieldValue: "Wint"
   };
 
   handleChange(event) {
