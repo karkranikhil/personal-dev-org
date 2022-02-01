@@ -9,7 +9,7 @@
   <div class="lookup-container">
     <!--* OBJECT SEARCH *-->
     <c-lookup
-      if:false={sobject}
+      if:false={validSobject}
       class="custom-lookup object-lookup"
       errors={errors}
       onsearch={handleObjectSearch}
@@ -20,7 +20,7 @@
     </c-lookup>
     <!--* RECORD SEARCH *-->
     <c-lookup
-      if:true={sobject}
+      if:true={validSobject}
       class="custom-lookup record-lookup"
       errors={errors}
       onsearch={handleLookupSearch}
@@ -31,7 +31,7 @@
       selection={initialSelection}
     >
     </c-lookup>
-    <div if:true={sobject} class="icon-btn-container">
+    <div if:true={validSobject} class="icon-btn-container">
       <lightning-button-icon
         class="icon-btn"
         variant="bare"

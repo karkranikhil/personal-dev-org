@@ -34,20 +34,12 @@ export default class EsLookup extends LightningElement {
   objectLabel = "";
   uniqueFields = [];
   uniqueFieldsWire;
+  validSobject = false;
 
   //? Utility
   errors = [];
   recentlyViewed = [];
   initialSelection = [];
-  // initialSelection = [
-  //   {
-  //     id: this.recordId,
-  //     sObjectType: this.sobject,
-  //     icon: this.icon,
-  //     title: "Passed Record",
-  //     subtitle: this.sobject
-  //   }
-  // ];
 
   //* ---------------------------- GETTERS AND SETTERS ---------------------------------------//
   @api
@@ -64,15 +56,24 @@ export default class EsLookup extends LightningElement {
     this.sobject = data.sobject;
     this.uniqueField = data.uniqueField;
     this.uniqueFieldValue = data.uniqueFieldValue;
+    console.log(this.recordId.length);
   }
 
   //* ---------------------------- LIFE CYCLE ----------------------------------------------//
   connectedCallback() {
+    if (this.recordId.length < 18 || this.recordId.length > 18) {
+      this.notifyUser(
+        "Invalid ID",
+        "Record Id must be 18 characters long",
+        "error"
+      );
+    }
     this.initLookupDefaultResults();
   }
 
   //* ---------------------------- BACKEND CALLS ------------------------------------------//
 
+  //* GET RECENTLY VIEWED
   @wire(getRecentlyViewed, { objectApiName: "$sobject" })
   getRecentlyViewed({ data }) {
     if (data) {
@@ -88,9 +89,11 @@ export default class EsLookup extends LightningElement {
     }
   }
 
+  //* GET OBJECT DATA
   @wire(getObjectInfo, { objectApiName: "$sobject" })
   handleResult({ error, data }) {
     if (data) {
+      this.validSobject = true;
       this.objectInformation = data;
       this.themeInfo = data.themeInfo || null;
       let iconUrl = this.themeInfo.iconUrl || null;
@@ -116,9 +119,17 @@ export default class EsLookup extends LightningElement {
       if (error.body.errorCode === "INVALID_TYPE") {
         this.icon = DEFAULT_ICON;
       }
+      if (error.body.errorCode === "INSUFFICIENT_ACCESS") {
+        this.notifyUser(
+          "SObject Error",
+          "Not a valid SObject or Insufficient Access",
+          "error"
+        );
+      }
     }
   }
 
+  //* GET RECORD DATA
   @wire(getRecord, { recordId: "$recordId", fields: "$uniqueFieldsWire" })
   wiredRecord({ error, data }) {
     if (error) {
@@ -128,13 +139,7 @@ export default class EsLookup extends LightningElement {
       } else if (typeof error.body.message === "string") {
         message = error.body.message;
       }
-      this.dispatchEvent(
-        new ShowToastEvent({
-          title: "Error loading fields",
-          message,
-          variant: "error"
-        })
-      );
+      this.notifyUser("Error loading Record", message, "error");
     } else if (data) {
       this.recordUniqueFields = data.fields;
       this.setUniqueFieldValue();
