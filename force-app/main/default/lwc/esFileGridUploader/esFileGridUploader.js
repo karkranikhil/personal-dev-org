@@ -1,6 +1,9 @@
 import { LightningElement, api, track, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
+import getExistingDocuments from "@salesforce/apex/FileGridUploaderController.getExistingDocuments";
+
+const IMG_URL_PREFIX = "/sfc/servlet.shepherd/version/download/";
 
 export default class EsFileGridUploader extends LightningElement {
   //* --------- VARIABLES ---------*//
@@ -10,17 +13,17 @@ export default class EsFileGridUploader extends LightningElement {
   @api fieldApiNames;
   fields = [this.objectApiName + ".Name"];
   record;
+  documents;
   get isRenderList() {
     return this.record && this.fieldApiNamesList;
   }
   //* --------- LIFE CYCLE ---------*//
   connectedCallback() {
-    this.fieldApiNamesList = this.fieldApiNames
-      .split(",")
-      .map((field) => ({ apiname: field.trim(), label: " " }));
-    this.recordFields = [this.objectApiName + ".Name"];
+    this.setFieldsApinamesList();
   }
   //* --------- WIRE METHODS ---------*//
+
+  //* GET RECORD DATA
   @wire(getRecord, {
     recordId: "$recordId",
     fields: "$recordFields"
@@ -37,8 +40,11 @@ export default class EsFileGridUploader extends LightningElement {
       console.log(message);
     } else if (data) {
       this.record = data;
+      this.getDocs();
     }
   }
+
+  //*GET OBJECT DATA
   @wire(getObjectInfo, { objectApiName: "$objectApiName" })
   objectInfoWire({ error, data }) {
     if (error) {
@@ -48,6 +54,51 @@ export default class EsFileGridUploader extends LightningElement {
         ...field,
         label: data.fields[field.apiname].label
       }));
+      this.getDocs();
     }
+  }
+
+  //*GET EXISTING DOCS
+  getDocs() {
+    let fieldLabels = this.fieldApiNamesList.map((field) => field.label);
+    console.log(fieldLabels);
+    getExistingDocuments({
+      recordId: this.recordId,
+      recordName: this.record.fields.Name.value,
+      fieldLabels: fieldLabels
+    })
+      .then((response) => {
+        if (response) {
+          this.documents = response.map((doc) => ({
+            url:
+              IMG_URL_PREFIX +
+              doc.ContentDocument.LatestPublishedVersionId +
+              "?operationContext=S1",
+            name: doc.ContentDocument.LatestPublishedVersion.Title,
+            extension: doc.ContentDocument.FileExtension
+          }));
+          this.fieldApiNamesList = this.fieldApiNamesList.map((field) => ({
+            ...field,
+            document: this.documents.find(
+              (doc) =>
+                doc.name.substring(0, doc.name.indexOf("_")) === field.label
+            )
+          }));
+          console.log(
+            "Field List Updated: ",
+            JSON.parse(JSON.stringify(this.fieldApiNamesList))
+          );
+        }
+      })
+      .catch((error) => console.error(error));
+  }
+
+  //* ---------UTILITY METHODS ---------*//
+
+  setFieldsApinamesList() {
+    this.fieldApiNamesList = this.fieldApiNames
+      .split(",")
+      .map((field) => ({ apiname: field.trim(), label: " " }));
+    this.recordFields = [this.objectApiName + ".Name"];
   }
 }

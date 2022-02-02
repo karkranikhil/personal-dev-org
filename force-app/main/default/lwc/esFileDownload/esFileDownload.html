@@ -1,0 +1,20 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 02-01-2022
+  @last modified by  : ErickSixto
+-->
+<template>
+  <div class="container">
+    <div if:true={icon} class="icon-container">
+      <lightning-icon
+        class="icon"
+        icon-name={icon}
+        alternative-text="Doc image"
+        size="small"
+      ></lightning-icon>
+    </div>
+    <h3><a href={url}>{textDisplay}</a></h3>
+  </div>
+</template>

@@ -22,10 +22,11 @@ const FIELDS = [
 export default class EsLeadFileGridUploader extends LightningElement {
   @api recordId;
   @api objectApiName;
-  fields = null;
+  fields =
+    "aktuelle_Selbstauskunft__c, Einwertungsbogen__c, Gehaltsnachweis__c, Eigenkapitalnachweis__c, Steuerbescheid__c, aktuelle_betriebswirtschaftliche_Auswert__c, letzte_zwei_Bilanzen__c";
 
   connectedCallback() {
-    this.fields = FIELDS.join();
+    console.log(this.fields);
   }
 
   //* --------- WIRE METHODS ---------*//

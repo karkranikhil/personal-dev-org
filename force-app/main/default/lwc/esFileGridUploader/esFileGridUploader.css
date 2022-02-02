@@ -7,9 +7,24 @@
 .field-display {
   display: flex;
   flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+  width: 180px;
+}
+.field-label {
+  font-weight: bold;
+  margin-right: 8px;
+  word-break: break-word;
+  width: 100%;
+}
+.doc-display {
+  margin-left: 8px;
+}
+.item-container {
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  max-width: 30rem;
 }
 .card {
   border-radius: 5px; /* 5px rounded corners */
@@ -34,7 +49,7 @@
   column-gap: 1rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin: 1rem 5rem;
+  margin: 1rem 2rem;
   padding: 1rem;
   row-gap: 1rem;
 }

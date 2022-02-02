@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 01-29-2022
+  @last modified on  : 02-01-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -20,10 +20,23 @@
           for:item="field"
           for:index="index"
         >
-          <div key={field} class="field-display">
-            <lightning-output-field
-              field-name={field.apiname}
-            ></lightning-output-field>
+          <div key={field} class="item-container">
+            <div class="field-display">
+              <p class="field-label">{field.label}</p>
+              <lightning-output-field
+                field-name={field.apiname}
+                variant="label-hidden"
+              ></lightning-output-field>
+            </div>
+            <c-es-file-download
+              class="doc-display"
+              if:true={field.document}
+              icon="utility:page"
+              name={field.document.name}
+              extension={field.document.extension}
+              url={field.document.url}
+            >
+            </c-es-file-download>
           </div>
         </template>
       </div>
