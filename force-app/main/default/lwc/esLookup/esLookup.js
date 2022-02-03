@@ -2,7 +2,7 @@
  * @description       : Custom Lookup - Wont work for certain objects like 'Task, Event, ...'
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 01-31-2022
+ * @last modified on  : 02-03-2022
  * @last modified by  : ErickSixto
  **/
 import { LightningElement, api, wire } from "lwc";
@@ -133,17 +133,24 @@ export default class EsLookup extends LightningElement {
   @wire(getRecord, { recordId: "$recordId", fields: "$uniqueFieldsWire" })
   wiredRecord({ error, data }) {
     if (error) {
+      console.error(error);
       let message = "Unknown error";
+      let errorCode;
       if (Array.isArray(error.body)) {
         message = error.body.map((e) => e.message).join(", ");
       } else if (typeof error.body.message === "string") {
         message = error.body.message;
+        errorCode = error.status;
       }
-      this.notifyUser("Error loading Record", message, "error");
+      if (errorCode === 404 || errorCode === 400) {
+        console.log("EXECUTE LOGIC HERE");
+      } else {
+        this.notifyUser("Error loading Record", message, "error");
+      }
     } else if (data) {
       this.recordUniqueFields = data.fields;
       this.setUniqueFieldValue();
-      console.log(JSON.parse(JSON.stringify(data)));
+      console.log("Record Data", JSON.parse(JSON.stringify(data)));
       let nameField = this.uniqueFields.find(
         (field) => field.nameField
       ).apiName;
@@ -172,7 +179,7 @@ export default class EsLookup extends LightningElement {
 
   //* ---------------------------- LOOKUP METHODS ------------------------------------------//
 
-  //Initializes the lookup default results with a list of recently viewed records (optional)
+  //?Initializes the lookup default results with a list of recently viewed records (optional)
   initLookupDefaultResults() {
     const lookup = this.template.querySelector("c-lookup.record-lookup");
     if (lookup) {
@@ -186,7 +193,7 @@ export default class EsLookup extends LightningElement {
   }
 
   /**
-   * Handles the lookup search event.
+   * ?Handles the lookup search event.
    * Calls the server to perform the search and returns the resuls to the lookup.
    * @param {event} event `search` event emmitted by the lookup
    */
@@ -209,7 +216,7 @@ export default class EsLookup extends LightningElement {
       });
   }
   /**
-   * Handles the lookup search event.
+   * ?Handles the lookup search event.
    * Calls the server to perform the search and returns the resuls to the lookup.
    * @param {event} event `search` event emmitted by the lookup
    */
@@ -233,7 +240,7 @@ export default class EsLookup extends LightningElement {
   }
 
   /**
-   * Handles the lookup selection change
+   * ?Handles the lookup selection change
    * @param {event} event `selectionchange` event emmitted by the lookup.
    * The event contains the list of selected ids.
    */
