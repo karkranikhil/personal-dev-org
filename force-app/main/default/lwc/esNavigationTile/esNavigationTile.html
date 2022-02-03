@@ -8,14 +8,13 @@
 <template>
   <article class="card">
     <div class="background">
-      <h3 class="title">Card Title</h3>
-      <h4 class="description">Card Description Goes Here</h4>
+      <div class="header">
+        <h3 class="title">Card Title</h3>
+        <h4 class="description">Card Description Goes Here</h4>
+      </div>
     </div>
     <div class="image-container">
-      <img
-        src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-        alt="My Image"
-      />
+      <img src={imagePath} alt="My Image" />
     </div>
   </article>
 </template>
