@@ -6,6 +6,8 @@ export default class EsNavigationTile extends LightningElement {
   @api description;
   @api imagePath = ASSETS + "/navTiles/Info.jpg";
   @api navigations;
+  @api backgroundColor;
+  @api fontColor;
 
   connectedCallback() {
     console.log("NavTile", this.imagePath);

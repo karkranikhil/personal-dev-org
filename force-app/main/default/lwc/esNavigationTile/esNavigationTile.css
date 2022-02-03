@@ -1,6 +1,7 @@
 * {
-  --color-background: #0b467e;
-  --color-text: white;
+  --color-background: rgb(11, 70, 126);
+  --color-hover-shadow: rgb(11 70 126 / 30%);
+  --color-text: rgb(255, 255, 255);
 }
 .card {
   border-radius: 5px;
@@ -18,7 +19,7 @@
 }
 
 .card:hover {
-  box-shadow: 0 8px 5px rgb(var(--color-background) / 20%);
+  box-shadow: 0 10px 8px var(--color-hover-shadow);
 }
 
 .background {
