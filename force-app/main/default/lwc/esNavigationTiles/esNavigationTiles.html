@@ -1,0 +1,27 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 02-02-2022
+  @last modified by  : ErickSixto
+-->
+<template>
+  <article class="grid">
+    <template
+      if:true={tiles}
+      for:each={tiles}
+      for:item="tile"
+      for:index="index"
+    >
+      <c-es-navigation-tile
+        key={tile.title}
+        description={tile.description}
+        image={tile.image}
+        background-color={backgroundColor}
+        shadow-color={shadowColor}
+        font-color={fontColor}
+      >
+      </c-es-navigation-tile>
+    </template>
+  </article>
+</template>

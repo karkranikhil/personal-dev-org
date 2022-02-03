@@ -2,14 +2,15 @@ import { LightningElement, api } from "lwc";
 import ASSETS from "@salesforce/resourceUrl/esComponentAssets";
 
 export default class EsNavigationTile extends LightningElement {
-  @api title;
   @api description;
-  @api imagePath = ASSETS + "/navTiles/Info.jpg";
-  @api navigations;
+  @api image;
+  @api navigation;
   @api backgroundColor;
+  @api shadowColor;
   @api fontColor;
+  imagePath;
 
   connectedCallback() {
-    console.log("NavTile", this.imagePath);
+    this.imagePath = ASSETS + "/navTiles/" + this.image;
   }
 }

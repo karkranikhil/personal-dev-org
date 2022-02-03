@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+     
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+
+    </targets>
+
+    <!-- Configuring the design attributes -->
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property
+        name="backgroundColor"
+        type="Color"
+        default="rgb(11,70,126)"
+        label="Background Color"
+      />
+            <property
+        name="shadowColor"
+        type="Color"
+        default="rgb(80,119,157)"
+        label="Hover Shadow Color"
+      />
+            <property
+        name="fontColor"
+        type="Color"
+        default="rgb(255, 255, 255)"
+        label="Font Color"
+      />
+            <property
+        name="firstImagePath"
+        type="String"
+        default="Bildung.jpg"
+        label="Image: First Tile"
+      />
+            <property
+        name="firstDescription"
+        type="String"
+        label="Description: First Tile"
+      />
+            <property
+        name="secondImagePath"
+        type="String"
+        default="Gruppen.jpg"
+        label="Image: Second Tile"
+      />
+            <property
+        name="secondDescription"
+        type="String"
+        label="Description: Second Tile"
+      />
+            <property
+        name="thirdImagePath"
+        type="String"
+        default="Home.jpg"
+        label="Image: Third Tile"
+      />
+            <property
+        name="thirdDescription"
+        type="String"
+        label="Description: Third Tile"
+      />
+            <property
+        name="fourthImagePath"
+        type="String"
+        default="Info.jpg"
+        label="Image: Fourth Tile"
+      />
+            <property
+        name="fourthDescription"
+        type="String"
+        label="Description: Fourth Tile"
+      />
+            <property
+        name="fifthImagePath"
+        type="String"
+        default="Kontakte.jpg"
+        label="Image: Fifth Tile"
+      />
+            <property
+        name="fifthDescription"
+        type="String"
+        label="Description: Fifth Tile"
+      />
+            <property
+        name="sixthImagePath"
+        type="String"
+        default="Shop.jpg"
+        label="Image: Sixth Tile"
+      />
+            <property
+        name="sixthDescription"
+        type="String"
+        label="Description: Sixth Tile"
+      />
+            
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
