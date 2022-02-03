@@ -8,19 +8,20 @@
 import { LightningElement, api, wire } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
-import { getRecord, getFieldValue } from "lightning/uiRecordApi";
-import { refreshApex } from "@salesforce/apex";
+import { getRecord } from "lightning/uiRecordApi";
 
 /** Apex methods from EsLookupController */
 import search from "@salesforce/apex/esLookupController.search";
 import getRecentlyViewed from "@salesforce/apex/esLookupController.getRecentlyViewed";
 import getObjectOptions from "@salesforce/apex/esLookupController.getObjectOptions";
+import searchWithUniqueField from "@salesforce/apex/esLookupController.searchWithUniqueField";
 
 const DEFAULT_ICON = "standard:default";
 export default class EsLookup extends LightningElement {
   //* ---------------------------- VARIABLES ------------------------------------------------//
   //? Input/Output parameters
   recordId = null;
+  secondaryRecordId = null;
   sobject = "";
   uniqueField;
   uniqueFieldValue;
@@ -40,6 +41,7 @@ export default class EsLookup extends LightningElement {
   errors = [];
   recentlyViewed = [];
   initialSelection = [];
+  isShowModal = false;
 
   //* ---------------------------- GETTERS AND SETTERS ---------------------------------------//
   @api
@@ -143,7 +145,7 @@ export default class EsLookup extends LightningElement {
         errorCode = error.status;
       }
       if (errorCode === 404 || errorCode === 400) {
-        console.log("EXECUTE LOGIC HERE");
+        this.secondarySearch();
       } else {
         this.notifyUser("Error loading Record", message, "error");
       }
@@ -345,5 +347,50 @@ export default class EsLookup extends LightningElement {
   //* Sets the UniqueFieldValue
   setUniqueFieldValue() {
     this.uniqueFieldValue = this.recordUniqueFields[this.uniqueField]?.value;
+  }
+
+  //* Launch Secondary Search
+  secondarySearch() {
+    if (this.uniqueField && this.uniqueFieldValue && this.sobject) {
+      searchWithUniqueField({
+        uniqueField: this.uniqueField,
+        uniqueFieldValue: this.uniqueFieldValue,
+        objectApiName: this.sobject
+      })
+        .then((response) => {
+          console.log(
+            "Search With Unique",
+            JSON.parse(JSON.stringify(response))
+          );
+          if (response) {
+            this.isShowModal = true;
+            this.secondaryRecordId = response.id;
+          } else {
+            this.notifyUser(
+              "Error loading Record",
+              "No record with that Id or Unique field value was found",
+              "error"
+            );
+          }
+        })
+        .catch((error) => {
+          let message = "Unknown error";
+          if (Array.isArray(error.body)) {
+            message = error.body.map((e) => e.message).join(", ");
+          } else if (typeof error.body.message === "string") {
+            message = error.body.message;
+          }
+          this.notifyUser("Error loading Record", message, "error");
+        });
+    }
+  }
+  cancelSecondarySearch() {
+    this.isShowModal = false;
+  }
+  confirmSecondarySearch() {
+    if (this.initialSelection.length === 0) {
+      this.recordId = this.secondaryRecordId;
+    }
+    this.isShowModal = false;
   }
 }

@@ -2,10 +2,53 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 01-31-2022
+  @last modified on  : 02-03-2022
   @last modified by  : ErickSixto
 -->
 <template>
+  <!--* MODAL *-->
+  <div if:true={isShowModal} class="custom-modal">
+    <section role="dialog" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <header class="slds-modal__header">
+          <span class="slds-modal__close">
+            <lightning-icon
+              icon-name="utility:close"
+              variant="inverse"
+              alternative-text="close"
+              onclick={cancelSecondarySearch}
+            ></lightning-icon>
+          </span>
+          <h2 class="slds-text-heading_medium slds-hyphenate">
+            Secondary Search
+          </h2>
+        </header>
+        <div class="slds-modal__content slds-p-around_medium">
+          <p>
+            The record for this component was not found. But we did found a
+            matching record using the Unique Field. Should we show this record?
+          </p>
+        </div>
+        <footer class="slds-modal__footer">
+          <lightning-button
+            label="No"
+            title="No"
+            class="slds-m-right_small"
+            variant="brand-outline"
+            onclick={cancelSecondarySearch}
+          ></lightning-button>
+          <lightning-button
+            variant="brand"
+            label="Yes"
+            title="Yes"
+            onclick={confirmSecondarySearch}
+          ></lightning-button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </div>
+  <!--* MAIN CONTAINER *-->
   <div class="lookup-container">
     <!--* OBJECT SEARCH *-->
     <c-lookup
