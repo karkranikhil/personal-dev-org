@@ -63,12 +63,23 @@ export default class EsLookup extends LightningElement {
 
   //* ---------------------------- LIFE CYCLE ----------------------------------------------//
   connectedCallback() {
-    if (this.recordId.length < 18 || this.recordId.length > 18) {
+    if (
+      (this.recordId.length > 0 && this.recordId.length < 18) ||
+      this.recordId.length > 18
+    ) {
       this.notifyUser(
         "Invalid ID",
         "Record Id must be 18 characters long",
         "error"
       );
+    }
+    if (
+      this.recordId.length === 0 &&
+      this.sobject &&
+      this.uniqueField &&
+      this.uniqueFieldValue
+    ) {
+      this.secondarySearch();
     }
     this.initLookupDefaultResults();
   }
