@@ -96,6 +96,12 @@
         type="String"
         label="Description: Sixth Tile"
       />
+
+            <property
+        name="navigation"
+        type="String"
+        label="Navigation Developer Name"
+      />
             
         </targetConfig>
     </targetConfigs>

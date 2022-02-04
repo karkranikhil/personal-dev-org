@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 02-02-2022
+  @last modified on  : 02-04-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -14,12 +14,15 @@
       for:index="index"
     >
       <c-es-navigation-tile
-        key={tile.title}
+        key={tile.Id}
+        name={tile.Id}
+        title={tile.title}
         description={tile.description}
         image={tile.image}
         background-color={backgroundColor}
         shadow-color={shadowColor}
         font-color={fontColor}
+        onclick={navigate}
       >
       </c-es-navigation-tile>
     </template>

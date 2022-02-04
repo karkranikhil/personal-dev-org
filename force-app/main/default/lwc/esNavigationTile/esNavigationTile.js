@@ -2,9 +2,9 @@ import { LightningElement, api } from "lwc";
 import ASSETS from "@salesforce/resourceUrl/esComponentAssets";
 
 export default class EsNavigationTile extends LightningElement {
+  @api title;
   @api description;
   @api image;
-  @api navigation;
   @api backgroundColor;
   @api shadowColor;
   @api fontColor;

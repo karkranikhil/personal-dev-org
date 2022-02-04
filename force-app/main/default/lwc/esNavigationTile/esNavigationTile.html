@@ -2,19 +2,19 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 02-02-2022
+  @last modified on  : 02-04-2022
   @last modified by  : ErickSixto
 -->
 <template>
   <article class="card">
     <div class="background">
       <div class="header">
-        <h3 class="title">Card Title</h3>
-        <h4 class="description">Card Description Goes Here</h4>
+        <h3 class="title">{title}</h3>
+        <h4 class="description">{description}</h4>
       </div>
     </div>
     <div class="image-container">
-      <img if:true={imagePath} src={imagePath} alt="My Image" />
+      <img if:true={imagePath} src={imagePath} alt={title} />
     </div>
   </article>
 </template>

@@ -1,4 +1,6 @@
 import { LightningElement, api, track } from "lwc";
+import getNavigationItems from "@salesforce/apex/esNavigationController.getNavigationItems";
+import BASE_PATH from "@salesforce/community/basePath";
 
 export default class EsNavigationTiles extends LightningElement {
   @api fontColor;
@@ -19,41 +21,76 @@ export default class EsNavigationTiles extends LightningElement {
   @api sixthImagePath;
   @api sixthDescription;
 
-  @track tiles;
+  @api navigation;
 
+  @track navigationItems;
+  @track tiles;
+  baseURL;
   connectedCallback() {
-    console.log("Tile Grid");
-    this.tiles = [
+    this.baseURL = window.location.origin + BASE_PATH;
+    console.log("Base URL", this.baseURL);
+    getNavigationItems({ NavigationDeveleoperName: this.navigation }).then(
+      (response) => {
+        console.log("Nav Items", JSON.parse(JSON.stringify(response)));
+        this.navigationItems = [...response];
+        this.setTiles();
+      }
+    );
+  }
+
+  setTiles() {
+    let tiles = [
       {
-        title: "Title",
         image: this.firstImagePath,
         description: this.firstDescription
       },
       {
-        title: "Title",
         image: this.secondImagePath,
         description: this.secondDescription
       },
       {
-        title: "Title",
         image: this.thirdImagePath,
         description: this.thirdDescription
       },
       {
-        title: "Title",
         image: this.fourthImagePath,
         description: this.fourthDescription
       },
       {
-        title: "Title",
         image: this.fifthImagePath,
         description: this.fifthDescription
       },
       {
-        title: "Title",
         image: this.sixthImagePath,
         description: this.sixthDescription
       }
     ];
+
+    this.tiles = tiles.map((item, index) => ({
+      ...item,
+      Id: this.navigationItems[index].Id,
+      title: this.navigationItems[index].Label,
+      image: item.image,
+      description: item.description
+    }));
+  }
+  navigate(event) {
+    let id = event.target.name;
+    let nav = this.navigationItems.find((item) => item.Id === id);
+    console.log("Clicked", JSON.parse(JSON.stringify(nav)));
+    switch (nav.Type) {
+      case "SalesforceObject":
+        console.log("SalesforceObject");
+        break;
+      case "InternalLink":
+        console.log("Internal");
+        break;
+      case "ExternalLink":
+        console.log("External");
+        break;
+      default:
+        console.log("Other");
+        break;
+    }
   }
 }
