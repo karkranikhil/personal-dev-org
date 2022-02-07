@@ -1,8 +1,11 @@
 import { LightningElement, api, track } from "lwc";
 import getNavigationItems from "@salesforce/apex/esNavigationController.getNavigationItems";
 import BASE_PATH from "@salesforce/community/basePath";
-
-export default class EsNavigationTiles extends LightningElement {
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { NavigationMixin } from "lightning/navigation";
+export default class EsNavigationTiles extends NavigationMixin(
+  LightningElement
+) {
   @api fontColor;
   @api backgroundColor;
   @api shadowColor;
@@ -29,13 +32,23 @@ export default class EsNavigationTiles extends LightningElement {
   connectedCallback() {
     this.baseURL = window.location.origin + BASE_PATH;
     console.log("Base URL", this.baseURL);
-    getNavigationItems({ NavigationDeveleoperName: this.navigation }).then(
-      (response) => {
+    getNavigationItems({ NavigationDeveleoperName: this.navigation })
+      .then((response) => {
         console.log("Nav Items", JSON.parse(JSON.stringify(response)));
-        this.navigationItems = [...response];
+        if (response.length > 6) {
+          this.notifyUser(
+            "Error",
+            "Cannot set more than 6 Navigation Tiles",
+            "error"
+          );
+        } else {
+          this.navigationItems = [...response];
+        }
         this.setTiles();
-      }
-    );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   setTiles() {
@@ -80,17 +93,60 @@ export default class EsNavigationTiles extends LightningElement {
     console.log("Clicked", JSON.parse(JSON.stringify(nav)));
     switch (nav.Type) {
       case "SalesforceObject":
-        console.log("SalesforceObject");
+        console.log("SalesforceObject", nav.Target);
+        this.navigateToObject(nav.Target);
         break;
       case "InternalLink":
         console.log("Internal");
+        window.location.href += nav.Target.replace("/", "");
         break;
       case "ExternalLink":
         console.log("External");
+        window.location.href = nav.Target;
+        break;
+      case "Event":
+        if (nav.Target === "Logout") {
+          this.logout();
+        }
+        if (nav.Target === "Login") {
+          this.login();
+        }
+        window.location.href = nav.Target;
         break;
       default:
         console.log("Other");
         break;
     }
+  }
+
+  navigateToObject(object) {
+    this[NavigationMixin.Navigate]({
+      type: "standard__objectPage",
+      attributes: {
+        objectApiName: object,
+        actionName: "home"
+      }
+    });
+  }
+  logout() {
+    this[NavigationMixin.Navigate]({
+      type: "comm__loginPage",
+      attributes: {
+        actionName: "logout"
+      }
+    });
+  }
+  login() {
+    this[NavigationMixin.Navigate]({
+      type: "comm__loginPage",
+      attributes: {
+        actionName: "login"
+      }
+    });
+  }
+
+  notifyUser(title, message, variant) {
+    const toastEvent = new ShowToastEvent({ title, message, variant });
+    this.dispatchEvent(toastEvent);
   }
 }
