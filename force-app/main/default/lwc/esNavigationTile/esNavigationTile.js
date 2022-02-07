@@ -13,4 +13,13 @@ export default class EsNavigationTile extends LightningElement {
   connectedCallback() {
     this.imagePath = ASSETS + "/navTiles/" + this.image;
   }
+
+  renderedCallback() {
+    //?Change Colors
+    this.template.querySelector(".background").style.backgroundColor =
+      this.backgroundColor;
+    this.template.querySelector(".background").style.color = this.fontColor;
+    let r = this.template.querySelector("*");
+    r.style.setProperty("--color-hover-shadow", this.shadowColor);
+  }
 }
