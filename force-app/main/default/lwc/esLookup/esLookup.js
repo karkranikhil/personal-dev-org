@@ -277,6 +277,7 @@ export default class EsLookup extends LightningElement {
     this.uniqueFieldValue = null;
     this.initialSelection = [];
     this.errors = [];
+    this.validSobject = false;
   }
 
   //* ---------------------------- UTILITY METHODS ------------------------------------------//
