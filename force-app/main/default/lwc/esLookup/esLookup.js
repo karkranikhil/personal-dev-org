@@ -2,7 +2,7 @@
  * @description       : Custom Lookup - Wont work for certain objects like 'Task, Event, ...'
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 02-03-2022
+ * @last modified on  : 02-06-2022
  * @last modified by  : ErickSixto
  **/
 import { LightningElement, api, wire } from "lwc";
@@ -58,7 +58,6 @@ export default class EsLookup extends LightningElement {
     this.sobject = data.sobject;
     this.uniqueField = data.uniqueField;
     this.uniqueFieldValue = data.uniqueFieldValue;
-    console.log(this.recordId.length);
   }
 
   //* ---------------------------- LIFE CYCLE ----------------------------------------------//
@@ -121,14 +120,13 @@ export default class EsLookup extends LightningElement {
         "Object Info",
         JSON.parse(JSON.stringify(this.objectInformation))
       );
-      console.log("Theme Info", JSON.parse(JSON.stringify(this.themeInfo)));
+
       console.log(
         "Unique Fields",
         JSON.parse(JSON.stringify(this.uniqueFields))
       );
     }
     if (error) {
-      console.log(error);
       if (error.body.errorCode === "INVALID_TYPE") {
         this.icon = DEFAULT_ICON;
       }
@@ -146,7 +144,6 @@ export default class EsLookup extends LightningElement {
   @wire(getRecord, { recordId: "$recordId", fields: "$uniqueFieldsWire" })
   wiredRecord({ error, data }) {
     if (error) {
-      console.error(error);
       let message = "Unknown error";
       let errorCode;
       if (Array.isArray(error.body)) {
@@ -163,7 +160,7 @@ export default class EsLookup extends LightningElement {
     } else if (data) {
       this.recordUniqueFields = data.fields;
       this.setUniqueFieldValue();
-      console.log("Record Data", JSON.parse(JSON.stringify(data)));
+
       let nameField = this.uniqueFields.find(
         (field) => field.nameField
       ).apiName;
@@ -212,7 +209,7 @@ export default class EsLookup extends LightningElement {
    */
   handleLookupSearch(event) {
     const lookupElement = event.target;
-    console.log(JSON.parse(JSON.stringify(event.detail)));
+
     // Call Apex endpoint to search for records and pass results to the lookup
     search({ ...event.detail, objectApiName: this.sobject })
       .then((results) => {
@@ -222,7 +219,7 @@ export default class EsLookup extends LightningElement {
       .catch((error) => {
         this.notifyUser("Lookup Error", error.body.message, "error");
         // eslint-disable-next-line no-console
-        console.error("Lookup error", JSON.stringify(error));
+
         this.errors.push({
           message: error.body.message
         });
@@ -235,7 +232,7 @@ export default class EsLookup extends LightningElement {
    */
   handleObjectSearch(event) {
     const lookupElement = event.target;
-    console.log(JSON.parse(JSON.stringify(event.detail)));
+
     // Call Apex endpoint to search for records and pass results to the lookup
     getObjectOptions({ searchTerm: event.detail.searchTerm })
       .then((results) => {
@@ -245,7 +242,7 @@ export default class EsLookup extends LightningElement {
       .catch((error) => {
         this.notifyUser("Lookup Error", error.body.message, "error");
         // eslint-disable-next-line no-console
-        console.error("Lookup error", JSON.stringify(error));
+
         this.errors.push({
           message: error.body.message
         });
@@ -266,7 +263,7 @@ export default class EsLookup extends LightningElement {
   handleLookupSelectionChange(event) {
     const selection = event.target.getSelection()[0];
     this.checkForErrors();
-    console.log("Selection", JSON.parse(JSON.stringify(selection)));
+
     this.recordId = selection.id;
   }
   handleRecordClear(event) {
