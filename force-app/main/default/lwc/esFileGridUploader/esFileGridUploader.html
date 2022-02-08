@@ -49,7 +49,7 @@
         for:item="field"
         for:index="index"
       >
-        <div key={field} class="zone">
+        <div if:false={field.document} key={field} class="zone">
           <h3 class="title">{field.label}</h3>
           <c-es-file-zone-uploader
             field-api-name={field.apiname}

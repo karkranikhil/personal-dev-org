@@ -15,11 +15,6 @@ export default class EsFileZoneUploader extends LightningElement {
     const uploadedFiles = event.detail.files;
     let documentId = uploadedFiles[0].documentId;
 
-    const e = new CustomEvent("uploaded", {
-      detail: this.fieldApiName
-    });
-    this.dispatchEvent(e);
-
     this.updateDocument(documentId);
   }
 
@@ -58,6 +53,11 @@ export default class EsFileZoneUploader extends LightningElement {
             variant: "success"
           })
         );
+
+        const e = new CustomEvent("uploaded", {
+          detail: this.fieldApiName
+        });
+        this.dispatchEvent(e);
       })
       .catch((error) => {
         this.dispatchEvent(
