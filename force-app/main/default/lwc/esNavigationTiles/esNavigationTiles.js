@@ -8,6 +8,7 @@ export default class EsNavigationTiles extends NavigationMixin(
 ) {
   @api fontColor;
   @api backgroundColor;
+  @api backgroundHeight;
   @api shadowColor;
 
   @api firstImagePath;
@@ -79,12 +80,11 @@ export default class EsNavigationTiles extends NavigationMixin(
       }
     ];
 
-    this.tiles = tiles.map((item, index) => ({
-      ...item,
-      Id: this.navigationItems[index].Id,
-      title: this.navigationItems[index].Label,
-      image: item.image,
-      description: item.description
+    this.tiles = this.navigationItems.map((item, index) => ({
+      Id: item.Id,
+      title: item.Label,
+      image: tiles[index].image,
+      description: tiles[index].description
     }));
   }
   navigate(event) {

@@ -12,12 +12,19 @@
     <!-- Configuring the design attributes -->
     <targetConfigs>
         <targetConfig targets="lightningCommunity__Default">
+              <property
+        name="backgroundHeight"
+        type="String"
+        default="150px"
+        label="Background Height with Units (px, rem, em)"
+      />
             <property
         name="backgroundColor"
         type="Color"
         default="rgb(11,70,126)"
         label="Background Color"
       />
+        
             <property
         name="shadowColor"
         type="Color"
