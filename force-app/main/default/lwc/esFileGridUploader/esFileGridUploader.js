@@ -61,14 +61,15 @@ export default class EsFileGridUploader extends LightningElement {
   //*GET EXISTING DOCS
   getDocs() {
     let fieldLabels = this.fieldApiNamesList.map((field) => field.label);
-    console.log(fieldLabels);
+    console.log("Field Labels", fieldLabels);
+    console.log("Record", JSON.parse(JSON.stringify(this.record)));
     getExistingDocuments({
       recordId: this.recordId,
       recordName: this.record.fields.Name.value,
       fieldLabels: fieldLabels
     })
       .then((response) => {
-        if (response) {
+        if (response && response.length > 0) {
           this.documents = response.map((doc) => ({
             url:
               IMG_URL_PREFIX +
@@ -100,5 +101,15 @@ export default class EsFileGridUploader extends LightningElement {
       .split(",")
       .map((field) => ({ apiname: field.trim(), label: " " }));
     this.recordFields = [this.objectApiName + ".Name"];
+  }
+
+  handleUploaded(event) {
+    let field = event.detail;
+    console.log("Field to Remove", field);
+    this.fieldApiNamesList = this.fieldApiNamesList.filter((item) => {
+      return item.apiname !== field;
+    });
+
+    console.log("Updated List", this.fieldApiNamesList);
   }
 }

@@ -14,6 +14,12 @@ export default class EsFileZoneUploader extends LightningElement {
     // Get the list of uploaded files
     const uploadedFiles = event.detail.files;
     let documentId = uploadedFiles[0].documentId;
+
+    const e = new CustomEvent("uploaded", {
+      detail: this.fieldApiName
+    });
+    this.dispatchEvent(e);
+
     this.updateDocument(documentId);
   }
 

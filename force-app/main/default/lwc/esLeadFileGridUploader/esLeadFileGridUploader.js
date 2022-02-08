@@ -26,7 +26,7 @@ export default class EsLeadFileGridUploader extends LightningElement {
     "aktuelle_Selbstauskunft__c, Einwertungsbogen__c, Gehaltsnachweis__c, Eigenkapitalnachweis__c, Steuerbescheid__c, aktuelle_betriebswirtschaftliche_Auswert__c, letzte_zwei_Bilanzen__c";
 
   connectedCallback() {
-    console.log(this.fields);
+    //Do nothing
   }
 
   //* --------- WIRE METHODS ---------*//
