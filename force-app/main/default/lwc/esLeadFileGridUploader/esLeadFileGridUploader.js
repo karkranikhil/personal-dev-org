@@ -22,8 +22,7 @@ const FIELDS = [
 export default class EsLeadFileGridUploader extends LightningElement {
   @api recordId;
   @api objectApiName;
-  fields =
-    "aktuelle_Selbstauskunft__c, Einwertungsbogen__c, Gehaltsnachweis__c, Eigenkapitalnachweis__c, Steuerbescheid__c, aktuelle_betriebswirtschaftliche_Auswert__c, letzte_zwei_Bilanzen__c";
+  fields = null;
 
   connectedCallback() {
     //Do nothing
@@ -50,16 +49,24 @@ export default class EsLeadFileGridUploader extends LightningElement {
         "Fields From Parent",
         JSON.parse(JSON.stringify(this.recordFields))
       );
+      this.setConditionalFields();
     }
   }
 
   //* ---------UTILITY ---------*//
   setConditionalFields() {
-    const berufsstatus = this.recordFields.Berufsstatus__c.value.toLowerCase();
-    const partnerBerufsstatus =
-      this.recordFields.Partner_Berufsstatus__c.value.toLowerCase();
-    const einwertung = this.recordFields.Einwertung__c.value.toLowerCase();
-
+    console.log("Conditional Logic", this.recordFields);
+    let berufsstatus = this.recordFields.Berufsstatus__c.value;
+    let partnerBerufsstatus = this.recordFields.Partner_Berufsstatus__c.value;
+    let einwertung = this.recordFields.Einwertung__c.value;
+    berufsstatus = berufsstatus ? berufsstatus.toLowerCase() : null;
+    partnerBerufsstatus = partnerBerufsstatus
+      ? partnerBerufsstatus.toLowerCase()
+      : null;
+    einwertung = einwertung ? einwertung.toLowerCase() : null;
+    console.log("einwertung: ", einwertung);
+    console.log("berufsstatus: ", berufsstatus);
+    console.log("partnerBerufsstatus: ", partnerBerufsstatus);
     //? First Scenario
     if (
       (partnerBerufsstatus === "selbstständig" ||
@@ -67,22 +74,33 @@ export default class EsLeadFileGridUploader extends LightningElement {
       einwertung === "gemeinsam"
     ) {
       console.log("First Scenario");
+      this.fields =
+        "aktuelle_Selbstauskunft__c, Einwertungsbogen__c, Gehaltsnachweis__c, Eigenkapitalnachweis__c, Steuerbescheid__c, aktuelle_betriebswirtschaftliche_Auswert__c, letzte_zwei_Bilanzen__c";
     }
     //? Second Scenario
-    if (
+    else if (
       partnerBerufsstatus === "selbstständig" &&
       berufsstatus === "selbstständig"
     ) {
       console.log("Second Scenario");
+      this.fields =
+        "aktuelle_Selbstauskunft__c, Einwertungsbogen__c, Eigenkapitalnachweis__c, Steuerbescheid__c, aktuelle_betriebswirtschaftliche_Auswert__c, letzte_zwei_Bilanzen__c";
     }
     //? Third Scenario
-    if (
+    else if (
       einwertung === "alleine" &&
       berufsstatus === "privatier/ohne beschäftigung"
     ) {
       console.log("Third Scenario");
+      this.fields =
+        "aktuelle_Selbstauskunft__c, Einwertungsbogen__c, Eigenkapitalnachweis__c, Steuerbescheid__c";
     }
 
     //? Fourth Scenario Goes Here
+    else {
+      console.log("Other Scenario");
+      this.fields =
+        "aktuelle_Selbstauskunft__c, Einwertungsbogen__c, Gehaltsnachweis__c, Eigenkapitalnachweis__c, Steuerbescheid__c";
+    }
   }
 }
