@@ -18,52 +18,8 @@ export default class EsDualListBox extends LightningElement {
   @api max;
   @api size = null;
 
-  @api availableElements = [
-    {
-      Label: "English",
-      Value: "123-English",
-      IconName: "",
-      Tooltip: "Your Tooltip",
-      Disabled: true
-    },
-    {
-      Label: "Italian",
-      Value: "123-Italian",
-      IconName: null,
-      Tooltip: null,
-      Disabled: false
-    },
-    {
-      Label: "French",
-      Value: "123-French",
-      IconName: "utility:ban",
-      Tooltip: "Banned",
-      Disabled: true
-    },
-    {
-      Label: "German",
-      Value: "123-German",
-      IconName: "",
-      Tooltip: null,
-      Disabled: false
-    }
-  ];
-  @api selectedElements = [
-    {
-      Label: "Korean",
-      Value: "123-Korean",
-      IconName: null,
-      Tooltip: "Help text",
-      Disabled: true
-    },
-    {
-      Label: "Spanish",
-      Value: "123-Spanish",
-      IconName: null,
-      Tooltip: null,
-      Disabled: false
-    }
-  ];
+  @api availableElements = [];
+  @api selectedElements = [];
   @track selected;
   @track available;
 
