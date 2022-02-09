@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 02-08-2022
+  @last modified on  : 02-09-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -13,7 +13,7 @@
       record-id={recordId}
       object-api-name={objectApiName}
     >
-      <div class="grid">
+      <div class="grid docs">
         <template
           if:true={isRenderList}
           for:each={fieldApiNamesList}
@@ -42,7 +42,7 @@
       </div>
     </lightning-record-view-form>
     <div class="card header"><h2>What do you want to upload?</h2></div>
-    <div class="grid">
+    <div class="grid zones">
       <template
         if:true={isRenderList}
         for:each={fieldApiNamesList}
