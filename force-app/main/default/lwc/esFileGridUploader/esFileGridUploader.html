@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 02-09-2022
+  @last modified on  : 02-10-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -13,7 +13,7 @@
       record-id={recordId}
       object-api-name={objectApiName}
     >
-      <div class="grid docs">
+      <div class="docs">
         <template
           if:true={isRenderList}
           for:each={fieldApiNamesList}
@@ -28,15 +28,23 @@
                 variant="label-hidden"
               ></lightning-output-field>
             </div>
-            <c-es-file-download
-              class="doc-display"
-              if:true={field.document}
-              icon="utility:page"
-              name={field.document.name}
-              extension={field.document.extension}
-              url={field.document.url}
+            <template
+              if:true={field.documents}
+              for:each={field.documents}
+              for:item="doc"
+              for:index="index"
             >
-            </c-es-file-download>
+              <c-es-file-download
+                key={doc.url}
+                class="doc-display"
+                if:true={doc}
+                icon="utility:page"
+                name={doc.name}
+                extension={doc.extension}
+                url={doc.url}
+              >
+              </c-es-file-download>
+            </template>
           </div>
         </template>
       </div>
@@ -49,7 +57,7 @@
         for:item="field"
         for:index="index"
       >
-        <div if:false={field.document} key={field} class="zone">
+        <div key={field} class="zone">
           <h3 class="title">{field.label}</h3>
           <c-es-file-zone-uploader
             field-api-name={field.apiname}

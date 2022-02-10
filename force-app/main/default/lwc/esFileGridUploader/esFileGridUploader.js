@@ -80,7 +80,7 @@ export default class EsFileGridUploader extends LightningElement {
           }));
           this.fieldApiNamesList = this.fieldApiNamesList.map((field) => ({
             ...field,
-            document: this.documents.find(
+            documents: this.documents.filter(
               (doc) =>
                 doc.name.substring(0, doc.name.indexOf("_")) === field.label
             )
@@ -104,12 +104,12 @@ export default class EsFileGridUploader extends LightningElement {
   }
 
   handleUploaded(event) {
-    let field = event.detail;
-    console.log("Field to Remove", field);
-    this.fieldApiNamesList = this.fieldApiNamesList.filter((item) => {
-      return item.apiname !== field;
-    });
-
-    console.log("Updated List", this.fieldApiNamesList);
+    //! Unccoment if you wish the 'Remove Uploaded' feature
+    // let field = event.detail;
+    // console.log("Field to Remove", field);
+    // this.fieldApiNamesList = this.fieldApiNamesList.filter((item) => {
+    //   return item.apiname !== field;
+    // });
+    // console.log("Updated List", this.fieldApiNamesList);
   }
 }

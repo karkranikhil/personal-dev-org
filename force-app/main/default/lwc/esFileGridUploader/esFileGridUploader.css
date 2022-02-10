@@ -53,9 +53,14 @@
   gap: 8px;
   justify-content: center;
 }
-.grid.docs {
+.docs {
+  align-items: center;
   align-items: inherit;
-  margin: 8px max(18px, 10%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  margin: 8px 18px;
 }
 .grid.zones {
   align-items: inherit;
@@ -75,16 +80,6 @@
 }
 @media only screen and (min-width: 768px) {
   .grid.zones {
-    column-gap: 1rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin: 1rem 2rem;
-    padding: 1rem;
-    row-gap: 1rem;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  .grid.docs {
     column-gap: 1rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
