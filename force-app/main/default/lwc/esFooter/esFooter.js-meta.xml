@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+       <isExposed>true</isExposed>
+    <targets>
+     
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+
+    </targets>
+      <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property
+        name="backgroundColor"
+        type="Color"
+        default="rgb(237,237,237)"
+        label="Background Color"
+      />
+        
+            <property
+        name="headerColor"
+        type="Color"
+        default="rgb(11, 70, 126)"
+        label="Hover Shadow Color"
+      />
+            <property
+        name="fontColor"
+        type="Color"
+        default="rgb(112, 112, 112)"
+        label="Font Color"
+      />
+
+            <property
+        name="firstHeader"
+        type="String"
+        label="First Section Header"
+      />
+            <property
+        name="secondHeader"
+        type="String"
+        label="Second Section Header"
+      />
+            <property
+        name="thirdHeader"
+        type="String"
+        label="Third Section Header"
+      />
+            <property
+        name="fourthHeader"
+        type="String"
+        label="Fourth Section Header"
+      />
+
+            <property
+        name="firstNavigation"
+        type="String"
+        label="First Section Navigation Developer Name"
+      />
+            
+            <property
+        name="secondNavigation"
+        type="String"
+        label="Second Section Navigation Developer Name"
+      />
+            
+            <property
+        name="fourthNavigation"
+        type="String"
+        label="Fourth Section Navigation Developer Name"
+      />
+            
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
