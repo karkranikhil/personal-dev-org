@@ -80,7 +80,8 @@ export default class EsLeadFileGridUploader extends LightningElement {
     //? Second Scenario
     else if (
       partnerBerufsstatus === "selbstständig" &&
-      berufsstatus === "selbstständig"
+      berufsstatus === "selbstständig" &&
+      einwertung === "alleine"
     ) {
       console.log("Second Scenario");
       this.fields =

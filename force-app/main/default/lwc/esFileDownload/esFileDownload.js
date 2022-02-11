@@ -10,7 +10,7 @@ export default class EsFileDownload extends LightningElement {
 
   connectedCallback() {
     this.textDisplay =
-      this.truncateString(this.name, 12) + "." + this.extension;
+      this.truncateString(this.name, 20) + "." + this.extension;
   }
 
   truncateString(str, num) {
