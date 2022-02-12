@@ -121,8 +121,8 @@ export default class EsFooter extends NavigationMixin(LightningElement) {
   }
 
   setNavigationItems() {
-    getNavigationItems({ NavigationDeveleoperName: this.firstNavigation })
-      .then((response) => {
+    getNavigationItems({ NavigationDeveleoperName: this.firstNavigation }).then(
+      (response) => {
         if (response.length > 8) {
           this.notifyUser(
             "Error",
@@ -133,25 +133,24 @@ export default class EsFooter extends NavigationMixin(LightningElement) {
           this.firstLinks = [...response];
           this.navigationItems = [...this.navigationItems, ...response];
         }
-      })
-      .catch((error) => {});
-    getNavigationItems({ NavigationDeveleoperName: this.secondNavigation })
-      .then((response) => {
-        if (response.length > 8) {
-          this.notifyUser(
-            "Error",
-            "Cannot set more than 8 Navigation Items - " +
-              this.secondNavigation,
-            "error"
-          );
-        } else {
-          this.secondLinks = [...response];
-          this.navigationItems = [...this.navigationItems, ...response];
-        }
-      })
-      .catch((error) => {});
-    getNavigationItems({ NavigationDeveleoperName: this.thirdNavigation })
-      .then((response) => {
+      }
+    );
+    getNavigationItems({
+      NavigationDeveleoperName: this.secondNavigation
+    }).then((response) => {
+      if (response.length > 8) {
+        this.notifyUser(
+          "Error",
+          "Cannot set more than 8 Navigation Items - " + this.secondNavigation,
+          "error"
+        );
+      } else {
+        this.secondLinks = [...response];
+        this.navigationItems = [...this.navigationItems, ...response];
+      }
+    });
+    getNavigationItems({ NavigationDeveleoperName: this.thirdNavigation }).then(
+      (response) => {
         if (response.length > 8) {
           this.notifyUser(
             "Error",
@@ -162,22 +161,21 @@ export default class EsFooter extends NavigationMixin(LightningElement) {
           this.thirdLinks = [...response];
           this.navigationItems = [...this.navigationItems, ...response];
         }
-      })
-      .catch((error) => {});
-    getNavigationItems({ NavigationDeveleoperName: this.fourthNavigation })
-      .then((response) => {
-        if (response.length > 8) {
-          this.notifyUser(
-            "Error",
-            "Cannot set more than 8 Navigation Items - " +
-              this.fourthNavigation,
-            "error"
-          );
-        } else {
-          this.fourthLinks = [...response];
-          this.navigationItems = [...this.navigationItems, ...response];
-        }
-      })
-      .catch((error) => {});
+      }
+    );
+    getNavigationItems({
+      NavigationDeveleoperName: this.fourthNavigation
+    }).then((response) => {
+      if (response.length > 8) {
+        this.notifyUser(
+          "Error",
+          "Cannot set more than 8 Navigation Items - " + this.fourthNavigation,
+          "error"
+        );
+      } else {
+        this.fourthLinks = [...response];
+        this.navigationItems = [...this.navigationItems, ...response];
+      }
+    });
   }
 }

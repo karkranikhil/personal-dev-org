@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+         <isExposed>true</isExposed>
+    <targets>
+     
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+
+    </targets>
+      <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="icon" type="String" label="Footer B Icon file" />
+            <property name="iconLink" type="String" label="Icon Redirect Url" />
+            <property
+        name="backgroundColor"
+        type="Color"
+        default="rgb(112,112,112)"
+        label="Background Color"
+      />
+            <property
+        name="fontColor"
+        type="Color"
+        default="rgb(237, 237, 237)"
+        label="Font Color"
+      />
+
+            <property
+        name="navigation"
+        type="String"
+        label="Navigation Developer Name"
+      />
+            
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,33 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 02-12-2022
+  @last modified by  : ErickSixto
+-->
+<template>
+  <footer class="footer">
+    <ul class="content">
+      <li>
+        <div class="image-container">
+          <a href={iconLink} class="link">
+            <img if:true={imagePath} src={imagePath} alt="logo"
+          /></a>
+        </div>
+      </li>
+      <template
+        if:true={navigationItems}
+        for:each={navigationItems}
+        for:item="link"
+        for:index="index"
+      >
+        <li key={link.Id}>
+          <div class="vl"></div>
+        </li>
+        <li key={link.Id}>
+          <a class="link" name={link.Id} onclick={navigate}>{link.Label}</a>
+        </li>
+      </template>
+    </ul>
+  </footer>
+</template>
