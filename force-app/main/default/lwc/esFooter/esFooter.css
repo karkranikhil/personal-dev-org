@@ -1,7 +1,13 @@
 @media screen and (min-width: 320px) {
+  .background {
+    width: 100%;
+    background: rgb(237, 237, 237);
+    padding: 8px 0;
+  }
   .footer {
     align-items: flex-start;
-    background: rgb(237, 237, 237);
+    max-width: 1400px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -52,8 +58,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
-  .header {
-    cursor: auto;
+  h3.header {
+    cursor: text;
   }
   .content {
     max-height: none;
