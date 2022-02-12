@@ -41,9 +41,16 @@
       <div class="collapsible" onclick={handleCollapse}>
         <h3 class="header">{thirdHeader}</h3>
         <ul class="content">
-          <li><a class="link">Footer Link</a></li>
-          <li><a class="link">Footer Link</a></li>
-          <li><a class="link">Footer Link</a></li>
+          <template
+            if:true={thirdLinks}
+            for:each={thirdLinks}
+            for:item="link"
+            for:index="index"
+          >
+            <li key={link.Id}>
+              <a class="link" name={link.Id} onclick={navigate}>{link.Label}</a>
+            </li>
+          </template>
         </ul>
       </div>
       <div class="collapsible" onclick={handleCollapse}>

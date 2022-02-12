@@ -3,7 +3,7 @@ import getNavigationItems from "@salesforce/apex/esNavigationController.getNavig
 import BASE_PATH from "@salesforce/community/basePath";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
-export default class EsFooter extends LightningElement {
+export default class EsFooter extends NavigationMixin(LightningElement) {
   @api backgroundColor;
   @api headerColor;
   @api fontColor;
@@ -13,10 +13,12 @@ export default class EsFooter extends LightningElement {
   @api fourthHeader;
   @api firstNavigation;
   @api secondNavigation;
+  @api thirdNavigation;
   @api fourthNavigation;
 
   @track firstLinks;
   @track secondLinks;
+  @track thirdLinks;
   @track fourthLinks;
   @track navigationItems = [];
 
@@ -44,8 +46,7 @@ export default class EsFooter extends LightningElement {
   handleCollapse(event) {
     event.stopPropagation();
     let collapsible = event.target;
-    console.log(collapsible.classList);
-    console.log(window.innerWidth);
+
     if (!collapsible.classList.contains("header") || window.innerWidth >= 768) {
       return;
     }
@@ -61,9 +62,8 @@ export default class EsFooter extends LightningElement {
   navigate(event) {
     event.stopPropagation();
     let id = event.target.name;
-    console.log("Clicked Item", id);
+
     let nav = this.navigationItems.find((item) => item.Id === id);
-    console.log("nav: ", JSON.parse(JSON.stringify(nav)));
 
     switch (nav.Type) {
       case "SalesforceObject":
@@ -134,9 +134,7 @@ export default class EsFooter extends LightningElement {
           this.navigationItems = [...this.navigationItems, ...response];
         }
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch((error) => {});
     getNavigationItems({ NavigationDeveleoperName: this.secondNavigation })
       .then((response) => {
         if (response.length > 8) {
@@ -151,9 +149,21 @@ export default class EsFooter extends LightningElement {
           this.navigationItems = [...this.navigationItems, ...response];
         }
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch((error) => {});
+    getNavigationItems({ NavigationDeveleoperName: this.thirdNavigation })
+      .then((response) => {
+        if (response.length > 8) {
+          this.notifyUser(
+            "Error",
+            "Cannot set more than 8 Navigation Items - " + this.thirdNavigation,
+            "error"
+          );
+        } else {
+          this.thirdLinks = [...response];
+          this.navigationItems = [...this.navigationItems, ...response];
+        }
+      })
+      .catch((error) => {});
     getNavigationItems({ NavigationDeveleoperName: this.fourthNavigation })
       .then((response) => {
         if (response.length > 8) {
@@ -168,8 +178,6 @@ export default class EsFooter extends LightningElement {
           this.navigationItems = [...this.navigationItems, ...response];
         }
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch((error) => {});
   }
 }
