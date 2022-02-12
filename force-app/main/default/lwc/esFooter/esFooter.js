@@ -12,6 +12,20 @@ export default class EsFooter extends LightningElement {
   @api secondNavigation;
   @api fourthNavigation;
 
+  //* ---------------------- LIFECYCLE METHODS ----------------------//
+
+  renderedCallback() {
+    //?Change Colors and Height
+    this.template.querySelector(".background").style.backgroundColor =
+      this.backgroundColor;
+    this.template
+      .querySelectorAll(".header")
+      .forEach((header) => (header.style.color = this.headerColor));
+    this.template
+      .querySelectorAll(".link")
+      .forEach((link) => (link.style.color = this.fontColor));
+  }
+
   //* ---------------------- UTILITY METHODS ------------------------//
 
   handleCollapse(event) {
