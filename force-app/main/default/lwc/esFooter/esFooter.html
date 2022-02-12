@@ -10,35 +10,56 @@
     <footer class="footer">
       <div class="collapsible" onclick={handleCollapse}>
         <h3 class="header">{firstHeader}</h3>
-        <div class="content">
-          <h4 class="link">Footer Link</h4>
-          <h4 class="link">Footer Link</h4>
-          <h4 class="link">Footer Link</h4>
-        </div>
+        <ul class="content">
+          <template
+            if:true={firstLinks}
+            for:each={firstLinks}
+            for:item="link"
+            for:index="index"
+          >
+            <li key={link.Id}>
+              <a class="link" name={link.Id} onclick={navigate}>{link.Label}</a>
+            </li>
+          </template>
+        </ul>
       </div>
       <div class="collapsible" onclick={handleCollapse}>
         <h3 class="header">{secondHeader}</h3>
-        <div class="content">
-          <h4 class="link">Footer Link</h4>
-          <h4 class="link">Footer Link</h4>
-          <h4 class="link">Footer Link</h4>
-        </div>
+        <ul class="content">
+          <template
+            if:true={secondLinks}
+            for:each={secondLinks}
+            for:item="link"
+            for:index="index"
+          >
+            <li key={link.Id}>
+              <a class="link" name={link.Id} onclick={navigate}>{link.Label}</a>
+            </li>
+          </template>
+        </ul>
       </div>
       <div class="collapsible" onclick={handleCollapse}>
         <h3 class="header">{thirdHeader}</h3>
-        <div class="content">
-          <h4 class="link">Footer Link</h4>
-          <h4 class="link">Footer Link</h4>
-          <h4 class="link">Footer Link</h4>
-        </div>
+        <ul class="content">
+          <li><a class="link">Footer Link</a></li>
+          <li><a class="link">Footer Link</a></li>
+          <li><a class="link">Footer Link</a></li>
+        </ul>
       </div>
       <div class="collapsible" onclick={handleCollapse}>
         <h3 class="header">{fourthHeader}</h3>
-        <div class="content">
-          <h4 class="link">Footer Link</h4>
-          <h4 class="link">Footer Link</h4>
-          <h4 class="link">Footer Link</h4>
-        </div>
+        <ul class="content">
+          <template
+            if:true={fourthLinks}
+            for:each={fourthLinks}
+            for:item="link"
+            for:index="index"
+          >
+            <li key={link.Id}>
+              <a class="link" name={link.Id} onclick={navigate}>{link.Label}</a>
+            </li>
+          </template>
+        </ul>
       </div>
     </footer>
   </div>

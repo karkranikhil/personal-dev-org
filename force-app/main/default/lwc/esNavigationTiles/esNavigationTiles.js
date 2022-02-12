@@ -32,10 +32,9 @@ export default class EsNavigationTiles extends NavigationMixin(
   baseURL;
   connectedCallback() {
     this.baseURL = window.location.origin + BASE_PATH;
-    console.log("Base URL", this.baseURL);
+
     getNavigationItems({ NavigationDeveleoperName: this.navigation })
       .then((response) => {
-        console.log("Nav Items", JSON.parse(JSON.stringify(response)));
         if (response.length > 6) {
           this.notifyUser(
             "Error",
@@ -90,18 +89,15 @@ export default class EsNavigationTiles extends NavigationMixin(
   navigate(event) {
     let id = event.target.name;
     let nav = this.navigationItems.find((item) => item.Id === id);
-    console.log("Clicked", JSON.parse(JSON.stringify(nav)));
+
     switch (nav.Type) {
       case "SalesforceObject":
-        console.log("SalesforceObject", nav.Target);
         this.navigateToObject(nav.Target);
         break;
       case "InternalLink":
-        console.log("Internal");
         window.location.href += nav.Target.replace("/", "");
         break;
       case "ExternalLink":
-        console.log("External");
         window.location.href = nav.Target;
         break;
       case "Event":
@@ -114,7 +110,6 @@ export default class EsNavigationTiles extends NavigationMixin(
         window.location.href = nav.Target;
         break;
       default:
-        console.log("Other");
         break;
     }
   }
