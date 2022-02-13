@@ -61,6 +61,7 @@ export default class EsFooter extends NavigationMixin(LightningElement) {
 
   navigate(event) {
     event.stopPropagation();
+    console.log(JSON.parse(JSON.stringify(this.navigationItems)));
     let id = event.target.name;
 
     let nav = this.navigationItems.find((item) => item.Id === id);

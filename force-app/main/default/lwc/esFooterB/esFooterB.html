@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 02-12-2022
+  @last modified on  : 02-13-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -25,7 +25,21 @@
           <div class="vl"></div>
         </li>
         <li key={link.Id}>
-          <a class="link" name={link.Id} onclick={navigate}>{link.Label}</a>
+          <a
+            if:true={link.Target}
+            class="link"
+            name={link.Id}
+            onclick={navigate}
+            >{link.Label}</a
+          >
+          <h4
+            if:false={link.Target}
+            class="link"
+            name={link.Id}
+            onclick={navigate}
+          >
+            {link.Label}
+          </h4>
         </li>
       </template>
     </ul>

@@ -4,7 +4,7 @@
 
     background-color: rgb(112, 112, 112);
   }
-  a.link {
+  .link {
     cursor: pointer;
     margin: 0.25rem 0.25rem;
     font-size: 0.8rem;

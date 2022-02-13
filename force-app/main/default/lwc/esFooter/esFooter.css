@@ -17,16 +17,13 @@
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: bold;
-    text-transform: uppercase;
     line-height: 1rem;
     color: rgb(11, 70, 126);
   }
-  a.link {
-    cursor: pointer;
+  .link {
     margin: 0.25rem 0;
     font-size: 0.8rem;
     font-weight: bold;
-    text-transform: uppercase;
     line-height: 1rem;
     color: rgb(112, 112, 112);
   }

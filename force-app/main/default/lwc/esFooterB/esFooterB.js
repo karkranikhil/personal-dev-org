@@ -30,6 +30,9 @@ export default class EsFooterB extends NavigationMixin(LightningElement) {
     this.template
       .querySelectorAll(".link")
       .forEach((link) => (link.style.color = this.fontColor));
+    this.template
+      .querySelectorAll(".vl")
+      .forEach((link) => (link.style.borderColor = this.fontColor));
   }
 
   //* ---------------------- UTILITY METHODS ------------------------//
