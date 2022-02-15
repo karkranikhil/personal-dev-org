@@ -8,8 +8,16 @@
 <template>
   <div class="background">
     <footer class="footer">
-      <div class="collapsible" onclick={handleCollapse}>
-        <h3 class="header">{firstHeader}</h3>
+      <div class="collapsible">
+        <h3 class="header" onclick={handleCollapse}>
+          {firstHeader}
+          <lightning-icon
+            class="arrow-icon"
+            size="x-small"
+            icon-name={iconName}
+            alternative-text="Expand"
+          ></lightning-icon>
+        </h3>
         <div class="content">
           <template
             if:true={fourthLinks}
@@ -37,8 +45,17 @@
           </template>
         </div>
       </div>
-      <div class="collapsible" onclick={handleCollapse}>
-        <h3 class="header">{secondHeader}</h3>
+      <div class="collapsible">
+        <h3 class="header" onclick={handleCollapse}>
+          {secondHeader}
+          <lightning-icon
+            class="arrow-icon"
+            size="x-small"
+            icon-name={iconName}
+            alternative-text="Expand"
+          ></lightning-icon>
+        </h3>
+
         <div class="content">
           <template
             if:true={fourthLinks}
@@ -66,8 +83,17 @@
           </template>
         </div>
       </div>
-      <div class="collapsible" onclick={handleCollapse}>
-        <h3 class="header">{thirdHeader}</h3>
+      <div class="collapsible">
+        <h3 class="header" onclick={handleCollapse}>
+          {thirdHeader}
+          <lightning-icon
+            class="arrow-icon"
+            size="x-small"
+            icon-name={iconName}
+            alternative-text="Expand"
+          ></lightning-icon>
+        </h3>
+
         <div class="content">
           <template
             if:true={fourthLinks}
@@ -95,8 +121,17 @@
           </template>
         </div>
       </div>
-      <div class="collapsible" onclick={handleCollapse}>
-        <h3 class="header">{fourthHeader}</h3>
+      <div class="collapsible">
+        <h3 class="header" onclick={handleCollapse}>
+          {fourthHeader}
+          <lightning-icon
+            class="arrow-icon"
+            size="x-small"
+            icon-name={iconName}
+            alternative-text="Expand"
+          ></lightning-icon>
+        </h3>
+
         <div class="content">
           <template
             if:true={fourthLinks}

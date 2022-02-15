@@ -22,6 +22,8 @@ export default class EsFooter extends NavigationMixin(LightningElement) {
   @track fourthLinks;
   @track navigationItems = [];
 
+  iconName = "utility:chevrondown";
+
   //* ---------------------- LIFECYCLE METHODS ----------------------//
 
   connectedCallback() {
@@ -39,18 +41,28 @@ export default class EsFooter extends NavigationMixin(LightningElement) {
     this.template
       .querySelectorAll(".link")
       .forEach((link) => (link.style.color = this.fontColor));
+    this.template.querySelectorAll(".arrow-icon").forEach((r) => {
+      r.style.setProperty(
+        "--slds-c-icon-color-foreground-default",
+        this.headerColor
+      );
+    });
   }
 
   //* ---------------------- UTILITY METHODS ------------------------//
 
   handleCollapse(event) {
-    event.stopPropagation();
-    let collapsible = event.target;
+    let collapsible = event.currentTarget;
 
     if (!collapsible.classList.contains("header") || window.innerWidth >= 768) {
       return;
     }
     collapsible.classList.toggle("active");
+    if (collapsible.classList.contains("active")) {
+      this.iconName = "utility:chevronup";
+    } else {
+      this.iconName = "utility:chevrondown";
+    }
     let content = collapsible.nextElementSibling;
     if (content.style.maxHeight) {
       content.style.maxHeight = null;
@@ -61,7 +73,7 @@ export default class EsFooter extends NavigationMixin(LightningElement) {
 
   navigate(event) {
     event.stopPropagation();
-    console.log(JSON.parse(JSON.stringify(this.navigationItems)));
+
     let id = event.target.name;
 
     let nav = this.navigationItems.find((item) => item.Id === id);

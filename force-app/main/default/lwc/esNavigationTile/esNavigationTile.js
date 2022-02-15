@@ -19,7 +19,6 @@ export default class EsNavigationTile extends LightningElement {
     //?Change Colors and Height
     this.template.querySelector(".background").style.backgroundColor =
       this.backgroundColor;
-    console.log(this.backgroundHeight);
     this.template.querySelector(".background").style.height =
       this.backgroundHeight;
     this.template.querySelector(".background").style.color = this.fontColor;

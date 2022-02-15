@@ -33,20 +33,17 @@
     width: 100%;
     border: none;
   }
-  .header:after {
-    content: "⯆";
-    font-weight: bold;
-    margin-left: 5px;
-  }
-
-  .header.active:after {
-    content: "▲";
-  }
   .content {
     margin: 8px 0;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+  }
+
+  .arrow-icon {
+    display: inline-block;
+    margin-left: 0.25rem;
+    --slds-c-icon-color-foreground-default: rgb(11, 70, 126);
   }
 }
 
@@ -85,5 +82,9 @@
 
   .header.active:after {
     content: "";
+  }
+
+  .arrow-icon {
+    display: none;
   }
 }
