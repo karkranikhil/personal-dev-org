@@ -67,39 +67,33 @@ export default class EsLeadFileGridUploader extends LightningElement {
     console.log("einwertung: ", einwertung);
     console.log("berufsstatus: ", berufsstatus);
     console.log("partnerBerufsstatus: ", partnerBerufsstatus);
-    //? First Scenario
-    if (
-      (partnerBerufsstatus === "selbstständig" ||
-        berufsstatus === "selbstständig") &&
-      einwertung === "gemeinsam"
-    ) {
-      console.log("First Scenario");
-      this.fields =
-        "aktuelle_Selbstauskunft__c, Einwertungsbogen__c, Gehaltsnachweis__c, Eigenkapitalnachweis__c, Steuerbescheid__c, aktuelle_betriebswirtschaftliche_Auswert__c, letzte_zwei_Bilanzen__c";
-    }
     //? Second Scenario
-    else if (
-      partnerBerufsstatus === "selbstständig" &&
-      berufsstatus === "selbstständig" &&
-      einwertung === "alleine"
+    if (
+      (berufsstatus === "selbstständig" && einwertung === "alleine") ||
+      (einwertung === "gemeinsam" &&
+        berufsstatus === "selbstständig" &&
+        partnerBerufsstatus === "selbstständig")
     ) {
-      console.log("Second Scenario");
       this.fields =
         "aktuelle_Selbstauskunft__c, Einwertungsbogen__c, Eigenkapitalnachweis__c, Steuerbescheid__c, aktuelle_betriebswirtschaftliche_Auswert__c, letzte_zwei_Bilanzen__c";
     }
-    //? Third Scenario
+    //? First Scenario
     else if (
-      einwertung === "alleine" &&
-      berufsstatus === "privatier/ohne beschäftigung"
+      partnerBerufsstatus === "selbstständig" ||
+      berufsstatus === "selbstständig"
     ) {
-      console.log("Third Scenario");
+      this.fields =
+        "aktuelle_Selbstauskunft__c, Einwertungsbogen__c, Gehaltsnachweis__c, Eigenkapitalnachweis__c, Steuerbescheid__c, aktuelle_betriebswirtschaftliche_Auswert__c, letzte_zwei_Bilanzen__c";
+    }
+
+    //? Third Scenario
+    else if (einwertung === "alleine" && berufsstatus === "arbeitslos") {
       this.fields =
         "aktuelle_Selbstauskunft__c, Einwertungsbogen__c, Eigenkapitalnachweis__c, Steuerbescheid__c";
     }
 
     //? Fourth Scenario Goes Here
     else {
-      console.log("Other Scenario");
       this.fields =
         "aktuelle_Selbstauskunft__c, Einwertungsbogen__c, Gehaltsnachweis__c, Eigenkapitalnachweis__c, Steuerbescheid__c";
     }
