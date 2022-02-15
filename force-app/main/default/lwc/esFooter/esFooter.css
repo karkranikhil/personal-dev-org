@@ -50,6 +50,24 @@
   }
 }
 
+@media screen and (min-width: 320px) {
+  .link {
+    font-size: 0.9rem;
+  }
+
+  h3.header {
+    font-size: 1rem;
+  }
+
+  .content {
+    margin: 6px 0;
+  }
+
+  .background {
+    padding: 12px 0;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .footer {
     display: grid;

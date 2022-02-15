@@ -3,7 +3,6 @@ import getNavigationItems from "@salesforce/apex/esNavigationController.getNavig
 import BASE_PATH from "@salesforce/community/basePath";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
-import ASSETS from "@salesforce/resourceUrl/esComponentAssets";
 
 export default class EsFooterB extends NavigationMixin(LightningElement) {
   @api backgroundColor;
@@ -18,7 +17,6 @@ export default class EsFooterB extends NavigationMixin(LightningElement) {
   //* ---------------------- LIFECYCLE METHODS ----------------------//
 
   connectedCallback() {
-    this.imagePath = ASSETS + "/footer/" + this.icon;
     this.baseURL = window.location.origin + BASE_PATH;
     this.setNavigationItems();
   }

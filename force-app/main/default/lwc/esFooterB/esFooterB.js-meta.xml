@@ -10,7 +10,7 @@
     </targets>
       <targetConfigs>
         <targetConfig targets="lightningCommunity__Default">
-            <property name="icon" type="String" label="Footer B Icon file" />
+            <property name="icon" type="String" label="Footer B Icon URL" />
             <property name="iconLink" type="String" label="Icon Redirect Url" />
             <property
         name="backgroundColor"

@@ -21,7 +21,7 @@
         name="headerColor"
         type="Color"
         default="rgb(11, 70, 126)"
-        label="Hover Shadow Color"
+        label="Header Color"
       />
             <property
         name="fontColor"
