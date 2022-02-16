@@ -67,5 +67,6 @@
   }
   .image-container {
     margin: 0.25rem 0.25rem;
+    margin-top: 2px;
   }
 }
