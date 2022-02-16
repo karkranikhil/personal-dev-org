@@ -42,13 +42,8 @@ export default class EsLeadFileGridUploader extends LightningElement {
         message = error.body.message;
       }
       console.error(error);
-      console.log(message);
     } else if (data) {
       this.recordFields = data.fields;
-      console.log(
-        "Fields From Parent",
-        JSON.parse(JSON.stringify(this.recordFields))
-      );
       this.setConditionalFields();
     }
   }
@@ -64,9 +59,6 @@ export default class EsLeadFileGridUploader extends LightningElement {
       ? partnerBerufsstatus.toLowerCase()
       : null;
     einwertung = einwertung ? einwertung.toLowerCase() : null;
-    console.log("einwertung: ", einwertung);
-    console.log("berufsstatus: ", berufsstatus);
-    console.log("partnerBerufsstatus: ", partnerBerufsstatus);
     //? Second Scenario
     if (
       (berufsstatus === "selbstständig" && einwertung === "alleine") ||

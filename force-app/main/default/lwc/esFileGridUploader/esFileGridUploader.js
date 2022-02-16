@@ -2,6 +2,8 @@ import { LightningElement, api, track, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
 import getExistingDocuments from "@salesforce/apex/FileGridUploaderController.getExistingDocuments";
+import DOCUMENTS_LABEL from "@salesforce/label/c.esGridFileUploader_DOCUMENTS";
+import FILES_LABEL from "@salesforce/label/c.esGridFileUploader_FILES";
 
 const IMG_URL_PREFIX = "/sfc/servlet.shepherd/version/download/";
 
@@ -14,6 +16,11 @@ export default class EsFileGridUploader extends LightningElement {
   fields = [this.objectApiName + ".Name"];
   record;
   documents;
+
+  labels = {
+    documents: DOCUMENTS_LABEL,
+    files: FILES_LABEL
+  };
   get isRenderList() {
     return this.record && this.fieldApiNamesList;
   }
@@ -37,7 +44,6 @@ export default class EsFileGridUploader extends LightningElement {
         message = error.body.message;
       }
       console.error(error);
-      console.log(message);
     } else if (data) {
       this.record = data;
       this.getDocs();
@@ -61,8 +67,6 @@ export default class EsFileGridUploader extends LightningElement {
   //*GET EXISTING DOCS
   getDocs() {
     let fieldLabels = this.fieldApiNamesList.map((field) => field.label);
-    console.log("Field Labels", fieldLabels);
-    console.log("Record", JSON.parse(JSON.stringify(this.record)));
     getExistingDocuments({
       recordId: this.recordId,
       recordName: this.record.fields.Name.value,
@@ -85,10 +89,6 @@ export default class EsFileGridUploader extends LightningElement {
                 doc.name.substring(0, doc.name.indexOf("_")) === field.label
             )
           }));
-          console.log(
-            "Field List Updated: ",
-            JSON.parse(JSON.stringify(this.fieldApiNamesList))
-          );
         }
       })
       .catch((error) => console.error(error));
@@ -106,10 +106,8 @@ export default class EsFileGridUploader extends LightningElement {
   handleUploaded(event) {
     //! Unccoment if you wish the 'Remove Uploaded' feature
     // let field = event.detail;
-    // console.log("Field to Remove", field);
     // this.fieldApiNamesList = this.fieldApiNamesList.filter((item) => {
     //   return item.apiname !== field;
     // });
-    // console.log("Updated List", this.fieldApiNamesList);
   }
 }

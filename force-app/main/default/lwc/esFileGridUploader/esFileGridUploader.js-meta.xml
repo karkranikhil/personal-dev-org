@@ -13,7 +13,7 @@
         <property
         name="fieldApiNames"
         type="String"
-        default="aktuelle_Selbstauskunft__c, Einwertungsbogen__c, Gehaltsnachweis__c, Eigenkapitalnachweis__c, Steuerbescheid__c"
+        default=""
         label="Comma separated list of Apinames for the Checkbox fields related to each File"
       />
     </targetConfig>
