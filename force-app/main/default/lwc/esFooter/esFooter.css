@@ -19,6 +19,8 @@
     font-weight: bold;
     line-height: 1rem;
     color: rgb(11, 70, 126);
+    display: flex;
+    align-items: center;
   }
   .link {
     margin: 0.25rem 0;
@@ -43,6 +45,7 @@
   .arrow-icon {
     display: inline-block;
     margin-left: 0.25rem;
+    margin-top: -1px;
     --slds-c-icon-color-foreground-default: rgb(11, 70, 126);
   }
 }

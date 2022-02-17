@@ -22,7 +22,20 @@ export default class EsFooter extends NavigationMixin(LightningElement) {
   @track fourthLinks;
   @track navigationItems = [];
 
-  iconName = "utility:chevrondown";
+  @track headers = {
+    first: {
+      icon: "utility:chevrondown"
+    },
+    second: {
+      icon: "utility:chevrondown"
+    },
+    third: {
+      icon: "utility:chevrondown"
+    },
+    fourth: {
+      icon: "utility:chevrondown"
+    }
+  };
 
   //* ---------------------- LIFECYCLE METHODS ----------------------//
 
@@ -52,18 +65,18 @@ export default class EsFooter extends NavigationMixin(LightningElement) {
   //* ---------------------- UTILITY METHODS ------------------------//
 
   handleCollapse(event) {
-    let collapsible = event.currentTarget;
-
-    if (!collapsible.classList.contains("header") || window.innerWidth >= 768) {
+    let header = event.currentTarget;
+    var headerId = header.id.split("-").shift();
+    if (!header.classList.contains("header") || window.innerWidth >= 768) {
       return;
     }
-    collapsible.classList.toggle("active");
-    if (collapsible.classList.contains("active")) {
-      this.iconName = "utility:chevronup";
+    header.classList.toggle("active");
+    if (header.classList.contains("active")) {
+      this.headers[headerId].icon = "utility:chevronup";
     } else {
-      this.iconName = "utility:chevrondown";
+      this.headers[headerId].icon = "utility:chevrondown";
     }
-    let content = collapsible.nextElementSibling;
+    let content = header.nextElementSibling;
     if (content.style.maxHeight) {
       content.style.maxHeight = null;
     } else {

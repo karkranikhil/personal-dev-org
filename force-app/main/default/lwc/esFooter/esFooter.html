@@ -2,19 +2,19 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 02-15-2022
+  @last modified on  : 02-17-2022
   @last modified by  : ErickSixto
 -->
 <template>
   <div class="background">
     <footer class="footer">
       <div class="collapsible">
-        <h3 class="header" onclick={handleCollapse}>
+        <h3 id="first" class="header" onclick={handleCollapse}>
           {firstHeader}
           <lightning-icon
             class="arrow-icon"
             size="x-small"
-            icon-name={iconName}
+            icon-name={headers.first.icon}
             alternative-text="Expand"
           ></lightning-icon>
         </h3>
@@ -46,12 +46,12 @@
         </div>
       </div>
       <div class="collapsible">
-        <h3 class="header" onclick={handleCollapse}>
+        <h3 id="second" class="header" onclick={handleCollapse}>
           {secondHeader}
           <lightning-icon
             class="arrow-icon"
             size="x-small"
-            icon-name={iconName}
+            icon-name={headers.second.icon}
             alternative-text="Expand"
           ></lightning-icon>
         </h3>
@@ -84,12 +84,12 @@
         </div>
       </div>
       <div class="collapsible">
-        <h3 class="header" onclick={handleCollapse}>
+        <h3 id="third" class="header" onclick={handleCollapse}>
           {thirdHeader}
           <lightning-icon
             class="arrow-icon"
             size="x-small"
-            icon-name={iconName}
+            icon-name={headers.third.icon}
             alternative-text="Expand"
           ></lightning-icon>
         </h3>
@@ -122,12 +122,12 @@
         </div>
       </div>
       <div class="collapsible">
-        <h3 class="header" onclick={handleCollapse}>
+        <h3 id="fourth" class="header" onclick={handleCollapse}>
           {fourthHeader}
           <lightning-icon
             class="arrow-icon"
             size="x-small"
-            icon-name={iconName}
+            icon-name={headers.fourth.icon}
             alternative-text="Expand"
           ></lightning-icon>
         </h3>
