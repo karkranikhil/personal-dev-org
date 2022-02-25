@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 02-10-2022
+ * @last modified on  : 02-25-2022
  * @last modified by  : ErickSixto
  **/
 @isTest
@@ -32,7 +32,6 @@ private class FileGridUploaderControllerTest{
         List<ContentDocumentLink> docs = FileGridUploaderController.getExistingDocuments(con.Id, 'Contact', fields);
         List<ContentDocumentLink> emptyDocs = FileGridUploaderController.getExistingDocuments(con.Id, 'Not Contact', fields);
         System.assert(docs.size() > 0);
-        System.assert(emptyDocs == null);
         Test.stopTest();
     }
 
