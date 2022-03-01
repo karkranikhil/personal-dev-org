@@ -1,4 +1,5 @@
-import { LightningElement, track } from "lwc";
+import { LightningElement, track, wire } from "lwc";
+import getNotes from "@salesforce/apex/esActivityStreamController.getNotes";
 const OBJECT_OPTIONS = [
   { label: "Contacts", value: "contact" },
   { label: "Leads", value: "lead" },
@@ -14,6 +15,18 @@ export default class EsActivityStream extends LightningElement {
     this.fillDateArray();
     console.log("Last30Days: ", JSON.parse(JSON.stringify(this.sections)));
   }
+
+  @wire(getNotes, { objectApiName: "$selectedObject" })
+  wiredNotes({ error, data }) {
+    if (error) {
+      console.error(error);
+    } else if (data) {
+      console.log("data");
+      console.log("Response", JSON.parse(JSON.stringify(data)));
+    }
+    console.log("....");
+  }
+
   //*GETTERS AND SETTERS
   get icon() {
     return "standard:" + this.selectedObject;

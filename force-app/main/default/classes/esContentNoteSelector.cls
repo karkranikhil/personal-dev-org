@@ -6,18 +6,21 @@
  * @last modified by  : ErickSixto
  **/
 public with sharing class esContentNoteSelector{
-    @AuraEnabled
+    @AuraEnabled(cacheable = true)
     public static List<ContentNote> getNotes(List<Id> recordIds){
-        List<ContentNote> notes = [SELECT Id, FileType, Title, Content, TextPreview
-                                   FROM ContentNote];
+        Id userId = UserInfo.getUserId();
+        List<Id> noteIds = new List<Id>();
         List<ContentDocumentLink> links = [SELECT Id, LinkedEntityId, ContentDocumentId, ContentDocument.FileType, ContentDocument.Title, ContentDocument.OwnerId
                                            FROM ContentDocumentLink
-                                           WHERE LinkedEntityId IN:recordIds];
-        try{
+                                           WHERE LinkedEntityId IN:recordIds AND ContentDocument.FileType = 'SNOTE' AND ContentDocument.OwnerId = :userId AND ContentDocument.LastModifiedDate = LAST_N_DAYS:30];
+        for (ContentDocumentLink link : links){
+            noteIds.add(link.ContentDocumentId);
 
-        } catch (Exception e){
-            throw new AuraHandledException(e.getMessage());
         }
+        List<ContentNote> notes = [SELECT Id, FileType, Title, Content, TextPreview
+                                   FROM ContentNote
+                                   WHERE Id IN:noteIds];
+        return notes;
     }
 
 }
