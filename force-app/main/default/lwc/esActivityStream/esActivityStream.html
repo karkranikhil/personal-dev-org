@@ -1,0 +1,67 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 03-01-2022
+  @last modified by  : ErickSixto
+-->
+<template>
+  <article class="slds-card card"></article>
+
+  <article class="slds-card">
+    <div class="slds-card__header slds-grid">
+      <header class="slds-media slds-media_center slds-has-flexi-truncate">
+        <h1 class="slds-card__header-title title">Activity Stream</h1>
+      </header>
+    </div>
+    <div class="slds-card__body slds-card__body_inner">
+      <lightning-combobox
+        name="objectSelect"
+        label="Object"
+        value={selectedObject}
+        placeholder="Select Object"
+        options={objectOptions}
+        onchange={handleComboboxChange}
+      ></lightning-combobox>
+      <section class="container">
+        <template
+          if:true={sections}
+          for:each={sections}
+          for:item="section"
+          for:index="index"
+        >
+          <c-es-expandable-section
+            class="expandable"
+            key={section.date}
+            title={section.title}
+            closed="true"
+            collapsible="true"
+          >
+            <article class="grid">
+              <div class="user-info">
+                <lightning-icon
+                  icon-name={icon}
+                  alternative-text={selectedObject}
+                ></lightning-icon>
+                <h2 class="name">Record Name</h2>
+              </div>
+              <lightning-textarea
+                name="note"
+                label=""
+                variant="label-hidden"
+                placeholder="type here..."
+                value=""
+              ></lightning-textarea>
+              <lightning-button
+                variant="brand"
+                label="Save"
+                title="save"
+                onclick={handleClick}
+              ></lightning-button>
+            </article>
+          </c-es-expandable-section>
+        </template>
+      </section>
+    </div>
+  </article>
+</template>

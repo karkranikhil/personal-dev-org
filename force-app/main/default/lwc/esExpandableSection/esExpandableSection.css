@@ -1,0 +1,63 @@
+.es-expandable-section__title-button_base {
+  padding: 0;
+}
+
+.es-expandable-section__title-button_base:hover,
+.es-expandable-section__title-button_base:active,
+.es-expandable-section__title-button_base:focus {
+  background-color: var(--lwc-colorBackgroundAlt, #ffffff);
+}
+
+.es-expandable-section__header_shaded .slds-section__title-action,
+.es-expandable-section__header_shaded:not(.es-expandable-section__header_collapsible) {
+  padding-left: var(
+    --es-expandable-section-shaded-header-spacing-block-start,
+    0.75rem
+  );
+  padding-right: var(
+    --es-expandable-section-shaded-header-spacing-block-end,
+    0.75rem
+  );
+}
+
+.es-expandable-section__header_base {
+  background: var(
+    --es-expandable-section-base-header-color-background,
+    transparent
+  );
+}
+
+.es-expandable-section__header_base .es-expandable-section__title {
+  color: var(--es-expandable-section-base-header-text-color, #080707);
+  font-size: var(--es-expandable-section-base-header-font-size, 1rem);
+  font-weight: var(--es-expandable-section-base-header-font-weight, 400);
+  font-style: var(--es-expandable-section-base-header-font-style, normal);
+}
+
+.es-expandable-section__header_shaded {
+  background: var(
+    --es-expandable-section-shaded-header-color-background,
+    #f3f2f2
+  );
+}
+
+.es-expandable-section__header_shaded .es-expandable-section__title {
+  color: var(--es-expandable-section-shaded-header-text-color, #080707);
+  font-size: var(--es-expandable-section-shaded-header-font-size, 1rem);
+  font-weight: var(--es-expandable-section-shaded-header-font-weight, 400);
+  font-style: var(--es-expandable-section-shaded-header-font-style, normal);
+}
+
+.es-expandable-section__header_base .slds-section__title-action,
+.es-expandable-section__header_base:not(.es-expandable-section__header_collapsible) {
+  padding-left: var(--es-expandable-section-base-header-spacing-block-start, 0);
+  padding-right: var(--es-expandable-section-base-header-spacing-block-end, 0);
+}
+
+.es-expandable-section__opened-icon {
+  margin-top: -2px;
+}
+
+.es-expandable-section__closed-icon {
+  margin-top: -3px;
+}

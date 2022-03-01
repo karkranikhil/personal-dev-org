@@ -1,0 +1,44 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 03-01-2022
+  @last modified by  : ErickSixto
+-->
+<template>
+  <div class={sectionClass}>
+    <h3 if:true={showHeader} class={headerClass} data-element-id="h3">
+      <template if:true={collapsible}>
+        <button class={titleButtonClass} onclick={toggleSection}>
+          <template if:false={closed}>
+            <lightning-icon
+              icon-name="utility:chevrondown"
+              size="xx-small"
+              class="slds-button__icon slds-button__icon_left avonni-expandable-section__opened-icon"
+              data-element-id="lightning-icon-opened"
+            ></lightning-icon>
+          </template>
+          <template if:true={closed}>
+            <lightning-icon
+              icon-name="utility:chevronright"
+              size="xx-small"
+              class="slds-button__icon slds-button__icon_left avonni-expandable-section__closed-icon"
+              data-element-id="lightning-icon-closed"
+            ></lightning-icon>
+          </template>
+          <span class="slds-truncate" title={title}>{title}</span>
+        </button>
+      </template>
+      <template if:false={collapsible}>
+        <span
+          class="slds-truncate avonni-expandable-section__title"
+          title={title}
+          >{title}</span
+        >
+      </template>
+    </h3>
+    <div class="slds-section__content">
+      <slot></slot>
+    </div>
+  </div>
+</template>

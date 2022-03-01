@@ -1,0 +1,23 @@
+.container {
+  margin-top: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 9fr 1fr;
+  column-gap: 8px;
+  align-items: center;
+  justify-items: stretch;
+  padding: 0.25rem 0.5rem;
+}
+
+.user-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+h2.name {
+  font-weight: bold;
+  font-size: 1rem;
+}
