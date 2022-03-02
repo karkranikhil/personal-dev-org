@@ -7,21 +7,21 @@
  **/
 public with sharing class esActivityStreamController{
     @AuraEnabled(cacheable = true)
-    public static list<SObject> getNotes(String objectApiName){
+    public static list<ContentNote> getNotes(String objectApiName){
         try{
             String queryTemplate = 
     'SELECT Id, Name' + 
     ' FROM ' + objectApiName;
+            List<ContentNote> notes = new List<ContentNote>();
             List<SObject> records = Database.query(queryTemplate);
-            return records;
-            // List<Id> recordIds = new List<Id>();
-            // for (SObject record : records){
-            //     recordIds.add(record.Id);
-            // }
-            // if (records.size() > 0){
-            //     List<ContentNote> notes = esContentNoteSelector.getNotes(recordIds);
-            // }
-            // return null;
+            List<Id> recordIds = new List<Id>();
+            for (SObject record : records){
+                recordIds.add(record.Id);
+            }
+            if (recordIds.size() > 0){
+                notes = esContentNoteSelector.getNotes(recordIds);
+            }
+            return notes;
         } catch (Exception e){
             throw new AuraHandledException(e.getMessage());
         }

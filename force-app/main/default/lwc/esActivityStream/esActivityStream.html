@@ -31,34 +31,42 @@
           for:index="index"
         >
           <c-es-expandable-section
+            if:true={section.length}
             class="expandable"
             key={section.date}
             title={section.title}
             closed="true"
             collapsible="true"
           >
-            <article class="grid">
-              <div class="user-info">
-                <lightning-icon
-                  icon-name={icon}
-                  alternative-text={selectedObject}
-                ></lightning-icon>
-                <h2 class="name">Record Name</h2>
-              </div>
-              <lightning-textarea
-                name="note"
-                label=""
-                variant="label-hidden"
-                placeholder="type here..."
-                value=""
-              ></lightning-textarea>
-              <lightning-button
-                variant="brand"
-                label="Save"
-                title="save"
-                onclick={handleClick}
-              ></lightning-button>
-            </article>
+            <template
+              if:true={section.length}
+              for:each={section.notes}
+              for:item="note"
+              for:index="index"
+            >
+              <article key={note.Id} class="grid">
+                <div class="user-info">
+                  <lightning-icon
+                    icon-name={icon}
+                    alternative-text={selectedObject}
+                  ></lightning-icon>
+                  <h2 class="name">Record Name</h2>
+                </div>
+                <lightning-textarea
+                  name="note"
+                  label=""
+                  variant="label-hidden"
+                  placeholder="type here..."
+                  value={note.TextPreview}
+                ></lightning-textarea>
+                <lightning-button
+                  variant="brand"
+                  label="Save"
+                  title="save"
+                  onclick={handleClick}
+                ></lightning-button>
+              </article>
+            </template>
           </c-es-expandable-section>
         </template>
       </section>

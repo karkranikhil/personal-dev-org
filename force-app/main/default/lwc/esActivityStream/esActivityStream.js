@@ -13,7 +13,6 @@ export default class EsActivityStream extends LightningElement {
   //*LIFE CYCLE
   connectedCallback() {
     this.fillDateArray();
-    console.log("Last30Days: ", JSON.parse(JSON.stringify(this.sections)));
   }
 
   @wire(getNotes, { objectApiName: "$selectedObject" })
@@ -21,10 +20,23 @@ export default class EsActivityStream extends LightningElement {
     if (error) {
       console.error(error);
     } else if (data) {
-      console.log("data");
       console.log("Response", JSON.parse(JSON.stringify(data)));
+      let notes = [...data];
+
+      this.sections = this.sections.map((section) => ({
+        ...section,
+        length: notes.filter((note) =>
+          this.isSameDay(section.date, new Date(note.LastModifiedDate))
+        ).length,
+        notes: notes.filter((note) =>
+          this.isSameDay(section.date, new Date(note.LastModifiedDate))
+        )
+      }));
+      console.log(
+        "sections updated: ",
+        JSON.parse(JSON.stringify(this.sections))
+      );
     }
-    console.log("....");
   }
 
   //*GETTERS AND SETTERS
@@ -41,9 +53,18 @@ export default class EsActivityStream extends LightningElement {
     console.log("Save");
   }
 
+  isSameDay(d1, d2) {
+    return (
+      d1.getFullYear() === d2.getFullYear() &&
+      d1.getMonth() === d2.getMonth() &&
+      d1.getDate() === d2.getDate()
+    );
+  }
   fillDateArray() {
     let today = new Date();
+    console.log("today: ", today);
     let priorDate = new Date().setDate(today.getDate() - 30);
+    console.log("priorDate: ", priorDate);
     priorDate = new Date(priorDate);
     while (priorDate <= today) {
       this.sections.push({
