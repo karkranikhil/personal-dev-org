@@ -15,9 +15,13 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  margin-left: 1rem;
 }
 
 h2.name {
   font-weight: bold;
   font-size: 1rem;
+}
+lightning-button {
+  margin-left: auto;
 }
