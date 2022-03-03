@@ -21,31 +21,37 @@ public with sharing class ContentDocumentLinkTriggerHandler {
       if (sobjectName == 'User') {
         return;
       }
-      //* QUERY LINKS
-      List<ContentDocumentLink> links = [
-        SELECT Id, ContentDocumentId, LinkedEntityId
-        FROM ContentDocumentLink
-        WHERE
-          LinkedEntityId = :parentId
-          AND ContentDocument.FileType = 'SNOTE'
-          AND ContentDocument.OwnerId = :userId
-        ORDER BY ContentDocument.CreatedDate ASC
-      ];
-      System.debug('Links:');
-      System.debug(links);
-      if (links.size() > 1) {
-        Id toDeleteNoteId = links.get(0).ContentDocumentId;
-        //* QUERY NOTES
-        ContentNote toDeleteNote = [
-          SELECT Id
-          FROM ContentNote
-          WHERE Id = :toDeleteNoteId
-          LIMIT 1
+      if (
+        sobjectName == 'Account' ||
+        sobjectName == 'Contact' ||
+        sobjectName == 'Lead'
+      ) {
+        //* QUERY LINKS
+        List<ContentDocumentLink> links = [
+          SELECT Id, ContentDocumentId, LinkedEntityId
+          FROM ContentDocumentLink
+          WHERE
+            LinkedEntityId = :parentId
+            AND ContentDocument.FileType = 'SNOTE'
+            AND ContentDocument.OwnerId = :userId
+          ORDER BY ContentDocument.CreatedDate ASC
         ];
-        System.debug('Note:');
-        System.debug(toDeleteNote);
-        delete toDeleteNote;
-        sleep(100);
+        System.debug('Links:');
+        System.debug(links);
+        if (links.size() > 1) {
+          Id toDeleteNoteId = links.get(0).ContentDocumentId;
+          //* QUERY NOTES
+          ContentNote toDeleteNote = [
+            SELECT Id
+            FROM ContentNote
+            WHERE Id = :toDeleteNoteId
+            LIMIT 1
+          ];
+          System.debug('Note:');
+          System.debug(toDeleteNote);
+          delete toDeleteNote;
+          sleep(100);
+        }
       }
     }
   }
