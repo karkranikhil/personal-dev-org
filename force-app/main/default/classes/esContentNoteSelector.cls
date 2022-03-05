@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 03-02-2022
+ * @last modified on  : 03-05-2022
  * @last modified by  : ErickSixto
  **/
 public with sharing class esContentNoteSelector {
@@ -39,8 +39,8 @@ public with sharing class esContentNoteSelector {
       wrapper.Title = note.Title;
       wrapper.Content = note.TextPreview;
       wrapper.originalValue = String.isEmpty(note.TextPreview)
-        ? note.TextPreview
-        : '';
+        ? ''
+        : note.TextPreview;
       wrapper.isModified = false;
       wrapper.LastModifiedDate = note.LastModifiedDate;
       wrapper.RecordName = noteMap.get(note.Id);

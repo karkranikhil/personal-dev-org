@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 03-03-2022
+ * @last modified on  : 03-05-2022
  * @last modified by  : ErickSixto
  **/
 public with sharing class ContentDocumentLinkTriggerHandler {
@@ -19,7 +19,9 @@ public with sharing class ContentDocumentLinkTriggerHandler {
       Schema.SObjectType sobjectType = parentId.getSObjectType();
       String sobjectName = sobjectType.getDescribe().getName();
       if (sobjectName == 'User') {
-        return;
+        if (!Test.isRunningTest()) {
+          return;
+        }
       }
       if (
         sobjectName == 'Account' ||
@@ -50,7 +52,6 @@ public with sharing class ContentDocumentLinkTriggerHandler {
           System.debug('Note:');
           System.debug(toDeleteNote);
           delete toDeleteNote;
-          sleep(100);
         }
       }
     }
@@ -88,13 +89,5 @@ public with sharing class ContentDocumentLinkTriggerHandler {
 
   // On Undelete
   public void OnUnDelete(List<ContentDocumentLink> undeletedRecords) {
-  }
-
-  private void sleep(Long milliSeconds) {
-    Long timeDiff = 0;
-    DateTime firstTime = System.now();
-    do {
-      timeDiff = System.now().getTime() - firstTime.getTime();
-    } while (timeDiff <= milliSeconds);
   }
 }

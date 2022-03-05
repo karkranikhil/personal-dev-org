@@ -29,7 +29,6 @@ export default class EsActivityStream extends LightningElement {
       }));
       this.notes = notes;
       this.arrangeSections();
-      console.log("Notes: ", JSON.parse(JSON.stringify(this.notes)));
     }
   }
 
@@ -76,7 +75,7 @@ export default class EsActivityStream extends LightningElement {
     let noteId = event.target.name;
     let value = event.target.value;
 
-    let note = this.notes.find((note) => note.Id === noteId);
+    let note = this.notes.find((filteredNote) => filteredNote.Id === noteId);
     note.Content = value;
     note.isModified = note.originalValue !== value;
   }
