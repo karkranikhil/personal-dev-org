@@ -51,18 +51,31 @@
                   <h2 class="name">{note.RecordName}</h2>
                 </div>
                 <lightning-textarea
-                  name="note"
+                  name={note.Id}
                   label=""
                   variant="label-hidden"
                   placeholder="type here..."
                   value={note.Content}
+                  onchange={handleChange}
                 ></lightning-textarea>
-                <lightning-button
-                  variant="brand"
-                  label="Save"
-                  title="save"
-                  onclick={handleClick}
-                ></lightning-button>
+                <template if:true={note.isModified}>
+                  <button
+                    if:true={note.isLoading}
+                    name={note.Id}
+                    class="slds-button slds-button_brand"
+                    onclick={handleClick}
+                  >
+                    <span class="load open"></span>
+                  </button>
+                  <button
+                    if:false={note.isLoading}
+                    name={note.Id}
+                    class="slds-button slds-button_brand"
+                    onclick={handleClick}
+                  >
+                    Save
+                  </button>
+                </template>
               </article>
             </template>
           </c-es-expandable-section>

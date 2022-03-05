@@ -1,5 +1,7 @@
 import { LightningElement, track, wire } from "lwc";
 import getNotes from "@salesforce/apex/esActivityStreamController.getNotes";
+import updateNote from "@salesforce/apex/esActivityStreamController.updateNote";
+
 const OBJECT_OPTIONS = [
   { label: "Contacts", value: "contact" },
   { label: "Leads", value: "lead" },
@@ -9,6 +11,7 @@ export default class EsActivityStream extends LightningElement {
   objectOptions = OBJECT_OPTIONS;
   selectedObject = "contact";
   @track sections = [];
+  @track notes;
 
   //*LIFE CYCLE
   connectedCallback() {
@@ -20,22 +23,13 @@ export default class EsActivityStream extends LightningElement {
     if (error) {
       console.error(error);
     } else if (data) {
-      console.log("Response", JSON.parse(JSON.stringify(data)));
-      let notes = [...data];
-
-      this.sections = this.sections.map((section) => ({
-        ...section,
-        length: notes.filter((note) =>
-          this.isSameDay(section.date, new Date(note.LastModifiedDate))
-        ).length,
-        notes: notes.filter((note) =>
-          this.isSameDay(section.date, new Date(note.LastModifiedDate))
-        )
+      let notes = data.map((note) => ({
+        ...note,
+        isLoading: false
       }));
-      console.log(
-        "sections updated: ",
-        JSON.parse(JSON.stringify(this.sections))
-      );
+      this.notes = notes;
+      this.arrangeSections();
+      console.log("Notes: ", JSON.parse(JSON.stringify(this.notes)));
     }
   }
 
@@ -45,12 +39,46 @@ export default class EsActivityStream extends LightningElement {
   }
 
   //*UTILITY
+  arrangeSections() {
+    this.sections = this.sections.map((section) => ({
+      ...section,
+      length: this.notes.filter((note) =>
+        this.isSameDay(section.date, new Date(note.LastModifiedDate))
+      ).length,
+      notes: this.notes.filter((note) =>
+        this.isSameDay(section.date, new Date(note.LastModifiedDate))
+      )
+    }));
+  }
   handleComboboxChange(event) {
     this.selectedObject = event.detail.value;
   }
 
   handleClick(event) {
-    console.log("Save");
+    let noteId = event.target.name;
+    let note = this.notes.find((note) => note.Id === noteId);
+    note.isLoading = true;
+    console.log("Previous Note: ", JSON.parse(JSON.stringify(note)));
+    updateNote({ recordId: noteId, value: note.Content })
+      .then(() => {
+        note.isModified = false;
+        note.LastModifiedDate = new Date();
+        console.log("Updated Note: ", JSON.parse(JSON.stringify(note)));
+        this.notes.sort((a, b) =>
+          b.LastModifiedDate > a.LastModifiedDate ? 1 : -1
+        );
+        this.arrangeSections();
+      })
+      .finally(() => (note.isLoading = false));
+  }
+
+  handleChange(event) {
+    let noteId = event.target.name;
+    let value = event.target.value;
+
+    let note = this.notes.find((note) => note.Id === noteId);
+    note.Content = value;
+    note.isModified = note.originalValue !== value;
   }
 
   isSameDay(d1, d2) {
@@ -62,9 +90,7 @@ export default class EsActivityStream extends LightningElement {
   }
   fillDateArray() {
     let today = new Date();
-    console.log("today: ", today);
     let priorDate = new Date().setDate(today.getDate() - 30);
-    console.log("priorDate: ", priorDate);
     priorDate = new Date(priorDate);
     while (priorDate <= today) {
       this.sections.push({
