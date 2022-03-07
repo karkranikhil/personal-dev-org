@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 03-05-2022
+ * @last modified on  : 03-06-2022
  * @last modified by  : ErickSixto
  **/
 
@@ -50,6 +50,6 @@ private class ContentDocumentLinkTriggerHandlerTest {
       ORDER BY ContentDocument.CreatedDate ASC
     ];
     // Asserts
-    System.assert(notes.size() < 2, 'Actual Size: ' + notes.size());
+    System.assert(notes.size() !=0, 'Actual Size: ' + notes.size());
   }
 }

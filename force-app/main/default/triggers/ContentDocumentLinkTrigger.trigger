@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 03-03-2022
+ * @last modified on  : 03-06-2022
  * @last modified by  : ErickSixto
  **/
 trigger ContentDocumentLinkTrigger on ContentDocumentLink(
@@ -23,6 +23,7 @@ trigger ContentDocumentLinkTrigger on ContentDocumentLink(
     //After Insert
     handler.OnAfterInsert(Trigger.new);
   }
+  //! Commented: We wont use these scenarios for the requiement. But nonetheless I prepared the trigger handler in case you need them on the future - ErickSixto
   // else if (Trigger.isUpdate && Trigger.isBefore) {
   //   //Before Update
   //   handler.OnBeforeUpdate(Trigger.old, Trigger.new, Trigger.newMap);

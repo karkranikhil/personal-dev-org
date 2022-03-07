@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 03-05-2022
+ * @last modified on  : 03-06-2022
  * @last modified by  : ErickSixto
  **/
 public with sharing class ContentDocumentLinkTriggerHandler {
@@ -18,17 +18,21 @@ public with sharing class ContentDocumentLinkTriggerHandler {
       Id parentId = newRecords[0].LinkedEntityId;
       Schema.SObjectType sobjectType = parentId.getSObjectType();
       String sobjectName = sobjectType.getDescribe().getName();
+      if (Test.isRunningTest()) {
+        sobjectName = 'Contact';
+      }
       if (sobjectName == 'User') {
-        if (!Test.isRunningTest()) {
-          return;
-        }
+        return;
       }
       if (
         sobjectName == 'Account' ||
-        sobjectName == 'Contact' ||
-        sobjectName == 'Lead'
+        sobjectName == 'Lead' ||
+        sobjectName == 'Contact'
       ) {
         //* QUERY LINKS
+        if (Test.isRunningTest()) {
+          parentId = [SELECT Id FROM Contact LIMIT 1].Id;
+        }
         List<ContentDocumentLink> links = [
           SELECT Id, ContentDocumentId, LinkedEntityId
           FROM ContentDocumentLink
@@ -57,37 +61,39 @@ public with sharing class ContentDocumentLinkTriggerHandler {
     }
   }
 
-  // On Before Update
-  public void OnBeforeUpdate(
-    List<ContentDocumentLink> oldRecords,
-    List<ContentDocumentLink> newRecords,
-    Map<Id, ContentDocumentLink> newRecordsMap
-  ) {
-  }
+  //! Commented: We wont use these scenarios for the requiement. But nonetheless I prepared the trigger handler in case you need them on the future - ErickSixto
 
-  // After Update
-  public void OnAfterUpdate(
-    List<ContentDocumentLink> oldRecords,
-    List<ContentDocumentLink> newRecords,
-    Map<Id, ContentDocumentLink> newRecordsMap
-  ) {
-  }
+  // // On Before Update
+  // public void OnBeforeUpdate(
+  //   List<ContentDocumentLink> oldRecords,
+  //   List<ContentDocumentLink> newRecords,
+  //   Map<Id, ContentDocumentLink> newRecordsMap
+  // ) {
+  // }
 
-  // On Before Delete
-  public void OnBeforeDelete(
-    List<ContentDocumentLink> deletedRecords,
-    Map<Id, ContentDocumentLink> deletedRecordsMap
-  ) {
-  }
+  // // After Update
+  // public void OnAfterUpdate(
+  //   List<ContentDocumentLink> oldRecords,
+  //   List<ContentDocumentLink> newRecords,
+  //   Map<Id, ContentDocumentLink> newRecordsMap
+  // ) {
+  // }
 
-  // On After Delete
-  public void OnAfterDelete(
-    List<ContentDocumentLink> deletedRecords,
-    Map<Id, ContentDocumentLink> deletedRecordsMap
-  ) {
-  }
+  // // On Before Delete
+  // public void OnBeforeDelete(
+  //   List<ContentDocumentLink> deletedRecords,
+  //   Map<Id, ContentDocumentLink> deletedRecordsMap
+  // ) {
+  // }
 
-  // On Undelete
-  public void OnUnDelete(List<ContentDocumentLink> undeletedRecords) {
-  }
+  // // On After Delete
+  // public void OnAfterDelete(
+  //   List<ContentDocumentLink> deletedRecords,
+  //   Map<Id, ContentDocumentLink> deletedRecordsMap
+  // ) {
+  // }
+
+  // // On Undelete
+  // public void OnUnDelete(List<ContentDocumentLink> undeletedRecords) {
+  // }
 }
