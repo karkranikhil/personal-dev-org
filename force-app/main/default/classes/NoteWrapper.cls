@@ -2,10 +2,12 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 03-02-2022
+ * @last modified on  : 03-06-2022
  * @last modified by  : ErickSixto
  **/
 public with sharing class NoteWrapper {
+  public NoteWrapper() {
+  }
   @AuraEnabled
   public Id Id;
   @AuraEnabled
