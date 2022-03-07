@@ -6,5 +6,157 @@
   @last modified by  : ErickSixto
 -->
 <template>
-  <c-rd-image-button></c-rd-image-button>
+  <h1>Light Overlay</h1>
+  <div class="inline">
+    <c-rd-image-button
+      button-id="light-overlay-small"
+      label="Click me!"
+      image={imageUrl}
+      theme="light"
+      size="small"
+      variant="overlay"
+    ></c-rd-image-button>
+    <c-rd-image-button
+      button-id="light-overlay-large"
+      label="Click me!"
+      image={imageUrl}
+      theme="light"
+      size="large"
+      variant="overlay"
+    ></c-rd-image-button>
+  </div>
+  <hr />
+  <h1>Dark Overlay</h1>
+  <div class="inline">
+    <c-rd-image-button
+      button-id="dark-overlay-small"
+      label="Click me!"
+      image={imageUrl}
+      theme="dark"
+      size="small"
+      variant="overlay"
+    ></c-rd-image-button>
+    <c-rd-image-button
+      button-id="dark-overlay-large"
+      label="Click me!"
+      image={imageUrl}
+      theme="dark"
+      size="large"
+      variant="overlay"
+    ></c-rd-image-button>
+  </div>
+  <hr />
+  <h1>Light Contained</h1>
+  <div class="inline">
+    <c-rd-image-button
+      button-id="light-contained-small"
+      label="Click me!"
+      image={imageUrl}
+      theme="light"
+      size="small"
+      variant="contained"
+    ></c-rd-image-button>
+    <c-rd-image-button
+      button-id="light-contained-large"
+      label="Click me!"
+      image={imageUrl}
+      theme="light"
+      size="large"
+      variant="contained"
+    ></c-rd-image-button>
+  </div>
+  <hr />
+  <h1>Light Contained</h1>
+  <div class="inline">
+    <c-rd-image-button
+      button-id="dark-overlay-small"
+      label="Click me!"
+      image={imageUrl}
+      theme="light"
+      size="small"
+      variant="contained"
+    ></c-rd-image-button>
+    <c-rd-image-button
+      button-id="dark-overlay-large"
+      label="Click me!"
+      image={imageUrl}
+      theme="light"
+      size="large"
+      variant="contained"
+    ></c-rd-image-button>
+  </div>
+  <hr />
+  <h1>Color Change Overlay</h1>
+  <div class="inline">
+    <c-rd-image-button
+      button-id="color-overlay-small"
+      image={imageUrl}
+      label="Click me!"
+      theme="light"
+      size="small"
+      variant="overlay"
+      dark-color="darkred"
+      light-color="cyan"
+    ></c-rd-image-button>
+    <c-rd-image-button
+      button-id="color-overlay-large"
+      image={imageUrl}
+      label="Click me!"
+      theme="light"
+      size="large"
+      variant="overlay"
+      dark-color="darkred"
+      light-color="cyan"
+    ></c-rd-image-button>
+  </div>
+  <hr />
+  <h1>Color Change Contained</h1>
+  <div class="inline">
+    <c-rd-image-button
+      button-id="color-contained-small"
+      image={imageUrl}
+      label="Click me!"
+      theme="light"
+      size="small"
+      variant="contained"
+      dark-color="darkred"
+      light-color="cyan"
+    ></c-rd-image-button>
+    <c-rd-image-button
+      button-id="color-contained-large"
+      image={imageUrl}
+      label="Click me!"
+      theme="light"
+      size="large"
+      variant="contained"
+      dark-color="darkred"
+      light-color="cyan"
+    ></c-rd-image-button>
+  </div>
+
+  <hr />
+  <h1>With Full Background Image Overlay</h1>
+  <c-rd-image-button
+    button-id="image-overlay-large"
+    image="https://picsum.photos/600?random=1"
+    label="Click me!"
+    theme="light"
+    size="large"
+    variant="overlay"
+    dark-color="darkred"
+    light-color="cyan"
+  ></c-rd-image-button>
+  <hr />
+  <h1>With Full Background Image Contained</h1>
+  <c-rd-image-button
+    button-id="image-contained-large"
+    image="https://picsum.photos/600?random=2"
+    label="Click me!"
+    theme="light"
+    size="large"
+    variant="contained"
+    dark-color="darkred"
+    light-color="cyan"
+  ></c-rd-image-button>
+  <hr />
 </template>
