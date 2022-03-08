@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 03-05-2022
+ * @last modified on  : 03-08-2022
  * @last modified by  : ErickSixto
  **/
 public with sharing class esContentNoteSelector {
@@ -44,8 +44,21 @@ public with sharing class esContentNoteSelector {
       wrapper.isModified = false;
       wrapper.LastModifiedDate = note.LastModifiedDate;
       wrapper.RecordName = noteMap.get(note.Id);
+      wrapper.RecordId = findRecordIdByName(links, noteMap.get(note.Id));
       results.add(wrapper);
     }
     return results;
+  }
+
+  private static Id findRecordIdByName(
+    List<ContentDocumentLink> links,
+    String recordName
+  ) {
+    for (ContentDocumentLink link : links) {
+      if (link.LinkedEntity.Name == recordName) {
+        return link.LinkedEntityId;
+      }
+    }
+    return null;
   }
 }

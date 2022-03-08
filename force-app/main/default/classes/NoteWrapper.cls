@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 03-06-2022
+ * @last modified on  : 03-08-2022
  * @last modified by  : ErickSixto
  **/
 public with sharing class NoteWrapper {
@@ -20,6 +20,8 @@ public with sharing class NoteWrapper {
   public Boolean isModified;
   @AuraEnabled
   public String RecordName;
+  @AuraEnabled
+  public Id RecordId;
   @AuraEnabled
   public Datetime LastModifiedDate;
 }

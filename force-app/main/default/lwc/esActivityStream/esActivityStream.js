@@ -26,7 +26,8 @@ export default class EsActivityStream extends LightningElement {
       let notes = data.map((note) => ({
         ...note,
         isLoading: false,
-        time: new Date(note.LastModifiedDate).toLocaleTimeString()
+        time: new Date(note.LastModifiedDate).toLocaleTimeString(),
+        url: "/" + note.RecordId
       }));
       this.notes = notes;
       this.arrangeSections();
