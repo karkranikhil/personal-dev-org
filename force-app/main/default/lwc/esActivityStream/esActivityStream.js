@@ -58,14 +58,13 @@ export default class EsActivityStream extends LightningElement {
     let noteId = event.target.name;
     let note = this.notes.find((note) => note.Id === noteId);
     note.isLoading = true;
-    console.log("Previous Note: ", JSON.parse(JSON.stringify(note)));
     updateNote({ recordId: noteId, value: note.Content })
       .then(() => {
         note.isModified = false;
         note.LastModifiedDate = new Date();
-        console.log("Updated Note: ", JSON.parse(JSON.stringify(note)));
+        note.time = new Date(note.LastModifiedDate).toLocaleTimeString();
         this.notes.sort((a, b) =>
-          b.LastModifiedDate > a.LastModifiedDate ? 1 : -1
+          new Date(b.LastModifiedDate) > new Date(a.LastModifiedDate) ? 1 : -1
         );
         this.arrangeSections();
       })
