@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 03-06-2022
+ * @last modified on  : 03-07-2022
  * @last modified by  : ErickSixto
  **/
 public with sharing class ContentDocumentLinkTriggerHandler {
@@ -34,7 +34,7 @@ public with sharing class ContentDocumentLinkTriggerHandler {
           parentId = [SELECT Id FROM Contact LIMIT 1].Id;
         }
         List<ContentDocumentLink> links = [
-          SELECT Id, ContentDocumentId, LinkedEntityId
+          SELECT Id, ContentDocumentId, LinkedEntityId, LinkedEntity.Name
           FROM ContentDocumentLink
           WHERE
             LinkedEntityId = :parentId
@@ -46,6 +46,8 @@ public with sharing class ContentDocumentLinkTriggerHandler {
         System.debug(links);
         if (links.size() > 1) {
           Id toDeleteNoteId = links.get(0).ContentDocumentId;
+          Id toUpdateNoteId = links.get(1).ContentDocumentId;
+          Id recordName = links.get(1).LinkedEntity.Name;
           //* QUERY NOTES
           ContentNote toDeleteNote = [
             SELECT Id
@@ -53,8 +55,14 @@ public with sharing class ContentDocumentLinkTriggerHandler {
             WHERE Id = :toDeleteNoteId
             LIMIT 1
           ];
-          System.debug('Note:');
-          System.debug(toDeleteNote);
+          ContentNote toUpdateNote = [
+            SELECT Id, Title
+            FROM ContentNote
+            WHERE Id = :toUpdateNoteId
+            LIMIT 1
+          ];
+          toUpdateNote.Title = recordName;
+          update toUpdateNote;
           delete toDeleteNote;
         }
       }
