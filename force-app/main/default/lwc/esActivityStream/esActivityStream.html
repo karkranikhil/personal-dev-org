@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 03-02-2022
+  @last modified on  : 03-08-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -48,7 +48,10 @@
                     icon-name={icon}
                     alternative-text={selectedObject}
                   ></lightning-icon>
-                  <h2 class="name">{note.RecordName}</h2>
+                  <div class="info">
+                    <h2 class="name">{note.RecordName}</h2>
+                    <p class="subtitle">{note.time}</p>
+                  </div>
                 </div>
                 <lightning-textarea
                   name={note.Id}

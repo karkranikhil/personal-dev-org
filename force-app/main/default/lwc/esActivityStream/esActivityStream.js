@@ -25,7 +25,8 @@ export default class EsActivityStream extends LightningElement {
     } else if (data) {
       let notes = data.map((note) => ({
         ...note,
-        isLoading: false
+        isLoading: false,
+        time: new Date(note.LastModifiedDate).toLocaleTimeString()
       }));
       this.notes = notes;
       this.arrangeSections();

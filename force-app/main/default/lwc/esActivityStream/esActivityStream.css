@@ -18,9 +18,20 @@
   margin-left: 1rem;
 }
 
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
 h2.name {
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.9rem;
+}
+
+p.subtitle {
+  font-size: 0.75rem;
+  color: grey;
 }
 lightning-button {
   margin-left: auto;
