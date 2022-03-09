@@ -51,4 +51,11 @@ export default class RdImageButton extends LightningElement {
     label.classList.add(this.theme);
     label.classList.add(this.variant);
   }
+
+  //*UTILITY
+
+  toggleState() {
+    this.state = !this.state;
+    this.template.querySelector(".container").classList.toggle("active");
+  }
 }
