@@ -1,5 +1,6 @@
 /** CONTAINER */
 .container {
+  position: relative;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -84,4 +85,16 @@ h5.label.contained.dark {
 }
 h5.label.overlay.dark {
   color: var(--color-light);
+}
+
+/** ICON */
+.icon-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+}
+svg {
+  width: 1.5vw;
+  height: 1.5vw;
 }

@@ -2,10 +2,32 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 03-07-2022
+  @last modified on  : 03-09-2022
   @last modified by  : ErickSixto
 -->
 <template>
+  <h1>Multiselect Icon</h1>
+  <div class="inline">
+    <c-rd-image-button
+      button-id="multiselect-small"
+      label="Click me!"
+      image={imageUrl}
+      theme="light"
+      size="small"
+      variant="overlay"
+      is-multiselect
+    ></c-rd-image-button>
+    <c-rd-image-button
+      button-id="multiselect-large"
+      label="Click me!"
+      image={imageUrl}
+      theme="light"
+      size="large"
+      variant="overlay"
+      is-multiselect
+    ></c-rd-image-button>
+  </div>
+  <hr />
   <h1>Light Overlay</h1>
   <div class="inline">
     <c-rd-image-button

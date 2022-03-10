@@ -2,11 +2,20 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 03-08-2022
+  @last modified on  : 03-09-2022
   @last modified by  : ErickSixto
 -->
 <template>
   <div class="container">
+    <div if:true={isMultiselect} class="icon-container">
+      <lightning-icon
+        if:true={state}
+        icon-name="utility:check"
+        variant="success"
+        size={iconSize}
+        alternative-text="check"
+      ></lightning-icon>
+    </div>
     <button class="btn" onclick={toggleState}>
       <div class="label-container">
         <h5 class="label">{label}</h5>

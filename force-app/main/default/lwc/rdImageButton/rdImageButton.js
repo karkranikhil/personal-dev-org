@@ -1,5 +1,5 @@
 import { LightningElement, api } from "lwc";
-
+import FORM_FACTOR from "@salesforce/client/formFactor";
 export default class RdImageButton extends LightningElement {
   @api buttonId;
   @api isMultiselect;
@@ -24,6 +24,9 @@ export default class RdImageButton extends LightningElement {
   //* LIFECYCLE
 
   renderedCallback() {
+    //? Set icon size based on form factor
+    this.iconSize = FORM_FACTOR.toLocaleLowerCase();
+    console.log("iconSize: ", this.iconSize);
     //? Set background img
     if (this.image) {
       this.template.querySelector(".container").style.backgroundImage =
