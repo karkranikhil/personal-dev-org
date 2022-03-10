@@ -6,6 +6,15 @@
   @last modified by  : ErickSixto
 -->
 <template>
+  <h1>Button group</h1>
+  <div class="inline">
+    <template if:true={buttonOptions}>
+      <c-rd-image-button-group
+        elements={buttons}
+        is-multiselect
+      ></c-rd-image-button-group>
+    </template>
+  </div>
   <h1>Multiselect Icon</h1>
   <div class="inline">
     <c-rd-image-button

@@ -10,23 +10,13 @@ export default class RdImageButton extends LightningElement {
   @api darkColor = "#343a40";
   @api lightColor = "#e9ecef";
   @api label;
-  state = false;
-
-  //* GETTERS AND SETTERS
-  @api
-  get buttonData() {
-    return {
-      id: this.id,
-      state: this.state
-    };
-  }
+  selected = false;
 
   //* LIFECYCLE
 
   renderedCallback() {
     //? Set icon size based on form factor
     this.iconSize = FORM_FACTOR.toLocaleLowerCase();
-    console.log("iconSize: ", this.iconSize);
     //? Set background img
     if (this.image) {
       this.template.querySelector(".container").style.backgroundImage =
@@ -58,7 +48,14 @@ export default class RdImageButton extends LightningElement {
   //*UTILITY
 
   toggleState() {
-    this.state = !this.state;
+    this.selected = !this.selected;
     this.template.querySelector(".container").classList.toggle("active");
+    const event = new CustomEvent("toggle", {
+      detail: {
+        id: this.buttonId,
+        selected: this.selected
+      }
+    });
+    this.dispatchEvent(event);
   }
 }
