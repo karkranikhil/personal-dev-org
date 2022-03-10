@@ -6,24 +6,26 @@
   @last modified by  : ErickSixto
 -->
 <template>
-  <template
-    if:true={buttons}
-    for:each={buttons}
-    for:item="button"
-    for:index="index"
-  >
-    <c-rd-image-button
-      key={button.Id}
-      is-multiselect={isMultiselect}
-      button-id={button.Id}
-      label={button.label}
-      image={button.image}
-      theme={button.theme}
-      size={button.size}
-      variant={button.variant}
-      dark-color={button.darkColor}
-      light-color={button.lightColor}
-      ontoggle={handleToggle}
-    ></c-rd-image-button>
-  </template>
+  <div class="button-group-container">
+    <template
+      if:true={buttons}
+      for:each={buttons}
+      for:item="button"
+      for:index="index"
+    >
+      <c-rd-image-button
+        key={button.id}
+        is-multiselect={isMultiselect}
+        button-id={button.id}
+        label={button.label}
+        image={button.image}
+        theme={button.theme}
+        size={button.size}
+        variant={button.variant}
+        dark-color={button.darkColor}
+        light-color={button.lightColor}
+        ontoggle={handleToggle}
+      ></c-rd-image-button>
+    </template>
+  </div>
 </template>

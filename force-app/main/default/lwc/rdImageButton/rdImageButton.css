@@ -69,10 +69,10 @@ h5.label {
   text-align: right;
 }
 h5.label.small {
-  font-size: max(12px, 1vw);
+  font-size: max(12px, 0.6vw);
 }
 h5.label.large {
-  font-size: max(12px, 1.5vw);
+  font-size: max(12px, 1.2vw);
 }
 h5.label.contained.light {
   color: var(--color-light);

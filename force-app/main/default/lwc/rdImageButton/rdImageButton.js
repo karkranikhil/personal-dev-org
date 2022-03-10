@@ -7,10 +7,25 @@ export default class RdImageButton extends LightningElement {
   @api theme = "light";
   @api size = "small";
   @api variant = "overlay";
-  @api darkColor = "#343a40";
-  @api lightColor = "#e9ecef";
   @api label;
+  darkColorValue = "#343a40";
+  lightColorValue = "#e9ecef";
   selected = false;
+
+  get darkColor() {
+    return this.darkColorValue;
+  }
+  @api
+  set darkColor(value) {
+    this.darkColorValue = value ? value : "#343a40";
+  }
+  get lightColor() {
+    return this.lightColorValue;
+  }
+  @api
+  set lightColor(value) {
+    this.lightColorValue = value ? value : "#e9ecef";
+  }
 
   //* LIFECYCLE
 
