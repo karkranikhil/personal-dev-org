@@ -9,7 +9,7 @@ const OBJECT_OPTIONS = [
 ];
 export default class EsActivityStream extends LightningElement {
   objectOptions = OBJECT_OPTIONS;
-  selectedObject = "contact";
+  selectedObject = "account";
   @track sections = [];
   @track notes;
 
