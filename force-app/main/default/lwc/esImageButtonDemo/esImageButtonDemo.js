@@ -40,6 +40,14 @@ export default class EsImageButtonDemo extends LightningElement {
       size: "small",
       variant: "contained",
       darkColor: "darkblue"
+    },
+    {
+      id: "Button 5",
+      label: "Stretch",
+      image: this.imageUrl,
+      theme: "light",
+      size: "small-stretch",
+      variant: "overlay"
     }
   ];
 

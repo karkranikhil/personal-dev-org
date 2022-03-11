@@ -18,9 +18,17 @@
   height: 7vw;
   width: 7vw;
 }
+.container.small-stretch {
+  height: 7vw;
+  width: 10vw;
+}
 .container.large {
   height: 15vw;
   width: 15vw;
+}
+.container.large-stretch {
+  height: 15vw;
+  width: 18vw;
 }
 .container.dark {
   background-color: var(--color-dark);
@@ -68,10 +76,12 @@ h5.label {
   padding-right: 8px;
   text-align: right;
 }
-h5.label.small {
+h5.label.small,
+h5.label.small-stretch {
   font-size: max(12px, 0.6vw);
 }
-h5.label.large {
+h5.label.large,
+h5.label.large-stretch {
   font-size: max(12px, 1.2vw);
 }
 h5.label.contained.light {

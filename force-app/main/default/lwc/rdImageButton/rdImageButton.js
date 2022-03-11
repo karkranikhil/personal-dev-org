@@ -63,6 +63,7 @@ export default class RdImageButton extends LightningElement {
   //*UTILITY
 
   toggleState() {
+    console.log("CLick", this.buttonId);
     this.selected = !this.selected;
     this.template.querySelector(".container").classList.toggle("active");
     const event = new CustomEvent("toggle", {
