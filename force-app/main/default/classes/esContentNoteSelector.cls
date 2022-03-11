@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 03-09-2022
+ * @last modified on  : 03-11-2022
  * @last modified by  : ErickSixto
  **/
 public with sharing class esContentNoteSelector{
@@ -14,7 +14,7 @@ public with sharing class esContentNoteSelector{
     Map<Id, String> linkMap = new Map<Id, String>();
     List<ContentDocumentLink> links = [SELECT Id, ContentDocumentId, LinkedEntityId, LinkedEntity.Name
                                    FROM ContentDocumentLink
-                                   WHERE LinkedEntityId IN:recordIds AND ContentDocument.FileType = 'SNOTE' AND ContentDocument.OwnerId = :userId AND ContentDocument.LastModifiedDate = LAST_N_DAYS:30
+                                   WHERE LinkedEntityId IN:recordIds AND ContentDocument.FileType = 'SNOTE' AND ContentDocument.OwnerId = :userId AND ContentDocument.LastModifiedDate = LAST_N_DAYS:90
                                    ORDER BY ContentDocument.LastModifiedDate ASC];
     //
     for (ContentDocumentLink link : links){

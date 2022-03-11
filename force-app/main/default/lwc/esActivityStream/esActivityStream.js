@@ -21,7 +21,6 @@ export default class EsActivityStream extends LightningElement {
   @wire(getNotes, { objectApiName: "$selectedObject" })
   wiredNotes({ error, data }) {
     if (error) {
-      console.error(error);
     } else if (data) {
       let notes = data.map((note) => ({
         ...note,
@@ -75,7 +74,6 @@ export default class EsActivityStream extends LightningElement {
   handleChange(event) {
     let noteId = event.target.name;
     let value = event.target.value;
-
     let note = this.notes.find((filteredNote) => filteredNote.Id === noteId);
     note.Content = value;
     note.isModified = note.originalValue !== value;
@@ -90,7 +88,7 @@ export default class EsActivityStream extends LightningElement {
   }
   fillDateArray() {
     let today = new Date();
-    let priorDate = new Date().setDate(today.getDate() - 30);
+    let priorDate = new Date().setDate(today.getDate() - 90);
     priorDate = new Date(priorDate);
     while (priorDate <= today) {
       this.sections.push({

@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 03-08-2022
+  @last modified on  : 03-11-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -55,14 +55,15 @@
                     <p class="subtitle">{note.time}</p>
                   </div>
                 </div>
-                <lightning-textarea
+                <textarea
                   name={note.Id}
-                  label=""
-                  variant="label-hidden"
+                  class="slds-textarea"
+                  rows="1"
                   placeholder="type here..."
-                  value={note.Content}
                   onchange={handleChange}
-                ></lightning-textarea>
+                >
+              {note.Content}</textarea
+                >
                 <template if:true={note.isModified}>
                   <button
                     if:true={note.isLoading}
