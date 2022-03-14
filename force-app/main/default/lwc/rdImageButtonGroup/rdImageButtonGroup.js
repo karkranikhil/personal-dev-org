@@ -13,9 +13,18 @@ export default class RdImageButtonGroup extends LightningElement {
   }
   handleToggle(event) {
     let buttonId = event.detail.id;
-    console.log("Toggle", buttonId);
     let state = event.detail.selected;
     this.buttons.find((element) => element.id === buttonId).selected = state;
+    if (!this.isMultiselect) {
+      this.buttons
+        .filter((element) => element.id !== buttonId)
+        .forEach((element) => {
+          element.selected = false;
+          this.template
+            .querySelector(`c-rd-image-button.${element.id}`)
+            .setButtonState(false);
+        });
+    }
     let details = this.buttons.map((button) => ({
       id: button.id,
       state: button.selected

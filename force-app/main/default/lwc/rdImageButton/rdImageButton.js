@@ -27,6 +27,16 @@ export default class RdImageButton extends LightningElement {
     this.lightColorValue = value ? value : "#e9ecef";
   }
 
+  @api setButtonState(state) {
+    this.selected = state;
+    let container = this.template.querySelector(".container");
+    if (state) {
+      container.classList.add("active");
+    } else {
+      container.classList.remove("active");
+    }
+  }
+
   //* LIFECYCLE
 
   renderedCallback() {
@@ -63,7 +73,6 @@ export default class RdImageButton extends LightningElement {
   //*UTILITY
 
   toggleState() {
-    console.log("CLick", this.buttonId);
     this.selected = !this.selected;
     this.template.querySelector(".container").classList.toggle("active");
     const event = new CustomEvent("toggle", {

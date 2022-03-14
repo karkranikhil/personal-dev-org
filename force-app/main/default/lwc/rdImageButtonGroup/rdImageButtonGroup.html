@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 03-09-2022
+  @last modified on  : 03-14-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -15,6 +15,8 @@
     >
       <c-rd-image-button
         key={button.id}
+        name={button.id}
+        class={button.id}
         is-multiselect={isMultiselect}
         button-id={button.id}
         label={button.label}

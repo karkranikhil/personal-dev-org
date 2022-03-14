@@ -2,11 +2,11 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 03-09-2022
+  @last modified on  : 03-13-2022
   @last modified by  : ErickSixto
 -->
 <template>
-  <h1>Button group horizontal</h1>
+  <h1>Button group horizontal - Multiselect</h1>
   <div class="inline">
     <template if:true={buttons}>
       <c-rd-image-button-group
@@ -23,7 +23,6 @@
       <c-rd-image-button-group
         orientation="vertical"
         elements={buttons}
-        is-multiselect
         onselect={handleSelect}
       ></c-rd-image-button-group>
     </template>

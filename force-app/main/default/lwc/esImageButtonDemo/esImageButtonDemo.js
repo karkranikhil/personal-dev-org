@@ -6,7 +6,7 @@ export default class EsImageButtonDemo extends LightningElement {
 
   buttons = [
     {
-      id: "Button 1",
+      id: "Button1",
       label: "I am a button",
       image: this.imageUrl,
       theme: "dark",
@@ -14,7 +14,7 @@ export default class EsImageButtonDemo extends LightningElement {
       variant: "overlay"
     },
     {
-      id: "Button 2",
+      id: "Button2",
       label: "Click",
       image: "https://picsum.photos/600?random=3",
       theme: "light",
@@ -24,7 +24,7 @@ export default class EsImageButtonDemo extends LightningElement {
       darkColor: "darkgoldenrod"
     },
     {
-      id: "Button 3",
+      id: "Button3",
       label: "Random Label",
       image: "https://picsum.photos/600?random=4",
       theme: "light",
@@ -33,7 +33,7 @@ export default class EsImageButtonDemo extends LightningElement {
       lightColor: "lightsteelblue"
     },
     {
-      id: "Button 4",
+      id: "Button4",
       label: "Hey!",
       image: this.imageUrl,
       theme: "dark",
@@ -42,7 +42,7 @@ export default class EsImageButtonDemo extends LightningElement {
       darkColor: "darkblue"
     },
     {
-      id: "Button 5",
+      id: "Button5",
       label: "Stretch",
       image: this.imageUrl,
       theme: "light",
