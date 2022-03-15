@@ -1,0 +1,123 @@
+* {
+  --color-line: #ea5b1e;
+  --color-primary: #0b467e;
+  --color-secondary: #808080;
+  --color-background: #ededed;
+}
+.header {
+  height: 96px;
+  background-color: var(--color-background);
+}
+.grid {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+.menu-buttons {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 16px;
+}
+.logo-container {
+  min-width: 120px;
+  max-width: 240px;
+}
+.side-nav-button {
+  cursor: pointer;
+  display: flex;
+  height: 48px;
+  width: 48px;
+}
+
+.line {
+  border-top: 5px solid var(--color-line);
+  margin: 0;
+}
+.hamburger {
+  cursor: pointer;
+  --sds-c-icon-color-foreground: var(--color-secondary);
+}
+.hamburger:hover {
+  --sds-c-icon-color-foreground: var(--color-primary);
+}
+
+/** Main Navigation */
+
+.nav-items {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.item {
+  cursor: pointer;
+  background-color: white;
+  border-radius: 4px;
+  font-size: 1rem;
+  padding: 0.5rem 2rem;
+  text-align: center;
+  color: var(--color-secondary);
+  font-weight: bold;
+  transition: 0.3s;
+}
+.item:hover,
+.item:active,
+.item:focus {
+  color: white;
+  background-color: var(--color-primary);
+}
+.sidenav {
+  margin-top: 96px;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: var(--color-background);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 10px;
+}
+.sidenav .item {
+  margin: 12px 12px 12px 12px;
+  display: block;
+}
+.sidenav a:hover {
+  color: var(--color-primary);
+}
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  left: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/** Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+/**Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .grid {
+    align-items: flex-end;
+    display: grid;
+    grid-template-columns: 1fr 10fr 1fr;
+  }
+  .nav-items {
+    display: flex;
+  }
+
+  .hamburger {
+    display: none;
+  }
+}
+/** Extra large devices (large laptops and desktops, 1200px and up) */
+/* @media only screen and (min-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+} */

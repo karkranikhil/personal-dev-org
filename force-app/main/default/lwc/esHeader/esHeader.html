@@ -1,0 +1,58 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 03-14-2022
+  @last modified by  : ErickSixto
+-->
+<template>
+  <header class="header">
+    <section class="grid">
+      <div class="logo-container">
+        <img
+          src="https://everio.de/rsd/logo_footer.svg"
+          alt="logo"
+          class="logo"
+        />
+      </div>
+      <div class="nav-items">
+        <div class="item">Nav item</div>
+        <div class="item">Nav item</div>
+        <div class="item">Nav item</div>
+        <div class="item">Nav item</div>
+      </div>
+      <div class="menu-buttons">
+        <div class="side-nav-button">
+          <img
+            src="https://everio.de/rsd/logo_footer.svg"
+            alt="logo"
+            class="logo"
+          />
+        </div>
+        <lightning-icon
+          if:false={isSideOpen}
+          class="hamburger"
+          variant="bare"
+          icon-name="utility:rows"
+          alternative-text="menu"
+          onclick={toggleSideNav}
+        ></lightning-icon>
+        <lightning-icon
+          if:true={isSideOpen}
+          class="hamburger"
+          variant="bare"
+          icon-name="utility:close"
+          alternative-text="menu"
+          onclick={toggleSideNav}
+        ></lightning-icon>
+      </div>
+    </section>
+    <hr class="line" />
+  </header>
+  <aside class="sidenav">
+    <div class="item">Nav item</div>
+    <div class="item">Nav item</div>
+    <div class="item">Nav item</div>
+    <div class="item">Nav item</div>
+  </aside>
+</template>
