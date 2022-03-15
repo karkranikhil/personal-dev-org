@@ -14,7 +14,7 @@ export default class EsHeader extends NavigationMixin(LightningElement) {
   @api sideNavigation;
 
   isSideOpen = false;
-
+  isSecondaryNavOpen = false;
   connectedCallback() {
     this.baseURL = window.location.origin + BASE_PATH;
     //this.setNavigationItems();
@@ -26,6 +26,13 @@ export default class EsHeader extends NavigationMixin(LightningElement) {
     this.isSideOpen = !this.isSideOpen;
     this.template.querySelector(".sidenav").style.width = this.isSideOpen
       ? "250px"
+      : "0";
+  }
+  toggleSecondaryNav() {
+    this.isSecondaryNavOpen = !this.isSecondaryNavOpen;
+    this.template.querySelector(".secondarynav").style.height = this
+      .isSecondaryNavOpen
+      ? "auto"
       : "0";
   }
 }

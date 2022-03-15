@@ -22,7 +22,7 @@
         <div class="item">Nav item</div>
       </div>
       <div class="menu-buttons">
-        <div class="side-nav-button">
+        <div class="side-nav-button" onclick={toggleSecondaryNav}>
           <img
             src="https://everio.de/rsd/logo_footer.svg"
             alt="logo"
@@ -54,5 +54,16 @@
     <div class="item">Nav item</div>
     <div class="item">Nav item</div>
     <div class="item">Nav item</div>
+  </aside>
+  <aside class="secondarynav">
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
+    <p>
+      <span class="small">Logged in as</span><br />
+      ErickSixto
+    </p>
+    <button class="log-btn">Logout</button>
   </aside>
 </template>

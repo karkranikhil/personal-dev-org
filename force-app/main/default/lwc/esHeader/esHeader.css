@@ -4,6 +4,9 @@
   --color-secondary: #808080;
   --color-background: #ededed;
 }
+
+/** Containers */
+
 .header {
   height: 96px;
   background-color: var(--color-background);
@@ -22,9 +25,10 @@
   gap: 16px;
 }
 .logo-container {
-  min-width: 120px;
-  max-width: 240px;
+  width: 120px;
 }
+
+/** Butons */
 .side-nav-button {
   cursor: pointer;
   display: flex;
@@ -32,16 +36,34 @@
   width: 48px;
 }
 
-.line {
-  border-top: 5px solid var(--color-line);
-  margin: 0;
-}
 .hamburger {
   cursor: pointer;
   --sds-c-icon-color-foreground: var(--color-secondary);
 }
 .hamburger:hover {
   --sds-c-icon-color-foreground: var(--color-primary);
+}
+
+.log-btn {
+  border: 2px solid var(--color-primary);
+  background-color: var(--color-background);
+  padding: 10px 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--color-primary);
+  border-radius: 25px;
+  margin: 1rem auto;
+}
+.log-btn:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/** Decorarion */
+
+.line {
+  border-top: 5px solid var(--color-line);
+  margin: 0;
 }
 
 /** Main Navigation */
@@ -69,6 +91,7 @@
   color: white;
   background-color: var(--color-primary);
 }
+
 .sidenav {
   margin-top: 96px;
   height: 100%;
@@ -86,15 +109,41 @@
   margin: 12px 12px 12px 12px;
   display: block;
 }
-.sidenav a:hover {
-  color: var(--color-primary);
-}
-.sidenav .closebtn {
-  position: absolute;
+
+/** Secondary Navigation */
+
+.secondarynav {
+  margin-top: 96px;
+  height: 0;
+  width: 400px;
+  position: fixed;
+  z-index: 1;
   top: 0;
-  left: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+  right: 0;
+  background-color: var(--color-background);
+  overflow-x: hidden;
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+}
+.secondarynav a,
+.secondarynav p {
+  padding: 12px 8px 12px 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  color: var(--color-secondary);
+  display: block;
+  transition: 0.3s;
+  text-align: center;
+  font-weight: bold;
+}
+
+span.small {
+  font-size: 0.7rem;
+}
+
+.secondarynav a:hover {
+  color: var(--color-primary);
 }
 
 /** Medium devices (landscape tablets, 768px and up) */
