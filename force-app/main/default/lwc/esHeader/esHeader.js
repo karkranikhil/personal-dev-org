@@ -10,8 +10,10 @@ export default class EsHeader extends NavigationMixin(LightningElement) {
   @api primaryColor;
   @api secondaryColor;
   @api logo;
+  @api loggedInBtn;
+  @api loggedOutBtn;
   @api mainNavigation;
-  @api sideNavigation;
+  @api secondaryNavigation;
 
   isSideOpen = false;
   isSecondaryNavOpen = false;
@@ -20,6 +22,26 @@ export default class EsHeader extends NavigationMixin(LightningElement) {
     //this.setNavigationItems();
   }
 
+  renderedCallback() {
+    //?Change Colors and Height
+    let header = this.template.querySelector(".header");
+    let side = this.template.querySelector(".sidenav");
+    let secondary = this.template.querySelector(".secondarynav");
+    header.style.setProperty("--color-line", this.lineColor);
+    header.style.setProperty("--color-primary", this.primaryColor);
+    header.style.setProperty("--color-secondary", this.secondaryColor);
+    header.style.setProperty("--color-background", this.backgroundColor);
+
+    side.style.setProperty("--color-line", this.lineColor);
+    side.style.setProperty("--color-primary", this.primaryColor);
+    side.style.setProperty("--color-secondary", this.secondaryColor);
+    side.style.setProperty("--color-background", this.backgroundColor);
+
+    secondary.style.setProperty("--color-line", this.lineColor);
+    secondary.style.setProperty("--color-primary", this.primaryColor);
+    secondary.style.setProperty("--color-secondary", this.secondaryColor);
+    secondary.style.setProperty("--color-background", this.backgroundColor);
+  }
   //* USER INTERACTION
 
   toggleSideNav() {

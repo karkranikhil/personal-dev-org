@@ -1,15 +1,8 @@
-* {
-  --color-line: #ea5b1e;
-  --color-primary: #0b467e;
-  --color-secondary: #808080;
-  --color-background: #ededed;
-}
-
 /** Containers */
 
 .header {
   height: 96px;
-  background-color: var(--color-background);
+  background-color: var(--color-background, rgb(237, 237, 237));
 }
 .grid {
   align-items: flex-end;
@@ -25,7 +18,11 @@
   gap: 16px;
 }
 .logo-container {
-  width: 120px;
+  height: 58px;
+}
+
+img {
+  height: 100%;
 }
 
 /** Butons */
@@ -38,31 +35,31 @@
 
 .hamburger {
   cursor: pointer;
-  --sds-c-icon-color-foreground: var(--color-secondary);
+  --sds-c-icon-color-foreground: var(--color-secondary, rgb(128, 128, 128));
 }
 .hamburger:hover {
-  --sds-c-icon-color-foreground: var(--color-primary);
+  --sds-c-icon-color-foreground: var(--color-primary, rgb(11, 70, 126));
 }
 
 .log-btn {
-  border: 2px solid var(--color-primary);
-  background-color: var(--color-background);
+  border: 2px solid var(--color-primary, rgb(11, 70, 126));
+  background-color: var(--color-background, rgb(237, 237, 237));
   padding: 10px 30px;
   font-size: 1rem;
   cursor: pointer;
-  color: var(--color-primary);
+  color: var(--color-primary, rgb(11, 70, 126));
   border-radius: 25px;
   margin: 1rem auto;
 }
 .log-btn:hover {
-  background-color: var(--color-primary);
+  background-color: var(--color-primary, rgb(11, 70, 126));
   color: white;
 }
 
 /** Decorarion */
 
 .line {
-  border-top: 5px solid var(--color-line);
+  border-top: 5px solid var(--color-line, rgb(234, 91, 30));
   margin: 0;
 }
 
@@ -73,15 +70,16 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  padding: 0 8px;
 }
 .item {
   cursor: pointer;
   background-color: white;
   border-radius: 4px;
   font-size: 1rem;
-  padding: 0.5rem 2rem;
+  padding: 8px 24px;
   text-align: center;
-  color: var(--color-secondary);
+  color: var(--color-secondary, rgb(128, 128, 128));
   font-weight: bold;
   transition: 0.3s;
 }
@@ -89,7 +87,7 @@
 .item:active,
 .item:focus {
   color: white;
-  background-color: var(--color-primary);
+  background-color: var(--color-primary, rgb(11, 70, 126));
 }
 
 .sidenav {
@@ -100,7 +98,7 @@
   z-index: 1;
   top: 0;
   right: 0;
-  background-color: var(--color-background);
+  background-color: var(--color-background, rgb(237, 237, 237));
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 10px;
@@ -120,7 +118,7 @@
   z-index: 1;
   top: 0;
   right: 0;
-  background-color: var(--color-background);
+  background-color: var(--color-background, rgb(237, 237, 237));
   overflow-x: hidden;
   transition: 0.5s;
   display: flex;
@@ -131,7 +129,7 @@
   padding: 12px 8px 12px 8px;
   text-decoration: none;
   font-size: 1rem;
-  color: var(--color-secondary);
+  color: var(--color-secondary, rgb(128, 128, 128));
   display: block;
   transition: 0.3s;
   text-align: center;
@@ -143,7 +141,7 @@ span.small {
 }
 
 .secondarynav a:hover {
-  color: var(--color-primary);
+  color: var(--color-primary, rgb(11, 70, 126));
 }
 
 /** Medium devices (landscape tablets, 768px and up) */
@@ -161,6 +159,10 @@ span.small {
   }
 
   .hamburger {
+    display: none;
+  }
+
+  aside.sidenav {
     display: none;
   }
 }
