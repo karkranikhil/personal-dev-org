@@ -63,6 +63,11 @@ img {
   margin: 0;
 }
 
+ul,
+li {
+  list-style-type: none;
+}
+
 /** Main Navigation */
 
 .nav-items {
@@ -150,7 +155,7 @@ span.small {
 /**Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
   .grid {
-    align-items: flex-end;
+    align-items: center;
     display: grid;
     grid-template-columns: 1fr 10fr 1fr;
   }
