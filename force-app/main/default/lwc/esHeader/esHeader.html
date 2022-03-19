@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 03-18-2022
+  @last modified on  : 03-19-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -70,14 +70,15 @@
     </template>
 
     <p if:true={userName}>
-      <span if:false={isDeutsch} class="small" onclick={logout}
-        >Logged in as</span
-      >
-      <span if:true={isDeutsch} class="small" onclick={logout}
-        >angemeldet als</span
-      ><br />
+      <span if:false={isDeutsch} class="small">Logged in as</span>
+      <span if:true={isDeutsch} class="small">angemeldet als</span><br />
       {userName}
     </p>
-    <button class="log-btn">Logout</button>
+    <button if:false={isDeutsch} onclick={logout} class="log-btn">
+      Logout
+    </button>
+    <button if:true={isDeutsch} onclick={logout} class="log-btn">
+      Abmelden
+    </button>
   </aside>
 </template>

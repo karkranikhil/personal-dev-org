@@ -29,13 +29,13 @@ img {
 .side-nav-button {
   cursor: pointer;
   display: flex;
-  height: 48px;
-  width: 48px;
+  height: 58px;
 }
 
 .hamburger {
   cursor: pointer;
   --sds-c-icon-color-foreground: var(--color-secondary, rgb(128, 128, 128));
+  --lwc-squareIconMediumBoundary: 58px;
 }
 .hamburger:hover {
   --sds-c-icon-color-foreground: var(--color-primary, rgb(11, 70, 126));
@@ -87,6 +87,7 @@ li {
   color: var(--color-secondary, rgb(128, 128, 128));
   font-weight: bold;
   transition: 0.3s;
+  text-decoration: none;
 }
 .item:hover,
 .item:active,
@@ -118,7 +119,7 @@ li {
 .secondarynav {
   margin-top: 96px;
   height: 0;
-  width: 400px;
+  width: 100%;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -133,7 +134,7 @@ li {
 .secondarynav p {
   padding: 12px 8px 12px 8px;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1.25rem;
   color: var(--color-secondary, rgb(128, 128, 128));
   display: block;
   transition: 0.3s;
@@ -169,6 +170,9 @@ span.small {
 
   aside.sidenav {
     display: none;
+  }
+  .secondarynav {
+    width: 300px;
   }
 }
 /** Extra large devices (large laptops and desktops, 1200px and up) */
