@@ -22,11 +22,12 @@ trigger ContentDocumentLinkTrigger on ContentDocumentLink(
   } else if (Trigger.isInsert && Trigger.isAfter) {
     //After Insert
     handler.OnAfterInsert(Trigger.new);
-  } else if (Trigger.isDelete && Trigger.isAfter) {
-    //After Delete
-    handler.OnAfterDelete(Trigger.old, Trigger.oldMap);
   }
   //! Commented: We wont use these scenarios for the requiement. But nonetheless I prepared the trigger handler in case you need them on the future - ErickSixto
+  // else if (Trigger.isDelete && Trigger.isAfter) {
+  //   //After Delete
+  //   handler.OnAfterDelete(Trigger.old, Trigger.oldMap);
+  // }
   // else if (Trigger.isUpdate && Trigger.isBefore) {
   //   //Before Update
   //   handler.OnBeforeUpdate(Trigger.old, Trigger.new, Trigger.newMap);
