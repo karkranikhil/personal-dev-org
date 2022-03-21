@@ -1,7 +1,7 @@
 /** Containers */
 
 .header {
-  height: 96px;
+  height: 84px;
   background-color: var(--color-background, rgb(237, 237, 237));
 }
 .grid {
@@ -18,10 +18,11 @@
   gap: 16px;
 }
 .logo-container {
-  height: 58px;
+  height: 48px;
 }
 
 img {
+  max-width: none;
   height: 100%;
 }
 
@@ -97,7 +98,7 @@ li {
 }
 
 .sidenav {
-  margin-top: 96px;
+  margin-top: 84px;
   height: 100%;
   width: 0;
   position: fixed;
@@ -117,7 +118,7 @@ li {
 /** Secondary Navigation */
 
 .secondarynav {
-  margin-top: 96px;
+  margin-top: 86px;
   height: 0;
   width: 100%;
   position: fixed;
