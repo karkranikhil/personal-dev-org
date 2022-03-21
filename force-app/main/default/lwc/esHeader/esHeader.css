@@ -29,13 +29,13 @@ img {
 .side-nav-button {
   cursor: pointer;
   display: flex;
-  height: 58px;
+  height: 46px;
 }
 
 .hamburger {
   cursor: pointer;
   --sds-c-icon-color-foreground: var(--color-secondary, rgb(128, 128, 128));
-  --lwc-squareIconMediumBoundary: 58px;
+  --lwc-squareIconMediumBoundary: 46px;
 }
 .hamburger:hover {
   --sds-c-icon-color-foreground: var(--color-primary, rgb(11, 70, 126));
@@ -44,12 +44,12 @@ img {
 .log-btn {
   border: 2px solid var(--color-primary, rgb(11, 70, 126));
   background-color: var(--color-background, rgb(237, 237, 237));
-  padding: 10px 30px;
   font-size: 1rem;
   cursor: pointer;
   color: var(--color-primary, rgb(11, 70, 126));
   border-radius: 25px;
   margin: 1rem auto;
+  padding: 8px 26px;
 }
 .log-btn:hover {
   background-color: var(--color-primary, rgb(11, 70, 126));
@@ -59,7 +59,7 @@ img {
 /** Decorarion */
 
 .line {
-  border-top: 5px solid var(--color-line, rgb(234, 91, 30));
+  border-top: 4px solid var(--color-line, rgb(234, 91, 30));
   margin: 0;
 }
 
@@ -132,14 +132,14 @@ li {
 }
 .secondarynav a,
 .secondarynav p {
-  padding: 12px 8px 12px 8px;
   text-decoration: none;
-  font-size: 1.25rem;
   color: var(--color-secondary, rgb(128, 128, 128));
   display: block;
   transition: 0.3s;
   text-align: center;
   font-weight: bold;
+  padding: 8px;
+  font-size: 1rem;
 }
 
 span.small {
