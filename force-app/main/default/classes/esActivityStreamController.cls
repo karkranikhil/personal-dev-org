@@ -2,11 +2,11 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 03-06-2022
+ * @last modified on  : 03-21-2022
  * @last modified by  : ErickSixto
  **/
 public with sharing class esActivityStreamController {
-  @AuraEnabled(cacheable=true)
+  @AuraEnabled
   public static list<NoteWrapper> getNotes(String objectApiName) {
     String queryTemplate = 'SELECT Id, Name' + ' FROM ' + objectApiName;
     List<NoteWrapper> notes = new List<NoteWrapper>();

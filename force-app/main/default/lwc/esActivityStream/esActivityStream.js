@@ -1,4 +1,5 @@
-import { LightningElement, track, wire } from "lwc";
+import { LightningElement, track } from "lwc";
+import USER_ID from "@salesforce/user/Id";
 import getNotes from "@salesforce/apex/esActivityStreamController.getNotes";
 import updateNote from "@salesforce/apex/esActivityStreamController.updateNote";
 import { subscribe } from "lightning/empApi";
@@ -17,22 +18,24 @@ export default class EsActivityStream extends LightningElement {
 
   //*LIFE CYCLE
   connectedCallback() {
+    console.log("UserId", USER_ID);
     this.fillDateArray();
+    this.getStreamNotes();
     this.handleSubscribe();
   }
 
-  @wire(getNotes, { objectApiName: "$selectedObject" })
-  wiredNotes({ error, data }) {
-    if (data) {
+  getStreamNotes() {
+    console.log("Getting Notes");
+    getNotes({ objectApiName: "account" }).then((data) => {
       let notes = data.map((note) => ({
         ...note,
         isLoading: false,
         time: new Date(note.LastModifiedDate).toLocaleTimeString(),
-        url: "/" + note.RecordId
+        url: "/" + note.RecordIds
       }));
       this.notes = notes;
       this.arrangeSections();
-    }
+    });
   }
 
   //*GETTERS AND SETTERS
@@ -45,20 +48,32 @@ export default class EsActivityStream extends LightningElement {
   handleSubscribe() {
     // Callback invoked whenever a new event message is received
     const messageCallback = function (response) {
-      console.log("New message received: ", JSON.stringify(response));
+      console.log(
+        "New message received: ",
+        JSON.parse(JSON.stringify(response))
+      );
+
+      console.log("notes", JSON.parse(JSON.stringify(this.notes)));
+
+      if (response.data.payload.CreatedById === USER_ID) {
+        console.log("Same Id");
+        this.getStreamNotes();
+      }
       // Response contains the payload of the new message received
     };
 
     // Invoke subscribe method of empApi. Pass reference to messageCallback
-    subscribe(this.channelName, -1, messageCallback).then((response) => {
-      // Response contains the subscription information on subscribe call
-      console.log(
-        "Subscription request sent to: ",
-        JSON.stringify(response.channel)
-      );
-      this.subscription = response;
-      this.toggleSubscribeButton(true);
-    });
+    subscribe(this.channelName, -1, messageCallback.bind(this)).then(
+      (response) => {
+        // Response contains the subscription information on subscribe call
+        console.log(
+          "Subscription request sent to: ",
+          JSON.stringify(response.channel)
+        );
+        this.subscription = response;
+        this.toggleSubscribeButton(true);
+      }
+    );
   }
 
   arrangeSections() {

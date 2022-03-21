@@ -5,7 +5,7 @@
  * @last modified on  : 03-21-2022
  * @last modified by  : ErickSixto
  **/
-trigger ContentDocumentTrigger on ContentDocument(
+trigger ContentVersionTrigger on ContentVersion(
   before insert,
   before update,
   before delete,
