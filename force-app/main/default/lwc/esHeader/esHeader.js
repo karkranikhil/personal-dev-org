@@ -84,7 +84,8 @@ export default class EsHeader extends NavigationMixin(LightningElement) {
         this.navigateToObject(nav.Target);
         break;
       case "InternalLink":
-        window.location.href += nav.Target.replace("/", "");
+        window.location.href =
+          window.location.origin + "/portal/s/" + nav.Target.replace("/", "");
         break;
       case "ExternalLink":
         window.location.href = nav.Target;

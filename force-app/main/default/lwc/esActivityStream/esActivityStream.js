@@ -1,7 +1,7 @@
 import { LightningElement, track, wire } from "lwc";
 import getNotes from "@salesforce/apex/esActivityStreamController.getNotes";
 import updateNote from "@salesforce/apex/esActivityStreamController.updateNote";
-
+import { subscribe } from "lightning/empApi";
 const OBJECT_OPTIONS = [
   { label: "Contacts", value: "contact" },
   { label: "Leads", value: "lead" },
@@ -10,18 +10,20 @@ const OBJECT_OPTIONS = [
 export default class EsActivityStream extends LightningElement {
   objectOptions = OBJECT_OPTIONS;
   selectedObject = "account";
+  channelName = "/event/Activity_Stream__e";
+
   @track sections = [];
   @track notes;
 
   //*LIFE CYCLE
   connectedCallback() {
     this.fillDateArray();
+    this.handleSubscribe();
   }
 
   @wire(getNotes, { objectApiName: "$selectedObject" })
   wiredNotes({ error, data }) {
-    if (error) {
-    } else if (data) {
+    if (data) {
       let notes = data.map((note) => ({
         ...note,
         isLoading: false,
@@ -39,6 +41,26 @@ export default class EsActivityStream extends LightningElement {
   }
 
   //*UTILITY
+
+  handleSubscribe() {
+    // Callback invoked whenever a new event message is received
+    const messageCallback = function (response) {
+      console.log("New message received: ", JSON.stringify(response));
+      // Response contains the payload of the new message received
+    };
+
+    // Invoke subscribe method of empApi. Pass reference to messageCallback
+    subscribe(this.channelName, -1, messageCallback).then((response) => {
+      // Response contains the subscription information on subscribe call
+      console.log(
+        "Subscription request sent to: ",
+        JSON.stringify(response.channel)
+      );
+      this.subscription = response;
+      this.toggleSubscribeButton(true);
+    });
+  }
+
   arrangeSections() {
     this.sections = this.sections.map((section) => ({
       ...section,
