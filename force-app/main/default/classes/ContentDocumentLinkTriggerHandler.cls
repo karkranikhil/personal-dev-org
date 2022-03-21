@@ -78,8 +78,15 @@ public with sharing class ContentDocumentLinkTriggerHandler {
     }
   }
 
-  //! Commented: We wont use these scenarios for the requiement. But nonetheless I prepared the trigger handler in case you need them on the future - ErickSixto
+  // On After Delete
+  public void OnAfterDelete(
+    List<ContentDocumentLink> deletedRecords,
+    Map<Id, ContentDocumentLink> deletedRecordsMap
+  ) {
+    fireStreamEvent();
+  }
 
+  //! Commented: We wont use these scenarios for the requiement. But nonetheless I prepared the trigger handler in case you need them on the future - ErickSixto
   //  // On Before Update
   // public void OnBeforeUpdate(
   //   List<ContentDocumentLink> oldRecords,
@@ -100,13 +107,15 @@ public with sharing class ContentDocumentLinkTriggerHandler {
   //   Map<Id, ContentDocumentLink> deletedRecordsMap
   // ) {
   // }
-  // // On After Delete
-  // public void OnAfterDelete(
-  //   List<ContentDocumentLink> deletedRecords,
-  //   Map<Id, ContentDocumentLink> deletedRecordsMap
-  // ) {
-  // }
+
   // // On Undelete
   // public void OnUnDelete(List<ContentDocumentLink> undeletedRecords) {
   // }
+
+  private void fireStreamEvent() {
+    List<Activity_Stream__e> streamEvents = new List<Activity_Stream__e>();
+    streamEvents.add(new Activity_Stream__e());
+    // Call method to publish events
+    List<Database.SaveResult> results = EventBus.publish(streamEvents);
+  }
 }

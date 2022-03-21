@@ -5,7 +5,7 @@
  * @last modified on  : 03-21-2022
  * @last modified by  : ErickSixto
  **/
-trigger ContentVersionTrigger on ContentVersion(
+trigger ContentDocumentTrigger on ContentDocument(
   before insert,
   before update,
   before delete,
@@ -14,24 +14,25 @@ trigger ContentVersionTrigger on ContentVersion(
   after delete,
   after undelete
 ) {
-  ContentVersionTriggerHandler handler = new ContentVersionTriggerHandler();
-  if (Trigger.isInsert && Trigger.isAfter) {
-    //After Insert
-    handler.OnAfterInsert(Trigger.new);
-  } else if (Trigger.isUpdate && Trigger.isAfter) {
-    //After Update
-    handler.OnAfterUpdate(Trigger.old, Trigger.new, Trigger.newMap);
-  } 
-  // else if (Trigger.isDelete && Trigger.isAfter) {
-  //   //After Delete
-  //   handler.OnAfterDelete(Trigger.old, Trigger.oldMap);
-  // }
+  ContentDocumentTriggerHandler handler = new ContentDocumentTriggerHandler();
+
+  if (Trigger.isDelete && Trigger.isAfter) {
+    //After Delete
+    handler.OnAfterDelete(Trigger.old, Trigger.oldMap);
+  }
+
   // else if (Trigger.isInsert && Trigger.isBefore) {
   //   //Before Insert
   //   handler.OnBeforeInsert(Trigger.new);
+  // } else if (Trigger.isInsert && Trigger.isAfter) {
+  //   //After Insert
+  //   handler.OnAfterInsert(Trigger.new);
   // } else if (Trigger.isUpdate && Trigger.isBefore) {
   //   //Before Update
   //   handler.OnBeforeUpdate(Trigger.old, Trigger.new, Trigger.newMap);
+  // } else if (Trigger.isUpdate && Trigger.isAfter) {
+  //   //After Update
+  //   handler.OnAfterUpdate(Trigger.old, Trigger.new, Trigger.newMap);
   // } else if (Trigger.isDelete && Trigger.isBefore) {
   //   //Before Delete
   //   handler.OnBeforeDelete(Trigger.old, Trigger.oldMap);
@@ -39,4 +40,5 @@ trigger ContentVersionTrigger on ContentVersion(
   //   //After Undelete
   //   handler.OnUnDelete(Trigger.new);
   // }
+
 }

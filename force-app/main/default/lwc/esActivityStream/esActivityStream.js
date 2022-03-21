@@ -18,14 +18,12 @@ export default class EsActivityStream extends LightningElement {
 
   //*LIFE CYCLE
   connectedCallback() {
-    console.log("UserId", USER_ID);
     this.fillDateArray();
     this.getStreamNotes();
     this.handleSubscribe();
   }
 
   getStreamNotes() {
-    console.log("Getting Notes");
     getNotes({ objectApiName: "account" }).then((data) => {
       let notes = data.map((note) => ({
         ...note,
@@ -53,10 +51,7 @@ export default class EsActivityStream extends LightningElement {
         JSON.parse(JSON.stringify(response))
       );
 
-      console.log("notes", JSON.parse(JSON.stringify(this.notes)));
-
       if (response.data.payload.CreatedById === USER_ID) {
-        console.log("Same Id");
         this.getStreamNotes();
       }
       // Response contains the payload of the new message received
