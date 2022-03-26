@@ -25,7 +25,6 @@ export default class EsActivityStream extends LightningElement {
 
   getStreamNotes() {
     getNotes({ objectApiName: "account" }).then((data) => {
-      console.log(JSON.parse(JSON.stringify(data)));
       let notes = data.map((note) => ({
         ...note,
         isLoading: false,
