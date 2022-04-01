@@ -24,16 +24,19 @@ export default class EsActivityStream extends LightningElement {
   }
 
   getStreamNotes() {
-    getNotes({ objectApiName: "account" }).then((data) => {
-      let notes = data.map((note) => ({
-        ...note,
-        isLoading: false,
-        time: new Date(note.LastModifiedDate).toLocaleTimeString(),
-        url: "/" + note.RecordId
-      }));
-      this.notes = notes;
-      this.arrangeSections();
-    });
+    getNotes({ objectApiName: "account" })
+      .then((data) => {
+        console.log("Data", JSON.parse(JSON.stringify(data)));
+        let notes = data.map((note) => ({
+          ...note,
+          isLoading: false,
+          time: new Date(note.LastModifiedDate).toLocaleTimeString(),
+          url: "/" + note.RecordId
+        }));
+        this.notes = notes;
+        this.arrangeSections();
+      })
+      .catch((error) => console.error(error));
   }
 
   //*GETTERS AND SETTERS

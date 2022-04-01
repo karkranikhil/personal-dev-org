@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 03-21-2022
+ * @last modified on  : 04-01-2022
  * @last modified by  : ErickSixto
  **/
 trigger ContentVersionTrigger on ContentVersion(
@@ -18,10 +18,13 @@ trigger ContentVersionTrigger on ContentVersion(
   if (Trigger.isInsert && Trigger.isAfter) {
     //After Insert
     handler.OnAfterInsert(Trigger.new);
+  } else if (Trigger.isUpdate && Trigger.isBefore) {
+    //Before Update
+    handler.OnBeforeUpdate(Trigger.old, Trigger.new, Trigger.newMap);
   } else if (Trigger.isUpdate && Trigger.isAfter) {
     //After Update
     handler.OnAfterUpdate(Trigger.old, Trigger.new, Trigger.newMap);
-  } 
+  }
   // else if (Trigger.isDelete && Trigger.isAfter) {
   //   //After Delete
   //   handler.OnAfterDelete(Trigger.old, Trigger.oldMap);

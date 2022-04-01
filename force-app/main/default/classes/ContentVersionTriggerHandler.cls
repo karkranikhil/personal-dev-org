@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 03-21-2022
+ * @last modified on  : 04-01-2022
  * @last modified by  : ErickSixto
  **/
 public with sharing class ContentVersionTriggerHandler {
@@ -11,6 +11,19 @@ public with sharing class ContentVersionTriggerHandler {
   public void OnAfterInsert(List<ContentVersion> newRecords) {
     if (runCount == 0) {
       fireStreamEvent(newRecords[0]);
+    }
+  }
+
+  public void OnBeforeUpdate(
+    List<ContentVersion> oldRecords,
+    List<ContentVersion> newRecords,
+    Map<Id, ContentVersion> newRecordsMap
+  ) {
+    ContentVersion note = newRecords[0];
+    ContentVersion oldNote = oldRecords[0];
+
+    if (isSNote(note)) {
+      note.Title = oldNote.Title;
     }
   }
 
@@ -38,12 +51,7 @@ public with sharing class ContentVersionTriggerHandler {
   //
   //    public void OnBeforeInsert(List<ContentVersion> newRecords) {
   //   }
-  //  public void OnBeforeUpdate(
-  //     List<ContentVersion> oldRecords,
-  //     List<ContentVersion> newRecords,
-  //     Map<Id, ContentVersion> newRecordsMap
-  //   ) {
-  //   }
+
   //   // On After Delete
   //   public void OnAfterDelete(
   //     List<ContentVersion> deletedRecords,
