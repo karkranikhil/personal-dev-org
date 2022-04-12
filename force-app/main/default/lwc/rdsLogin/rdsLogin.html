@@ -1,3 +1,54 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 04-12-2022
+  @last modified by  : ErickSixto
+-->
 <template>
-    
+  <section class="container">
+    <h1 class="title">Log in</h1>
+    <article class="card">
+      <ul class="nav-tabs">
+        <li class="nav-tab active">
+          <h3 class="tab-title">I have an account</h3>
+          <p class="tab-subtitle">Login with your email address and password</p>
+        </li>
+        <li class="nav-tab">
+          <h3 class="nav-tab-title">Create new account</h3>
+          <p class="nav-tab-subtitle">Register now</p>
+        </li>
+      </ul>
+      <div class="nav-content">
+        <div class="slds-grid">
+          <div
+            class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_8-of-12"
+          >
+            <form>
+              <lightning-input
+                class="input"
+                type="text"
+                label="Email"
+                variant="label-inline"
+              ></lightning-input>
+              <lightning-input
+                class="input"
+                type="password"
+                label="Enter your password"
+                name="password"
+                variant="label-inline"
+              ></lightning-input>
+              <lightning-input
+                class="input"
+                type="password"
+                label="Confirm your password"
+                name="passwordConfirm"
+                variant="label-inline"
+              ></lightning-input>
+            </form>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
 </template>
