@@ -70,19 +70,19 @@
                 >
                   <lightning-icon
                     class="icon-white"
-                    icon-name="utility:right"
+                    size="x-small"
+                    icon-name="utility:chevronright"
                     alternative-text="Submit"
+                    onclick={handleResetPassword}
                   ></lightning-icon>
                   <!--More icon please visit : https://www.lightningdesignsystem.com/icons/ -->
                 </div>
               </div>
-              <!-- <lightning-input
-                class="input"
-                type="password"
-                label="Confirm your password"
-                name="passwordConfirm"
-                variant="label-inline"
-              ></lightning-input> -->
+              <button
+                class="submit-button slds-button slds-button_brand slds-button_stretch"
+              >
+                Login
+              </button>
             </form>
           </div>
         </div>
