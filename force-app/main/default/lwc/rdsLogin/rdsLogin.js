@@ -1,3 +1,5 @@
-import { LightningElement } from 'lwc';
+import { LightningElement } from "lwc";
 
-export default class RdsLogin extends LightningElement {}
+export default class RdsLogin extends LightningElement {
+  expandIcon = "utility:chevrondown";
+}

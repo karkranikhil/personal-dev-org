@@ -1,3 +1,12 @@
+* {
+  --l: 50%; /*the initial lightness*/
+  --color-background: rgb(255, 255, 255);
+  --color-tab-inactive-background: rgb(245, 245, 245);
+  --color-tab-hover-background: rgb(249, 250, 251);
+  --color-tab-text: rgb(7, 68, 111);
+  --color-text: rgb(64, 100, 142);
+  --color-button: rgb(19, 157, 244);
+}
 .container {
   width: 100%;
 }
@@ -5,6 +14,11 @@
 .title {
   font-weight: bold;
   margin-bottom: 8px;
+  color: var(--color-text);
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  margin: 0;
+  padding: 12px;
 }
 
 .card {
@@ -26,8 +40,8 @@
 }
 
 .nav-tab {
-  color: black;
-  background-color: #f5f5f5;
+  color: var(--color-tab-text);
+  background-color: var(--color-tab-inactive-background);
   position: relative;
   display: block;
   text-decoration: none;
@@ -37,13 +51,30 @@
   cursor: pointer;
 }
 .nav-tab.active {
-  background-color: white;
+  background-color: var(--color-background);
 }
 .nav-tab:not(.active):hover {
-  background-color: #f9fafb;
+  background-color: var(--color-tab-hover-background);
+}
+.nav-tab-title {
+  font-weight: bold;
+  font-size: 1rem;
 }
 
+.forgot-password {
+  font-size: 0.75rem;
+  color: var(--color-text);
+  cursor: pointer;
+  text-decoration: none;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  width: 100%;
+}
 .nav-content {
+  color: var(--color-text);
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-top: transparent;
@@ -51,12 +82,64 @@
   position: relative;
 }
 
+form {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+}
+.input-group-inline-submit {
+  display: table;
+  border-collapse: separate;
+  position: relative;
+}
+.input-group-inline-submit input {
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 100%;
+  margin-bottom: 0;
+  display: table-cell;
+  padding: 12px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+.input-group-addon {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  padding: 0 12px;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+  background-color: #139df4;
+  border: 1px solid #139df4;
+  border-left: 0;
+  cursor: pointer;
+  width: 1% !important;
+  vertical-align: middle;
+  display: table-cell;
+}
+
 lightning-input.input {
-  --slds-c-input-text-color: blue;
-  --slds-c-input-text-color-focus: red;
+  --slds-c-input-text-color: var(--color-text);
   --lwc-formLabelFontSize: 16px;
-  -webkit-text-fill-color: blue;
+  -webkit-text-fill-color: var(--color-text);
   font-size: 16px;
+}
+lightning-icon.icon-primary {
+  --slds-c-icon-color-foreground-default: var(--color-text);
+}
+lightning-icon.icon-white {
+  --slds-c-icon-color-foreground-default: white;
 }
 lightning-input.input * {
   font-size: 16px;
@@ -66,5 +149,10 @@ lightning-input.input * {
   .nav-tab {
     display: table-cell;
     width: 1%;
+  }
+
+  .container {
+    width: 80%;
+    margin: 0 auto;
   }
 }
