@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 04-15-2022
+  @last modified on  : 04-16-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -49,33 +49,36 @@
                 ></lightning-icon>
                 Forgot your password?
               </span>
-              <p>Enter your email to reset your password.</p>
-              <div class="input-group-inline-submit">
-                <input
-                  autocapitalize="off"
-                  class=""
-                  data-qa="input"
-                  id="passwordForgotten"
-                  name="passwordForgotten"
-                  type="email"
-                  autocomplete="email"
-                  x-autocompletetype="email"
-                  placeholder="Email Address"
-                />
-                <div
-                  class="input-group-addon"
-                  data-qa="input-button"
-                  role="button"
-                  tabindex="0"
-                >
-                  <lightning-icon
-                    class="icon-white"
-                    size="x-small"
-                    icon-name="utility:chevronright"
-                    alternative-text="Submit"
-                    onclick={handleResetPassword}
-                  ></lightning-icon>
-                  <!--More icon please visit : https://www.lightningdesignsystem.com/icons/ -->
+              <div class="collapsible">
+                <p>Enter your email to reset your password.</p>
+                <div class="input-group-inline-submit">
+                  <input
+                    autocapitalize="off"
+                    class=""
+                    data-qa="input"
+                    data-id="reset-password"
+                    id="passwordForgotten"
+                    name="passwordForgotten"
+                    type="email"
+                    autocomplete="email"
+                    x-autocompletetype="email"
+                    placeholder="Email Address"
+                  />
+                  <div
+                    class="input-group-addon"
+                    data-qa="input-button"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <lightning-icon
+                      class="icon-white"
+                      size="x-small"
+                      icon-name="utility:chevronright"
+                      alternative-text="Submit"
+                      onclick={handleResetPassword}
+                    ></lightning-icon>
+                    <!--More icon please visit : https://www.lightningdesignsystem.com/icons/ -->
+                  </div>
                 </div>
               </div>
               <button

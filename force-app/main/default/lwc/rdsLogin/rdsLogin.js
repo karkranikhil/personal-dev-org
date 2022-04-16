@@ -34,4 +34,17 @@ export default class RdsLogin extends LightningElement {
       this.hasRendered = true;
     }
   }
+
+  handleCollapse() {
+    let collapsible = this.template.querySelector(".collapsible");
+    this.expandIcon =
+      this.expandIcon === "utility:chevrondown"
+        ? "utility:chevronup"
+        : "utility:chevrondown";
+    if (collapsible.style.maxHeight) {
+      collapsible.style.maxHeight = null;
+    } else {
+      collapsible.style.maxHeight = collapsible.scrollHeight + "px";
+    }
+  }
 }

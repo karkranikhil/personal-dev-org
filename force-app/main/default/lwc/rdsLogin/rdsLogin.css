@@ -72,6 +72,14 @@
   gap: 4px;
   width: 100%;
 }
+
+.forgot-password:hover {
+  color: var(--color-button);
+}
+.forgot-password:hover .icon-primary {
+  --slds-c-icon-color-foreground-default: var(--color-button) !important;
+}
+
 .nav-content {
   color: var(--color-text);
   border-top-left-radius: 0;
@@ -141,6 +149,12 @@ form > * {
 }
 .submit-button {
   margin-top: 16px;
+}
+
+.collapsible {
+  transition: max-height 0.1s ease-out;
+  max-height: 0;
+  overflow: hidden;
 }
 
 lightning-input.input {
