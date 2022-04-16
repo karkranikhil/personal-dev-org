@@ -10,13 +10,13 @@
     <h1 class="title">Log in</h1>
     <article class="card">
       <ul class="nav-tabs">
-        <li class="nav-tab active">
+        <li class="nav-tab active" data-id="login" onclick={handleNav}>
           <h3 class="nav-tab-title">I have an account</h3>
           <p class="nav-tab-subtitle">
             Login with your email address and password
           </p>
         </li>
-        <li class="nav-tab">
+        <li class="nav-tab" data-id="register" onclick={handleNav}>
           <h3 class="nav-tab-title">Create new account</h3>
           <p class="nav-tab-subtitle">Register now</p>
         </li>
@@ -24,14 +24,15 @@
       <div class="nav-content">
         <div class="slds-grid">
           <div
-            class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_8-of-12"
+            class="slds-col slds-size_1-of-1 slds-medium-size_10-of-12 slds-large-size_8-of-12"
           >
-            <form>
+            <form if:true={isLogin}>
               <lightning-input
                 class="input"
-                type="text"
+                type="email"
                 label="Email"
                 variant="label-inline"
+                required
               ></lightning-input>
               <lightning-input
                 class="input"
@@ -39,6 +40,7 @@
                 label="Enter your password"
                 name="password"
                 variant="label-inline"
+                required
               ></lightning-input>
               <span class="forgot-password" onclick={handleCollapse}>
                 <lightning-icon
@@ -86,6 +88,54 @@
                 onclick={handleLogin}
               >
                 Login
+              </button>
+            </form>
+            <form if:true={isRegister}>
+              <lightning-input
+                class="input"
+                name="firstName"
+                type="text"
+                label="First Name"
+                variant="label-inline"
+                required
+              ></lightning-input>
+              <lightning-input
+                class="input"
+                name="lastName"
+                type="text"
+                label="First Name"
+                variant="label-inline"
+                required
+              ></lightning-input>
+              <lightning-input
+                class="input"
+                name="email"
+                type="email"
+                label="Email"
+                variant="label-inline"
+                required
+              ></lightning-input>
+              <lightning-input
+                class="input"
+                name="password"
+                type="password"
+                label="Enter your password"
+                variant="label-inline"
+                required
+              ></lightning-input>
+              <lightning-input
+                class="input"
+                name="confirmPassword"
+                type="password"
+                label="Confirm your password"
+                variant="label-inline"
+                required
+              ></lightning-input>
+              <button
+                class="submit-button slds-button slds-button_brand slds-button_stretch"
+                onclick={handleRegister}
+              >
+                Register
               </button>
             </form>
           </div>

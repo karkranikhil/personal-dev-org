@@ -1,5 +1,5 @@
 import { LightningElement, api } from "lwc";
-
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 export default class RdsLogin extends LightningElement {
   @api backgroundColor;
   @api inactiveTabBackgroundColor;
@@ -10,6 +10,9 @@ export default class RdsLogin extends LightningElement {
   @api buttonHoverBackgroundColor;
 
   expandIcon = "utility:chevrondown";
+
+  isLogin = true;
+  isRegister = false;
 
   renderedCallback() {
     if (!this.hasRendered) {
@@ -35,6 +38,56 @@ export default class RdsLogin extends LightningElement {
     }
   }
 
+  //*CALLOUTS
+
+  handleLogin(event) {
+    event.preventDefault();
+    this.validateInputs();
+    console.log("Validate Login");
+  }
+  handleRegister(event) {
+    event.preventDefault();
+    this.validateInputs();
+    console.log("Validate Register");
+  }
+
+  validateInputs() {
+    const allValid = [
+      ...this.template.querySelectorAll("lightning-input")
+    ].reduce((validSoFar, inputCmp) => {
+      inputCmp.reportValidity();
+      return validSoFar && inputCmp.checkValidity();
+    }, true);
+    if (allValid) {
+      console.log("All Valid");
+    } else {
+      console.log("Invalid inputs");
+    }
+  }
+
+  //* USER INTERACTION
+
+  handleNav(event) {
+    let nav = event.currentTarget;
+    if (nav.classList.contains("active")) return;
+    let activeNav = this.template.querySelector(".nav-tab.active");
+    let phase = nav.getAttribute("data-id");
+    switch (phase) {
+      case "login":
+        this.setLogin();
+        break;
+      case "register":
+        this.setRegister();
+        break;
+
+      default:
+        this.setLogin();
+        break;
+    }
+    nav.classList.add("active");
+    activeNav.classList.remove("active");
+  }
+
   handleCollapse() {
     let collapsible = this.template.querySelector(".collapsible");
     this.expandIcon =
@@ -46,5 +99,14 @@ export default class RdsLogin extends LightningElement {
     } else {
       collapsible.style.maxHeight = collapsible.scrollHeight + "px";
     }
+  }
+
+  setLogin() {
+    this.isLogin = true;
+    this.isRegister = false;
+  }
+  setRegister() {
+    this.isLogin = false;
+    this.isRegister = true;
   }
 }
