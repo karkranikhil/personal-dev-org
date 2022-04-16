@@ -1,5 +1,6 @@
-* {
-  --l: 50%; /*the initial lightness*/
+.container {
+  width: 100%;
+  padding: 24px 0;
   --color-background: rgb(255, 255, 255);
   --color-tab-inactive-background: rgb(245, 245, 245);
   --color-tab-hover-background: rgb(249, 250, 251);
@@ -7,10 +8,6 @@
   --color-text: rgb(64, 100, 142);
   --color-button: rgb(19, 157, 244);
   --color-button-hover: rgb(0, 83, 136);
-}
-.container {
-  width: 100%;
-  padding: 24px 0;
 }
 
 .title {
@@ -137,6 +134,10 @@ form > * {
   width: 1% !important;
   vertical-align: middle;
   display: table-cell;
+}
+.input-group-addon:hover {
+  background-color: var(--color-button-hover);
+  border: 1px solid var(--color-button-hover);
 }
 .submit-button {
   margin-top: 16px;

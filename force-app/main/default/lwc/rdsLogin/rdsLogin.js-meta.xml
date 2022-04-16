@@ -1,73 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>54.0</apiVersion>
-   <isExposed>true</isExposed>
-     <targets>
-     
-        <target>lightningCommunity__Page</target>
-        <target>lightningCommunity__Default</target>
-     
-    </targets>
+  <apiVersion>54.0</apiVersion>
+  <isExposed>true</isExposed>
+  <targets>
 
-       <!-- <targetConfigs>
-            <targetConfig targets="lightningCommunity__Default">
-            <property
+    <target>lightningCommunity__Page</target>
+    <target>lightningCommunity__Default</target>
+
+  </targets>
+
+  <targetConfigs>
+    <targetConfig targets="lightningCommunity__Default">
+      <property
         name="backgroundColor"
         type="Color"
-        default="rgb(237, 237, 237)"
+        default="rgb(255, 255, 255)"
         label="Background Color"
       />
-        
-            <property
-        name="lineColor"
+      <property
+        name="inactiveTabBackgroundColor"
         type="Color"
-        default="rgb(234, 91, 30)"
-        label="Separator Line Color"
+        default="rgb(245, 245, 245)"
+        label="Inactive Tab Background Color"
       />
-            <property
-        name="primaryColor"
+      <property
+        name="hoverTabBackgroundColor"
         type="Color"
-        default="rgb(11, 70, 126)"
-        label="Primary Color"
-        description="Primary Color for Buttons and Actions"
+        default="rgb(249, 250, 251)"
+        label="Hover on Tab Background Color"
+      />
+      <property
+        name="buttonBackgroundColor"
+        type="Color"
+        default="rgb(19, 157, 244)"
+        label="Button Background Color"
+      />
+      <property
+        name="buttonHoverBackgroundColor"
+        type="Color"
+        default="rgb(0, 83, 136)"
+        label="Button Hover Background Color"
+      />
+      <property
+        name="tabFontColor"
+        type="Color"
+        default="rgb(7, 68, 111)"
+        label="Tab Text Color"
+      />
+      <property
+        name="fontColor"
+        type="Color"
+        default="rgb(64, 100, 142)"
+        label="Text Color"
       />
 
-            <property
-        name="secondaryColor"
-        type="Color"
-        default="rgb(128, 128, 128)"
-        label="Secondary Color"
-        description="Font and Icon Color"
-      />
-            <property
-        name="logo"
-        type="String"
-        label="URL for the Logo Image"
-      />
-            <property
-        name="loggedInBtn"
-        type="String"
-        label="URL for the Logged In Button Image"
-      />
-            <property
-        name="loggedOutBtn"
-        type="String"
-        label="URL for the Logged Out Button Image"
-      />
-
-            <property
-        name="mainNavigation"
-        type="String"
-        label="Main Navigation Developer Name"
-      />
-            
-            <property
-        name="secondaryNavigation"
-        type="String"
-        label="Secondary Navigation Developer Name"
-      />
-
-            
-        </targetConfig>
-        </targetConfigs> -->
+    </targetConfig>
+  </targetConfigs>
 </LightningComponentBundle>
