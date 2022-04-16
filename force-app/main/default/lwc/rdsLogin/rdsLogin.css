@@ -160,7 +160,7 @@ form > * {
 lightning-input.input {
   --slds-c-input-text-color: var(--color-text);
   --lwc-formLabelFontSize: 16px;
-  -webkit-text-fill-color: var(--color-text);
+  --lwc-colorTextLabel: var(--color-text);
   font-size: 16px;
 }
 lightning-icon.icon-primary {

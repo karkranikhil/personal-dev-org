@@ -97,7 +97,7 @@ export default class RdsLogin extends LightningElement {
     if (collapsible.style.maxHeight) {
       collapsible.style.maxHeight = null;
     } else {
-      collapsible.style.maxHeight = collapsible.scrollHeight + "px";
+      collapsible.style.maxHeight = collapsible.scrollHeight + 1 + "px";
     }
   }
 
