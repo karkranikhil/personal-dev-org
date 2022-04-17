@@ -1,6 +1,10 @@
 import { LightningElement, api, track } from "lwc";
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
-export default class RdsLogin extends LightningElement {
+import siteLogin from "@salesforce/apex/RdsLoginController.login";
+import basePath from "@salesforce/community/basePath";
+import isGuest from "@salesforce/user/isGuest";
+import { NavigationMixin } from "lightning/navigation";
+
+export default class RdsLogin extends NavigationMixin(LightningElement) {
   @api backgroundColor;
   @api inactiveTabBackgroundColor;
   @api hoverTabBackgroundColor;
@@ -13,6 +17,7 @@ export default class RdsLogin extends LightningElement {
 
   isLogin = true;
   isRegister = false;
+  message = null;
 
   @track credentials = {
     firstName: null,
@@ -21,6 +26,13 @@ export default class RdsLogin extends LightningElement {
     password: null,
     confirmPassword: null
   };
+
+  connectedCallback() {
+    console.log(isGuest);
+    console.log("basePath: ", basePath);
+    this.startUrl = basePath.substring(0, basePath.lastIndexOf("/"));
+    console.log("startUrl: ", this.startUrl);
+  }
 
   renderedCallback() {
     if (!this.hasRendered) {
@@ -48,18 +60,32 @@ export default class RdsLogin extends LightningElement {
 
   //*CALLOUTS
 
-  handleLogin(event) {
+  handleSubmit(event) {
     event.preventDefault();
-    this.validateInputs();
+    this.message = null;
+    let action = event.target.name;
     console.log(JSON.parse(JSON.stringify(this.credentials)));
-  }
-  handleRegister(event) {
-    event.preventDefault();
-    this.validateInputs();
-    console.log(JSON.parse(JSON.stringify(this.credentials)));
+    this.validateInputs(action);
   }
 
-  validateInputs() {
+  login() {
+    siteLogin({
+      email: this.credentials.email,
+      password: this.credentials.password,
+      startUrl: this.startUr
+    })
+      .then((response) => {
+        window.location.href = response;
+      })
+      .catch((error) => {
+        this.message = error.body.message;
+      });
+  }
+
+  register() {}
+
+  //* INPUT VALIDATION
+  validateInputs(action) {
     const allValid = [
       ...this.template.querySelectorAll("lightning-input")
     ].reduce((validSoFar, inputCmp) => {
@@ -67,9 +93,16 @@ export default class RdsLogin extends LightningElement {
       return validSoFar && inputCmp.checkValidity();
     }, true);
     if (allValid) {
-      console.log("All Valid");
-    } else {
-      console.log("Invalid inputs");
+      switch (action) {
+        case "login":
+          this.login();
+          break;
+        case "register":
+          this.register();
+          break;
+        default:
+          break;
+      }
     }
   }
 
@@ -111,8 +144,7 @@ export default class RdsLogin extends LightningElement {
 
   handleInputChange(event) {
     let name = event.target.name;
-    let value = event.target.value;
-    console.log(name, value);
+    let value = event.target.value.trim();
     this.credentials[name] = value;
 
     if (name === "confirmPassword") {
@@ -129,6 +161,7 @@ export default class RdsLogin extends LightningElement {
   setLogin() {
     this.isLogin = true;
     this.isRegister = false;
+    this.message = null;
     this.credentials = {
       firstName: null,
       lastName: null,
@@ -140,6 +173,7 @@ export default class RdsLogin extends LightningElement {
   setRegister() {
     this.isLogin = false;
     this.isRegister = true;
+    this.message = null;
     this.credentials = {
       firstName: null,
       lastName: null,

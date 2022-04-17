@@ -86,9 +86,13 @@
                   </div>
                 </div>
               </div>
+              <div if:true={message} class="alert alert-danger alert-text">
+                <span data-qa="message">{message}</span>
+              </div>
               <button
                 class="submit-button slds-button slds-button_brand slds-button_stretch"
-                onclick={handleLogin}
+                onclick={handleSubmit}
+                name="login"
               >
                 Login
               </button>
@@ -139,9 +143,13 @@
                 variant="label-inline"
                 required
               ></lightning-input>
+              <div if:true={message} class="alert alert-danger alert-text">
+                <span data-qa="message">{message}</span>
+              </div>
               <button
                 class="submit-button slds-button slds-button_brand slds-button_stretch"
-                onclick={handleRegister}
+                onclick={handleSubmit}
+                name="register"
               >
                 Register
               </button>
