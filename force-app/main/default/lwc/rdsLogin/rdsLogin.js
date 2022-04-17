@@ -1,8 +1,11 @@
 import { LightningElement, api, track } from "lwc";
 import siteLogin from "@salesforce/apex/RdsLoginController.login";
+import resetPassword from "@salesforce/apex/RdsLoginController.resetPassword";
+import isEmailExist from "@salesforce/apex/RdsLoginController.isEmailExist";
 import basePath from "@salesforce/community/basePath";
 import isGuest from "@salesforce/user/isGuest";
 import { NavigationMixin } from "lightning/navigation";
+import Email from "@salesforce/schema/Contact.Email";
 
 export default class RdsLogin extends NavigationMixin(LightningElement) {
   @api backgroundColor;
@@ -28,10 +31,10 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
   };
 
   connectedCallback() {
-    console.log(isGuest);
-    console.log("basePath: ", basePath);
     this.startUrl = basePath.substring(0, basePath.lastIndexOf("/"));
-    console.log("startUrl: ", this.startUrl);
+    if (!isGuest) {
+      window.location.href = this.startUrl;
+    }
   }
 
   renderedCallback() {
@@ -80,6 +83,28 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
       .catch((error) => {
         this.message = error.body.message;
       });
+  }
+
+  forgotPassword(event) {
+    event.preventDefault();
+    this.message = null;
+    let email = this.template.querySelector(
+      "input[data-id='reset-password']"
+    ).value;
+    console.log("email: ", email);
+    if (email === null || email.length === 0) {
+      this.message = "Please enter your email to reset your password ";
+      return;
+    }
+    isEmailExist({ username: email }).then((isExisting) => {
+      if (isExisting) {
+        console.log("isExisting:", isExisting);
+      } else {
+        this.message =
+          "Unfortunately that email address is not registered with us.";
+      }
+    });
+    // resetPassword({ email: this.resetPasswordEmail });
   }
 
   register() {}

@@ -6,6 +6,8 @@
  * @last modified by  : ErickSixto
  **/
 public with sharing class RdsLoginController {
+
+
   @AuraEnabled
   public static String login(String email, String password, String startUrl) {
     try {
@@ -20,10 +22,10 @@ public with sharing class RdsLoginController {
     }
   }
 
-  //TODO: FORGOT PASSWORD
   @AuraEnabled
-  public static void forgotPassword() {
+  public static Boolean resetPassword(String email) {
     try {
+      return Site.forgotPassword(email);
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
