@@ -1,4 +1,4 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, track } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 export default class RdsLogin extends LightningElement {
   @api backgroundColor;
@@ -13,6 +13,14 @@ export default class RdsLogin extends LightningElement {
 
   isLogin = true;
   isRegister = false;
+
+  @track credentials = {
+    firstName: null,
+    lastName: null,
+    email: null,
+    password: null,
+    confirmPassword: null
+  };
 
   renderedCallback() {
     if (!this.hasRendered) {
@@ -43,12 +51,12 @@ export default class RdsLogin extends LightningElement {
   handleLogin(event) {
     event.preventDefault();
     this.validateInputs();
-    console.log("Validate Login");
+    console.log(JSON.parse(JSON.stringify(this.credentials)));
   }
   handleRegister(event) {
     event.preventDefault();
     this.validateInputs();
-    console.log("Validate Register");
+    console.log(JSON.parse(JSON.stringify(this.credentials)));
   }
 
   validateInputs() {
@@ -101,12 +109,43 @@ export default class RdsLogin extends LightningElement {
     }
   }
 
+  handleInputChange(event) {
+    let name = event.target.name;
+    let value = event.target.value;
+    console.log(name, value);
+    this.credentials[name] = value;
+
+    if (name === "confirmPassword") {
+      let input = event.target;
+      if (value !== this.credentials.password) {
+        input.setCustomValidity("Password do not match");
+      } else {
+        input.setCustomValidity(""); // if there was a custom error before, reset it
+      }
+      input.reportValidity();
+    }
+  }
+
   setLogin() {
     this.isLogin = true;
     this.isRegister = false;
+    this.credentials = {
+      firstName: null,
+      lastName: null,
+      email: null,
+      password: null,
+      passwordConfirm: null
+    };
   }
   setRegister() {
     this.isLogin = false;
     this.isRegister = true;
+    this.credentials = {
+      firstName: null,
+      lastName: null,
+      email: null,
+      password: null,
+      passwordConfirm: null
+    };
   }
 }

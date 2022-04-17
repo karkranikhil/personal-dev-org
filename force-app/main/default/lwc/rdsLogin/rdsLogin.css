@@ -51,6 +51,9 @@
 }
 .nav-tab.active {
   background-color: var(--color-background);
+      border-bottom: 2px solid var(--color-button);
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
 }
 .nav-tab:not(.active):hover {
   background-color: var(--color-tab-hover-background);
@@ -187,6 +190,12 @@ lightning-input.input * {
     display: table-cell;
     width: 1%;
   }
+
+  .nav-tab.active {
+  background-color: var(--color-background);
+      border-bottom: none;
+   
+}
 }
 @media (min-width: 768px) {
   .container {
