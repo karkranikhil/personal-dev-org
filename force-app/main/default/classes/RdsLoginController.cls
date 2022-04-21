@@ -46,70 +46,69 @@ public without sharing class RdsLoginController {
     String lastName,
     String username,
     String email,
-    String communityNickname,
     String password
   ) {
     try {
-      Set<String> communityNicknameSet = new Set<String>();
+      //* GET COMMUNITY OWNER USER
+      String siteId = Site.getSiteId();
+      Id ownerId = [SELECT AdminId FROM Site WHERE id = :siteId]?.AdminId;
+      System.debug('ownerId : ' + ownerId);
 
-      for (User usr : [
-        SELECT Id, CommunityNickname
-        FROM User
-        WHERE CommunityNickname != NULL
-      ]) {
-        communityNicknameSet.add(usr.CommunityNickname);
-      }
-
-      String uniqueCommunityNickName;
-
-      if (communityNicknameSet.isEmpty()) {
-        if (communityNickname.length() > 4) {
-          uniqueCommunityNickName =
-            communityNickname.substring(0, 4) +
-            String.valueOf(Integer.valueOf(Math.random() * 10000));
-        } else {
-          uniqueCommunityNickName =
-            communityNickname +
-            String.valueOf(Integer.valueOf(Math.random() * 10000));
-        }
-      } else {
-        for (Integer i = 1; i <= 9999; i++) {
-          if (communityNickname.length() > 4) {
-            uniqueCommunityNickName =
-              communityNickname.substring(0, 4) +
-              String.valueOf(Integer.valueOf(Math.random() * 10000));
-          } else {
-            uniqueCommunityNickName =
-              communityNickname +
-              String.valueOf(Integer.valueOf(Math.random() * 10000));
-          }
-
-          if (!communityNicknameSet.contains(uniqueCommunityNickName)) {
-            break;
-          }
-        }
-      }
-
-      User u = new User();
-      u.firstName = firstName;
-      u.lastName = lastName;
-      u.Username = username;
-      u.Email = email;
-      u.CommunityNickname = uniqueCommunityNickName;
+      //* GET COMMUNITY SELF REGISTER PROFILE
+      String networkId = Network.getNetworkId();
+      Id regProfileId = [
+        SELECT Id, Name, SelfRegProfileId
+        FROM Network
+        WHERE Id = :networkId
+      ]
+      ?.SelfRegProfileId;
+      System.debug('regProfileId : ' + regProfileId);
 
       String accountId;
+      Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
+        .get('Unternehmensaccount')
+        .getRecordTypeId();
 
       Account portalAccount = new Account();
       portalAccount.Name = firstName + ' ' + lastName;
+      portalAccount.RecordTypeId = personAccountRecordTypeId;
+      portalAccount.OwnerId = ownerId;
+      System.debug('portalAccount: ' + portalAccount);
+
       insert portalAccount;
 
-      portalAccount.IsPartner = true;
-      update portalAccount;
+      Contact portalContact = new Contact();
+      portalContact.FirstName = firstName;
+      portalContact.LastName = lastName;
+      portalContact.AccountId = portalAccount.Id;
+      System.debug('portalContact: ' + portalContact);
+
+      insert portalContact;
+
+      // portalAccount.IsPartner = true;
+      // update portalAccount;
 
       accountId = portalAccount.Id;
+      System.debug('accountId: ' + accountId);
 
+      String alias = username.substring(0, 7);
+      String uniqueCommunityNickName =
+        firstName.substring(0, 2) +
+        lastName.substring(0, 2) +
+        username;
+
+      User u = createUser(
+        portalContact.Id,
+        email,
+        firstName,
+        lastName,
+        userName,
+        alias,
+        uniqueCommunityNickName,
+        regProfileId
+      );
       String userId = Site.createPortalUser(u, accountId, password);
-
+      System.debug('userId: ' + userId);
       if (userId != null) {
         if (password != null && password.length() > 1) {
           ApexPages.PageReference pageRef = Site.login(
@@ -133,5 +132,39 @@ public without sharing class RdsLoginController {
         throw new AuraHandledException(e.getMessage());
       return null;
     }
+  }
+
+  public static User createUser(
+    String contactId,
+    String email,
+    String firstName,
+    String lastName,
+    String userName,
+    String userAlias,
+    String nickckname,
+    String profileId
+  ) {
+    Database.DMLOptions dmo = new Database.DMLOptions();
+    dmo.EmailHeader.triggerUserEmail = true;
+    //take the first few characters of the username for the alias
+    String alias = userName.substring(0, 7);
+    User u = new User(
+      contactId = contactId,
+      firstName = firstName,
+      lastname = lastname,
+      email = email,
+      alias = userAlias,
+      username = username,
+      communitynickname = nickckname,
+      ProfileId = profileId,
+      TimeZoneSidKey = 'America/Phoenix', // Required
+      LocaleSidKey = 'en_US', // Required
+      EmailEncodingKey = 'ISO-8859-1', // Required
+      LanguageLocaleKey = 'en_US' // Required
+    );
+
+    u.setOptions(dmo);
+    insert u;
+    return u;
   }
 }

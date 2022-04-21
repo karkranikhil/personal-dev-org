@@ -1,5 +1,6 @@
 import { LightningElement, api, track } from "lwc";
 import siteLogin from "@salesforce/apex/RdsLoginController.login";
+import siteRegister from "@salesforce/apex/RdsLoginController.registerUser";
 import resetPassword from "@salesforce/apex/RdsLoginController.resetPassword";
 import isEmailExist from "@salesforce/apex/RdsLoginController.isEmailExist";
 import basePath from "@salesforce/community/basePath";
@@ -12,6 +13,7 @@ const ERROR_MESSAGE_PASSWORD_RESET_SUCCESS =
   "Check your email to complete your password reset.";
 const ERROR_MESSAGE_PASSWORD_RESET_NO_USER_FOUND =
   "Unfortunately that email address is not registered with us.";
+const ERROR_MESSAGE_PASSWORDS_DONT_MATCH = "Password do not match";
 
 export default class RdsLogin extends NavigationMixin(LightningElement) {
   @api backgroundColor;
@@ -33,12 +35,15 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
     lastName: null,
     email: null,
     password: null,
-    confirmPassword: null
+    confirmPassword: null,
+    username: null
   };
 
   connectedCallback() {
     this.startUrl = basePath.substring(0, basePath.lastIndexOf("/"));
-    if (!isGuest) {
+    let isBuilder = window.location.href.includes("livepreview");
+
+    if (!isGuest && !isBuilder) {
       window.location.href = this.startUrl;
     }
   }
@@ -73,7 +78,7 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
     event.preventDefault();
     this.message = null;
     let action = event.target.name;
-    console.log(JSON.parse(JSON.stringify(this.credentials)));
+
     this.validateInputs(action);
   }
 
@@ -83,10 +88,27 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
       password: this.credentials.password,
       startUrl: this.startUr
     })
-      .then((response) => {
-        window.location.href = response;
+      .then((callbackUrl) => {
+        window.location.href = callbackUrl;
       })
       .catch((error) => {
+        this.setMessage(error.body.message, "error");
+      });
+  }
+
+  register() {
+    siteRegister({
+      firstName: this.credentials.firstName,
+      lastName: this.credentials.lastName,
+      username: this.credentials.username,
+      email: this.credentials.email,
+      password: this.credentials.password
+    })
+      .then((callbackUrl) => {
+        window.location.href = callbackUrl;
+      })
+      .catch((error) => {
+        console.log(JSON.parse(JSON.stringify(error)));
         this.setMessage(error.body.message, "error");
       });
   }
@@ -118,8 +140,6 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
       }
     });
   }
-
-  register() {}
 
   //* INPUT VALIDATION
   validateInputs(action) {
@@ -203,7 +223,7 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
     if (name === "confirmPassword") {
       let input = event.target;
       if (value !== this.credentials.password) {
-        input.setCustomValidity("Password do not match");
+        input.setCustomValidity(ERROR_MESSAGE_PASSWORDS_DONT_MATCH);
       } else {
         input.setCustomValidity(""); // if there was a custom error before, reset it
       }
@@ -220,7 +240,7 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
       lastName: null,
       email: null,
       password: null,
-      passwordConfirm: null
+      confirmPassword: null
     };
   }
   setRegister() {
@@ -232,7 +252,7 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
       lastName: null,
       email: null,
       password: null,
-      passwordConfirm: null
+      confirmPassword: null
     };
   }
 }

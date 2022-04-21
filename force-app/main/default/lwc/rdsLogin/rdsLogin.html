@@ -7,7 +7,8 @@
 -->
 <template>
   <section class="container">
-    <h1 class="title">Log in</h1>
+    <h1 if:true={isLogin} class="title">Log in</h1>
+    <h1 if:true={isRegister} class="title">Register</h1>
     <article class="card">
       <ul class="nav-tabs">
         <li class="nav-tab active" data-id="login" onclick={handleNav}>
@@ -123,6 +124,15 @@
                 name="email"
                 type="email"
                 label="Email"
+                variant="label-inline"
+                required
+              ></lightning-input>
+              <lightning-input
+                onchange={handleInputChange}
+                class="input"
+                name="username"
+                type="text"
+                label="Username (For demo only)"
                 variant="label-inline"
                 required
               ></lightning-input>
