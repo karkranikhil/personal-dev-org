@@ -5,7 +5,13 @@ import isEmailExist from "@salesforce/apex/RdsLoginController.isEmailExist";
 import basePath from "@salesforce/community/basePath";
 import isGuest from "@salesforce/user/isGuest";
 import { NavigationMixin } from "lightning/navigation";
-import Email from "@salesforce/schema/Contact.Email";
+
+const ERROR_MESSAGE_EMAIL_PASSWORD_RESET_MISSING =
+  "Please enter your email to reset your password ";
+const ERROR_MESSAGE_PASSWORD_RESET_SUCCESS =
+  "Check your email to complete your password reset.";
+const ERROR_MESSAGE_PASSWORD_RESET_NO_USER_FOUND =
+  "Unfortunately that email address is not registered with us.";
 
 export default class RdsLogin extends NavigationMixin(LightningElement) {
   @api backgroundColor;
@@ -93,27 +99,22 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
     let valid = input.reportValidity();
     if (!valid) return;
     if (email === null || email.length === 0) {
-      this.setMessage(
-        "Please enter your email to reset your password ",
-        "error"
-      );
+      this.setMessage(ERROR_MESSAGE_EMAIL_PASSWORD_RESET_MISSING, "error");
       return;
     }
     isEmailExist({ username: email }).then((isExisting) => {
       if (isExisting) {
-        resetPassword({ email: email }).then((isReset) => {
-          if (isReset) {
-            this.setMessage(
-              "Check your email to complete your password reset.",
-              "success"
-            );
-          }
-        });
+        resetPassword({ email: email })
+          .then((isReset) => {
+            if (isReset) {
+              this.setMessage(ERROR_MESSAGE_PASSWORD_RESET_SUCCESS, "success");
+            }
+          })
+          .catch((error) => {
+            this.setMessage(error.body.message, "error");
+          });
       } else {
-        this.setMessage(
-          "Unfortunately that email address is not registered with us.",
-          "error"
-        );
+        this.setMessage(ERROR_MESSAGE_PASSWORD_RESET_NO_USER_FOUND, "error");
       }
     });
   }
