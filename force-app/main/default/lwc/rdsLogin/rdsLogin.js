@@ -21,7 +21,7 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
   isLogin = true;
   isRegister = false;
   message = null;
-
+  alertClasses = "alert alert-danger alert-text";
   @track credentials = {
     firstName: null,
     lastName: null,
@@ -81,30 +81,41 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
         window.location.href = response;
       })
       .catch((error) => {
-        this.message = error.body.message;
+        this.setMessage(error.body.message, "error");
       });
   }
 
   forgotPassword(event) {
     event.preventDefault();
     this.message = null;
-    let email = this.template.querySelector(
-      "input[data-id='reset-password']"
-    ).value;
-    console.log("email: ", email);
+    let input = this.template.querySelector("input[data-id='reset-password']");
+    let email = input.value;
+    let valid = input.reportValidity();
+    if (!valid) return;
     if (email === null || email.length === 0) {
-      this.message = "Please enter your email to reset your password ";
+      this.setMessage(
+        "Please enter your email to reset your password ",
+        "error"
+      );
       return;
     }
     isEmailExist({ username: email }).then((isExisting) => {
       if (isExisting) {
-        console.log("isExisting:", isExisting);
+        resetPassword({ email: email }).then((isReset) => {
+          if (isReset) {
+            this.setMessage(
+              "Check your email to complete your password reset.",
+              "success"
+            );
+          }
+        });
       } else {
-        this.message =
-          "Unfortunately that email address is not registered with us.";
+        this.setMessage(
+          "Unfortunately that email address is not registered with us.",
+          "error"
+        );
       }
     });
-    // resetPassword({ email: this.resetPasswordEmail });
   }
 
   register() {}
@@ -128,6 +139,22 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
         default:
           break;
       }
+    }
+  }
+
+  setMessage(message, variant) {
+    this.message = message;
+    switch (variant) {
+      case "error":
+        this.alertClasses = "alert alert-danger alert-text";
+        break;
+      case "success":
+        this.alertClasses = "alert alert-success alert-text";
+        break;
+
+      default:
+        this.alertClasses = "alert alert-danger alert-text";
+        break;
     }
   }
 

@@ -2,12 +2,10 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 04-17-2022
+ * @last modified on  : 04-21-2022
  * @last modified by  : ErickSixto
  **/
-public with sharing class RdsLoginController {
-
-
+public without sharing class RdsLoginController {
   @AuraEnabled
   public static String login(String email, String password, String startUrl) {
     try {
@@ -32,7 +30,7 @@ public with sharing class RdsLoginController {
   }
 
   @AuraEnabled
-  public static boolean isEmailExist(String username) {
+  public static Boolean isEmailExist(String username) {
     try {
       List<User> userList = new List<User>();
       userList = [SELECT Id, Name FROM User WHERE Username = :username];

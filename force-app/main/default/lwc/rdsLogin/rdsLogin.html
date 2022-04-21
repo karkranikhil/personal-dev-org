@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 04-17-2022
+  @last modified on  : 04-21-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -87,7 +87,7 @@
                   </div>
                 </div>
               </div>
-              <div if:true={message} class="alert alert-danger alert-text">
+              <div if:true={message} class={alertClasses}>
                 <span data-qa="message">{message}</span>
               </div>
               <button

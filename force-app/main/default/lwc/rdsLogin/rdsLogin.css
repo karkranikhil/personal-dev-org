@@ -172,6 +172,11 @@ form > * {
   border-color: rgb(234, 0, 30);
   color: black;
 }
+.alert-success {
+  background-color: rgba(203, 254, 220, 0.75);
+  border-color: #2e844a;
+  color: black;
+}
 .alert-text {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
