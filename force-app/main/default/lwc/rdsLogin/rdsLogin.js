@@ -16,8 +16,10 @@ const ERROR_MESSAGE_PASSWORD_RESET_NO_USER_FOUND =
 const ERROR_MESSAGE_PASSWORDS_DONT_MATCH = "Password do not match";
 const ERROR_MESSAGE_REGISTRATION_GENERIC_ERROR =
   "There was an error during registration";
+const ERROR_MESSAGE_REGISTRATION_USERNAME_TAKEN =
+  "That username is already registered";
 const SUCCESS_MESSAGE_REGISTRATION =
-  "Account registered. Verify your email for next steps";
+  "Account registered. Verify your email to continue";
 
 export default class RdsLogin extends NavigationMixin(LightningElement) {
   @api backgroundColor;
@@ -32,6 +34,7 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
 
   isLogin = true;
   isRegister = false;
+  isLoading = false;
   message = null;
   alertClasses = "alert alert-danger alert-text";
   @track credentials = {
@@ -80,6 +83,7 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.isLoading = true;
     this.message = null;
     let action = event.target.name;
 
@@ -87,6 +91,7 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
   }
 
   login() {
+    this.isLoading = true;
     siteLogin({
       email: this.credentials.email,
       password: this.credentials.password,
@@ -97,6 +102,9 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
       })
       .catch((error) => {
         this.setMessage(error.body.message, "error");
+      })
+      .finally(() => {
+        this.isLoading = false;
       });
   }
 
@@ -115,14 +123,18 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
           // eslint-disable-next-line @lwc/lwc/no-async-operation
           // setTimeout(() => {
           //   this.login();
-          // }, 2000); //! This is for auto login , not working right now due to user disabled
+          // }, 3000); //! This is for auto login
         } else {
           this.setMessage(ERROR_MESSAGE_REGISTRATION_GENERIC_ERROR, "error");
         }
       })
       .catch((error) => {
         console.log(JSON.parse(JSON.stringify(error)));
-        this.setMessage(error.body.message, "error");
+        if (error.body.message === "Username already exists")
+          this.setMessage(error.body.message, "error");
+      })
+      .finally(() => {
+        this.isLoading = false;
       });
   }
 

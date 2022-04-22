@@ -92,11 +92,21 @@
                 <span data-qa="message">{message}</span>
               </div>
               <button
+                if:false={isLoading}
                 class="submit-button slds-button slds-button_brand slds-button_stretch"
                 onclick={handleSubmit}
                 name="login"
               >
                 Login
+              </button>
+              <button
+                if:true={isLoading}
+                class="submit-button slds-button slds-button_brand slds-button_stretch"
+                onclick={handleSubmit}
+                name="disabled"
+                disabled
+              >
+                Loading...
               </button>
             </form>
             <form if:true={isRegister}>
@@ -136,7 +146,7 @@
                 variant="label-inline"
                 required
               ></lightning-input>
-              <lightning-input
+              <!-- <lightning-input
                 onchange={handleInputChange}
                 class="input"
                 name="password"
@@ -153,16 +163,26 @@
                 label="Confirm your password"
                 variant="label-inline"
                 required
-              ></lightning-input>
+              ></lightning-input> -->
               <div if:true={message} class={alertClasses}>
                 <span data-qa="message">{message}</span>
               </div>
               <button
+                if:false={isLoading}
                 class="submit-button slds-button slds-button_brand slds-button_stretch"
                 onclick={handleSubmit}
                 name="register"
               >
                 Register
+              </button>
+              <button
+                if:true={isLoading}
+                class="submit-button slds-button slds-button_brand slds-button_stretch"
+                onclick={handleSubmit}
+                name="disabled"
+                disabled
+              >
+                Loading...
               </button>
             </form>
           </div>

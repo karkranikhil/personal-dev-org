@@ -49,6 +49,10 @@ public without sharing class RdsLoginController {
     String password
   ) {
     try {
+      if (isEmailExist(username)) {
+        throw new AuraHandledException('Username already exists');
+      }
+
       //* GET COMMUNITY OWNER USER
       String siteId = Site.getSiteId();
       String ownerId = Site.getAdminId();
@@ -148,29 +152,16 @@ public without sharing class RdsLoginController {
       TimeZoneSidKey = 'America/Phoenix', // Required
       LocaleSidKey = 'en_US', // Required
       EmailEncodingKey = 'ISO-8859-1', // Required
-      LanguageLocaleKey = 'en_US' // Required
+      LanguageLocaleKey = 'en_US', // Required
+      IsActive = true
     );
     Database.DMLOptions dmo = new Database.DMLOptions();
     dmo.EmailHeader.triggerUserEmail = true;
     u.setOptions(dmo);
     Database.insert(u, dmo);
     Id userId = u.Id;
+    //System.setPassword(userId, password);
+    //System.resetPassword(userId, true);
     System.debug('userId: ' + userId);
-  }
-
-  public static void sendWelcomeEmail(List<User> users) {
-    //! Only available for single registration
-    User newUser = users[0];
-    Id userId = users[0].Id;
-    if (userId != null) {
-      if (newUser.Profile.Name != 'RSD Portal Nutzer')
-        return;
-      Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-      mail.setTargetObjectId(userId);
-      //Change with Template ID
-      mail.setTemplateId(System.Label.CUSTOM_LOGIN_WELCOME_EMAIL_TEMPLATE_ID);
-      mail.saveAsActivity = false;
-      Messaging.sendEmail(new List<Messaging.SingleEmailMessage>{ mail });
-    }
   }
 }
