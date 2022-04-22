@@ -14,6 +14,10 @@ const ERROR_MESSAGE_PASSWORD_RESET_SUCCESS =
 const ERROR_MESSAGE_PASSWORD_RESET_NO_USER_FOUND =
   "Unfortunately that email address is not registered with us.";
 const ERROR_MESSAGE_PASSWORDS_DONT_MATCH = "Password do not match";
+const ERROR_MESSAGE_REGISTRATION_GENERIC_ERROR =
+  "There was an error during registration";
+const SUCCESS_MESSAGE_REGISTRATION =
+  "Account registered. Verify your email for next steps";
 
 export default class RdsLogin extends NavigationMixin(LightningElement) {
   @api backgroundColor;
@@ -104,8 +108,17 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
       email: this.credentials.email,
       password: this.credentials.password
     })
-      .then((callbackUrl) => {
-        window.location.href = callbackUrl;
+      .then((response) => {
+        console.log("response: ", response);
+        if (response === "Success") {
+          this.setMessage(SUCCESS_MESSAGE_REGISTRATION, "success");
+          // eslint-disable-next-line @lwc/lwc/no-async-operation
+          // setTimeout(() => {
+          //   this.login();
+          // }, 2000); //! This is for auto login , not working right now due to user disabled
+        } else {
+          this.setMessage(ERROR_MESSAGE_REGISTRATION_GENERIC_ERROR, "error");
+        }
       })
       .catch((error) => {
         console.log(JSON.parse(JSON.stringify(error)));
