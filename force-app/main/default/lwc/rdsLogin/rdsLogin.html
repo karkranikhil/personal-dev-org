@@ -36,6 +36,7 @@
                 label="Email"
                 variant="label-inline"
                 required
+                value={credentials.email}
               ></lightning-input>
               <lightning-input
                 onchange={handleInputChange}
@@ -45,6 +46,7 @@
                 name="password"
                 variant="label-inline"
                 required
+                value={credentials.password}
               ></lightning-input>
               <span class="forgot-password" onclick={handleCollapse}>
                 <lightning-icon
@@ -118,6 +120,7 @@
                 label="First Name"
                 variant="label-inline"
                 required
+                value={credentials.firstName}
               ></lightning-input>
               <lightning-input
                 onchange={handleInputChange}
@@ -127,6 +130,7 @@
                 label="Last Name"
                 variant="label-inline"
                 required
+                value={credentials.lastName}
               ></lightning-input>
               <lightning-input
                 onchange={handleInputChange}
@@ -136,6 +140,7 @@
                 label="Email"
                 variant="label-inline"
                 required
+                value={credentials.email}
               ></lightning-input>
               <lightning-input
                 onchange={handleInputChange}
@@ -145,6 +150,7 @@
                 label="Username (For demo only)"
                 variant="label-inline"
                 required
+                value={credentials.username}
               ></lightning-input>
               <!-- <lightning-input
                 onchange={handleInputChange}
@@ -154,6 +160,7 @@
                 label="Enter your password"
                 variant="label-inline"
                 required
+                 value={credentials.password}
               ></lightning-input>
               <lightning-input
                 onchange={handleInputChange}
@@ -163,6 +170,7 @@
                 label="Confirm your password"
                 variant="label-inline"
                 required
+                value={credentials.confirmPassword}
               ></lightning-input> -->
               <div if:true={message} class={alertClasses}>
                 <span data-qa="message">{message}</span>
