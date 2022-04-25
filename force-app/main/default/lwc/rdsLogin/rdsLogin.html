@@ -2,24 +2,22 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 04-22-2022
+  @last modified on  : 04-25-2022
   @last modified by  : ErickSixto
 -->
 <template>
   <section class="container">
-    <h1 if:true={isLogin} class="title">Log in</h1>
-    <h1 if:true={isRegister} class="title">Register</h1>
+    <h1 if:true={isLogin} class="title">{label.loginTitle}</h1>
+    <h1 if:true={isRegister} class="title">{label.registerTitle}</h1>
     <article class="card">
       <ul class="nav-tabs">
         <li class="nav-tab active" data-id="login" onclick={handleNav}>
-          <h3 class="nav-tab-title">I have an account</h3>
-          <p class="nav-tab-subtitle">
-            Login with your email address and password
-          </p>
+          <h3 class="nav-tab-title">{label.loginTabTitle}</h3>
+          <p class="nav-tab-subtitle">{label.loginTabSubtitle}</p>
         </li>
         <li class="nav-tab" data-id="register" onclick={handleNav}>
-          <h3 class="nav-tab-title">Create new account</h3>
-          <p class="nav-tab-subtitle">Register now</p>
+          <h3 class="nav-tab-title">{label.registerTabTitle}</h3>
+          <p class="nav-tab-subtitle">{label.registerTabSubtitle}</p>
         </li>
       </ul>
       <div class="nav-content">
@@ -33,7 +31,7 @@
                 class="input"
                 type="email"
                 name="email"
-                label="Email"
+                label={label.email}
                 variant="label-inline"
                 required
                 value={credentials.email}
@@ -42,7 +40,7 @@
                 onchange={handleInputChange}
                 class="input"
                 type="password"
-                label="Enter your password"
+                label={label.password}
                 name="password"
                 variant="label-inline"
                 required
@@ -55,10 +53,10 @@
                   icon-name={expandIcon}
                   alternative-text="Expand"
                 ></lightning-icon>
-                Forgot your password?
+                {label.forgotPassword}
               </span>
               <div class="collapsible">
-                <p>Enter your email to reset your password.</p>
+                <p>{label.resetPasswordAction}</p>
                 <div class="input-group-inline-submit">
                   <input
                     autocapitalize="off"
@@ -99,7 +97,7 @@
                 onclick={handleSubmit}
                 name="login"
               >
-                Login
+                {label.login}
               </button>
               <button
                 if:true={isLoading}
@@ -108,7 +106,7 @@
                 name="disabled"
                 disabled
               >
-                Loading...
+                {label.loading}
               </button>
             </form>
             <form if:true={isRegister}>
@@ -117,7 +115,7 @@
                 class="input"
                 name="firstName"
                 type="text"
-                label="First Name"
+                label={label.firstName}
                 variant="label-inline"
                 required
                 value={credentials.firstName}
@@ -127,7 +125,7 @@
                 class="input"
                 name="lastName"
                 type="text"
-                label="Last Name"
+                label={label.lastName}
                 variant="label-inline"
                 required
                 value={credentials.lastName}
@@ -137,7 +135,7 @@
                 class="input"
                 name="email"
                 type="email"
-                label="Email"
+                label={label.email}
                 variant="label-inline"
                 required
                 value={credentials.email}
@@ -181,7 +179,7 @@
                 onclick={handleSubmit}
                 name="register"
               >
-                Register
+                {label.register}
               </button>
               <button
                 if:true={isLoading}
@@ -190,7 +188,7 @@
                 name="disabled"
                 disabled
               >
-                Loading...
+                {label.loading}
               </button>
             </form>
           </div>

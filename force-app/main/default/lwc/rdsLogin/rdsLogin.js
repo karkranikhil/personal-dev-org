@@ -7,19 +7,43 @@ import basePath from "@salesforce/community/basePath";
 import isGuest from "@salesforce/user/isGuest";
 import { NavigationMixin } from "lightning/navigation";
 
+//*LABELS
+import CUSTOM_LOGIN_ERROR_MESSAGE_EMAIL_PASSWORD_RESET_MISSING from "@salesforce/label/c.CUSTOM_LOGIN_ERROR_MESSAGE_EMAIL_PASSWORD_RESET_MISSING";
+import CUSTOM_LOGIN_ERROR_MESSAGE_PASSWORD_RESET_NO_USER_FOUND from "@salesforce/label/c.CUSTOM_LOGIN_ERROR_MESSAGE_PASSWORD_RESET_NO_USER_FOUND";
+import CUSTOM_LOGIN_ERROR_MESSAGE_PASSWORDS_DONT_MATCH from "@salesforce/label/c.CUSTOM_LOGIN_ERROR_MESSAGE_PASSWORDS_DONT_MATC";
+import CUSTOM_LOGIN_ERROR_MESSAGE_REGISTRATION_GENERIC_ERROR from "@salesforce/label/c.CUSTOM_LOGIN_ERROR_MESSAGE_REGISTRATION_GENERIC_ERROR";
+import CUSTOM_LOGIN_ERROR_MESSAGE_REGISTRATION_USERNAME_TAKEN from "@salesforce/label/c.CUSTOM_LOGIN_ERROR_MESSAGE_REGISTRATION_USERNAME_TAKEN";
+import CUSTOM_LOGIN_FORGOT_PASSWORD from "@salesforce/label/c.CUSTOM_LOGIN_FORGOT_PASSWORD";
+import CUSTOM_LOGIN_LOADING_BUTTON_LABEL from "@salesforce/label/c.CUSTOM_LOGIN_LOADING_BUTTON_LABEL";
+import CUSTOM_LOGIN_LOGIN_BUTTON_LABEL from "@salesforce/label/c.CUSTOM_LOGIN_LOGIN_BUTTON_LABEL";
+import CUSTOM_LOGIN_LOGIN_TAB_SUBTITLE from "@salesforce/label/c.CUSTOM_LOGIN_LOGIN_TAB_SUBTITLE";
+import CUSTOM_LOGIN_LOGIN_TAB_TITLE from "@salesforce/label/c.CUSTOM_LOGIN_LOGIN_TAB_TITLE";
+import CUSTOM_LOGIN_LOGIN_TITLE from "@salesforce/label/c.CUSTOM_LOGIN_LOGIN_TITLE";
+import CUSTOM_LOGIN_PASSWORD_RESET_ACTION from "@salesforce/label/c.CUSTOM_LOGIN_PASSWORD_RESET_ACTION";
+import CUSTOM_LOGIN_REGISTER_BUTTON_LABEL from "@salesforce/label/c.CUSTOM_LOGIN_REGISTER_BUTTON_LABEL";
+import CUSTOM_LOGIN_REGISTER_TAB_SUBTITLE from "@salesforce/label/c.CUSTOM_LOGIN_REGISTER_TAB_SUBTITLE";
+import CUSTOM_LOGIN_REGISTER_TAB_TITLE from "@salesforce/label/c.CUSTOM_LOGIN_REGISTER_TAB_TITLE";
+import CUSTOM_LOGIN_REGISTER_TITLE from "@salesforce/label/c.CUSTOM_LOGIN_REGISTER_TITLE";
+import CUSTOM_LOGIN_SUCCESS_MESSAGE_PASSWORD_RESET_SUCCESS from "@salesforce/label/c.CUSTOM_LOGIN_SUCCESS_MESSAGE_PASSWORD_RESET_SUCCESS";
+import CUSTOM_LOGIN_SUCCESS_MESSAGE_REGISTRATION from "@salesforce/label/c.CUSTOM_LOGIN_SUCCESS_MESSAGE_REGISTRATION";
+import CUSTOM_LOGIN_EMAIL from "@salesforce/label/c.CUSTOM_LOGIN_EMAIL";
+import CUSTOM_LOGIN_PASSWORD from "@salesforce/label/c.CUSTOM_LOGIN_PASSWORD";
+import CUSTOM_LOGIN_FIRST_NAME from "@salesforce/label/c.CUSTOM_LOGIN_FIRST_NAME";
+import CUSTOM_LOGIN_LAST_NAME from "@salesforce/label/c.CUSTOM_LOGIN_LAST_NAME";
+
 const ERROR_MESSAGE_EMAIL_PASSWORD_RESET_MISSING =
-  "Please enter your email to reset your password ";
-const ERROR_MESSAGE_PASSWORD_RESET_SUCCESS =
-  "Check your email to complete your password reset.";
+  CUSTOM_LOGIN_ERROR_MESSAGE_EMAIL_PASSWORD_RESET_MISSING;
+const SUCCESS_MESSAGE_PASSWORD_RESET_SUCCESS =
+  CUSTOM_LOGIN_SUCCESS_MESSAGE_PASSWORD_RESET_SUCCESS;
 const ERROR_MESSAGE_PASSWORD_RESET_NO_USER_FOUND =
-  "Unfortunately that email address is not registered with us.";
-const ERROR_MESSAGE_PASSWORDS_DONT_MATCH = "Password do not match";
+  CUSTOM_LOGIN_ERROR_MESSAGE_PASSWORD_RESET_NO_USER_FOUND;
+const ERROR_MESSAGE_PASSWORDS_DONT_MATCH =
+  CUSTOM_LOGIN_ERROR_MESSAGE_PASSWORDS_DONT_MATCH;
 const ERROR_MESSAGE_REGISTRATION_GENERIC_ERROR =
-  "There was an error during registration";
+  CUSTOM_LOGIN_ERROR_MESSAGE_REGISTRATION_GENERIC_ERROR;
 const ERROR_MESSAGE_REGISTRATION_USERNAME_TAKEN =
-  "That username is already registered";
-const SUCCESS_MESSAGE_REGISTRATION =
-  "Account registered. Verify your email to continue";
+  CUSTOM_LOGIN_ERROR_MESSAGE_REGISTRATION_USERNAME_TAKEN;
+const SUCCESS_MESSAGE_REGISTRATION = CUSTOM_LOGIN_SUCCESS_MESSAGE_REGISTRATION;
 
 export default class RdsLogin extends NavigationMixin(LightningElement) {
   @api backgroundColor;
@@ -44,6 +68,24 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
     password: null,
     confirmPassword: null,
     username: null
+  };
+
+  label = {
+    forgotPassword: CUSTOM_LOGIN_FORGOT_PASSWORD,
+    loading: CUSTOM_LOGIN_LOADING_BUTTON_LABEL,
+    login: CUSTOM_LOGIN_LOGIN_BUTTON_LABEL,
+    loginTabSubtitle: CUSTOM_LOGIN_LOGIN_TAB_SUBTITLE,
+    loginTabTitle: CUSTOM_LOGIN_LOGIN_TAB_TITLE,
+    loginTitle: CUSTOM_LOGIN_LOGIN_TITLE,
+    resetPasswordAction: CUSTOM_LOGIN_PASSWORD_RESET_ACTION,
+    register: CUSTOM_LOGIN_REGISTER_BUTTON_LABEL,
+    registerTabSubtitle: CUSTOM_LOGIN_REGISTER_TAB_SUBTITLE,
+    registerTabTitle: CUSTOM_LOGIN_REGISTER_TAB_TITLE,
+    registerTitle: CUSTOM_LOGIN_REGISTER_TITLE,
+    email: CUSTOM_LOGIN_EMAIL,
+    password: CUSTOM_LOGIN_PASSWORD,
+    firstName: CUSTOM_LOGIN_FIRST_NAME,
+    lastName: CUSTOM_LOGIN_LAST_NAME
   };
 
   connectedCallback() {
@@ -131,7 +173,7 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
       .catch((error) => {
         console.log(JSON.parse(JSON.stringify(error)));
         if (error.body.message === "Username already exists")
-          this.setMessage(error.body.message, "error");
+          this.setMessage(ERROR_MESSAGE_REGISTRATION_USERNAME_TAKEN, "error");
       })
       .finally(() => {
         this.isLoading = false;
@@ -154,7 +196,10 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
         resetPassword({ email: email })
           .then((isReset) => {
             if (isReset) {
-              this.setMessage(ERROR_MESSAGE_PASSWORD_RESET_SUCCESS, "success");
+              this.setMessage(
+                SUCCESS_MESSAGE_PASSWORD_RESET_SUCCESS,
+                "success"
+              );
             }
           })
           .catch((error) => {
