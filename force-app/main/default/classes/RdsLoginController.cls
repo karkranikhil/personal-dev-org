@@ -49,6 +49,7 @@ public without sharing class RdsLoginController {
     String password
   ) {
     try {
+      username = email; //! Set the user name to be the email
       if (isEmailExist(username)) {
         throw new AuraHandledException('Username already exists');
       }
@@ -75,32 +76,23 @@ public without sharing class RdsLoginController {
         .getRecordTypeId();
 
       Account portalAccount = new Account();
-      portalAccount.FirstName = firstName ;
+      portalAccount.FirstName = firstName;
       portalAccount.LastName = lastName;
-      portalAccount.PersonEmail  = email;
+      portalAccount.PersonEmail = email;
       portalAccount.RecordTypeId = personAccountRecordTypeId;
       portalAccount.OwnerId = ownerId;
       System.debug('portalAccount: ' + portalAccount);
 
       insert portalAccount;
 
-      // Contact portalContact = new Contact();
-      // portalContact.FirstName = firstName;
-      // portalContact.LastName = lastName;
-      // portalContact.AccountId = portalAccount.Id;
-      // System.debug('portalContact: ' + portalContact);
-
-      // insert portalContact;
-
-      // portalAccount.IsPartner = true;
-      // update portalAccount;
       String accountId = portalAccount.Id;
 
       String contactId = [
         SELECT PersonContactId
         FROM Account
         WHERE Id = :accountId
-      ]?.PersonContactId;
+      ]
+      ?.PersonContactId;
       System.debug('contactId: ' + contactId);
       System.debug('accountId: ' + accountId);
 

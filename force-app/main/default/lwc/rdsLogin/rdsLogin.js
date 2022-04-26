@@ -162,10 +162,6 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
         console.log("response: ", response);
         if (response === "Success") {
           this.setMessage(SUCCESS_MESSAGE_REGISTRATION, "success");
-          // eslint-disable-next-line @lwc/lwc/no-async-operation
-          // setTimeout(() => {
-          //   this.login();
-          // }, 3000); //! This is for auto login
         } else {
           this.setMessage(ERROR_MESSAGE_REGISTRATION_GENERIC_ERROR, "error");
         }

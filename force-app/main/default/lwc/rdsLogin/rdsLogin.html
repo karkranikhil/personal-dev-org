@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 04-25-2022
+  @last modified on  : 04-26-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -140,36 +140,6 @@
                 required
                 value={credentials.email}
               ></lightning-input>
-              <lightning-input
-                onchange={handleInputChange}
-                class="input"
-                name="username"
-                type="text"
-                label="Username (For demo only)"
-                variant="label-inline"
-                required
-                value={credentials.username}
-              ></lightning-input>
-              <!-- <lightning-input
-                onchange={handleInputChange}
-                class="input"
-                name="password"
-                type="password"
-                label="Enter your password"
-                variant="label-inline"
-                required
-                 value={credentials.password}
-              ></lightning-input>
-              <lightning-input
-                onchange={handleInputChange}
-                class="input"
-                name="confirmPassword"
-                type="password"
-                label="Confirm your password"
-                variant="label-inline"
-                required
-                value={credentials.confirmPassword}
-              ></lightning-input> -->
               <div if:true={message} class={alertClasses}>
                 <span data-qa="message">{message}</span>
               </div>
