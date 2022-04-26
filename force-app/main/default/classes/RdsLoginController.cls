@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 04-22-2022
+ * @last modified on  : 04-26-2022
  * @last modified by  : ErickSixto
  **/
 public without sharing class RdsLoginController {
@@ -71,29 +71,37 @@ public without sharing class RdsLoginController {
       System.debug('regProfileId : ' + regProfileId);
 
       Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
-        .get('Unternehmensaccount')
+        .get('PersonAccount')
         .getRecordTypeId();
 
       Account portalAccount = new Account();
-      portalAccount.Name = firstName + ' ' + lastName;
+      portalAccount.FirstName = firstName ;
+      portalAccount.LastName = lastName;
+      portalAccount.PersonEmail  = email;
       portalAccount.RecordTypeId = personAccountRecordTypeId;
       portalAccount.OwnerId = ownerId;
       System.debug('portalAccount: ' + portalAccount);
 
       insert portalAccount;
 
-      Contact portalContact = new Contact();
-      portalContact.FirstName = firstName;
-      portalContact.LastName = lastName;
-      portalContact.AccountId = portalAccount.Id;
-      System.debug('portalContact: ' + portalContact);
+      // Contact portalContact = new Contact();
+      // portalContact.FirstName = firstName;
+      // portalContact.LastName = lastName;
+      // portalContact.AccountId = portalAccount.Id;
+      // System.debug('portalContact: ' + portalContact);
 
-      insert portalContact;
+      // insert portalContact;
 
       // portalAccount.IsPartner = true;
       // update portalAccount;
       String accountId = portalAccount.Id;
-      String contactId = portalContact.Id;
+
+      String contactId = [
+        SELECT PersonContactId
+        FROM Account
+        WHERE Id = :accountId
+      ]?.PersonContactId;
+      System.debug('contactId: ' + contactId);
       System.debug('accountId: ' + accountId);
 
       String alias = username.substring(0, 7);
