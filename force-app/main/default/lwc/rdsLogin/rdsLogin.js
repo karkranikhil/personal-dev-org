@@ -53,6 +53,7 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
   @api fontColor;
   @api buttonBackgroundColor;
   @api buttonHoverBackgroundColor;
+  @api defaultRegister;
 
   expandIcon = "utility:chevrondown";
 
@@ -99,6 +100,14 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
 
   renderedCallback() {
     if (!this.hasRendered) {
+      if (this.defaultRegister) {
+        this.setRegister();
+        let nav = this.template.querySelector(".nav-tab:not(.active)");
+        let activeNav = this.template.querySelector(".nav-tab.active");
+        nav.classList.add("active");
+        activeNav.classList.remove("active");
+      }
+
       //?Change Colors and Height
       let style = this.template.querySelector(".container").style;
       style.setProperty("--color-background", this.backgroundColor);

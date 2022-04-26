@@ -4,10 +4,10 @@
   --color-background: rgb(255, 255, 255);
   --color-tab-inactive-background: rgb(245, 245, 245);
   --color-tab-hover-background: rgb(249, 250, 251);
-  --color-tab-text: rgb(7, 68, 111);
-  --color-text: rgb(64, 100, 142);
-  --color-button: rgb(19, 157, 244);
-  --color-button-hover: rgb(0, 83, 136);
+  --color-tab-text: rgb(11, 70, 126);
+  --color-text: rgb(128, 128, 128);
+  --color-button: rgb(234, 91, 12);
+  --color-button-hover: rgb(213, 79, 5);
 }
 
 .title {

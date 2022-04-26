@@ -28,31 +28,38 @@
         type="Color"
         default="rgb(249, 250, 251)"
         label="Hover on Tab Background Color"
-      />
-      <property
-        name="buttonBackgroundColor"
-        type="Color"
-        default="rgb(19, 157, 244)"
-        label="Button Background Color"
-      />
-      <property
-        name="buttonHoverBackgroundColor"
-        type="Color"
-        default="rgb(0, 83, 136)"
-        label="Button Hover Background Color"
-      />
+      /> 
       <property
         name="tabFontColor"
         type="Color"
-        default="rgb(7, 68, 111)"
+        default="rgb(11, 70, 126)"
         label="Tab Text Color"
       />
       <property
         name="fontColor"
         type="Color"
-        default="rgb(64, 100, 142)"
+        default="rgb(128, 128, 128)"
         label="Text Color"
       />
+      <property
+        name="buttonBackgroundColor"
+        type="Color"
+        default="rgb(234, 91, 12)"
+        label="Button Background Color"
+      />
+      <property
+        name="buttonHoverBackgroundColor"
+        type="Color"
+        default="rgb(213, 79, 5)"
+        label="Button Hover Background Color"
+      />
+      <property
+        name="defaultRegister"
+        type="Boolean"
+        default='false'
+        label="If selected, the preselected tab will be the Register tab. If not, the login tab will be preselected."
+      />
+
 
     </targetConfig>
   </targetConfigs>
