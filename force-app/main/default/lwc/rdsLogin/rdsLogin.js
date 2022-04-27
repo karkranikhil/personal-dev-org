@@ -168,7 +168,6 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
       password: this.credentials.password
     })
       .then((response) => {
-        console.log("response: ", response);
         if (response === "Success") {
           this.setMessage(SUCCESS_MESSAGE_REGISTRATION, "success");
         } else {
@@ -176,7 +175,6 @@ export default class RdsLogin extends NavigationMixin(LightningElement) {
         }
       })
       .catch((error) => {
-        console.log(JSON.parse(JSON.stringify(error)));
         if (error.body.message === "Username already exists")
           this.setMessage(ERROR_MESSAGE_REGISTRATION_USERNAME_TAKEN, "error");
       })

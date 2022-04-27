@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 04-26-2022
+ * @last modified on  : 04-27-2022
  * @last modified by  : ErickSixto
  **/
 public without sharing class RdsLoginController {
@@ -10,10 +10,8 @@ public without sharing class RdsLoginController {
   public static String login(String email, String password, String startUrl) {
     try {
       ApexPages.PageReference pageRef = Site.login(email, password, startUrl);
-
       if (pageRef != null)
         return pageRef.getUrl();
-
       throw new CalloutException();
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
@@ -56,19 +54,41 @@ public without sharing class RdsLoginController {
 
       //* GET COMMUNITY OWNER USER
       String siteId = Site.getSiteId();
-      String ownerId = Site.getAdminId();
+
+      String ownerId = !Test.isRunningTest()
+        ? Site.getAdminId()
+        : [SELECT Id FROM User WHERE LastName = 'Wayne'].Id;
       System.debug('ownerId : ' + ownerId);
 
       //* GET COMMUNITY SELF REGISTER PROFILE
       String networkId = Network.getNetworkId();
-      Network net = [
-        SELECT Id, Name, SelfRegProfileId, WelcomeEmailTemplateId
-        FROM Network
-        WHERE Id = :networkId
-      ];
+      Id regProfileId;
+      Id emailTemplateId;
+      if (!Test.isRunningTest()) {
+        Network net = [
+          SELECT Id, Name, SelfRegProfileId, WelcomeEmailTemplateId
+          FROM Network
+          WHERE Id = :networkId
+        ];
 
-      Id regProfileId = net.SelfRegProfileId;
-      Id emailTemplateId = net.WelcomeEmailTemplateId;
+        regProfileId = net.SelfRegProfileId;
+        emailTemplateId = net.WelcomeEmailTemplateId;
+      } else {
+        regProfileId = [
+          SELECT Id
+          FROM Profile
+          WHERE UserType = 'PowerCustomerSuccess'
+          LIMIT 1
+        ]
+        .Id;
+
+        emailTemplateId = [
+          SELECT Id, DeveloperName
+          FROM EmailTemplate
+          WHERE DeveloperName = 'testTemplate'
+        ]
+        .Id;
+      }
       System.debug('regProfileId : ' + regProfileId);
 
       Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
@@ -120,9 +140,7 @@ public without sharing class RdsLoginController {
       return 'Success';
     } catch (Exception e) {
       system.debug('e.getMessage+   ' + e.getMessage());
-      if (!Test.isRunningTest())
-        throw new AuraHandledException(e.getMessage());
-      return 'Error';
+      throw new AuraHandledException(e.getMessage());
     }
   }
 
