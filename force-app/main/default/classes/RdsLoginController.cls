@@ -167,10 +167,10 @@ public without sharing class RdsLoginController {
       username = username,
       ProfileId = regProfileId,
       communitynickname = uniqueCommunityNickName,
-      TimeZoneSidKey = 'America/Phoenix', // Required
-      LocaleSidKey = 'en_US', // Required
-      EmailEncodingKey = 'ISO-8859-1', // Required
-      LanguageLocaleKey = 'en_US', // Required
+      TimeZoneSidKey = 'Europe/Berlin', // Required
+      LocaleSidKey = 'de', // Required
+      EmailEncodingKey = 'UTF-8', // Required
+      LanguageLocaleKey = 'de', // Required
       IsActive = true
     );
     Database.DMLOptions dmo = new Database.DMLOptions();
