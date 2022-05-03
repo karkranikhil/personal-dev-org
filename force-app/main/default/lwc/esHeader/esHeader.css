@@ -1,6 +1,6 @@
 /** Containers */
 
-.header {
+.main-header {
   height: 84px;
   background-color: var(--color-background, rgb(237, 237, 237));
 }

@@ -13,7 +13,7 @@ export default class EsFooterB extends NavigationMixin(LightningElement) {
 
   @track navigationItems;
   imagePath;
-
+  hasRendered = false;
   //* ---------------------- LIFECYCLE METHODS ----------------------//
 
   connectedCallback() {
@@ -22,15 +22,14 @@ export default class EsFooterB extends NavigationMixin(LightningElement) {
   }
 
   renderedCallback() {
-    //?Change Colors and Height
-    this.template.querySelector(".footer").style.backgroundColor =
-      this.backgroundColor;
-    this.template
-      .querySelectorAll(".link")
-      .forEach((link) => (link.style.color = this.fontColor));
-    this.template
-      .querySelectorAll(".vl")
-      .forEach((link) => (link.style.borderColor = this.fontColor));
+    if (!this.hasRendered) {
+      //?Change Colors and Height
+      let footer = this.template.querySelector(".footer");
+      footer.style.setProperty("--color-background", this.backgroundColor);
+      footer.style.setProperty("--color-text", this.fontColor);
+
+      this.hasRendered = true;
+    }
   }
 
   //* ---------------------- UTILITY METHODS ------------------------//

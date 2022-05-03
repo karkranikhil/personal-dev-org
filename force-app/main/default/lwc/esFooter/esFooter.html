@@ -2,163 +2,165 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 02-17-2022
+  @last modified on  : 05-03-2022
   @last modified by  : ErickSixto
 -->
 <template>
-  <div class="background">
-    <footer class="footer">
-      <div class="collapsible">
-        <h3 id="first" class="header" onclick={handleCollapse}>
-          {firstHeader}
-          <lightning-icon
-            class="arrow-icon"
-            size="x-small"
-            icon-name={headers.first.icon}
-            alternative-text="Expand"
-          ></lightning-icon>
-        </h3>
-        <div class="content">
-          <template
-            if:true={fourthLinks}
-            for:each={fourthLinks}
-            for:item="link"
-            for:index="index"
-          >
-            <div key={link.Id}>
-              <a
-                if:true={link.Target}
-                class="link"
-                name={link.Id}
-                onclick={navigate}
-                >{link.Label}</a
-              >
-              <h4
-                if:false={link.Target}
-                class="link"
-                name={link.Id}
-                onclick={navigate}
-              >
-                {link.Label}
-              </h4>
-            </div>
-          </template>
+  <div class="container">
+    <div class="background">
+      <footer class="footer">
+        <div class="collapsible">
+          <h3 id="first" class="section-header" onclick={handleCollapse}>
+            {firstHeader}
+            <lightning-icon
+              class="arrow-icon"
+              size="x-small"
+              icon-name={headers.first.icon}
+              alternative-text="Expand"
+            ></lightning-icon>
+          </h3>
+          <div class="content">
+            <template
+              if:true={fourthLinks}
+              for:each={fourthLinks}
+              for:item="link"
+              for:index="index"
+            >
+              <div key={link.Id}>
+                <a
+                  if:true={link.Target}
+                  class="link"
+                  name={link.Id}
+                  onclick={navigate}
+                  >{link.Label}</a
+                >
+                <h4
+                  if:false={link.Target}
+                  class="link"
+                  name={link.Id}
+                  onclick={navigate}
+                >
+                  {link.Label}
+                </h4>
+              </div>
+            </template>
+          </div>
         </div>
-      </div>
-      <div class="collapsible">
-        <h3 id="second" class="header" onclick={handleCollapse}>
-          {secondHeader}
-          <lightning-icon
-            class="arrow-icon"
-            size="x-small"
-            icon-name={headers.second.icon}
-            alternative-text="Expand"
-          ></lightning-icon>
-        </h3>
+        <div class="collapsible">
+          <h3 id="second" class="section-header" onclick={handleCollapse}>
+            {secondHeader}
+            <lightning-icon
+              class="arrow-icon"
+              size="x-small"
+              icon-name={headers.second.icon}
+              alternative-text="Expand"
+            ></lightning-icon>
+          </h3>
 
-        <div class="content">
-          <template
-            if:true={fourthLinks}
-            for:each={fourthLinks}
-            for:item="link"
-            for:index="index"
-          >
-            <div key={link.Id}>
-              <a
-                if:true={link.Target}
-                class="link"
-                name={link.Id}
-                onclick={navigate}
-                >{link.Label}</a
-              >
-              <h4
-                if:false={link.Target}
-                class="link"
-                name={link.Id}
-                onclick={navigate}
-              >
-                {link.Label}
-              </h4>
-            </div>
-          </template>
+          <div class="content">
+            <template
+              if:true={fourthLinks}
+              for:each={fourthLinks}
+              for:item="link"
+              for:index="index"
+            >
+              <div key={link.Id}>
+                <a
+                  if:true={link.Target}
+                  class="link"
+                  name={link.Id}
+                  onclick={navigate}
+                  >{link.Label}</a
+                >
+                <h4
+                  if:false={link.Target}
+                  class="link"
+                  name={link.Id}
+                  onclick={navigate}
+                >
+                  {link.Label}
+                </h4>
+              </div>
+            </template>
+          </div>
         </div>
-      </div>
-      <div class="collapsible">
-        <h3 id="third" class="header" onclick={handleCollapse}>
-          {thirdHeader}
-          <lightning-icon
-            class="arrow-icon"
-            size="x-small"
-            icon-name={headers.third.icon}
-            alternative-text="Expand"
-          ></lightning-icon>
-        </h3>
+        <div class="collapsible">
+          <h3 id="third" class="section-header" onclick={handleCollapse}>
+            {thirdHeader}
+            <lightning-icon
+              class="arrow-icon"
+              size="x-small"
+              icon-name={headers.third.icon}
+              alternative-text="Expand"
+            ></lightning-icon>
+          </h3>
 
-        <div class="content">
-          <template
-            if:true={fourthLinks}
-            for:each={fourthLinks}
-            for:item="link"
-            for:index="index"
-          >
-            <div key={link.Id}>
-              <a
-                if:true={link.Target}
-                class="link"
-                name={link.Id}
-                onclick={navigate}
-                >{link.Label}</a
-              >
-              <h4
-                if:false={link.Target}
-                class="link"
-                name={link.Id}
-                onclick={navigate}
-              >
-                {link.Label}
-              </h4>
-            </div>
-          </template>
+          <div class="content">
+            <template
+              if:true={fourthLinks}
+              for:each={fourthLinks}
+              for:item="link"
+              for:index="index"
+            >
+              <div key={link.Id}>
+                <a
+                  if:true={link.Target}
+                  class="link"
+                  name={link.Id}
+                  onclick={navigate}
+                  >{link.Label}</a
+                >
+                <h4
+                  if:false={link.Target}
+                  class="link"
+                  name={link.Id}
+                  onclick={navigate}
+                >
+                  {link.Label}
+                </h4>
+              </div>
+            </template>
+          </div>
         </div>
-      </div>
-      <div class="collapsible">
-        <h3 id="fourth" class="header" onclick={handleCollapse}>
-          {fourthHeader}
-          <lightning-icon
-            class="arrow-icon"
-            size="x-small"
-            icon-name={headers.fourth.icon}
-            alternative-text="Expand"
-          ></lightning-icon>
-        </h3>
+        <div class="collapsible">
+          <h3 id="fourth" class="section-header" onclick={handleCollapse}>
+            {fourthHeader}
+            <lightning-icon
+              class="arrow-icon"
+              size="x-small"
+              icon-name={headers.fourth.icon}
+              alternative-text="Expand"
+            ></lightning-icon>
+          </h3>
 
-        <div class="content">
-          <template
-            if:true={fourthLinks}
-            for:each={fourthLinks}
-            for:item="link"
-            for:index="index"
-          >
-            <div key={link.Id}>
-              <a
-                if:true={link.Target}
-                class="link"
-                name={link.Id}
-                onclick={navigate}
-                >{link.Label}</a
-              >
-              <h4
-                if:false={link.Target}
-                class="link"
-                name={link.Id}
-                onclick={navigate}
-              >
-                {link.Label}
-              </h4>
-            </div>
-          </template>
+          <div class="content">
+            <template
+              if:true={fourthLinks}
+              for:each={fourthLinks}
+              for:item="link"
+              for:index="index"
+            >
+              <div key={link.Id}>
+                <a
+                  if:true={link.Target}
+                  class="link"
+                  name={link.Id}
+                  onclick={navigate}
+                  >{link.Label}</a
+                >
+                <h4
+                  if:false={link.Target}
+                  class="link"
+                  name={link.Id}
+                  onclick={navigate}
+                >
+                  {link.Label}
+                </h4>
+              </div>
+            </template>
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
   </div>
 </template>

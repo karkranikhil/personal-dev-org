@@ -10,19 +10,22 @@ export default class EsNavigationTile extends LightningElement {
   @api shadowColor;
   @api fontColor;
   imagePath;
+  hasRendered = false;
 
   connectedCallback() {
     this.imagePath = ASSETS + "/navTiles/" + this.image;
   }
 
   renderedCallback() {
-    //?Change Colors and Height
-    this.template.querySelector(".background").style.backgroundColor =
-      this.backgroundColor;
-    this.template.querySelector(".background").style.height =
-      this.backgroundHeight;
-    this.template.querySelector(".background").style.color = this.fontColor;
-    let r = this.template.querySelector("*");
-    r.style.setProperty("--color-hover-shadow", this.shadowColor);
+    if (!this.hasRendered) {
+      //?Change Colors and Height
+      this.template.querySelector(".background").style.height =
+        this.backgroundHeight;
+      let r = this.template.querySelector(".card");
+      r.style.setProperty("--color-hover-shadow", this.shadowColor);
+      r.style.setProperty("--color-text", this.fontColor);
+      r.style.setProperty("--color-background", this.backgroundColor);
+      this.hasRendered = true;
+    }
   }
 }

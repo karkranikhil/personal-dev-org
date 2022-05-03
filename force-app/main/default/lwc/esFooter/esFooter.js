@@ -37,6 +37,8 @@ export default class EsFooter extends NavigationMixin(LightningElement) {
     }
   };
 
+  hasRendered = false;
+
   //* ---------------------- LIFECYCLE METHODS ----------------------//
 
   connectedCallback() {
@@ -45,21 +47,14 @@ export default class EsFooter extends NavigationMixin(LightningElement) {
   }
 
   renderedCallback() {
-    //?Change Colors and Height
-    this.template.querySelector(".background").style.backgroundColor =
-      this.backgroundColor;
-    this.template
-      .querySelectorAll(".header")
-      .forEach((header) => (header.style.color = this.headerColor));
-    this.template
-      .querySelectorAll(".link")
-      .forEach((link) => (link.style.color = this.fontColor));
-    this.template.querySelectorAll(".arrow-icon").forEach((r) => {
-      r.style.setProperty(
-        "--slds-c-icon-color-foreground-default",
-        this.headerColor
-      );
-    });
+    if (!this.hasRendered) {
+      //?Change Colors and Height
+      let r = this.template.querySelector(".container");
+      r.style.setProperty("--color-background", this.backgroundColor);
+      r.style.setProperty("--color-text", this.fontColor);
+      r.style.setProperty("--color-header", this.headerColor);
+      this.hasRendered = true;
+    }
   }
 
   //* ---------------------- UTILITY METHODS ------------------------//
