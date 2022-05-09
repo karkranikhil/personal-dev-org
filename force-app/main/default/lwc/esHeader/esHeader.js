@@ -39,7 +39,7 @@ export default class EsHeader extends NavigationMixin(LightningElement) {
   renderedCallback() {
     //?Change Colors and Height
     if (!this.hasRendered) {
-      let header = this.template.querySelector(".header");
+      let header = this.template.querySelector(".main-header");
       let side = this.template.querySelector(".sidenav");
       let secondary = this.template.querySelector(".secondarynav");
       header.style.setProperty("--color-line", this.lineColor);

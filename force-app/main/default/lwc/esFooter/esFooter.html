@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 05-03-2022
+  @last modified on  : 05-09-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -21,8 +21,8 @@
           </h3>
           <div class="content">
             <template
-              if:true={fourthLinks}
-              for:each={fourthLinks}
+              if:true={firstLinks}
+              for:each={firstLinks}
               for:item="link"
               for:index="index"
             >
@@ -59,8 +59,8 @@
 
           <div class="content">
             <template
-              if:true={fourthLinks}
-              for:each={fourthLinks}
+              if:true={secondLinks}
+              for:each={secondLinks}
               for:item="link"
               for:index="index"
             >
@@ -97,8 +97,8 @@
 
           <div class="content">
             <template
-              if:true={fourthLinks}
-              for:each={fourthLinks}
+              if:true={thirdLinks}
+              for:each={thirdLinks}
               for:item="link"
               for:index="index"
             >
