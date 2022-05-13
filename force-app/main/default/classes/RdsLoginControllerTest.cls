@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 04-27-2022
+ * @last modified on  : 05-13-2022
  * @last modified by  : ErickSixto
  **/
 @isTest
@@ -17,14 +17,14 @@ private class RdsLoginControllerTest {
     ];
     system.debug('portalRole is ' + portalRole);
 
-    Profile profile1 = [
+    List<Profile> profiles = [
       SELECT Id
       FROM Profile
-      WHERE name = 'System Administrator'
+      WHERE name = 'System Administrator' LIMIT 1
     ];
     User portalAccountOwner1 = new User(
       UserRoleId = portalRole.Id,
-      ProfileId = profile1.Id,
+      ProfileId = profiles[0]?.Id,
       Username = System.now().millisecond() + 'test2@test.com',
       Alias = 'batman',
       Email = 'bruce.wayne@wayneenterprises.com',
