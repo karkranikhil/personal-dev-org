@@ -2,22 +2,21 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 05-22-2022
+  @last modified on  : 06-14-2022
   @last modified by  : ErickSixto
 -->
 <template>
   <div class="slds-text-align_center">
-    <span class="slds-text-heading_large">BarcodeScanner: Single Scan</span>
+    <span class="slds-text-heading_large">BarcodeScanner: Multiple Scan</span>
   </div>
 
-  <!-- After a barcode is successfully scanned, 
-         its value is displayed here: -->
-  <template if:true={scannedBarcode}>
+  <!-- After barcode are scanned, their values are displayed here: -->
+  <template if:true={scannedBarcodes}>
     <div
       class="slds-var-m-vertical_large slds-var-p-vertical_medium slds-text-align_center slds-border_top slds-border_bottom"
     >
-      Scanned barcode value is:
-      <span class="slds-text-heading_small">{scannedBarcode}</span>
+      <h3>Scanned Attendees:</h3>
+      <p class="slds-text-heading_small">{scannedBarcodesAsString}</p>
     </div>
   </template>
 
@@ -25,22 +24,30 @@
   <div
     class="slds-text-align_center slds-text-color_weak slds-m-vertical_large"
   >
-    Click <strong>Scan Barcode</strong> to open a barcode scanner camera view.
-    Position a barcode in the scanner view to scan it.
-  </div>
+    Click <strong>Start a Scanning Session</strong> to open a barcode scanner
+    camera view. Position a barcode in the scanner view to scan it.
 
-  <!-- The click-to-scan button;
-         Disabled if BarcodeScanner isn't available -->
+    <p>
+      Continue scanning items. Click ✖ when there are no more items to scan.
+    </p>
+  </div>
+  <!-- Scan button, always enabled -->
   <div class="slds-align_absolute-center slds-m-vertical_large">
     <lightning-button
       variant="brand"
       class="slds-var-m-left_x-small"
-      disabled={scanButtonDisabled}
       icon-name="utility:scan"
-      label="Scan Barcode"
-      title="Open a camera view and look for a barcode to scan"
-      onclick={handleBeginScanClick}
-    >
-    </lightning-button>
+      label="Start a Scanning Session"
+      title="Start scanning barcodes, until there are no more barcodes to scan"
+      onclick={beginScanning}
+      disabled={isScanDisabled}
+    ></lightning-button>
   </div>
+  <p
+    if:true={isScanDisabled}
+    class="slds-text-align_center slds-text-color_weak slds-m-vertical_large"
+  >
+    Scanner is disabled. Ensure you are using a mobile phone on the Salesforce
+    App
+  </p>
 </template>
