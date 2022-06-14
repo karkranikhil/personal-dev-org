@@ -10,10 +10,12 @@ const VALID_QR_IDENTIFIER = "recordId:";
 const SCANNER_INSTRUCTIONS = "Scan barcodes — Click ✖︎ when done";
 const SCANNER_SUCCESS_MESSAGE = "Successful scan.";
 
+const SCANNER_DELAY_BETWEEN_SCANS = 2500;
+
 export default class AttendeeScanner extends LightningElement {
   @api recordId;
   @track scannedBarcodes;
-  @track scannedIds;
+  @track scannedIds = [];
   sessionScanner;
   isScanDisabled = false;
 
@@ -57,7 +59,9 @@ export default class AttendeeScanner extends LightningElement {
 
   async continueScanning() {
     // Pretend to do some work; see timing note below.
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) =>
+      setTimeout(resolve, SCANNER_DELAY_BETWEEN_SCANS)
+    );
 
     this.sessionScanner
       .resumeCapture()
@@ -105,11 +109,7 @@ export default class AttendeeScanner extends LightningElement {
   }
 
   get scannedIdsAsString() {
-    return this.scannedIds
-      .map((id) => {
-        return id;
-      })
-      .join("\n\n");
+    return this.scannedIds.join("\n\n");
   }
 
   showToast(title, message, variant) {
