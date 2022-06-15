@@ -1,25 +1,33 @@
 /* eslint-disable @lwc/lwc/no-async-operation */
 // barcodeScannerExample.js
-import { LightningElement, api, track } from "lwc";
+import { LightningElement, api, track, wire } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { getBarcodeScanner } from "lightning/mobileCapabilities";
+import { getRecord, createRecord } from "lightning/uiRecordApi";
+import CAMPAIGN_NAME from "@salesforce/schema/Campaign.Name";
 
 const QR_TYPE = "qr";
 const VALID_QR_IDENTIFIER = "recordId:";
 
 const SCANNER_INSTRUCTIONS = "Scan barcodes — Click ✖︎ when done";
 const SCANNER_SUCCESS_MESSAGE = "Successful scan.";
+const SCANNER_UNAVAILABLE_MESSAGE = "Scanner Unavailable";
 
 const SCANNER_DELAY_BETWEEN_SCANS = 2500;
+
+const FIELDS = [CAMPAIGN_NAME];
 
 export default class AttendeeScanner extends LightningElement {
   @api recordId;
   @track scannedBarcodes;
   @track scannedIds = [];
+  @track campaing;
   sessionScanner;
   isScanDisabled = false;
 
   connectedCallback() {
+    console.log("recordID", this.recordId);
+    //TODO: Get campaign info with apex
     this.sessionScanner = getBarcodeScanner();
     if (!this.sessionScanner.isAvailable()) {
       this.isScanDisabled = true;
@@ -91,7 +99,7 @@ export default class AttendeeScanner extends LightningElement {
       );
       return;
     }
-
+    //TODO: Add member to campaing
     this.scannedBarcodes.push(barcode);
     this.scannedIds = [...this.scannedIds, recordId];
   }
@@ -99,7 +107,7 @@ export default class AttendeeScanner extends LightningElement {
     // Check to see if user ended scanning
     if (error.code === "userDismissedScanner") {
       this.showToast(
-        "Scanner Unavailable",
+        SCANNER_UNAVAILABLE_MESSAGE,
         "User terminated scanning session via Cancel.",
         "info"
       );
@@ -120,5 +128,16 @@ export default class AttendeeScanner extends LightningElement {
         variant
       })
     );
+  }
+
+  handleError(error) {
+    console.error(error);
+    let message = "Unknown error";
+    if (Array.isArray(error.body)) {
+      message = error.body.map((e) => e.message).join(", ");
+    } else if (typeof error.body.message === "string") {
+      message = error.body.message;
+    }
+    this.showToast("Error", message, "error");
   }
 }

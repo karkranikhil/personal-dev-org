@@ -2,52 +2,50 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 06-14-2022
+  @last modified on  : 06-15-2022
   @last modified by  : ErickSixto
 -->
 <template>
-  <div class="slds-text-align_center">
-    <span class="slds-text-heading_large">BarcodeScanner: Multiple Scan</span>
-  </div>
-
-  <!-- After barcode are scanned, their values are displayed here: -->
-  <template if:true={scannedBarcodes}>
-    <div
-      class="slds-var-m-vertical_large slds-var-p-vertical_medium slds-text-align_center slds-border_top slds-border_bottom"
-    >
-      <h3>Scanned Attendees are:</h3>
-      <p class="slds-text-heading_small">{scannedIdsAsString}</p>
+  <article class="container">
+    <div class="header">
+      <h1 class="title">Attendee Scanner</h1>
     </div>
-  </template>
 
-  <!-- Static help text -->
-  <div
-    class="slds-text-align_center slds-text-color_weak slds-m-vertical_large"
-  >
-    Click <strong>Start a Scanning Session</strong> to open a barcode scanner
-    camera view. Position a barcode in the scanner view to scan it.
+    <!-- After barcode are scanned, their values are displayed here: -->
+    <template if:true={scannedBarcodes}>
+      <div
+        class="slds-var-m-vertical_large slds-var-p-vertical_medium slds-text-align_center slds-border_top slds-border_bottom"
+      >
+        <h3>Scanned Attendees:</h3>
+        <p class="attende">{scannedIdsAsString}</p>
+      </div>
+    </template>
 
-    <p>
-      Continue scanning items. Click ✖ when there are no more items to scan.
+    <!-- Scan button, always enabled -->
+    <div class="button-container">
+      <lightning-button
+        variant="brand"
+        class="slds-var-m-left_x-small"
+        icon-name="utility:scan"
+        label="Start a Scanning Session"
+        title="Start scanning barcodes, until there are no more barcodes to scan"
+        onclick={beginScanning}
+        disabled={isScanDisabled}
+      ></lightning-button>
+    </div>
+    <!-- Static help text -->
+    <div class="help-text">
+      Click <strong>Start a Scanning</strong> to open a QR scanner. Position a
+      contact QR in the scanner view to scan it and add that contact to the
+      campaing.
+
+      <p>
+        Continue scanning items. Click ✖ when there are no more items to scan.
+      </p>
+    </div>
+    <p if:true={isScanDisabled} class="warning">
+      Scanner is disabled. Ensure you are using a mobile phone on the Salesforce
+      App
     </p>
-  </div>
-  <!-- Scan button, always enabled -->
-  <div class="slds-align_absolute-center slds-m-vertical_large">
-    <lightning-button
-      variant="brand"
-      class="slds-var-m-left_x-small"
-      icon-name="utility:scan"
-      label="Start a Scanning Session"
-      title="Start scanning barcodes, until there are no more barcodes to scan"
-      onclick={beginScanning}
-      disabled={isScanDisabled}
-    ></lightning-button>
-  </div>
-  <p
-    if:true={isScanDisabled}
-    class="slds-text-align_center slds-text-color_weak slds-m-vertical_large"
-  >
-    Scanner is disabled. Ensure you are using a mobile phone on the Salesforce
-    App
-  </p>
+  </article>
 </template>
