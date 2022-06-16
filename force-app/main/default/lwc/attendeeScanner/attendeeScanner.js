@@ -3,40 +3,46 @@
 import { LightningElement, api, track, wire } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { getBarcodeScanner } from "lightning/mobileCapabilities";
-import { getRecord, createRecord } from "lightning/uiRecordApi";
-import CAMPAIGN_NAME from "@salesforce/schema/Campaign.Name";
-
-const QR_TYPE = "qr";
+import getCampaing from "@salesforce/apex/AttendeeScannerController.getCampaing";
+import getContact from "@salesforce/apex/AttendeeScannerController.getContact";
+import createCampaignMember from "@salesforce/apex/AttendeeScannerController.createCampaignMember";
 const VALID_QR_IDENTIFIER = "recordId:";
 
 const SCANNER_INSTRUCTIONS = "Scan barcodes — Click ✖︎ when done";
 const SCANNER_SUCCESS_MESSAGE = "Successful scan.";
 const SCANNER_UNAVAILABLE_MESSAGE = "Scanner Unavailable";
 
-const SCANNER_DELAY_BETWEEN_SCANS = 2500;
-
-const FIELDS = [CAMPAIGN_NAME];
+const SCANNER_DELAY_BETWEEN_SCANS = 1000;
 
 export default class AttendeeScanner extends LightningElement {
   @api recordId;
   @track scannedBarcodes;
   @track scannedIds = [];
-  @track campaing;
+  @track contacts;
+  @track campaign;
   sessionScanner;
   isScanDisabled = false;
 
+  //* LIFECYCLE
   connectedCallback() {
     console.log("recordID", this.recordId);
-    //TODO: Get campaign info with apex
+    getCampaing({ recordId: this.recordId })
+      .then((result) => {
+        this.campaign = result;
+      })
+      .catch((error) => this.handleError(error));
     this.sessionScanner = getBarcodeScanner();
     if (!this.sessionScanner.isAvailable()) {
       this.isScanDisabled = true;
     }
   }
 
+  //* SCANNING SESSION
   beginScanning() {
     // Reset scannedBarcodes before starting new scanning session
     this.scannedBarcodes = [];
+    this.scannedIds = [];
+    this.contacts = [];
 
     // Make sure BarcodeScanner is available before trying to use it
     if (this.sessionScanner != null && this.sessionScanner.isAvailable()) {
@@ -58,8 +64,8 @@ export default class AttendeeScanner extends LightningElement {
     } else {
       this.isScanDisabled = true;
       this.showToast(
-        "Scanner Unavailable",
-        "BarcodeScanner unavailable. Non-mobile device?",
+        SCANNER_UNAVAILABLE_MESSAGE,
+        "QR Scanner unavailable. Non-mobile device?",
         "warning"
       );
     }
@@ -83,14 +89,17 @@ export default class AttendeeScanner extends LightningElement {
       });
   }
 
+  //* PROCESS SCAN
   processScannedBarcode(barcode) {
     console.log(JSON.stringify(barcode));
-    // if (barcode.type !== QR_TYPE) return;
+    //?If the QR Is not the one we defined
     if (!barcode.value.includes(VALID_QR_IDENTIFIER)) {
       this.showToast("Invalid", "Invalid QR for Attendee", "error");
       return;
     }
+    //?Get the contactId
     const recordId = barcode.value.substring(barcode.value.indexOf(":") + 1);
+    //?Contact already scanned on this session
     if (this.scannedIds.includes(recordId)) {
       this.showToast(
         "Duplicate",
@@ -102,6 +111,45 @@ export default class AttendeeScanner extends LightningElement {
     //TODO: Add member to campaing
     this.scannedBarcodes.push(barcode);
     this.scannedIds = [...this.scannedIds, recordId];
+    this.addContactToCampaign(recordId);
+  }
+
+  handleScannedContact(contactId) {
+    getContact({ recordId: contactId }).then((result) => {
+      this.contacts = [...this.contacts, result];
+    });
+  }
+
+  addContactToCampaign(contactId) {
+    createCampaignMember({
+      campaignId: this.recordId,
+      contactId
+    })
+      .then(() => {
+        this.handleScannedContact(contactId);
+      })
+      .catch((error) => this.handleError(error));
+  }
+
+  //* UTILITY
+  showToast(title, message, variant) {
+    this.dispatchEvent(
+      new ShowToastEvent({
+        title,
+        message,
+        variant
+      })
+    );
+  }
+  handleError(error) {
+    console.error(error);
+    let message = "Unknown error";
+    if (Array.isArray(error.body)) {
+      message = error.body.map((e) => e.message).join(", ");
+    } else if (typeof error.body.message === "string") {
+      message = error.body.message;
+    }
+    this.showToast("Error", message, "error");
   }
   processError(error) {
     // Check to see if user ended scanning
@@ -114,30 +162,5 @@ export default class AttendeeScanner extends LightningElement {
     } else {
       console.error(error);
     }
-  }
-
-  get scannedIdsAsString() {
-    return this.scannedIds.join("\n\n");
-  }
-
-  showToast(title, message, variant) {
-    this.dispatchEvent(
-      new ShowToastEvent({
-        title,
-        message,
-        variant
-      })
-    );
-  }
-
-  handleError(error) {
-    console.error(error);
-    let message = "Unknown error";
-    if (Array.isArray(error.body)) {
-      message = error.body.map((e) => e.message).join(", ");
-    } else if (typeof error.body.message === "string") {
-      message = error.body.message;
-    }
-    this.showToast("Error", message, "error");
   }
 }

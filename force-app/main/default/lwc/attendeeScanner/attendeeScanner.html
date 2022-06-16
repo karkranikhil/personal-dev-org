@@ -2,13 +2,14 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 06-15-2022
+  @last modified on  : 06-16-2022
   @last modified by  : ErickSixto
 -->
 <template>
   <article class="container">
     <div class="header">
       <h1 class="title">Attendee Scanner</h1>
+      <h1 if:true={campaign} class="sub-title">Campaign: {campaign.Name}</h1>
     </div>
 
     <!-- After barcode are scanned, their values are displayed here: -->
@@ -17,7 +18,14 @@
         class="slds-var-m-vertical_large slds-var-p-vertical_medium slds-text-align_center slds-border_top slds-border_bottom"
       >
         <h3>Scanned Attendees:</h3>
-        <p class="attende">{scannedIdsAsString}</p>
+        <template
+          if:true={contacts}
+          for:each={contacts}
+          for:item="con"
+          for:index="index"
+        >
+          <li key={con.Id}>{con.Name}</li>
+        </template>
       </div>
     </template>
 
@@ -27,18 +35,19 @@
         variant="brand"
         class="slds-var-m-left_x-small"
         icon-name="utility:scan"
-        label="Start a Scanning Session"
-        title="Start scanning barcodes, until there are no more barcodes to scan"
+        label="Start Scanning"
+        title="Start scanning QR, until there are no more QR to scan"
         onclick={beginScanning}
         disabled={isScanDisabled}
       ></lightning-button>
     </div>
     <!-- Static help text -->
     <div class="help-text">
-      Click <strong>Start a Scanning</strong> to open a QR scanner. Position a
-      contact QR in the scanner view to scan it and add that contact to the
-      campaing.
-
+      <p>
+        Click <strong>Start Scanning</strong> to open a QR scanner. Position a
+        contact QR in the scanner view to scan it and add that contact to the
+        campaing.
+      </p>
       <p>
         Continue scanning items. Click ✖ when there are no more items to scan.
       </p>

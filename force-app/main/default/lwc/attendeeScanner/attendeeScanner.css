@@ -3,7 +3,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 8px;
+  gap: 16px;
+  min-height: 350px;
   --color-warning: rgb(254, 147, 57);
 }
 
@@ -12,7 +13,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 8px;
   margin-bottom: 12px;
 }
 
@@ -27,6 +28,7 @@
 }
 
 .help-text {
+  margin-top: 12px;
   font-size: 0.75rem;
   color: grey;
 }
@@ -34,6 +36,7 @@
   color: var(--color-warning);
   font-weight: bold;
   text-align: center;
+  margin-top: auto;
 }
 
 .button-container {
