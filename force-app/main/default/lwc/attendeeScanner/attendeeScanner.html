@@ -13,21 +13,19 @@
     </div>
 
     <!-- After barcode are scanned, their values are displayed here: -->
-    <template if:true={scannedBarcodes}>
-      <div
-        class="slds-var-m-vertical_large slds-var-p-vertical_medium slds-text-align_center slds-border_top slds-border_bottom"
+    <div
+      class="slds-var-m-vertical_large slds-var-p-vertical_medium slds-text-align_center slds-border_top slds-border_bottom"
+    >
+      <h3>Scanned Attendees ({contactsSize}):</h3>
+      <template
+        if:true={contacts}
+        for:each={contacts}
+        for:item="con"
+        for:index="index"
       >
-        <h3>Scanned Attendees:</h3>
-        <template
-          if:true={contacts}
-          for:each={contacts}
-          for:item="con"
-          for:index="index"
-        >
-          <li key={con.Id}>{con.Name}</li>
-        </template>
-      </div>
-    </template>
+        <li class="scanned-item" key={con.Id}>{con.Name}</li>
+      </template>
+    </div>
 
     <!-- Scan button, always enabled -->
     <div class="button-container">

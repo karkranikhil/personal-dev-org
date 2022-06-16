@@ -18,7 +18,7 @@ export default class AttendeeScanner extends LightningElement {
   @api recordId;
   @track scannedBarcodes;
   @track scannedIds = [];
-  @track contacts;
+  @track contacts = [];
   @track campaign;
   sessionScanner;
   isScanDisabled = false;
@@ -132,6 +132,11 @@ export default class AttendeeScanner extends LightningElement {
   }
 
   //* UTILITY
+
+  get contactsSize() {
+    return this.contacts.length;
+  }
+
   showToast(title, message, variant) {
     this.dispatchEvent(
       new ShowToastEvent({
