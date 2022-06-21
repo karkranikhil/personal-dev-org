@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 06-16-2022
+  @last modified on  : 06-21-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -23,7 +23,9 @@
         for:item="con"
         for:index="index"
       >
-        <li class="scanned-item" key={con.Id}>{con.Name}</li>
+        <li class="scanned-item" key={con.Id}>
+          {con.Name} scanned at {con.scannedTime}
+        </li>
       </template>
     </div>
 

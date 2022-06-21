@@ -108,7 +108,6 @@ export default class AttendeeScanner extends LightningElement {
       );
       return;
     }
-    //TODO: Add member to campaing
     this.scannedBarcodes.push(barcode);
     this.scannedIds = [...this.scannedIds, recordId];
     this.addContactToCampaign(recordId);
@@ -116,7 +115,11 @@ export default class AttendeeScanner extends LightningElement {
 
   handleScannedContact(contactId) {
     getContact({ recordId: contactId }).then((result) => {
-      this.contacts = [...this.contacts, result];
+      let today = new Date();
+      let time =
+        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      let contact = { ...result, scannedTime: time };
+      contact.scannedTime = this.contacts = [...this.contacts, contact];
     });
   }
 
