@@ -119,7 +119,7 @@ export default class AttendeeScanner extends LightningElement {
       let time =
         today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       let contact = { ...result, scannedTime: time };
-      contact.scannedTime = this.contacts = [...this.contacts, contact];
+      this.contacts = [...this.contacts, contact];
     });
   }
 
