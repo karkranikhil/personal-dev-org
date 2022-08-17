@@ -4,4 +4,13 @@
     "**/bower_components": true,
     "**/.sfdx": true
   },
-  "editor.formatOnSave": true}
+  "editor.formatOnSave": true,
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#8b0000",
+    "statusBar.foreground": "#FFFFDD",
+    "statusBarItem.hoverBackground": "#8b8680",
+    "statusBarItem.activeBackground": "#8b8680",
+    "statusBar.border": "#8b0000"
+  },
+  "salesforcedx-vscode-core.show-cli-success-msg": false
+}

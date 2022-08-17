@@ -1,0 +1,49 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 08-17-2022
+  @last modified by  : ErickSixto
+-->
+<template>
+  <section class="container">
+    <div class="header">
+      <lightning-button-icon
+        class="icon"
+        icon-name="utility:expand_alt"
+        alternative-text="Expand"
+        variant="container"
+      ></lightning-button-icon>
+      <!--More icon please visit : https://www.lightningdesignsystem.com/icons/ -->
+      <h1>Map</h1>
+      <lightning-button-icon
+        if:true={isListHidden}
+        class="icon"
+        icon-name="utility:list"
+        alternative-text="Show List"
+        variant="container"
+        onclick={toggleListView}
+      ></lightning-button-icon>
+      <lightning-button-icon
+        if:false={isListHidden}
+        class="icon"
+        icon-name="utility:hide"
+        alternative-text="Hide List"
+        variant="container"
+        onclick={toggleListView}
+      ></lightning-button-icon>
+    </div>
+    <div class="map">
+      <lightning-map
+        markers-title="Listing & nearby Properties"
+        map-markers={mapMarkers}
+        onmarkerselect={handleMarkerSelect}
+        selected-marker-value={selectedMarkerValue}
+        center={center}
+        zoom-level={zoomLevel}
+        list-view={listViewValue}
+      >
+      </lightning-map>
+    </div>
+  </section>
+</template>

@@ -1,0 +1,24 @@
+.container {
+  height: 100%;
+  width: 100%;
+}
+.header {
+  align-items: center;
+  background-color: #f2f2f2;
+  display: flex;
+  font-weight: bold;
+  justify-content: space-between;
+  min-height: 4rem;
+  padding: 12px;
+}
+h1 {
+  font-size: max(16px, 1.25rem);
+}
+.map {
+  height: 100%;
+  width: 100%;
+}
+
+.icon {
+  --sds-c-icon-color-foreground-default: #009edb;
+}
