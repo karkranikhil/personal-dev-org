@@ -12,6 +12,9 @@ export default class ListingMap extends LightningElement {
   center = {
     location: { Street: "1000 5th Ave", City: "New York", State: "NY" }
   };
+  mapOptions = {
+    disableDefaultUI: true
+  };
   mapMarkers = [
     {
       location: {
@@ -31,6 +34,7 @@ export default class ListingMap extends LightningElement {
         State: "NY"
       },
       value: "SF2",
+
       title: "Museum of Modern Art (MoMA)",
       description: "Thought-provoking modern and contemporary art."
     },
