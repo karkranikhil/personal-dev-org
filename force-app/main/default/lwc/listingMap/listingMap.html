@@ -35,6 +35,7 @@
     </div>
     <div class="map">
       <lightning-map
+        if:true={mapMarkers}
         markers-title="Listing & nearby Properties"
         map-markers={mapMarkers}
         onmarkerselect={handleMarkerSelect}
