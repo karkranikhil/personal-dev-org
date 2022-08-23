@@ -13,6 +13,7 @@
         icon-name="utility:expand_alt"
         alternative-text="Expand"
         variant="container"
+        onclick={expand}
       ></lightning-button-icon>
       <!--More icon please visit : https://www.lightningdesignsystem.com/icons/ -->
       <h1>Map</h1>
@@ -48,4 +49,40 @@
       </lightning-map>
     </div>
   </section>
+
+  <div if:true={isExpanded} class="custom-modal">
+    <section
+      role="dialog"
+      class="slds-modal slds-fade-in-open slds-modal_large"
+    >
+      <div class="slds-modal__container">
+        <span class="slds-modal__close">
+          <lightning-icon
+            icon-name="utility:close"
+            variant="inverse"
+            alternative-text="close"
+            onclick={closeExpand}
+          ></lightning-icon>
+        </span>
+
+        <div class="slds-modal__content slds-p-around_medium">
+          <div class="map">
+            <lightning-map
+              if:true={listing}
+              markers-title="Listing & nearby Properties"
+              map-markers={mapMarkers}
+              onmarkerselect={handleMarkerSelect}
+              selected-marker-value={selectedMarkerValue}
+              center={center}
+              zoom-level={zoomLevel}
+              list-view={listViewValue}
+              options={mapOptions}
+            >
+            </lightning-map>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </div>
 </template>

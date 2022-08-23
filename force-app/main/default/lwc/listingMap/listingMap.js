@@ -31,6 +31,7 @@ const DEFAULT_ZOOM = 13;
 
 export default class ListingMap extends LightningElement {
   @api recordId;
+  isExpanded = false;
   selectedMarkerValue;
   zoomLevel = DEFAULT_ZOOM;
   listViewValue = LIST_VIEW_VISIBLE;
@@ -96,7 +97,7 @@ export default class ListingMap extends LightningElement {
           mapIcon: {
             path: "M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z",
             fillColor: "#800080",
-            fillOpacity: 0.7,
+            fillOpacity: 1,
             strokeWeight: 1.2,
             scale: 1
           }
@@ -140,7 +141,7 @@ export default class ListingMap extends LightningElement {
               mapIcon: {
                 path: "M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z",
                 fillColor: "#0E86D4",
-                fillOpacity: 0.7,
+                fillOpacity: 1,
                 strokeWeight: 1.2,
                 scale: 1
               }
@@ -169,5 +170,11 @@ export default class ListingMap extends LightningElement {
       this.listViewValue === LIST_VIEW_HIDDEN
         ? LIST_VIEW_VISIBLE
         : LIST_VIEW_HIDDEN;
+  }
+  expand() {
+    this.isExpanded = true;
+  }
+  closeExpand() {
+    this.isExpanded = false;
   }
 }
