@@ -17,16 +17,17 @@ h1 {
 .map {
   height: 100%;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   min-height: 50px;
   background-color: white;
 }
 
 .message {
-  font-size: max(14px, 1rem);
+  width: fit-content;
+  margin: auto;
+  padding-top: 8px;
+  font-size: max(14px, 1.15rem);
   color: #414141;
+  font-weight: bold;
 }
 
 .icon {
