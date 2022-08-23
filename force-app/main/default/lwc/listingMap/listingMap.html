@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 08-17-2022
+  @last modified on  : 08-23-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -35,7 +35,7 @@
     </div>
     <div class="map">
       <lightning-map
-        if:true={mapMarkers}
+        if:true={listing}
         markers-title="Listing & nearby Properties"
         map-markers={mapMarkers}
         onmarkerselect={handleMarkerSelect}

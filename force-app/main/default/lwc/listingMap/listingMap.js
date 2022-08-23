@@ -42,7 +42,7 @@ export default class ListingMap extends LightningElement {
 
   @track listing;
   @track properties;
-  @track mapMarkers;
+  @track mapMarkers = [];
 
   get isListHidden() {
     return this.listViewValue === LIST_VIEW_HIDDEN;
@@ -92,8 +92,16 @@ export default class ListingMap extends LightningElement {
           },
           value: this.recordId,
           title: `Listing: ${this.listing.Title}`,
-          description: `Watchtower ID: ${this.listing.Name} - ${this.listing.OTA}`
-        }
+          description: `Watchtower ID: ${this.listing.Name} - ${this.listing.OTA}`,
+          mapIcon: {
+            path: "M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z",
+            fillColor: "#800080",
+            fillOpacity: 0.7,
+            strokeWeight: 1.2,
+            scale: 1
+          }
+        },
+        ...this.mapMarkers
       ];
       this.center = {
         location: {
@@ -128,7 +136,14 @@ export default class ListingMap extends LightningElement {
               },
               value: property.Id,
               title: `Property: ${property.Property_Code_APN__c}`,
-              description: `Watchtower ID: ${property.Name}`
+              description: `Watchtower ID: ${property.Name}`,
+              mapIcon: {
+                path: "M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z",
+                fillColor: "#0E86D4",
+                fillOpacity: 0.7,
+                strokeWeight: 1.2,
+                scale: 1
+              }
             }
           ];
         });
