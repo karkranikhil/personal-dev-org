@@ -1,7 +1,9 @@
 import { LightningElement, api, wire, track } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
+import getNearbyProperties from "@salesforce/apex/ListingMapController.getNearbyPropertiesByListingId";
 import CITY_FIELD from "@salesforce/schema/Listing__c.City__c";
 import STATE_FIELD from "@salesforce/schema/Listing__c.State__c";
+import STATE_CODE_FIELD from "@salesforce/schema/Listing__c.State_Code__c";
 import ZIP_FIELD from "@salesforce/schema/Listing__c.Zip_Code__c";
 import ADDRESS_FIELD from "@salesforce/schema/Listing__c.Address__c";
 import LATITUDE_FIELD from "@salesforce/schema/Listing__c.Latitude__c";
@@ -18,13 +20,14 @@ const FIELDS = [
   OTA_FIELD,
   NAME_FIELD,
   STATE_FIELD,
+  STATE_CODE_FIELD,
   ZIP_FIELD,
   ADDRESS_FIELD
 ];
 
 const LIST_VIEW_VISIBLE = "visible";
 const LIST_VIEW_HIDDEN = "hidden";
-const DEFAULT_ZOOM = 15;
+const DEFAULT_ZOOM = 13;
 
 export default class ListingMap extends LightningElement {
   @api recordId;
@@ -45,6 +48,13 @@ export default class ListingMap extends LightningElement {
     return this.listViewValue === LIST_VIEW_HIDDEN;
   }
 
+  connectedCallback() {
+    this.selectedMarkerValue = this.recordId;
+    console.log("Map Loaded", this.recordId);
+    this.fetchProperties();
+  }
+
+  //*DATA HANDLING
   @wire(getRecord, { recordId: "$recordId", fields: FIELDS })
   wiredRecord({ error, data }) {
     if (error) {
@@ -62,6 +72,7 @@ export default class ListingMap extends LightningElement {
         Name: listing.fields.Name.value,
         City: listing.fields.City__c.value,
         State: listing.fields.State__c.value,
+        StateCode: listing.fields.State_Code__c.value,
         Zip: listing.fields.Zip_Code__c.value,
         Street: listing.fields.Address__c.value,
         Latitude: listing.fields.Latitude__c.value,
@@ -99,11 +110,41 @@ export default class ListingMap extends LightningElement {
     }
   }
 
-  connectedCallback() {
-    this.selectedMarkerValue = this.recordId;
-    console.log("Map Loaded", this.recordId);
+  fetchProperties() {
+    getNearbyProperties({ recordId: this.recordId })
+      .then((result) => {
+        console.log("properties", result);
+        if (!result) return;
+        this.properties = [...result];
+        result.forEach((property) => {
+          this.mapMarkers = [
+            ...this.mapMarkers,
+            {
+              location: {
+                City: property.Property_Address__City__s,
+                PostalCode: property.Property_Address__PostalCode__s,
+                State: property.Property_Address__StateCode__s,
+                Street: property.Property_Address__Street__s
+              },
+              value: property.Id,
+              title: `Property: ${property.Property_Code_APN__c}`,
+              description: `Watchtower ID: ${property.Name}`
+            }
+          ];
+        });
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+        let message = "Unknown error";
+        if (Array.isArray(error.body)) {
+          message = error.body.map((e) => e.message).join(", ");
+        } else if (typeof error.body.message === "string") {
+          message = error.body.message;
+        }
+        console.log("Error", message);
+      });
   }
-
+  //* USER INTERACTION
   handleMarkerSelect(event) {
     this.selectedMarkerValue = event.target.selectedMarkerValue;
   }
