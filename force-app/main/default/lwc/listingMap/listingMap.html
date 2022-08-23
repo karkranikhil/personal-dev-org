@@ -14,6 +14,7 @@
         alternative-text="Expand"
         variant="container"
         onclick={expand}
+        disabled={isLocationInfoMissing}
       ></lightning-button-icon>
       <!--More icon please visit : https://www.lightningdesignsystem.com/icons/ -->
       <h1>Map</h1>
@@ -24,6 +25,7 @@
         alternative-text="Show List"
         variant="container"
         onclick={toggleListView}
+        disabled={isLocationInfoMissing}
       ></lightning-button-icon>
       <lightning-button-icon
         if:false={isListHidden}
@@ -32,11 +34,12 @@
         alternative-text="Hide List"
         variant="container"
         onclick={toggleListView}
+        disabled={isLocationInfoMissing}
       ></lightning-button-icon>
     </div>
     <div class="map">
       <lightning-map
-        if:true={listing}
+        if:false={isLocationInfoMissing}
         markers-title="Listing & nearby Properties"
         map-markers={mapMarkers}
         onmarkerselect={handleMarkerSelect}
@@ -47,6 +50,9 @@
         options={mapOptions}
       >
       </lightning-map>
+      <h2 if:true={isLocationInfoMissing} class="message">
+        No location information found for this record
+      </h2>
     </div>
   </section>
 

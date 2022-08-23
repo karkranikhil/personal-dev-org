@@ -48,6 +48,16 @@ export default class ListingMap extends LightningElement {
   get isListHidden() {
     return this.listViewValue === LIST_VIEW_HIDDEN;
   }
+  get isLocationInfoMissing() {
+    if (!this.listing) return true;
+    let hasGeolocation = this.listing.Latitude && this.listing.Longitude;
+    let hasAddress =
+      this.listing.City &&
+      this.listing.State &&
+      this.listing.City &&
+      (this.listing.Street || this.listing.Zip);
+    return !(hasAddress || hasGeolocation);
+  }
 
   connectedCallback() {
     this.selectedMarkerValue = this.recordId;

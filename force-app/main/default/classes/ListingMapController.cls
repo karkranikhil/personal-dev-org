@@ -17,8 +17,14 @@ public with sharing class ListingMapController {
       if (listings.size() == 0) {
         return null;
       }
-      String city = listings[0].City__c.trim();
-      String stateCode = listings[0].State_Code__c.trim();
+      String city = listings[0]?.City__c;
+      String stateCode = listings[0]?.State_Code__c;
+
+      if (city == null || stateCode == null) {
+        return null;
+      }
+      city = city.trim();
+      stateCode = stateCode.trim();
       List<Property__c> properties = [
         SELECT
           Id,
