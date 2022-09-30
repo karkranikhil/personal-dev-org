@@ -237,7 +237,6 @@ export default class EsLookup extends LightningElement {
     getObjectOptions({ searchTerm: event.detail.searchTerm })
       .then((results) => {
         let options = results.map((option) => ({ ...option }));
-        console.log("options: ", options);
         lookupElement.setSearchResults(options);
       })
       .catch((error) => {
@@ -258,7 +257,6 @@ export default class EsLookup extends LightningElement {
   // eslint-disable-next-line no-unused-vars
   handleObjectSelectionChange(event) {
     const selection = event.target.getSelection();
-    console.log("selection: ", selection);
     this.sobject = selection[0].sObjectType;
     this.objectLabel = selection[0].title;
   }
