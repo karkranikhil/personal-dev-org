@@ -1,8 +1,9 @@
 /**
  * @description       : Custom Lookup - Wont work for certain objects like 'Task, Event, ...'
+ *                      which are not supported by the User Interface API (https://developer.salesforce.com/docs/atlas.en-us.uiapi.meta/uiapi/ui_api_all_supported_objects.htm)
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 09-30-2022
+ * @last modified on  : 10-05-2022
  * @last modified by  : ErickSixto
  **/
 import { LightningElement, api, wire } from "lwc";
@@ -25,6 +26,7 @@ export default class EsLookup extends LightningElement {
   sobject = "";
   uniqueField;
   uniqueFieldValue;
+  objectNameFieldMapping;
 
   //? Record Specific
   recordUniqueFields;
@@ -50,14 +52,17 @@ export default class EsLookup extends LightningElement {
       recordId: this.recordId,
       sobject: this.sobject,
       uniqueField: this.uniqueField,
-      uniqueFieldValue: this.uniqueFieldValue
+      uniqueFieldValue: this.uniqueFieldValue,
+      objectNameFieldMapping: this.objectNameFieldMapping
     };
   }
   set lookupData(data) {
-    this.recordId = data.recordId;
-    this.sobject = data.sobject;
-    this.uniqueField = data.uniqueField;
-    this.uniqueFieldValue = data.uniqueFieldValue;
+    console.log("Setting Data: ", JSON.parse(JSON.stringify(data)));
+    this.recordId = data?.recordId;
+    this.sobject = data?.sobject;
+    this.uniqueField = data?.uniqueField;
+    this.uniqueFieldValue = data?.uniqueFieldValue;
+    this.objectNameFieldMapping = data?.objectNameFieldMapping;
   }
 
   //* ---------------------------- LIFE CYCLE ----------------------------------------------//
@@ -128,7 +133,15 @@ export default class EsLookup extends LightningElement {
     }
     if (error) {
       if (error.body.errorCode === "INVALID_TYPE") {
-        this.icon = DEFAULT_ICON;
+        const lookupElement = this.template.querySelector(
+          ".custom-lookup.object-lookup"
+        );
+        lookupElement.handleClearSelection();
+        this.notifyUser(
+          "Not supported Object",
+          "This Object is not supported by the User Interface API",
+          "error"
+        );
       }
       if (error.body.errorCode === "INSUFFICIENT_ACCESS") {
         this.notifyUser(
@@ -257,6 +270,7 @@ export default class EsLookup extends LightningElement {
   // eslint-disable-next-line no-unused-vars
   handleObjectSelectionChange(event) {
     const selection = event.target.getSelection();
+    console.log("selection: ", JSON.parse(JSON.stringify(selection)));
     this.sobject = selection[0].sObjectType;
     this.objectLabel = selection[0].title;
   }

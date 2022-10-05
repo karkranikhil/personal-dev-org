@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 02-03-2022
+  @last modified on  : 10-05-2022
   @last modified by  : ErickSixto
 -->
 <template>
@@ -56,6 +56,7 @@
       class="custom-lookup object-lookup"
       errors={errors}
       onsearch={handleObjectSearch}
+      onclear={handleClear}
       onselectionchange={handleObjectSelectionChange}
       label="Object"
       placeholder="Search for an Object"

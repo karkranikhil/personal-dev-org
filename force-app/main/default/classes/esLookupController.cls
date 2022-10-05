@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 09-30-2022
+ * @last modified on  : 10-05-2022
  * @last modified by  : ErickSixto
  **/
 public with sharing class esLookupController {
@@ -197,22 +197,5 @@ public with sharing class esLookupController {
       }
     }
     return u;
-  }
-
-  public static String getUUID() {
-    Blob b = Crypto.GenerateAESKey(128);
-    String h = EncodingUtil.ConvertTohex(b);
-    String guid =
-      h.SubString(0, 8) +
-      '-' +
-      h.SubString(8, 12) +
-      '-' +
-      h.SubString(12, 16) +
-      '-' +
-      h.SubString(16, 20) +
-      '-' +
-      h.substring(20);
-    system.debug(guid);
-    return guid;
   }
 }

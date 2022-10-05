@@ -1,11 +1,23 @@
 import { LightningElement } from "lwc";
 
 export default class EsLookupDemo extends LightningElement {
+  // data = {
+  //   recordId: "0015f00000DlcuTAAR",
+  //   sobject: "Account",
+  //   uniqueField: "SSN__c",
+  //   uniqueFieldValue: "Wint"
+  // };
   data = {
-    recordId: "0015f00000DlcuTAAR",
-    sobject: "Account",
-    uniqueField: "SSN__c",
-    uniqueFieldValue: "Wint"
+    recordId: "",
+    sobject: "",
+    uniqueField: "",
+    uniqueFieldValue: "",
+    objectNameFieldMapping: [
+      {
+        sobject: "Event",
+        nameField: "Subject"
+      }
+    ]
   };
 
   showLookup = false;
