@@ -173,6 +173,7 @@ export default class EsLookup extends LightningElement {
         this.notifyUser("Error loading Record", message, "error");
       }
     } else if (data) {
+      console.log("Record Data", JSON.parse(JSON.stringify(data)));
       this.recordUniqueFields = data.fields;
       this.setUniqueFieldValue();
 
@@ -183,7 +184,10 @@ export default class EsLookup extends LightningElement {
       if (this.initialSelection.length === 0) {
         let recordTitle = data.fields[nameField].value;
         if (fallbackSearchField) {
-          recordTitle = data.fields[fallbackSearchField].value;
+          let fallbackValue = data.fields[fallbackSearchField].value;
+          recordTitle = fallbackValue
+            ? fallbackValue
+            : data.fields[nameField].value;
         }
         this.initialSelection = [
           {
@@ -200,7 +204,8 @@ export default class EsLookup extends LightningElement {
           recordId: data.id,
           sobject: this.sobject,
           uniqueField: this.uniqueField,
-          uniqueFieldValue: this.uniqueFieldValue
+          uniqueFieldValue: this.uniqueFieldValue,
+          objectNameFieldMapping: this.objectNameFieldMapping
         }
       });
       this.dispatchEvent(selectEvent);
@@ -230,7 +235,7 @@ export default class EsLookup extends LightningElement {
   handleLookupSearch(event) {
     const lookupElement = event.target;
     const customSearchField = this.getCustomSearchField();
-    console.log("Searching...");
+
     // Call Apex endpoint to search for records and pass results to the lookup
     search({
       ...event.detail,
@@ -292,7 +297,6 @@ export default class EsLookup extends LightningElement {
     this.recordId = selection.id;
   }
   handleRecordClear(event) {
-    console.log("Clearing record...");
     this.recordId = null;
     this.initialSelection = [];
     this.errors = [];
@@ -350,13 +354,11 @@ export default class EsLookup extends LightningElement {
     let uniqueFieldsCopy = { ...uniqueFields };
     const customSearchField = this.getCustomSearchField();
     if (customSearchField) {
-      console.log("Unique Fields: ", uniqueFields);
       let fallbackSearchField = {
         ...uniqueFields[customSearchField],
         isCustomSearchField: true
       };
       uniqueFieldsCopy[customSearchField] = fallbackSearchField;
-      console.log("Copy: ", uniqueFieldsCopy);
     }
     let filteredFields = Object.fromEntries(
       Object.entries(uniqueFieldsCopy).filter(
@@ -421,9 +423,10 @@ export default class EsLookup extends LightningElement {
   //* Looks if the object has a Custom Search Field. Returns null if not
   getCustomSearchField() {
     const objectName = this.sobject;
-    const customMapping = this.objectNameFieldMapping.find(
+    const customMapping = this?.objectNameFieldMapping?.find(
       (mapping) => mapping.sobject === objectName
     );
+
     const customSearchField = customMapping?.fallbackSearchField;
     return customSearchField;
   }
