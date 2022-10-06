@@ -45,7 +45,8 @@ public with sharing class esLookupController {
   public static List<LookupSearchResult> search(
     String searchTerm,
     List<String> selectedIds,
-    String objectApiName
+    String objectApiName,
+    String customNameField
   ) {
     if (!isObjectExist(objectApiName)) {
       throw new AuraHandledException('Not a valid SObject');
@@ -55,28 +56,55 @@ public with sharing class esLookupController {
     String nameField = getNameField(objectApiName);
 
     String wildSearchTerm = '%' + String.escapeSingleQuotes(searchTerm) + '%';
-    String queryTemplate =
-      'SELECT Id, ' +
-      nameField +
-      ' FROM ' +
-      objectApiName +
-      ' WHERE ' +
-      nameField +
-      ' LIKE:wildSearchTerm ORDER BY ' +
-      nameField +
-      ' DESC LIMIT :MAX_RESULTS';
+    String queryTemplate;
+    Boolean isUsingCustomName = false;
+    if (customNameField != null && customNameField.length() > 0) {
+      isUsingCustomName = true;
+      queryTemplate =
+        'SELECT Id, ' +
+        nameField +
+        ', ' +
+        customNameField +
+        ' FROM ' +
+        objectApiName +
+        ' WHERE ' +
+        customNameField +
+        ' LIKE:wildSearchTerm OR ' +
+        nameField +
+        ' LIKE:wildSearchTerm ' +
+        'ORDER BY ' +
+        nameField +
+        ' DESC LIMIT :MAX_RESULTS';
+    } else {
+      queryTemplate =
+        'SELECT Id, ' +
+        nameField +
+        ' FROM ' +
+        objectApiName +
+        ' WHERE ' +
+        nameField +
+        ' LIKE:wildSearchTerm ORDER BY ' +
+        nameField +
+        ' DESC LIMIT :MAX_RESULTS';
+    }
 
     List<SObject> records = Database.query(queryTemplate);
     // Prepare results
     for (SObject record : records) {
+      String title;
+      String subtitle;
+      if (isUsingCustomName) {
+        title = (String) record.get(customNameField);
+        if (title == null || title.trim().length() == 0) {
+          title = (String) record.get(nameField);
+        }
+        subtitle = (String) record.get(nameField);
+        if (subtitle == title) {
+          subtitle = objectApiName;
+        }
+      }
       results.add(
-        new LookupSearchResult(
-          record.Id,
-          objectApiName,
-          '',
-          (String) record.get(nameField),
-          objectApiName
-        )
+        new LookupSearchResult(record.Id, objectApiName, '', title, subtitle)
       );
     }
     results.sort();

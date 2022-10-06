@@ -14,8 +14,8 @@ export default class EsLookupDemo extends LightningElement {
     uniqueFieldValue: "",
     objectNameFieldMapping: [
       {
-        sobject: "Event",
-        nameField: "Subject"
+        sobject: "Account",
+        fallbackSearchField: "AccountNumber"
       }
     ]
   };

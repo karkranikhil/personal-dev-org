@@ -26,7 +26,7 @@ export default class EsLookup extends LightningElement {
   sobject = "";
   uniqueField;
   uniqueFieldValue;
-  objectNameFieldMapping;
+  objectNameFieldMapping = null;
 
   //? Record Specific
   recordUniqueFields;
@@ -91,7 +91,9 @@ export default class EsLookup extends LightningElement {
   //* ---------------------------- BACKEND CALLS ------------------------------------------//
 
   //* GET RECENTLY VIEWED
-  @wire(getRecentlyViewed, { objectApiName: "$sobject" })
+  @wire(getRecentlyViewed, {
+    objectApiName: "$sobject"
+  })
   getRecentlyViewed({ data }) {
     if (data) {
       this.recentlyViewed = data.map((record) => ({
@@ -177,13 +179,18 @@ export default class EsLookup extends LightningElement {
       let nameField = this.uniqueFields.find(
         (field) => field.nameField
       ).apiName;
+      let fallbackSearchField = this.getCustomSearchField();
       if (this.initialSelection.length === 0) {
+        let recordTitle = data.fields[nameField].value;
+        if (fallbackSearchField) {
+          recordTitle = data.fields[fallbackSearchField].value;
+        }
         this.initialSelection = [
           {
             id: this.recordId,
             sObjectType: this.sobject,
             icon: this.icon,
-            title: data.fields[nameField].value,
+            title: recordTitle,
             subtitle: this.sobject
           }
         ];
@@ -222,9 +229,14 @@ export default class EsLookup extends LightningElement {
    */
   handleLookupSearch(event) {
     const lookupElement = event.target;
-
+    const customSearchField = this.getCustomSearchField();
+    console.log("Searching...");
     // Call Apex endpoint to search for records and pass results to the lookup
-    search({ ...event.detail, objectApiName: this.sobject })
+    search({
+      ...event.detail,
+      objectApiName: this.sobject,
+      customNameField: customSearchField
+    })
       .then((results) => {
         let records = results.map((record) => ({ ...record, icon: this.icon }));
         lookupElement.setSearchResults(records);
@@ -270,7 +282,6 @@ export default class EsLookup extends LightningElement {
   // eslint-disable-next-line no-unused-vars
   handleObjectSelectionChange(event) {
     const selection = event.target.getSelection();
-    console.log("selection: ", JSON.parse(JSON.stringify(selection)));
     this.sobject = selection[0].sObjectType;
     this.objectLabel = selection[0].title;
   }
@@ -281,7 +292,10 @@ export default class EsLookup extends LightningElement {
     this.recordId = selection.id;
   }
   handleRecordClear(event) {
+    console.log("Clearing record...");
     this.recordId = null;
+    this.initialSelection = [];
+    this.errors = [];
   }
 
   handleClear() {
@@ -333,10 +347,24 @@ export default class EsLookup extends LightningElement {
 
   //* Sets the Unique Fields combobox options
   setUniqueFields(uniqueFields) {
+    let uniqueFieldsCopy = { ...uniqueFields };
+    const customSearchField = this.getCustomSearchField();
+    if (customSearchField) {
+      console.log("Unique Fields: ", uniqueFields);
+      let fallbackSearchField = {
+        ...uniqueFields[customSearchField],
+        isCustomSearchField: true
+      };
+      uniqueFieldsCopy[customSearchField] = fallbackSearchField;
+      console.log("Copy: ", uniqueFieldsCopy);
+    }
     let filteredFields = Object.fromEntries(
-      Object.entries(uniqueFields).filter(
+      Object.entries(uniqueFieldsCopy).filter(
         ([key, value]) =>
-          value?.unique || value.apiName === "Id" || value?.nameField
+          value?.unique ||
+          value.apiName === "Id" ||
+          value?.nameField ||
+          value?.isCustomSearchField
       )
     );
 
@@ -348,17 +376,35 @@ export default class EsLookup extends LightningElement {
       ...field,
       value: field.apiName
     }));
-
     let lastUniqueField = this.uniqueFields.find(
       (field) => field.apiName === this.uniqueField
     )?.value;
-    this.uniqueField = lastUniqueField
-      ? lastUniqueField
-      : this.uniqueFields[0]?.value;
+
+    const selectedField = lastUniqueField ? lastUniqueField : "Id";
+    this.sendFieldToBeginning(selectedField);
+    this.uniqueField = selectedField;
 
     this.uniqueFieldsWire = this.uniqueFields.map(
       (field) => this.sobject + "." + field.apiName
     );
+    //! To remove the custom search field from the Unique Fields list
+    this.uniqueFields = this.uniqueFields.filter(
+      (field) => field?.unique || field.apiName === "Id" || field?.nameField
+    );
+    this.uniqueFields = [...this.uniqueFields];
+  }
+
+  //* Sort unique fields to send matching element to beginning of array
+  sendFieldToBeginning(fieldApiName) {
+    const foundIdx = this.uniqueFields.findIndex(
+      (el) => el.apiName === fieldApiName
+    );
+    const foundElement = this.uniqueFields.find(
+      (el) => el.apiName === fieldApiName
+    );
+    this.uniqueFields.splice(foundIdx, 1);
+    this.uniqueFields.unshift(foundElement);
+    this.uniqueFields = [...this.uniqueFields];
   }
 
   //* Sets the UniqueFieldApiname
@@ -370,6 +416,16 @@ export default class EsLookup extends LightningElement {
   //* Sets the UniqueFieldValue
   setUniqueFieldValue() {
     this.uniqueFieldValue = this.recordUniqueFields[this.uniqueField]?.value;
+  }
+
+  //* Looks if the object has a Custom Search Field. Returns null if not
+  getCustomSearchField() {
+    const objectName = this.sobject;
+    const customMapping = this.objectNameFieldMapping.find(
+      (mapping) => mapping.sobject === objectName
+    );
+    const customSearchField = customMapping?.fallbackSearchField;
+    return customSearchField;
   }
 
   //* Launch Secondary Search
