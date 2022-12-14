@@ -2,28 +2,30 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 03-13-2022
+  @last modified on  : 11-07-2022
   @last modified by  : ErickSixto
 -->
 <template>
-  <h1>Button group horizontal - Multiselect</h1>
+  <h1>Button group horizontal - Multiselect (Max to 5 buttons per row)</h1>
   <div class="inline">
     <template if:true={buttons}>
       <c-rd-image-button-group
         elements={buttons}
         is-multiselect
         onselect={handleSelect}
+        elements-per-row="5"
       ></c-rd-image-button-group>
     </template>
   </div>
   <hr />
-  <h1>Button group vertical</h1>
+  <h1>Button group vertical (Max to 3 buttons per row)</h1>
   <div class="inline">
     <template if:true={buttons}>
       <c-rd-image-button-group
         orientation="vertical"
         elements={buttons}
         onselect={handleSelect}
+        elements-per-row="3"
       ></c-rd-image-button-group>
     </template>
   </div>

@@ -1,9 +1,19 @@
+:host{
+  --customFlexBasis: 1;
+}
 .button-group-container {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 1vw;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
 }
+.button-group-container * {
+  flex: var(--customFlexBasis);
+  padding: 8px;
+}
+
 .button-group-container.horizontal {
   flex-direction: row;
 }
