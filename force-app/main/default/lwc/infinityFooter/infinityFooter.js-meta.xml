@@ -7,5 +7,36 @@
         <target>lightningCommunity__Page</target>
         <target>lightningCommunity__Default</target>
     </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+          <property name="icon" type="String" label="Footer Icon URL" />
+          <property name="iconLink" type="String" label="Icon Redirect Url" />
+          <property
+        name="backgroundColor"
+        type="Color"
+        default="rgb(41, 37, 36)"
+        label="Background Color"
+      />
+          <property
+        name="decorationColor"
+        type="Color"
+        default="rgb(228,32,40)"
+        label="Decoration Color"
+      />
+          <property
+        name="fontColor"
+        type="Color"
+        default="rgb(255,255,255)"
+        label="Font Color"
+      />
 
+          <property
+        name="navigation"
+        type="String"
+        default="Footer_Navigation"
+        label="Navigation Developer Name"
+      />
+    
+        </targetConfig>
+      </targetConfigs>
 </LightningComponentBundle>

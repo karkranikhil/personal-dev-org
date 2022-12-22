@@ -7,6 +7,7 @@ import { NavigationMixin } from "lightning/navigation";
 export default class InfinityFooter extends LightningElement {
   @api backgroundColor;
   @api fontColor;
+  @api decorationColor;
   @api icon;
   @api iconLink;
   @api navigation;
@@ -25,8 +26,10 @@ export default class InfinityFooter extends LightningElement {
     if (!this.hasRendered) {
       //?Change Colors and Height
       let footer = this.template.querySelector(".footer");
+      let decoration = this.template.querySelector(".footer-decoration");
       footer.style.setProperty("--color-background", this.backgroundColor);
       footer.style.setProperty("--color-text", this.fontColor);
+      decoration.style.setProperty("--color-decoration", this.decorationColor);
 
       this.hasRendered = true;
     }

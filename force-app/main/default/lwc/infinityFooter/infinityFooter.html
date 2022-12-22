@@ -6,43 +6,43 @@
   @last modified by  : ErickSixto
 -->
 <template>
-    <footer class="footer">
-      <ul class="content">
-        <li>
-          <div class="image-container">
-            <a href={iconLink} class="logo">
-              <img if:true={icon} src={icon} alt="logo"
-            /></a>
-          </div>
+  <footer class="footer">
+    <ul class="content">
+      <li>
+        <div class="image-container">
+          <a href={iconLink} class="logo">
+            <img if:true={icon} src={icon} alt="logo"
+          /></a>
+        </div>
+      </li>
+      <template
+        if:true={navigationItems}
+        for:each={navigationItems}
+        for:item="link"
+        for:index="index"
+      >
+        <li key={link.Id}>
+          <div class="vl"></div>
         </li>
-        <template
-          if:true={navigationItems}
-          for:each={navigationItems}
-          for:item="link"
-          for:index="index"
-        >
-          <li key={link.Id}>
-            <div class="vl"></div>
-          </li>
-          <li key={link.Id}>
-            <a
-              if:true={link.Target}
-              class="link"
-              name={link.Id}
-              onclick={navigate}
-              >{link.Label}</a
-            >
-            <h4
-              if:false={link.Target}
-              class="link"
-              name={link.Id}
-              onclick={navigate}
-            >
-              {link.Label}
-            </h4>
-          </li>
-        </template>
-      </ul>
-    </footer>
-  </template>
-  
+        <li key={link.Id}>
+          <a
+            if:true={link.Target}
+            class="link"
+            name={link.Id}
+            onclick={navigate}
+            >{link.Label}</a
+          >
+          <h4
+            if:false={link.Target}
+            class="link"
+            name={link.Id}
+            onclick={navigate}
+          >
+            {link.Label}
+          </h4>
+        </li>
+      </template>
+    </ul>
+  </footer>
+  <div class="footer-decoration"></div>
+</template>
