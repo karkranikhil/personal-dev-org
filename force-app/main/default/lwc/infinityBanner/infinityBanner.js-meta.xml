@@ -7,4 +7,34 @@
         <target>lightningCommunity__Page</target>
         <target>lightningCommunity__Default</target>
     </targets>
+    <!-- Configuring the design attributes -->
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property
+        name="headline"
+        type="String"
+        label="Headline"
+        description="Use {!CurrentUser.variable} to show user info"
+      />
+            <property name="subtext" type="String" label="Subtext" />
+            <property
+        name="backgroundColor"
+        type="Color"
+        default="rgb(41, 37, 36)"
+        label="Background Color"
+      />
+          <property
+        name="fontColor"
+        type="Color"
+        default="rgb(255, 255, 255)"
+        label="Font Color"
+      />
+          <property
+        name="useBackgroundPattern"
+        type="Boolean"
+        default="true"
+        label="Show Pattern"
+      />
+        </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>

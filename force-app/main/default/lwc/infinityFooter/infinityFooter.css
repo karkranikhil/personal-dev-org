@@ -1,0 +1,12 @@
+@media (max-width: 600px) {
+    .social-icons {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .social-icons li {
+      width: 50%;
+    }
+    .separator {
+      display: none;
+    }
+  }

@@ -1,6 +1,8 @@
 .infinity-banner {
-  background-color: #222021;
+  --color-background: rgb(41, 37, 36);
+  --color-text: white;
+  background-color: var(--color-background);
   min-height: 50px;
-  background-image: url('/OTF/sfsites/c/resource/infinityCRMAssets/donut.svg');
   background-repeat: repeat;
+  color: var(--color-text);
 }
