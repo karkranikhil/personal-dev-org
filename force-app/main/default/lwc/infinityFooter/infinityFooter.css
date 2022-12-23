@@ -2,11 +2,11 @@
   .footer {
     padding: 12px 1.5rem;
     background-color: var(--color-background);
-    --color-background: rgb(41, 37, 36);
+    --color-background: rgb(41, 42, 41);
     --color-text: rgb(255, 255, 255);
   }
   .footer-decoration {
-    --color-decoration: rgb(228, 32, 40);
+    --color-decoration: rgb(236, 27, 36);
     width: 100%;
     height: 10px;
     background-color: var(--color-decoration);

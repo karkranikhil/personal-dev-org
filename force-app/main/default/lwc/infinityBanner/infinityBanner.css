@@ -1,5 +1,5 @@
 .infinity-banner {
-  --color-background: rgb(41, 37, 36);
+  --color-background: rgb(41, 42, 41);
   --color-text: white;
   background-color: var(--color-background);
   min-height: 50px;

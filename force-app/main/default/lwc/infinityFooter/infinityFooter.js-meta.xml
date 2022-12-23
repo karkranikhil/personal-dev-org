@@ -14,13 +14,13 @@
           <property
         name="backgroundColor"
         type="Color"
-        default="rgb(41, 37, 36)"
+        default="rgb(44, 42, 41)"
         label="Background Color"
       />
           <property
         name="decorationColor"
         type="Color"
-        default="rgb(228,32,40)"
+        default="rgb(236, 27, 36)"
         label="Decoration Color"
       />
           <property

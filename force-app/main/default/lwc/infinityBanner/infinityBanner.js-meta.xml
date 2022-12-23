@@ -20,7 +20,7 @@
             <property
         name="backgroundColor"
         type="Color"
-        default="rgb(41, 37, 36)"
+        default="rgb(41, 42, 41)"
         label="Background Color"
       />
           <property
