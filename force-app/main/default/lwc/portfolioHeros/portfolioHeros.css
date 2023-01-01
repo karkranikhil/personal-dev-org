@@ -1,0 +1,137 @@
+:host {
+  --bg-color: #2a2a2a;
+  --second-bg-color: #202020;
+  --text-color: #fff;
+  --second-color: #ccc;
+  --main-color: rgb(40, 204, 183);
+  --big-font: 5rem;
+  --h2-font: 3rem;
+  --p-font: 1.1rem;
+}
+section {
+  padding: 160px 15% 120px;
+}
+span{
+	color: var(--main-color);
+}
+.home {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-image: url(../img/background.jpg);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.slide {
+  margin-bottom: 20px;
+}
+.one {
+  display: inline-block;
+  margin-right: 15px;
+  height: 32px;
+  padding: 0 15px;
+  line-height: 32px;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 5px;
+  background: var(--main-color);
+  color: var(--text-color);
+}
+.two {
+  display: inline-block;
+  color: var(--second-color);
+  font-size: 20px;
+  font-weight: 500;
+}
+.home-text h1 {
+  font-size: var(--big-font);
+  font-weight: 700;
+  color: var(--text-color);
+  line-height: 1.1;
+  margin: 0 0 8px;
+}
+.home-text h3 {
+  color: var(--text-color);
+  margin: 0 0 35px;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.home-text p {
+  color: var(--second-color);
+  font-size: var(--p-font);
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background: var(--main-color);
+  border-radius: 5px;
+  color: var(--text-color);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+  transition: all 0.45s ease;
+}
+.btn:hover {
+  transform: scale(0.9);
+}
+.btn2 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-left: 35px;
+}
+.btn2 span i {
+  height: 55px;
+  width: 55px;
+  background: var(--main-color);
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  border-radius: 50%;
+  margin-right: 15px;
+  transition: all 0.45s ease;
+}
+.btn2 span i:hover {
+  transform: scale(1.1) translateY(5px);
+}
+
+@media (max-width: 1480px) {
+  section {
+    padding: 110px 3% 60px;
+  }
+  .end {
+    padding: 15px 3%;
+  }
+}
+
+@media (max-width: 1100px) {
+  :host {
+    --big-font: 4rem;
+    --h2-font: 2.5rem;
+    --p-font: 1rem;
+    transition: 0.1s;
+  }
+  .home-text h3 {
+    font-size: 2.5rem;
+  }
+  .home {
+    height: 87vh;
+  }
+}
+
