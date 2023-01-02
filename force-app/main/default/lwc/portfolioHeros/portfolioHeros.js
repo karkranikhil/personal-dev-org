@@ -57,7 +57,9 @@ export default class PortfolioHeros extends NavigationMixin(LightningElement) {
     // Prevent the default form submission.
     this.isLoading = true;
     event.preventDefault();
-
+    let submitBtn = this.template.querySelector("input.submit");
+    submitBtn.classList.add("disabled");
+    submitBtn.disabled = true;
     // Get the form data.
     const formData = new FormData(event.target);
 
@@ -85,7 +87,8 @@ export default class PortfolioHeros extends NavigationMixin(LightningElement) {
         console.error(error);
       })
       .finally(() => {
-        this.isLoading = false;
+        submitBtn.classList.remove("disabled");
+        submitBtn.disabled = false;
         const targetElement = this.template.querySelector(".home");
         // Scroll to the target element.
         targetElement.scrollIntoView({ behavior: "smooth", block: "start" });

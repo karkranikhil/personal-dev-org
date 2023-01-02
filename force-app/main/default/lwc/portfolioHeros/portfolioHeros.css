@@ -448,6 +448,15 @@ form textarea {
   transform: scale(1.1);
   cursor: pointer;
 }
+.contact-form .submit.disabled {
+  background: var(--bg-color) !important;
+  color: var(--text-color);
+  transition: none;
+}
+.contact-form .submit.disabled:hover {
+  transform: none;
+  cursor: not-allowed;
+}
 
 .end {
   padding: 20px 15%;

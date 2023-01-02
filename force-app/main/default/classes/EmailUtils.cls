@@ -18,7 +18,7 @@ public with sharing class EmailUtils {
     email.setToAddresses(toAddresses);
 
     // Set the subject and body of the email.
-    email.setSubject('Message from website');
+    email.setSubject('Project Request from Portfolio Website');
     email.setPlainTextBody(
       'Name: ' +
       name +
