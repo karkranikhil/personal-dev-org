@@ -195,6 +195,7 @@ span {
   height: auto;
   width: 100%;
   border-radius: 8px;
+  filter: grayscale(1);
 }
 .about-text h2 {
   font-size: var(--h2-font);
@@ -235,12 +236,14 @@ span {
   align-items: center;
   gap: 2.5rem;
   margin-top: 5rem;
+  grid-auto-rows: 1fr;
 }
 .box {
   background: var(--bg-color);
   padding: 35px 45px;
   border-radius: 8px;
   transition: all 0.45s ease;
+  height: 100%;
 }
 .s-icons i {
   font-size: 32px;
@@ -507,10 +510,16 @@ form textarea {
     grid-template-columns: 1fr;
   }
   .about-img {
+    filter: grayscale(1);
+    text-align: center;
+    order: 2;
+  }
+  .about-img {
     text-align: center;
     order: 2;
   }
   .about-img img {
+    filter: grayscale(1);
     width: 100%;
     height: auto;
     max-width: 100%;
