@@ -11,9 +11,14 @@
 section {
   padding: 160px 15% 120px;
 }
-span{
-	color: var(--main-color);
+span {
+  color: var(--main-color);
 }
+
+.bx {
+  --sds-c-icon-color-foreground-default: var(--text-color);
+}
+
 .home {
   position: relative;
   height: 100vh;
@@ -102,12 +107,11 @@ span{
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 35px;
   border-radius: 50%;
   margin-right: 15px;
-  transition: all 0.45s ease;
 }
-.btn2 span i:hover {
+.btn2:hover {
+  transition: all 0.45s ease;
   transform: scale(1.1) translateY(5px);
 }
 
@@ -134,4 +138,3 @@ span{
     height: 87vh;
   }
 }
-
