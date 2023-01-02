@@ -23,7 +23,6 @@ span {
   position: relative;
   height: 100vh;
   width: 100%;
-  background-image: url(../img/background.jpg);
   background-size: cover;
   background-position: center;
   display: flex;
@@ -88,7 +87,7 @@ span {
   transition: all 0.45s ease;
 }
 .btn:hover {
-  transform: scale(0.9);
+  transform: scale(1.05);
 }
 .btn2 {
   display: inline-flex;
@@ -112,7 +111,19 @@ span {
 }
 .btn2:hover {
   transition: all 0.45s ease;
-  transform: scale(1.1) translateY(5px);
+  transform: scale(1.05) translateY(5px);
+}
+
+.image-container {
+  display: flex;
+  width: 35%;
+  margin-left: auto;
+  align-items: center;
+  justify-content: center;
+}
+.image-container img {
+  -webkit-filter: brightness(85%);
+  filter: brightness(85%);
 }
 
 @media (max-width: 1480px) {
@@ -136,5 +147,8 @@ span {
   }
   .home {
     height: 87vh;
+  }
+  .image-container {
+    display: none;
   }
 }
