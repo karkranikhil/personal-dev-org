@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 01-01-2023
+  @last modified on  : 01-02-2023
   @last modified by  : ErickSixto
 -->
 <template>
@@ -10,11 +10,11 @@
     <a href="#" class="logo">Erick<span>.Sixto</span></a>
 
     <ul class="navlist">
-      <li><a href="#home-10" class="active">Home</a></li>
-      <li><a href="#about">About Me</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#contact">Contact Me</a></li>
+      <template for:each={navigationItems} for:item="item" for:index="index">
+        <li key={item.Id}>
+          <a class="item" name={item.Id} onclick={navigate}> {item.Label} </a>
+        </li>
+      </template>
     </ul>
 
     <div class="menu-icon bx bx-menu">
