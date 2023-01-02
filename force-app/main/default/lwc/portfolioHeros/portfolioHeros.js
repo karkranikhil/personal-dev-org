@@ -6,6 +6,10 @@ export default class PortfolioHeros extends NavigationMixin(LightningElement) {
   @api navigation;
   meCircle = Assets + "/MeCircle.png";
   meFull = Assets + "/MeFull.jpg";
+  fiverrIcon = Assets + "/FiverrIcon.svg";
+  linkedinIcon = Assets + "/LinkedinIcon.svg";
+  meFull = Assets + "/MeFull.jpg";
+  meFull = Assets + "/MeFull.jpg";
 
   isMenuOpen = false;
   hasRendered = false;
