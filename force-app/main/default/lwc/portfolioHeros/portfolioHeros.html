@@ -6,6 +6,34 @@
   @last modified by  : ErickSixto
 -->
 <template>
+  <!--* Header Section -->
+
+  <header>
+    <a href="#" class="logo">Erick<span>.Sixto</span></a>
+
+    <ul class="navlist">
+      <li><a href="#home" onclick={handleScroll} class="active">Home</a></li>
+      <li><a href="#about" onclick={handleScroll}>About Me</a></li>
+      <li><a href="#services" onclick={handleScroll}>Services</a></li>
+      <li><a href="#portfolio" onclick={handleScroll}>Portfolio</a></li>
+      <li><a href="#contact" onclick={handleScroll}>Contact Me</a></li>
+    </ul>
+
+    <div class="menu-icon bx bx-menu">
+      <lightning-icon
+        if:false={isMenuOpen}
+        icon-name="utility:rows"
+        alternative-text="Menu"
+      ></lightning-icon>
+      <lightning-icon
+        if:true={isMenuOpen}
+        icon-name="utility:close"
+        alternative-text="Close"
+      ></lightning-icon>
+    </div>
+  </header>
+
+  <!--* Home Section -->
   <section class="home" id="home">
     <div class="home-text">
       <div class="slide">
@@ -41,7 +69,30 @@
       </div>
     </div>
     <div class="image-container">
-      <img src={imageUrl} alt="Salesforce" />
+      <img src={meCircle} alt="Me" />
+    </div>
+  </section>
+  <!--* About Section -->
+  <section class="about" id="about">
+    <div class="about-img">
+      <img src={meFull} />
+    </div>
+
+    <div class="about-text">
+      <h2>About <span>Me</span></h2>
+      <h4>Salesforce Professional</h4>
+      <p>
+        As a highly experienced Salesforce Professional, I have spent the past
+        5+ years delivering exceptional results for my clients. With a strong
+        background in both development and administration, I am well-equipped to
+        handle a wide range of projects and customize solutions to meet the
+        unique needs of each business. I am dedicated to providing top-quality
+        services and strive to exceed my clients' expectations every time. My
+        passion for helping businesses streamline their processes and maximize
+        the power of Salesforce has made me a go-to resource for businesses in
+        need of reliable and skilled professionals.
+      </p>
+      <a onclick={navigateToPage} name="About_Me__c" class="btn">More About</a>
     </div>
   </section>
 </template>
