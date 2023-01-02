@@ -1,9 +1,15 @@
 import { LightningElement, api, track } from "lwc";
 import Assets from "@salesforce/resourceUrl/portfolioPageAssets";
+import sendEmail from "@salesforce/apex/EmailUtils.sendEmail";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
 
 export default class PortfolioHeros extends NavigationMixin(LightningElement) {
   @api navigation;
+  @track name;
+  @track email;
+  @track message;
+
   meCircle = Assets + "/MeCircle.png";
   meFull = Assets + "/MeFull.jpg";
   fiverrIcon = Assets + "/FiverrIcon.svg";
@@ -46,23 +52,43 @@ export default class PortfolioHeros extends NavigationMixin(LightningElement) {
     // Scroll to the target element.
     targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
   }
-  navigateToPage(event) {
-    let page = event.target.name;
-    console.log("page: ", page);
-    this[NavigationMixin.Navigate]({
-      type: "comm__namedPage",
-      attributes: {
-        name: page
-      }
-    });
-  }
-  navigateToObject(object) {
-    this[NavigationMixin.Navigate]({
-      type: "standard__objectPage",
-      attributes: {
-        objectApiName: object,
-        actionName: "home"
-      }
-    });
+
+  handleSubmit(event) {
+    // Prevent the default form submission.
+    this.isLoading = true;
+    event.preventDefault();
+
+    // Get the form data.
+    const formData = new FormData(event.target);
+
+    // Call the Apex action method to send the email.
+    sendEmail({
+      name: formData.get("name"),
+      mail: formData.get("email"),
+      message: formData.get("message")
+    })
+      .then((result) => {
+        // Handle the result of the action method.
+        this.dispatchEvent(
+          new ShowToastEvent({
+            title: "Message sent!",
+            message: "Thanks for considering me. I will reach to you shortly.",
+            variant: "success",
+            mode: "sticky"
+          })
+        );
+        // Clear the form.
+        this.template.querySelector("form").reset();
+      })
+      .catch((error) => {
+        // Handle any errors.
+        console.error(error);
+      })
+      .finally(() => {
+        this.isLoading = false;
+        const targetElement = this.template.querySelector(".home");
+        // Scroll to the target element.
+        targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
   }
 }

@@ -307,18 +307,37 @@
     </div>
 
     <div class="contact-form">
-      <form action="">
-        <input type="name" placeholder="Your Name" required />
-        <input type="email" placeholder="Your Email Address" required />
+      <form onsubmit={handleSubmit}>
+        <input type="name" name="name" placeholder="Your Name" required />
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email Address"
+          required
+        />
         <textarea
-          name=""
+          name="message"
           id=""
           cols="35"
           rows="10"
           placeholder="How Can I Help You"
           required
         ></textarea>
-        <input type="submit" value="Send Message" class="submit" required />
+        <input
+          if:true={isLoading}
+          disabled
+          type="submit"
+          value="Send Message"
+          class="submit"
+          required
+        />
+        <input
+          if:false={isLoading}
+          type="submit"
+          value="Send Message"
+          class="submit"
+          required
+        />
       </form>
     </div>
   </section>
