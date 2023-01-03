@@ -10,12 +10,22 @@ export default class PortfolioHeros extends NavigationMixin(LightningElement) {
   @track email;
   @track message;
 
+  //Icons
   meCircle = Assets + "/MeCircle.png";
   meFull = Assets + "/MeFull.jpg";
   fiverrIcon = Assets + "/FiverrIcon.svg";
   linkedinIcon = Assets + "/LinkedinIcon.svg";
+  //Photos
   meFull = Assets + "/MeFull.jpg";
   meFull = Assets + "/MeFull.jpg";
+  //Projects
+  stripeCheckout = Assets + "/StripeCheckout.png";
+  dataVisualizer = Assets + "/DataVisualizer.png";
+  rtSelector = Assets + "/RTSelector.png";
+  esLookup = Assets + "/esLookup.png";
+  experienceSite = Assets + "/experienceSite.png";
+  dashboard = Assets + "/dashboard.png";
+  listBox = Assets + "/dualListBox.png";
 
   isMenuOpen = false;
   hasRendered = false;
