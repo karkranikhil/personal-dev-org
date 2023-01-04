@@ -300,13 +300,13 @@ span {
 .row img {
   width: 100%;
   min-width: 300px;
-  min-height: 400px;
+  min-height: 100px;
   border-radius: 8px;
   display: block;
   transition: transform 0.5s;
   object-fit: contain;
   object-position: center;
-  filter: brightness(0.75);
+  filter: brightness(0.85);
 }
 
 .layer {

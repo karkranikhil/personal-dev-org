@@ -19,13 +19,12 @@ export default class PortfolioHeros extends NavigationMixin(LightningElement) {
   meFull = Assets + "/MeFull.jpg";
   meFull = Assets + "/MeFull.jpg";
   //Projects
-  stripeCheckout = Assets + "/StripeCheckout.png";
-  dataVisualizer = Assets + "/DataVisualizer.png";
-  rtSelector = Assets + "/RTSelector.png";
-  esLookup = Assets + "/esLookup.png";
-  experienceSite = Assets + "/experienceSite.png";
-  dashboard = Assets + "/dashboard.png";
-  listBox = Assets + "/dualListBox.png";
+  stripeCheckout = Assets + "/StripeCheckout.jpg";
+  dataVisualizer = Assets + "/dataVisualizer.jpg";
+  scanner = Assets + "/scanner.jpg";
+  notification = Assets + "/notification.png";
+  experienceSite = Assets + "/experienceSite.jpg";
+  dashboard = Assets + "/dashboard.jpg";
 
   isMenuOpen = false;
   hasRendered = false;
