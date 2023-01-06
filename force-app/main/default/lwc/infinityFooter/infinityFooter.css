@@ -39,7 +39,7 @@
 
   img {
     width: 100%;
-    height: 0.75rem;
+    max-height: 1.5rem;
   }
   .vl {
     display: none;

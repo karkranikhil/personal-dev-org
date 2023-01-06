@@ -1,0 +1,22 @@
+header {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  --color-background: rgb(255, 255, 255);
+  --color-text: rgb(41, 42, 41);
+  --color-decoration: rgb(236, 27, 36);
+}
+.logo {
+  height: 50px;
+}
+.navigation {
+  margin-left: auto;
+}
+.nav-item {
+  margin-right: 20px;
+}
+.nav-item:hover {
+  text-decoration: underline;
+  color: var(--color-decoration);
+}

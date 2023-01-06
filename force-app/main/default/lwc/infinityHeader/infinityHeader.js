@@ -1,37 +1,36 @@
-import { LightningElement, api, track } from "lwc";
+import { LightningElement, track, api } from "lwc";
+import Assets from "@salesforce/resourceUrl/infinityCRMAssets";
 import getNavigationItems from "@salesforce/apex/esNavigationController.getNavigationItems";
 import BASE_PATH from "@salesforce/community/basePath";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
-import Assets from "@salesforce/resourceUrl/infinityCRMAssets";
 
-export default class InfinityFooter extends LightningElement {
+export default class InfinityHeader extends LightningElement {
+  logo = Assets + "/logo.jpg";
+  @api logoUrl;
   @api backgroundColor;
   @api fontColor;
   @api decorationColor;
-  @api icon;
-  @api iconLink;
   @api navigation;
-  iconUrl = Assets + "/logoIcon.png";
+
   @track navigationItems;
   imagePath;
   hasRendered = false;
   //* ---------------------- LIFECYCLE METHODS ----------------------//
 
   connectedCallback() {
-    if (this.icon) this.iconUrl = this.icon;
     this.baseURL = window.location.origin + BASE_PATH;
+    if (this.logoUrl) this.logo = this.logoUrl;
     this.setNavigationItems();
   }
 
   renderedCallback() {
     if (!this.hasRendered) {
       //?Change Colors and Height
-      let footer = this.template.querySelector(".footer");
-      let decoration = this.template.querySelector(".footer-decoration");
-      footer.style.setProperty("--color-background", this.backgroundColor);
-      footer.style.setProperty("--color-text", this.fontColor);
-      decoration.style.setProperty("--color-decoration", this.decorationColor);
+      let header = this.template.querySelector(".header");
+      header.style.setProperty("--color-background", this.backgroundColor);
+      header.style.setProperty("--color-text", this.fontColor);
+      header.style.setProperty("--color-decoration", this.decorationColor);
 
       this.hasRendered = true;
     }
@@ -41,6 +40,7 @@ export default class InfinityFooter extends LightningElement {
 
   navigate(event) {
     event.stopPropagation();
+    event.preventDefault();
     let id = event.target.name;
 
     let nav = this.navigationItems.find((item) => item.Id === id);

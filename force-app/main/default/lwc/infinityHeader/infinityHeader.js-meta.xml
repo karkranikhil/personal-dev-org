@@ -9,17 +9,12 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightningCommunity__Default">
-          <property
-        name="icon"
-        type="String"
-        label="Footer Icon URL"
-        description="If skipped, default icon will be used"
-      />
+          <property name="icon" type="String" label="Footer Icon URL" />
           <property name="iconLink" type="String" label="Icon Redirect Url" />
           <property
         name="backgroundColor"
         type="Color"
-        default="rgb(44, 42, 41)"
+        default="rgb(255,255,255)"
         label="Background Color"
       />
           <property
@@ -31,14 +26,20 @@
           <property
         name="fontColor"
         type="Color"
-        default="rgb(255,255,255)"
+        default="rgb(44, 42, 41)"
         label="Font Color"
       />
 
           <property
         name="navigation"
         type="String"
-        default="Footer_Navigation"
+        default="Header_Navigation"
+        label="Navigation Developer Name"
+      />
+          <property
+        name="logoUrl"
+        type="String"
+        default="Header_Navigation"
         label="Navigation Developer Name"
       />
     

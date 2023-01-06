@@ -5,12 +5,6 @@
     "**/.sfdx": true
   },
   "editor.formatOnSave": true,
-  "workbench.colorCustomizations": {
-    "statusBar.background": "#0060be",
-    "statusBar.foreground": "#FFFFDD",
-    "statusBarItem.hoverBackground": "#8b8680",
-    "statusBarItem.activeBackground": "#8b8680",
-    "statusBar.border": "#0060be"
-  },
+  "workbench.colorCustomizations": {},
   "salesforcedx-vscode-core.show-cli-success-msg": false
 }
