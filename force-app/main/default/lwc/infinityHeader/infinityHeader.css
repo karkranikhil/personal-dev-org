@@ -1,22 +1,114 @@
-header {
-  display: flex;
-  align-items: center;
-  background-color: var(--color-background);
-  color: var(--color-text);
-  --color-background: rgb(255, 255, 255);
-  --color-text: rgb(41, 42, 41);
-  --color-decoration: rgb(236, 27, 36);
-}
-.logo {
-  height: 50px;
-}
-.navigation {
-  margin-left: auto;
-}
-.nav-item {
-  margin-right: 20px;
-}
-.nav-item:hover {
-  text-decoration: underline;
-  color: var(--color-decoration);
-}
+.cCenterPanel {
+    min-height: calc(100vh - 180px);
+  }
+  .siteforceCptBody .cCenterPanel{
+    margin-top:0 !important;
+  }
+  .forceCommunityRecordListDesktop .slds-page-header {
+    display: none;
+  }
+  
+  /* HEADER STYLES AND SELECTORS*/
+  .cHeaderTopInternalWrapper {
+    min-height: 100px;
+    display: flex;
+    align-items: end;
+    justify-content: space-around;
+  }
+  .cLogo{
+      margin-top: 0 ;
+      margin-left:auto !important;
+      margin-right: auto;
+  }
+  .siteforceCptBody .cHeader .cBrandingLogo {
+      min-width: 150px;
+      min-height: 100px;
+      width: 100%;
+      height: auto;
+  }
+  
+  .cSearchContainer {
+    position: absolute;
+    top: 0;
+    padding: 8px 8px;
+    right: 0;
+  }
+  .cptNavBar {
+    margin-left: auto;
+    margin-right: 0;
+  }
+  
+  .comm-navigation.forceCommunityGlobalNavigation {
+    max-width: 770px;
+    width: fit-content !important;
+    margin-left: auto;
+  }
+  .cHeaderTopInternalWrapper .cptNavBar {
+    display: none;
+  }
+  
+  .cProfileMenu {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+  }
+  .cSearchInvokeMobile{
+      margin-left:0 !important;
+  }
+  .siteforceCptBody .cHeader .selfServiceProfileMenuTrigger .trigger-link {
+    padding: 0 4px;
+  }
+  
+  .siteforceCptBody .cHeader .selfServiceProfileMenuTrigger .trigger-link:hover {
+    color: var(--lwc-colorTextLink, rgb(228, 32, 40)) !important;
+  }
+  
+  .cHeader.selfServiceProfileMenuTrigger.profileName {
+    font-size: 0.875rem;
+  }
+  .forceCommunityGlobalNavigation a{
+      min-width: 100px;
+      text-align: center;
+  }
+  .forceCommunityGlobalNavigation a:hover {
+    text-decoration: none !important;
+    color: var(--lwc-colorTextLink, rgb(228, 32, 40)) !important;
+  }
+  
+  .forceCommunityGlobalNavigation a::before {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: currentColor;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out 0s;
+  }
+  
+  .forceCommunityGlobalNavigation a:hover::before {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+  
+  
+  @media screen and (min-width: 768px) {
+    .cProfileMenu {
+      min-height: 39px;
+      align-items: flex-end;
+        }
+     .siteforceCptBody .cHeader .selfServiceProfileMenuTrigger .trigger-link {
+      min-height: 39px;
+      }
+      .cLogo{
+      margin-top: 0 ;
+      margin-left:1rem !important;
+      margin-right: 0;
+      }
+      .cHeaderTopInternalWrapper .cptNavBar {
+        display: contents;
+      }
+  
+  }

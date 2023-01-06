@@ -1,48 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>55.0</apiVersion>
-    <isExposed>true</isExposed>
-    <targets>
-        <target>lightning__RecordPage</target>
-        <target>lightningCommunity__Page</target>
-        <target>lightningCommunity__Default</target>
-    </targets>
-    <targetConfigs>
-        <targetConfig targets="lightningCommunity__Default">
-          <property name="icon" type="String" label="Footer Icon URL" />
-          <property name="iconLink" type="String" label="Icon Redirect Url" />
-          <property
-        name="backgroundColor"
-        type="Color"
-        default="rgb(255,255,255)"
-        label="Background Color"
-      />
-          <property
-        name="decorationColor"
-        type="Color"
-        default="rgb(236, 27, 36)"
-        label="Decoration Color"
-      />
-          <property
-        name="fontColor"
-        type="Color"
-        default="rgb(44, 42, 41)"
-        label="Font Color"
-      />
-
-          <property
-        name="navigation"
-        type="String"
-        default="Header_Navigation"
-        label="Navigation Developer Name"
-      />
-          <property
-        name="logoUrl"
-        type="String"
-        default="Header_Navigation"
-        label="Navigation Developer Name"
-      />
-    
-        </targetConfig>
-      </targetConfigs>
+    <isExposed>false</isExposed>
 </LightningComponentBundle>

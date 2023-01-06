@@ -6,33 +6,4 @@
   @last modified by  : ErickSixto
 -->
 <template>
-  <header>
-    <img src={logo} alt="Logo" class="logo" />
-    <nav class="navigation">
-      <template
-        if:true={navigationItems}
-        for:each={navigationItems}
-        for:item="link"
-        for:index="index"
-      >
-        <li key={link.Id}>
-          <a
-            if:true={link.Target}
-            class="nav-item"
-            name={link.Id}
-            onclick={navigate}
-            >{link.Label}</a
-          >
-          <h5
-            if:false={link.Target}
-            class="nav-item"
-            name={link.Id}
-            onclick={navigate}
-          >
-            {link.Label}
-          </h5>
-        </li>
-      </template>
-    </nav>
-  </header>
 </template>
