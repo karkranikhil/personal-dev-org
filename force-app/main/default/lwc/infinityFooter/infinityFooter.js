@@ -11,7 +11,7 @@ export default class InfinityFooter extends LightningElement {
   @api decorationColor;
   @api icon;
   @api iconLink;
-  @api navigation;
+  @api footerText;
   iconUrl = Assets + "/logoIcon.png";
   @track navigationItems;
   imagePath;
@@ -20,8 +20,8 @@ export default class InfinityFooter extends LightningElement {
 
   connectedCallback() {
     if (this.icon) this.iconUrl = this.icon;
-    this.baseURL = window.location.origin + BASE_PATH;
-    this.setNavigationItems();
+    // this.baseURL = window.location.origin + BASE_PATH;
+    // this.setNavigationItems();
   }
 
   renderedCallback() {

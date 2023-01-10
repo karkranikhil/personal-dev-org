@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 01-05-2023
+  @last modified on  : 01-10-2023
   @last modified by  : ErickSixto
 -->
 <template>
@@ -15,33 +15,8 @@
           /></a>
         </div>
       </li>
-      <template
-        if:true={navigationItems}
-        for:each={navigationItems}
-        for:item="link"
-        for:index="index"
-      >
-        <li key={link.Id}>
-          <div class="vl"></div>
-        </li>
-        <li key={link.Id}>
-          <a
-            if:true={link.Target}
-            class="link"
-            name={link.Id}
-            onclick={navigate}
-            >{link.Label}</a
-          >
-          <h4
-            if:false={link.Target}
-            class="link"
-            name={link.Id}
-            onclick={navigate}
-          >
-            {link.Label}
-          </h4>
-        </li>
-      </template>
+      <div class="vl"></div>
+      <h4 class="link">{footerText}</h4>
     </ul>
   </footer>
   <div class="footer-decoration"></div>

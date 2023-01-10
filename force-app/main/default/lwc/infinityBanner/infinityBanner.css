@@ -6,3 +6,8 @@
   background-repeat: repeat;
   color: var(--color-text);
 }
+.infinity-banner * {
+  max-width: var(--lwc-cptPageMaxWidth, 1400px);
+  padding: 0;
+  margin: auto;
+}

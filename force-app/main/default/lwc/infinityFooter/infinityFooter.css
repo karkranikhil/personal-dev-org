@@ -12,7 +12,7 @@
     background-color: var(--color-decoration);
   }
   .link {
-    cursor: pointer;
+    cursor: default;
     font-size: 0.8rem;
     font-weight: bold;
     line-height: 1rem;

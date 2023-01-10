@@ -36,10 +36,10 @@
       />
 
           <property
-        name="navigation"
+        name="footerText"
         type="String"
-        default="Footer_Navigation"
-        label="Navigation Developer Name"
+        default="Your confidence in commercial property"
+        label="Footer text"
       />
     
         </targetConfig>
