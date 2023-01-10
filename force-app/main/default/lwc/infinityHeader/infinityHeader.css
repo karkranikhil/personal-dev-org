@@ -1,114 +1,169 @@
-.cCenterPanel {
-    min-height: calc(100vh - 180px);
-  }
-  .siteforceCptBody .cCenterPanel{
-    margin-top:0 !important;
-  }
-  .forceCommunityRecordListDesktop .slds-page-header {
-    display: none;
-  }
-  
-  /* HEADER STYLES AND SELECTORS*/
-  .cHeaderTopInternalWrapper {
-    min-height: 100px;
-    display: flex;
-    align-items: end;
-    justify-content: space-around;
-  }
-  .cLogo{
-      margin-top: 0 ;
-      margin-left:auto !important;
-      margin-right: auto;
-  }
-  .siteforceCptBody .cHeader .cBrandingLogo {
-      min-width: 150px;
-      min-height: 100px;
-      width: 100%;
-      height: auto;
-  }
-  
-  .cSearchContainer {
-    position: absolute;
-    top: 0;
-    padding: 8px 8px;
-    right: 0;
-  }
-  .cptNavBar {
-    margin-left: auto;
-    margin-right: 0;
-  }
-  
-  .comm-navigation.forceCommunityGlobalNavigation {
-    max-width: 770px;
-    width: fit-content !important;
-    margin-left: auto;
-  }
-  .cHeaderTopInternalWrapper .cptNavBar {
-    display: none;
-  }
-  
+.siteforceCptBody .cCenterPanel {
+  margin-top: 0 !important;
+}
+[data-region-name="header"] {
+  max-width: 100% !important;
+}
+[data-region-name="content"] {
+  max-width: var(--lwc-cptPageMaxWidth, 1440px) !important;
+  margin: 0 auto;
+}
+
+.forceCommunityRecordListDesktop .slds-page-header {
+  display: none;
+}
+
+/* LOGIN AND REGISTRATION STYLES*/
+.salesforceIdentityEmployeeLoginLink2 a,
+.salesforceIdentityLoginForm2 a {
+  color: var(--lwc-colorTextDefault, rgb(44, 42, 41)) !important;
+}
+
+.salesforceIdentityEmployeeLoginLink2 a:hover,
+.salesforceIdentityLoginForm2 a:hover {
+  color: var(--lwc-colorTextLink, rgb(228, 32, 40)) !important;
+}
+
+/* HEADER STYLES AND SELECTORS*/
+
+.forceCommunityGlobalNavigation .slds-list__item a[data-type="home"] {
+  content: "My Loans";
+}
+
+.forceCommunityGlobalNavigation .slds-list__item a[data-type="home"] {
+  font-size: 0;
+}
+
+.forceCommunityGlobalNavigation .slds-list__item a[data-type="home"]:after {
+  content: "My Loans";
+  font-weight: var(--lwc-navigationFontWeight, 400);
+  font-size: var(--lwc-navigationFontSize, 0.875rem);
+  font-family: var(--lwc-navigationFontFamily, Ek Mukta);
+  line-height: var(--lwc-navigationLineHeight, normal);
+  padding: var(--lwc-navigationItemVerticalPadding, 0.5rem)
+    var(--lwc-navigationItemHorizontalPadding, 0.75rem);
+}
+
+.siteforceCptBody .cHeader .cHeaderTop {
+  padding: 0 var(--lwc-spacingLarge, 1.5rem) !important;
+}
+
+.cHeaderTopInternalWrapper {
+  min-height: 100px;
+  display: flex;
+  align-items: end;
+  justify-content: space-around;
+  padding: 0 !important;
+}
+.cLogo {
+  margin-top: 0;
+  margin-left: 0 !important;
+  margin-right: auto;
+}
+.siteforceCptBody .cHeader .cBrandingLogo {
+  min-width: 150px;
+  min-height: 100px;
+  width: 100%;
+  height: auto;
+}
+
+.cSearchContainer {
+  position: absolute;
+  top: 0;
+  padding: 8px 8px;
+  right: 0;
+}
+.cptNavBar {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.comm-navigation.forceCommunityGlobalNavigation {
+  max-width: 770px;
+  width: fit-content !important;
+  margin-left: auto;
+}
+.cHeaderTopInternalWrapper .cptNavBar {
+  display: none;
+}
+
+.siteforceCptBody .cHeader .cNotifications {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0 var(--lwc-spacingXSmall, 0.5rem) !important;
+}
+
+.cProfileMenu {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.cSearchInvokeMobile {
+  margin-left: 0 !important;
+}
+.siteforceCptBody .cHeader .selfServiceProfileMenuTrigger .trigger-link {
+  padding: 0 4px;
+}
+
+.siteforceCptBody .cHeader .selfServiceProfileMenuTrigger .trigger-link:hover {
+  color: var(--lwc-colorTextLink, rgb(228, 32, 40)) !important;
+}
+
+.cHeader.selfServiceProfileMenuTrigger.profileName {
+  font-size: 0.875rem;
+}
+.forceCommunityGlobalNavigation a {
+  min-width: 100px;
+  text-align: center;
+}
+
+.forceCommunityGlobalNavigation a.slds-is-active {
+  text-decoration: none !important;
+  color: var(--lwc-colorTextLink, rgb(228, 32, 40)) !important;
+}
+
+.forceCommunityGlobalNavigation a:hover {
+  text-decoration: none !important;
+  color: var(--lwc-colorTextLink, rgb(228, 32, 40)) !important;
+}
+
+.forceCommunityGlobalNavigation a::before {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 5px;
+  border-radius: 2px;
+  background-color: currentColor;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out 0s;
+}
+
+.forceCommunityGlobalNavigation a:hover::before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+@media screen and (min-width: 768px) {
   .cProfileMenu {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-  }
-  .cSearchInvokeMobile{
-      margin-left:0 !important;
+    min-height: 39px;
+    align-items: flex-end;
   }
   .siteforceCptBody .cHeader .selfServiceProfileMenuTrigger .trigger-link {
-    padding: 0 4px;
+    min-height: 39px;
   }
-  
-  .siteforceCptBody .cHeader .selfServiceProfileMenuTrigger .trigger-link:hover {
-    color: var(--lwc-colorTextLink, rgb(228, 32, 40)) !important;
+  .cLogo {
+    margin-top: 0;
+    margin-right: 0;
   }
-  
-  .cHeader.selfServiceProfileMenuTrigger.profileName {
-    font-size: 0.875rem;
+  .cHeaderTopInternalWrapper .cptNavBar {
+    display: contents;
   }
-  .forceCommunityGlobalNavigation a{
-      min-width: 100px;
-      text-align: center;
+
+  .siteforceCptBody .cHeader .cNotifications {
+    min-height: 39px;
   }
-  .forceCommunityGlobalNavigation a:hover {
-    text-decoration: none !important;
-    color: var(--lwc-colorTextLink, rgb(228, 32, 40)) !important;
-  }
-  
-  .forceCommunityGlobalNavigation a::before {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background-color: currentColor;
-    visibility: hidden;
-    transform: scaleX(0);
-    transition: transform 0.3s ease-in-out 0s;
-  }
-  
-  .forceCommunityGlobalNavigation a:hover::before {
-    visibility: visible;
-    transform: scaleX(1);
-  }
-  
-  
-  @media screen and (min-width: 768px) {
-    .cProfileMenu {
-      min-height: 39px;
-      align-items: flex-end;
-        }
-     .siteforceCptBody .cHeader .selfServiceProfileMenuTrigger .trigger-link {
-      min-height: 39px;
-      }
-      .cLogo{
-      margin-top: 0 ;
-      margin-left:1rem !important;
-      margin-right: 0;
-      }
-      .cHeaderTopInternalWrapper .cptNavBar {
-        display: contents;
-      }
-  
-  }
+}
