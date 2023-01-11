@@ -16,7 +16,11 @@ const COLUMNS = [
     hideDefaultActions: true
   },
   { label: "Lender", fieldName: "lender", hideDefaultActions: true },
-  { label: "Interest Rate", fieldName: "interestRate" },
+  {
+    label: "Interest Rate",
+    fieldName: "interestRate",
+    hideDefaultActions: true
+  },
   {
     label: "Current LVR (%)",
     fieldName: "currentLVR",
