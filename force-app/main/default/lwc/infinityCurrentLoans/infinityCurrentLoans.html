@@ -1,0 +1,26 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 01-11-2023
+  @last modified by  : ErickSixto
+-->
+<template>
+  <article class="table-container">
+    <h3 class="slds-text-heading_medium table-title">{tableTitle}</h3>
+    <lightning-datatable
+      if:true={loans}
+      class="datatable"
+      data={loans}
+      columns={columns}
+      key-field="id"
+      hide-checkbox-column
+      is-loading={isLoading}
+      onrowaction={handleRowAction}
+    >
+    </lightning-datatable>
+    <div if:false={loans} class="no-data">
+        There are no records to show
+    </div>
+  </article>
+</template>

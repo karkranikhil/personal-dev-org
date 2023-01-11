@@ -1,0 +1,25 @@
+.table-container {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: flex-start;
+  margin-top: 1.25rem;
+  width: 100%;
+}
+.table-title {
+  color: var(--lwc-colorTextLink, rgb(228, 32, 40)) !important;
+  font-weight: bold;
+}
+.datatable {
+  width: 100%;
+}
+
+.no-data {
+  width: 100%;
+  padding: 1.75rem;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  background-color: #f1f1f1;
+}
