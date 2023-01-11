@@ -3,19 +3,25 @@ import { NavigationMixin } from "lightning/navigation";
 import getLoans from "@salesforce/apex/InfinityCurrentLoansController.getLoans";
 
 const COLUMNS = [
-  { label: "Borrower", fieldName: "borrower" },
-  { label: "Security Property", fieldName: "securityProperty" },
+  { label: "Borrower", fieldName: "borrower", hideDefaultActions: true },
+  {
+    label: "Security Property",
+    fieldName: "securityProperty",
+    hideDefaultActions: true
+  },
   {
     label: "Loan Amount",
     fieldName: "loanAmount",
-    type: "currency"
+    type: "currency",
+    hideDefaultActions: true
   },
-  { label: "Lender", fieldName: "lender" },
+  { label: "Lender", fieldName: "lender", hideDefaultActions: true },
   { label: "Interest Rate", fieldName: "interestRate" },
   {
     label: "Current LVR (%)",
     fieldName: "currentLVR",
     type: "percent",
+    hideDefaultActions: true,
     typeAttributes: {
       step: "0.01",
       minimumFractionDigits: "2",
@@ -26,6 +32,7 @@ const COLUMNS = [
     label: "Expiry",
     fieldName: "expiry",
     type: "date",
+    hideDefaultActions: true,
     typeAttributes: {
       year: "numeric",
       month: "2-digit",

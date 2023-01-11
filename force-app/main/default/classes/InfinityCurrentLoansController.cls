@@ -15,7 +15,7 @@ public with sharing class InfinityCurrentLoansController {
           Id,
           Borrower__c,
           Security_Address__c,
-          Purchase__c,
+          Limit__c,
           Lender__r.Name,
           Rate__c,
           LVR__c,
@@ -56,13 +56,13 @@ public with sharing class InfinityCurrentLoansController {
 
     public LoanWrapper(OTF__c otf) {
       this.id = otf.Id;
-      this.borrower = otf.Borrower__c;
-      this.securityProperty = otf.Security_Address__c;
-      this.loanAmount = otf.Purchase__c;
+      this.borrower = otf?.Borrower__c;
+      this.securityProperty = otf?.Security_Address__c;
+      this.loanAmount = otf?.Limit__c;
       this.lender = otf.Lender__r.Name;
-      this.interestRate = otf.Rate__c;
+      this.interestRate = otf?.Rate__c;
       this.currentLVR = otf.LVR__c != null ? otf.LVR__c / 100 : null;
-      this.expiry = otf.Expiry_Date__c;
+      this.expiry = otf?.Expiry_Date__c;
     }
   }
 }
