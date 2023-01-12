@@ -21,6 +21,9 @@
 }
 
 /* HEADER STYLES AND SELECTORS*/
+.siteforceCptBody .cHeaderTopInternalWrapper {
+  max-width: var(--lwc-cptPageMaxWidth, 1440px) !important;
+}
 .siteforceCptBody .cHeader .cHeaderTop {
   padding: var(--lwc-spacingSmall, 0.75rem) var(--lwc-spacingLarge, 1.5rem) !important;
 }
@@ -31,9 +34,6 @@
   align-items: end;
   justify-content: space-around;
   padding: 0 !important;
-}
-.forceCommunityRecordListDesktop .slds-page-header {
-  display: none;
 }
 /* Replace Home Nav Item */
 
@@ -133,7 +133,7 @@
 .forceCommunityGlobalNavigation a::before {
   content: "";
   position: absolute;
-  bottom: -12px;
+  bottom: -13px;
   left: 0;
   right: 0;
   height: 5px;
@@ -147,6 +147,12 @@
 .forceCommunityGlobalNavigation a:hover::before {
   visibility: visible;
   transform: scaleX(1);
+}
+
+/* DATATABLES*/
+
+.slds-th__action {
+  background-color: #f5f5f5 !important;
 }
 
 @media screen and (min-width: 768px) {

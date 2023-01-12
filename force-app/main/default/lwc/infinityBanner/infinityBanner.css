@@ -7,7 +7,7 @@
   color: var(--color-text);
 }
 .infinity-banner * {
-  max-width: var(--lwc-cptPageMaxWidth, 1400px);
+  max-width: var(--lwc-cptPageMaxWidth, 1440px);
   padding: 0;
-  margin: auto;
+  margin: 0 auto;
 }
