@@ -248,4 +248,135 @@
       </template>
     </div>
   </article>
+
+  <article class="pricing-container">
+    <h3 class="slds-text-heading_medium table-title">Pricing</h3>
+    <div class="table-heading">Tranche 1</div>
+    <div class="table">
+      <div if:true={isLoading} class="loading">
+        <lightning-spinner
+          alternative-text="Loading"
+          variant="brand"
+        ></lightning-spinner>
+      </div>
+      <template if:false={isLoading}>
+        <lightning-record-view-form
+          if:true={loan}
+          record-id={recordId}
+          object-api-name="OTF__c"
+        >
+          <div class="custom-field slds-p-vertical_x-small">
+            <div class="custom-label">Tranche Amount</div>
+            <div>
+              <!-- <lightning-output-field
+                variant="label-hidden"
+                field-name="TO FILL"
+              ></lightning-output-field> -->
+            </div>
+          </div>
+
+          <div class="custom-field slds-p-vertical_x-small">
+            <div class="custom-label">Fixed or Variable</div>
+            <div>
+              <lightning-output-field
+                variant="label-hidden"
+                field-name="Rate__c"
+              ></lightning-output-field>
+            </div>
+          </div>
+          <div class="custom-field slds-p-vertical_x-small">
+            <div class="custom-label">Margin (pa)</div>
+            <div>
+              <lightning-output-field
+                variant="label-hidden"
+                field-name="Margin__c "
+              ></lightning-output-field>
+            </div>
+          </div>
+          <div class="custom-field slds-p-vertical_x-small">
+            <div class="custom-label">Line Fee</div>
+            <div>
+              <!-- <lightning-output-field
+                variant="label-hidden"
+                field-name="TO FILL"
+              ></lightning-output-field> -->
+            </div>
+          </div>
+          <div class="custom-field slds-p-vertical_x-small">
+            <div class="custom-label">Benchmark</div>
+            <div>
+              <!-- <lightning-output-field
+                variant="label-hidden"
+                field-name="TO FILL"
+              ></lightning-output-field> -->
+            </div>
+          </div>
+          <div class="custom-field slds-p-vertical_x-small">
+            <div class="custom-label">Current Interest Rate</div>
+            <div>
+              <lightning-output-field
+                variant="label-hidden"
+                field-name="LVR__c"
+              ></lightning-output-field>
+            </div>
+          </div>
+          <div class="custom-field slds-p-vertical_x-small">
+            <div class="custom-label">Fixed Rate Period</div>
+            <div>
+              <!-- <lightning-output-field
+                variant="label-hidden"
+                field-name="TO FILL"
+              ></lightning-output-field> -->
+            </div>
+          </div>
+          <div class="custom-field slds-p-vertical_x-small">
+            <div class="custom-label">Interest Rate (pa)</div>
+            <div>
+              <!-- <lightning-output-field
+                    variant="label-hidden"
+                    field-name="TO FILL"
+                  ></lightning-output-field> -->
+            </div>
+          </div>
+          <div class="custom-field slds-p-vertical_x-small">
+            <div class="custom-label">Fixed Rate Commencement</div>
+            <div>
+              <!-- <lightning-output-field
+                variant="label-hidden"
+                field-name="TO FILL"
+              ></lightning-output-field> -->
+            </div>
+          </div>
+          <div class="custom-field slds-p-vertical_x-small">
+            <div class="custom-label">Fixed Rate Expiry</div>
+            <div>
+              <!-- <lightning-output-field
+                    variant="label-hidden"
+                    field-name="TO FILL"
+                  ></lightning-output-field> -->
+            </div>
+          </div>
+          <div class="custom-field slds-p-vertical_x-small">
+            <div class="custom-label">Fixed Rate maturity (years)</div>
+            <div>
+              <!-- <lightning-output-field
+                    variant="label-hidden"
+                    field-name="TO FILL"
+                  ></lightning-output-field> -->
+            </div>
+          </div>
+          <div class="custom-field slds-p-vertical_x-small">
+            <div class="custom-label">Other</div>
+            <div>
+              <!-- <lightning-output-field
+                    variant="label-hidden"
+                    field-name="TO FILL"
+                  ></lightning-output-field> -->
+            </div>
+          </div>
+        </lightning-record-view-form>
+        <div if:false={loan} class="no-data">There are no details to show</div>
+      </template>
+    </div>
+  </article>
 </template>
