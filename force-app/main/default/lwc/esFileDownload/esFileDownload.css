@@ -20,7 +20,7 @@ h3 {
 }
 
 .icon {
-  --sds-c-icon-color-foreground-default: #2494ab;
+  --sds-c-icon-color-foreground-default: var(--lwc-colorTextLink, rgb(228, 32, 40));
 }
 @media only screen and (min-width: 600px) {
   h3 {

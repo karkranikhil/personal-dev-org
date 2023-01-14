@@ -51,7 +51,6 @@ public with sharing class InfinityCurrentLoansController {
           Expiry_Date__c,
           Drawn__c,
           Term_Mnths__c,
-          Rate__c,
           Margin__c
         FROM OTF__c
         WHERE Id = :recordId
@@ -62,6 +61,32 @@ public with sharing class InfinityCurrentLoansController {
       }
 
       return otfs[0];
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+
+  @AuraEnabled
+  public static List<ContentDocumentLink> getExistingDocuments(
+    String recordId
+  ) {
+    try {
+      List<ContentDocumentLink> cdList = [
+        SELECT
+          Id,
+          ContentDocument.Id,
+          ContentDocument.LatestPublishedVersion.Title,
+          ContentDocument.FileExtension,
+          ContentDocument.LatestPublishedVersion.Id
+        FROM ContentDocumentLink
+        WHERE LinkedEntityId = :recordId
+        ORDER BY ContentDocument.LatestPublishedVersion.CreatedDate DESC
+      ];
+      if (cdList.size() > 0) {
+        return cdList;
+      } else {
+        return null;
+      }
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }

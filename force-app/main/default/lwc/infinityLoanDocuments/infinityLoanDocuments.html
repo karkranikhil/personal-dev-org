@@ -1,0 +1,43 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 01-14-2023
+  @last modified by  : ErickSixto
+-->
+<template>
+  <article class="details-container">
+    <div class="card">
+      <div if:true={isLoading} class="loading">
+        <lightning-spinner
+          alternative-text="Loading"
+          variant="brand"
+        ></lightning-spinner>
+      </div>
+      <template if:false={isLoading}>
+        <div>
+          <h3 class="slds-text-heading_medium table-title">Documents</h3>
+          <div if:true={documents} class="list">
+            <template
+              if:true={documents}
+              for:each={documents}
+              for:item="doc"
+              for:index="index"
+            >
+              <c-es-file-download
+                key={doc.url}
+                class="doc-display"
+                if:true={doc}
+                icon="utility:page"
+                name={doc.name}
+                extension={doc.extension}
+                url={doc.url}
+              >
+              </c-es-file-download>
+            </template>
+          </div>
+        </div>
+      </template>
+    </div>
+  </article>
+</template>

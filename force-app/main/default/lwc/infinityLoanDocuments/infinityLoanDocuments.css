@@ -1,0 +1,19 @@
+:host {
+  --color-background: white;
+}
+.card {
+  background-color: var(--color-background);
+  box-shadow: 2px 2px 10px #ccc;
+  margin-top: 3.9rem;
+  min-height: 125px;
+  padding: 8px 16px;
+  position: relative;
+  width: 100%;
+  border-radius: 2px;
+}
+.table-title {
+  color: var(--lwc-colorTextLink, rgb(228, 32, 40)) !important;
+  font-weight: bold;
+  border-bottom: 1px solid #d6d6d6;
+  padding: 12px 0;
+}

@@ -9,6 +9,7 @@
   padding: 8px 16px;
   position: relative;
   width: 100%;
+  border-radius: 2px;
 }
 .table {
   background-color: white;
