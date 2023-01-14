@@ -16,6 +16,14 @@
         onclick={handlePreview}
       ></lightning-icon>
     </div>
-    <h3><a href={url}>{textDisplay}</a></h3>
+
+    <p>
+      <lightning-formatted-url
+        value={url}
+        label={textDisplay}
+        tooltip="Omit leading slash"
+        target="_blank"
+      ></lightning-formatted-url>
+    </p>
   </div>
 </template>

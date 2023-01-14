@@ -9,6 +9,7 @@ export default class InfinityLoanDocuments extends LightningElement {
   @track error;
   @track documents = null;
   isLoading = true;
+  accept = ".csv,.doc,.xsl,.pdf,.png,.jpg,.jpeg,.docx,.doc";
 
   connectedCallback() {
     this.handleFetch();
@@ -43,8 +44,7 @@ export default class InfinityLoanDocuments extends LightningElement {
               PREVIEW_URL_PREFIX +
               doc.ContentDocument.LatestPublishedVersion.Id,
             name: doc.ContentDocument.LatestPublishedVersion.Title,
-            extension: doc.ContentDocument.FileExtension,
-            isViewable: !doc.ContentDocument.FileType.startsWith("image")
+            extension: doc.ContentDocument.FileExtension
           }));
           console.log(
             "@@ This documents",
@@ -59,5 +59,9 @@ export default class InfinityLoanDocuments extends LightningElement {
       .finally(() => {
         this.isLoading = false;
       });
+  }
+
+  handleUploadFinished() {
+    this.handleFetch();
   }
 }

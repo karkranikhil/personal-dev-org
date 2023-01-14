@@ -1,8 +1,9 @@
 .container {
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-start;
+  gap: 8px;
 }
 
 .icon-container {
@@ -11,10 +12,6 @@
   height: 100%;
   margin: 0 0.25rem;
   cursor: pointer;
-}
-h3 {
-  font-size: 0.65rem;
-  margin: 0 0.1rem 0 0.2rem;
 }
 .tooltip {
   margin: 0 0 1px 0.25rem;
@@ -25,29 +22,4 @@ h3 {
     --lwc-colorTextLink,
     rgb(228, 32, 40)
   );
-}
-@media only screen and (min-width: 600px) {
-  h3 {
-    margin: 0 0.1rem 0 0.15rem;
-    font-size: 0.75rem;
-  }
-}
-@media only screen and (min-width: 768px) {
-  h3 {
-    font-size: 0.65rem;
-  }
-}
-
-@media only screen and (min-width: 992px) {
-  h3 {
-    margin: 0 0.1rem 0 0.15rem;
-    font-size: 0.75rem;
-  }
-}
-
-@media only screen and (min-width: 1200px) {
-  h3 {
-    font-size: 0.75rem;
-    margin: 0 0.15rem 0 0.3rem;
-  }
 }

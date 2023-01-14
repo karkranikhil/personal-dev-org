@@ -38,6 +38,17 @@
               </c-es-file-download>
             </template>
           </div>
+          <div class="upload-container">
+            <lightning-file-upload
+              label="Upload New Document"
+              name="fileUploader"
+              accept={accept}
+              record-id={recordId}
+              onuploadfinished={handleUploadFinished}
+              multiple
+            >
+            </lightning-file-upload>
+          </div>
         </div>
       </template>
     </div>
