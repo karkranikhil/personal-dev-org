@@ -2,7 +2,7 @@
   @description       : 
   @author            : ErickSixto
   @group             : 
-  @last modified on  : 02-01-2022
+  @last modified on  : 01-14-2023
   @last modified by  : ErickSixto
 -->
 <template>
@@ -12,7 +12,8 @@
         class="icon"
         icon-name={icon}
         alternative-text="Doc image"
-        size="small"
+        size="x-small"
+        onclick={handlePreview}
       ></lightning-icon>
     </div>
     <h3><a href={url}>{textDisplay}</a></h3>

@@ -77,6 +77,7 @@ public with sharing class InfinityCurrentLoansController {
           ContentDocument.Id,
           ContentDocument.LatestPublishedVersion.Title,
           ContentDocument.FileExtension,
+          ContentDocument.FileType,
           ContentDocument.LatestPublishedVersion.Id
         FROM ContentDocumentLink
         WHERE LinkedEntityId = :recordId
@@ -90,6 +91,29 @@ public with sharing class InfinityCurrentLoansController {
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
+  }
+
+  @AuraEnabled(cacheable=true)
+  public static String getLoginURL() {
+    String baseURL = System.URL.getSalesforceBaseUrl().toExternalForm();
+    User userRecord = [
+      SELECT Id, AccountId, ContactId
+      FROM User
+      WHERE Id = :UserInfo.getUserId()
+    ];
+    if (userRecord.ContactId != null) {
+      baseUrl = getExperienceURL();
+    }
+    return baseUrl;
+  }
+
+  public static String getExperienceURL() {
+    String baseUrl = Network.getLoginUrl(Network.getNetworkId());
+    baseURL = baseURL.replace('/s/login', '');
+    baseURL = baseURL.replace('/s/Login', '');
+    baseURL = baseURL.replace('/login', '');
+    baseURL = baseURL.replace('/Login', '');
+    return baseURL;
   }
 
   public class LoanWrapper {

@@ -8,7 +8,6 @@ export default class InfinityLoanDetails extends LightningElement {
   isLoading = true;
 
   connectedCallback() {
-    console.log("@@recordId", this.recordId);
     this.handleFetch();
   }
   handleFetch() {
@@ -19,7 +18,7 @@ export default class InfinityLoanDetails extends LightningElement {
         console.log("this.loan: ", JSON.parse(JSON.stringify(this.loan)));
       })
       .catch((error) => {
-        console.log("@@error: ", JSON.parse(JSON.stringify(error)));
+        console.error("@@error: ", JSON.parse(JSON.stringify(error)));
         this.load = null;
       })
       .finally(() => {

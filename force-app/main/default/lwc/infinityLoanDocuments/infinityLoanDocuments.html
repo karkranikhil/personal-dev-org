@@ -28,10 +28,12 @@
                 key={doc.url}
                 class="doc-display"
                 if:true={doc}
-                icon="utility:page"
+                icon="utility:preview"
                 name={doc.name}
                 extension={doc.extension}
                 url={doc.url}
+                preview-url={doc.previewUrl}
+                doc-id={doc.Id}
               >
               </c-es-file-download>
             </template>

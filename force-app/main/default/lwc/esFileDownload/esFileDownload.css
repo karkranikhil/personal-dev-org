@@ -10,6 +10,7 @@
   align-items: center;
   height: 100%;
   margin: 0 0.25rem;
+  cursor: pointer;
 }
 h3 {
   font-size: 0.65rem;
@@ -20,7 +21,10 @@ h3 {
 }
 
 .icon {
-  --sds-c-icon-color-foreground-default: var(--lwc-colorTextLink, rgb(228, 32, 40));
+  --sds-c-icon-color-foreground-default: var(
+    --lwc-colorTextLink,
+    rgb(228, 32, 40)
+  );
 }
 @media only screen and (min-width: 600px) {
   h3 {
