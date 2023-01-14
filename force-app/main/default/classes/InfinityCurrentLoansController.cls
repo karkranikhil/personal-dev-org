@@ -70,26 +70,22 @@ public with sharing class InfinityCurrentLoansController {
   public static List<ContentDocumentLink> getExistingDocuments(
     String recordId
   ) {
-    try {
-      List<ContentDocumentLink> cdList = [
-        SELECT
-          Id,
-          ContentDocument.Id,
-          ContentDocument.LatestPublishedVersion.Title,
-          ContentDocument.FileExtension,
-          ContentDocument.FileType,
-          ContentDocument.LatestPublishedVersion.Id
-        FROM ContentDocumentLink
-        WHERE LinkedEntityId = :recordId
-        ORDER BY ContentDocument.LatestPublishedVersion.CreatedDate DESC
-      ];
-      if (cdList.size() > 0) {
-        return cdList;
-      } else {
-        return null;
-      }
-    } catch (Exception e) {
-      throw new AuraHandledException(e.getMessage());
+    List<ContentDocumentLink> cdList = [
+      SELECT
+        Id,
+        ContentDocument.Id,
+        ContentDocument.LatestPublishedVersion.Title,
+        ContentDocument.FileExtension,
+        ContentDocument.FileType,
+        ContentDocument.LatestPublishedVersion.Id
+      FROM ContentDocumentLink
+      WHERE LinkedEntityId = :recordId
+      ORDER BY ContentDocument.LatestPublishedVersion.CreatedDate DESC
+    ];
+    if (cdList.size() > 0) {
+      return cdList;
+    } else {
+      return null;
     }
   }
 
