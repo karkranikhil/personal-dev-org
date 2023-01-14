@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 01-11-2023
+ * @last modified on  : 01-14-2023
  * @last modified by  : ErickSixto
  **/
 public with sharing class InfinityCurrentLoansController {
@@ -31,6 +31,37 @@ public with sharing class InfinityCurrentLoansController {
         loans.add(wrapper);
       }
       return loans;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+  @AuraEnabled
+  public static OTF__c getLoanByRecordId(Id recordId) {
+    try {
+      List<LoanWrapper> loans = new List<LoanWrapper>();
+      List<OTF__c> otfs = [
+        SELECT
+          Id,
+          Borrower__c,
+          Security_Address__c,
+          Limit__c,
+          Lender__r.Name,
+          Rate__c,
+          LVR__c,
+          Expiry_Date__c,
+          Drawn__c,
+          Term_Mnths__c,
+          Rate__c,
+          Margin__c
+        FROM OTF__c
+        WHERE Id = :recordId
+      ];
+
+      if (otfs.isEmpty()) {
+        return null;
+      }
+
+      return otfs[0];
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }

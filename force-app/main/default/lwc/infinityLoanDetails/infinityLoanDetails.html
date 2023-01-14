@@ -1,0 +1,251 @@
+<!--
+  @description       : 
+  @author            : ErickSixto
+  @group             : 
+  @last modified on  : 01-14-2023
+  @last modified by  : ErickSixto
+-->
+<template>
+  <article class="details-container">
+    <h3 class="slds-text-heading_medium table-title">Loan Details</h3>
+    <div class="card">
+      <div if:true={isLoading} class="loading">
+        <lightning-spinner
+          alternative-text="Loading"
+          variant="brand"
+        ></lightning-spinner>
+      </div>
+      <template if:false={isLoading}>
+        <lightning-record-view-form
+          if:true={loan}
+          record-id={recordId}
+          object-api-name="OTF__c"
+        >
+          <lightning-layout
+            multiple-rows
+            horizontal-align="spread"
+            vertical-align="start"
+          >
+            <lightning-layout-item
+              size="6"
+              small-device-size="12"
+              medium-device-size="6"
+              large-device-size="6"
+              padding="horizontal-medium"
+            >
+              <div class="custom-field slds-p-vertical_x-small">
+                <div class="slds-col slds-p-right_small custom-label">
+                  Borrower
+                </div>
+                <div>
+                  <lightning-output-field
+                    variant="label-hidden"
+                    field-name="Borrower__c"
+                  ></lightning-output-field>
+                </div>
+              </div>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              small-device-size="12"
+              medium-device-size="6"
+              large-device-size="6"
+              padding="horizontal-medium"
+            >
+              <div class="custom-field slds-p-vertical_x-small">
+                <div class="slds-col slds-p-right_small custom-label">
+                  Facility Commencement
+                </div>
+                <div>
+                  <!-- <lightning-output-field
+                  variant="label-hidden"
+                  field-name="TO FILL"
+                ></lightning-output-field> -->
+                </div>
+              </div>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              small-device-size="12"
+              medium-device-size="6"
+              large-device-size="6"
+              padding="horizontal-medium"
+            >
+              <div class="custom-field slds-p-vertical_x-small">
+                <div class="slds-col slds-p-right_small custom-label">
+                  Property
+                </div>
+                <div>
+                  <lightning-output-field
+                    variant="label-hidden"
+                    field-name="Security_Address__c"
+                  ></lightning-output-field>
+                </div>
+              </div>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              small-device-size="12"
+              medium-device-size="6"
+              large-device-size="6"
+              padding="horizontal-medium"
+            >
+              <div class="custom-field slds-p-vertical_x-small">
+                <div class="slds-col slds-p-right_small custom-label">
+                  Facility Expiry
+                </div>
+                <div>
+                  <lightning-output-field
+                    variant="label-hidden"
+                    field-name="Expiry_Date__c"
+                  ></lightning-output-field>
+                </div>
+              </div>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              small-device-size="12"
+              medium-device-size="6"
+              large-device-size="6"
+              padding="horizontal-medium"
+            >
+              <div class="custom-field slds-p-vertical_x-small">
+                <div class="slds-col slds-p-right_small custom-label">
+                  Lender
+                </div>
+                <div>
+                  <p>
+                    <lightning-formatted-text
+                      value={loan.Lender__r.Name}
+                    ></lightning-formatted-text>
+                  </p>
+                </div>
+              </div>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              small-device-size="12"
+              medium-device-size="6"
+              large-device-size="6"
+              padding="horizontal-medium"
+            >
+              <div class="custom-field slds-p-vertical_x-small">
+                <div class="slds-col slds-p-right_small custom-label">
+                  Current LVR
+                </div>
+                <div>
+                  <lightning-output-field
+                    variant="label-hidden"
+                    field-name="LVR__c"
+                  ></lightning-output-field>
+                </div>
+              </div>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              small-device-size="12"
+              medium-device-size="6"
+              large-device-size="6"
+              padding="horizontal-medium"
+            >
+              <div class="custom-field slds-p-vertical_x-small">
+                <div class="slds-col slds-p-right_small custom-label">
+                  Facility Limit
+                </div>
+                <div>
+                  <lightning-output-field
+                    variant="label-hidden"
+                    field-name="Limit__c"
+                  ></lightning-output-field>
+                </div>
+              </div>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              small-device-size="12"
+              medium-device-size="6"
+              large-device-size="6"
+              padding="horizontal-medium"
+            >
+              <div class="custom-field slds-p-vertical_x-small">
+                <div class="slds-col slds-p-right_small custom-label">
+                  Interest Rate (pa)
+                </div>
+                <div>
+                  <!-- <lightning-output-field
+                    variant="label-hidden"
+                    field-name="TO FILL"
+                  ></lightning-output-field> -->
+                </div>
+              </div>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              small-device-size="12"
+              medium-device-size="6"
+              large-device-size="6"
+              padding="horizontal-medium"
+            >
+              <div class="custom-field slds-p-vertical_x-small">
+                <div class="slds-col slds-p-right_small custom-label">
+                  Drawm Amount
+                </div>
+                <div>
+                  <lightning-output-field
+                    variant="label-hidden"
+                    field-name="Drawn__c"
+                  ></lightning-output-field>
+                </div>
+              </div>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              small-device-size="12"
+              medium-device-size="6"
+              large-device-size="6"
+              padding="horizontal-medium"
+            >
+              <div class="custom-field slds-p-vertical_x-small">
+                <div class="slds-col slds-p-right_small custom-label">
+                  Debt Maturity (years)
+                </div>
+                <div>
+                  <!-- <lightning-output-field
+                    variant="label-hidden"
+                    field-name="TO FILL"
+                  ></lightning-output-field> -->
+                </div>
+              </div>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              small-device-size="12"
+              medium-device-size="6"
+              large-device-size="6"
+              padding="horizontal-medium"
+            >
+              <div class="custom-field slds-p-vertical_x-small">
+                <div class="slds-col slds-p-right_small custom-label">
+                  Facility Term
+                </div>
+                <div class="custom-field">
+                  <lightning-output-field
+                    variant="label-hidden"
+                    field-name="Term_Mnths__c"
+                  ></lightning-output-field>
+                  <p>
+                    &nbsp;
+                    <lightning-formatted-text
+                      value="years"
+                    ></lightning-formatted-text>
+                  </p>
+                </div>
+              </div>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-record-view-form>
+        <div if:false={loan} class="no-data">There are no details to show</div>
+      </template>
+    </div>
+  </article>
+</template>
