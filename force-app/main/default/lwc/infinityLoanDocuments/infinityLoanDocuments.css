@@ -14,7 +14,6 @@
 .table-title {
   color: var(--lwc-colorTextLink, rgb(228, 32, 40)) !important;
   font-weight: bold;
-  border-bottom: 1px solid #d6d6d6;
   padding: 12px 0;
 }
 
@@ -36,6 +35,5 @@
   align-items: center;
   justify-content: center;
   padding: 1.5rem 0;
-  border-top: 1px solid #d6d6d6;
   margin-top: 1rem;
 }

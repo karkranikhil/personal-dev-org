@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 01-14-2023
+ * @last modified on  : 01-15-2023
  * @last modified by  : ErickSixto
  **/
 public with sharing class InfinityCurrentLoansController {
@@ -42,16 +42,28 @@ public with sharing class InfinityCurrentLoansController {
       List<OTF__c> otfs = [
         SELECT
           Id,
-          Borrower__c,
-          Security_Address__c,
+          Name,
           Limit__c,
-          Lender__r.Name,
-          Rate__c,
+          Borrower__c,
           LVR__c,
+          Lender__c,
+          Lender__r.Name,
           Expiry_Date__c,
+          Security_Address__c,
+          Asset_Class__c,
+          Purchase__c,
+          Purchase_Date__c,
+          Valuation__c,
+          Valuation_Date__c,
+          Valuer__c,
+          Facility_Type__c,
           Drawn__c,
+          Base_Rate__c,
+          Margin__c,
           Term_Mnths__c,
-          Margin__c
+          Start_Date__c,
+          ICR__c,
+          WALE__c
         FROM OTF__c
         WHERE Id = :recordId
       ];
