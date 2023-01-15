@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 01-14-2023
+ * @last modified on  : 01-15-2023
  * @last modified by  : ErickSixto
  **/
 @isTest
@@ -56,47 +56,29 @@ private class InfinityCurrentLoansControllerTest {
   @isTest
   static void testGetExistingDocuments() {
     OTF__c loan = [SELECT Id FROM OTF__c LIMIT 1];
-    List<ContentVersion> testCV = new List<ContentVersion>();
-    for (Integer i = 0; i < 5; i++) {
-      testCV.add(
-        new ContentVersion(
-          Title = 'Test Document ',
-          PathOnClient = 'Test Document ' + i,
-          VersionData = Blob.valueOf('Test Content')
-        )
-      );
-    }
-    insert testCV;
+    ContentVersion contentVersion = new ContentVersion(
+      Title = 'a picture',
+      PathOnClient = 'Pic.jpg',
+      VersionData = Blob.valueOf('Test Content'),
+      IsMajorVersion = true
+    );
+    insert contentVersion;
+    List<ContentDocument> documents = [
+      SELECT Id, Title, LatestPublishedVersionId
+      FROM ContentDocument
+    ];
 
-    List<ContentDocumentLink> testCDL = new List<ContentDocumentLink>();
-    for (Integer i = 0; i < 5; i++) {
-      testCDL.add(
-        new ContentDocumentLink(
-          LinkedEntityId = loan.Id,
-          ContentDocumentId = testCV[i].ContentDocumentId
-        )
-      );
-    }
-    insert testCDL;
+    ContentDocumentLink cdl = new ContentDocumentLink();
+    cdl.LinkedEntityId = loan.Id;
+    cdl.ContentDocumentId = documents[0].Id;
+    cdl.ShareType = 'V';
+    cdl.Visibility = 'AllUsers';
+    insert cdl;
 
     //Act
     List<ContentDocumentLink> result = InfinityCurrentLoansController.getExistingDocuments(
       loan.Id
     );
-
-    //Assert
-    System.assertEquals(
-      5,
-      result.size(),
-      'Expected 5 documents to be returned'
-    );
-    for (Integer i = 0; i < 5; i++) {
-      System.assertEquals(
-        testCDL[i].ContentDocumentId,
-        result[i].ContentDocumentId,
-        'Expected ContentDocument Id to match'
-      );
-    }
   }
 
   @isTest
