@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 01-15-2023
+ * @last modified on  : 01-19-2023
  * @last modified by  : ErickSixto
  **/
 public with sharing class InfinityCurrentLoansController {
@@ -21,6 +21,7 @@ public with sharing class InfinityCurrentLoansController {
           LVR__c,
           Expiry_Date__c
         FROM OTF__c
+        LIMIT 25
       ];
 
       if (otfs.isEmpty()) {
@@ -117,6 +118,7 @@ public with sharing class InfinityCurrentLoansController {
 
   public static String getExperienceURL() {
     String baseUrl = Network.getLoginUrl(Network.getNetworkId());
+    if(baseUrl == null) return null;
     baseURL = baseURL.replace('/s/login', '');
     baseURL = baseURL.replace('/s/Login', '');
     baseURL = baseURL.replace('/login', '');

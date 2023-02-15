@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ErickSixto
  * @group             :
- * @last modified on  : 01-15-2023
+ * @last modified on  : 01-19-2023
  * @last modified by  : ErickSixto
  **/
 @isTest
@@ -27,17 +27,6 @@ private class InfinityCurrentLoansControllerTest {
       );
     }
     insert testOTF;
-
-    List<ContentDocumentLink> testCDL = new List<ContentDocumentLink>();
-    for (Integer i = 0; i < 5; i++) {
-      testCDL.add(
-        new ContentDocumentLink(
-          LinkedEntityId = testOTF[i].Id,
-          ContentDocumentId = '0691e000000yjnIAAQ'
-        )
-      );
-    }
-    insert testCDL;
   }
 
   @isTest
@@ -84,5 +73,9 @@ private class InfinityCurrentLoansControllerTest {
   @isTest
   static void testGetLoginURL() {
     String result = InfinityCurrentLoansController.getLoginURL();
+  }
+  @isTest
+  static void testGetExperienceURL() {
+    String result = InfinityCurrentLoansController.getExperienceURL();
   }
 }
