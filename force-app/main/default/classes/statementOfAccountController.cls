@@ -1,13 +1,16 @@
-public class StatementOfAccountController {
-    public String contactId { get; set; }
-    public Contact contact { get; set; }
-    public String project { get; set; }
-    public List<pba_financial__Payment__c> payments { get; set; }
+public class StatementOfAccountController{
+    public String contactId{ get; set; }
 
-    public StatementOfAccountController() {
+    public Contact contact{ get; set; }
+
+    public String project{ get; set; }
+
+    public List<pba_financial__Payment__c> payments{ get; set; }
+
+    public StatementOfAccountController(){
         contactId = ApexPages.currentPage().getParameters().get('contactId');
 
-        if (contactId != null) {
+        if (contactId != null){
             contact = [SELECT Id, FirstName, LastName, Email, Phone, Listing_Adquirido__c, Idioma_de_Preferencia__c
                        FROM Contact
                        WHERE Id = :contactId];
@@ -15,7 +18,27 @@ public class StatementOfAccountController {
                                                                                                                                                                             FROM Cash__r)
                         FROM pba_financial__Payment__c
                         WHERE pba_financial__Contact__c = :contactId];
-            project = [SELECT Id, Proyecto__c FROM pba_financial__Cash__c WHERE pba_financial__Contact__c =:contactId ORDER BY CreatedDate DESC LIMIT 1]?.Proyecto__c;
+            project = [SELECT Id, Proyecto__c
+                       FROM pba_financial__Cash__c
+                       WHERE pba_financial__Contact__c = :contactId
+                       ORDER BY CreatedDate DESC
+                       LIMIT 1]?.Proyecto__c;
         }
     }
+
+    @AuraEnabled
+    public static Boolean isValid(Id contactId){
+        try{
+            List<pba_financial__Payment__c> payments = [SELECT Id
+                                                        FROM pba_financial__Payment__c
+                                                        WHERE pba_financial__Contact__c = :contactId];
+            List<pba_financial__Cash__c> cashs = [SELECT Id
+                                                  FROM pba_financial__Cash__c
+                                                  WHERE pba_financial__Contact__c = :contactId];
+            return !cashs.isEmpty() && !payments.isEmpty();
+        } catch (Exception e){
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
 }

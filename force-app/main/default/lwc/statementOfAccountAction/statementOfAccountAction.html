@@ -1,21 +1,37 @@
 <template>
-  <lightning-quick-action-panel header="Estado de Cuenta">
-    Generación de estado de cuenta del cliente <b>{firstName} {lastName}</b>
-
-    <div class="pdf-container" if:true={recordId}>
-      <div class="slds-p-around_large">
-        <!--IFRAME -->
-        <iframe src={invoicePdfUrl} height="550" width="550"></iframe>
-      </div>
-    </div>
-
-    <div slot="footer">
-      <lightning-button variant="neutral" label="Save"></lightning-button>
-      <lightning-button
+  <lightning-quick-action-panel if:true={recordId} header="Estado de Cuenta">
+    <div if:true={isLoading} class="slds-is-relative spinner-container">
+      <lightning-spinner
+        alternative-text="Loading..."
         variant="brand"
-        label="Save and Email"
-        class="slds-m-left_x-small"
-      ></lightning-button>
+        size="medium"
+      ></lightning-spinner>
     </div>
+    <template if:false={isLoading}>
+      <section if:true={isValid} class="content">
+        Generación de estado de cuenta del cliente <b>{firstName} {lastName}</b>
+
+        <div class="pdf-container">
+          <div class="slds-p-around_large">
+            <!--IFRAME -->
+            <iframe src={invoicePdfUrl} height="550" width="550"></iframe>
+          </div>
+        </div>
+
+        <div slot="footer">
+          <lightning-button variant="neutral" label="Save"></lightning-button>
+          <lightning-button
+            variant="brand"
+            label="Save and Email"
+            class="slds-m-left_x-small"
+          ></lightning-button>
+        </div>
+      </section>
+
+      <div if:false={isValid} class="no-data">
+        El estado de cuenta no se puede generar dado que la persona no cuenta
+        con ningún pago asignado.
+      </div></template
+    >
   </lightning-quick-action-panel>
 </template>

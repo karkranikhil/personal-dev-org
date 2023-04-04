@@ -3,3 +3,23 @@
   align-items: center;
   justify-content: center;
 }
+
+.content {
+  text-align: center;
+}
+
+.no-data {
+  font-size: 1rem;
+  font-weight: bold;
+  color: rgb(153 0 0);
+  min-height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.spinner-container {
+  min-height: 5rem;
+  margin: auto;
+}
