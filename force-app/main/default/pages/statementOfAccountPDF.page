@@ -39,7 +39,7 @@
             } 
             
             div.content {
-                padding-top: 280px;
+                padding-top: 250px;
                 margin-left: 50px;
                 margin-right: 50px;
                 font-size:90%;
@@ -49,20 +49,36 @@
                 padding-top: 40px;
                 text-align: center;
             }
+            .headline{
+                font-size: 1.25rem;
+                text-align: center;
+            }
         </style>
     </head>
 
-<apex:form id="statementForm">
-    
-        <apex:outputPanel id="statementPanel" layout="block">
-            <h1>contactId</h1>
-            <h1>{!contact.FirstName} {!contact.LastName}</h1>
-            <p>{!contact.Email}</p>
-            <p>{!contact.Phone}</p>
-            <p>{!contact.Listing_Adquirido__c}</p>
+<body style="font-family: 'Helvetica', 'Arial', sans-serif !important;">
+    <div class="header">
+        <apex:variable var="imageVar" value="{!'Logos/'+SUBSTITUTE(project,' ','_')+'.png'}" />
+        <apex:image value="{!URLFOR($Resource.Logos,imageVar)}" height="auto" width="250" />
+        <p>
+            <!--Spanish Title-->
+            <apex:outputPanel rendered="{!contact.Idioma_de_Preferencia__c == 'Español' }">
+                <strong>ESTADO DE CUENTA</strong>
+            </apex:outputPanel>
+
+            <!--English Title-->
+            <apex:outputPanel rendered="{!contact.Idioma_de_Preferencia__c != 'Español' }">
+                <strong>STATEMENT OF ACCOUNT</strong>
+            </apex:outputPanel>
+        </p>
+        <hr style="margin-left: 50px;margin-right: 50px;" />
+    </div>
+
+    <div class="content">
+        <h2 class='headline'>{!contact.FirstName} {!contact.LastName}</h2>
 
             <apex:repeat value="{!payments}" var="payment">
-                <h3>{!payment.Name} - {!payment.pba_financial__Total_Amount__c}</h3>
+                <h4>{!payment.Name} - {!payment.pba_financial__Total_Amount__c}</h4>
                 <table>
                     <thead>
                         <tr>
@@ -92,6 +108,6 @@
                     </tbody>
                 </table>
             </apex:repeat>
-        </apex:outputPanel>
-    </apex:form>
+</div>
+</body>
 </apex:page>
