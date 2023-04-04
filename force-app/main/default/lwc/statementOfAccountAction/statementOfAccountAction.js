@@ -22,6 +22,11 @@ export default class StatementOfAccountAction extends LightningElement {
   get lastName() {
     return this.contact.data ? this.contact.data.fields.LastName.value : null;
   }
+
+  get invoicePdfUrl() {
+    return `/apex/statementOfAccountPDF?contactId=${this.recordId}`;
+  }
+
   handleSuccess(e) {
     // Close the modal window and display a success toast
     this.dispatchEvent(new CloseActionScreenEvent());

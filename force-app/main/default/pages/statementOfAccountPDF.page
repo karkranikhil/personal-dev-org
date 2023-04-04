@@ -1,0 +1,97 @@
+<apex:page applyBodyTag="false" showHeader="false" sidebar="false" readOnly="true" renderAs="pdf" docType="html-5.0" controller="StatementOfAccountController">
+    <head>
+        <!--Style-->
+        <style type="text/css" media="all">
+            @page {
+                size: a4 portrait;    
+                padding-left: 2px;    
+                padding-right: 2px;                
+            
+                @top-center {
+                    content: element(header);
+                }
+            
+                @bottom-center {
+                 content: element(footer);
+                }
+            }
+    
+            div.header {
+                text-align: center;
+                position: running(header);
+            }
+            
+            div.footer {
+                display: block;
+                padding: 5px;
+                position: running(footer);
+            }
+            
+            div.header hr { 
+              display: block;
+              margin-top: 0.5em;
+              margin-bottom: 0.5em;
+              margin-left: auto;
+              margin-right: auto;
+              border-style: inset;
+              border-width: 0.5px;
+              background-color: gray;
+            } 
+            
+            div.content {
+                padding-top: 280px;
+                margin-left: 50px;
+                margin-right: 50px;
+                font-size:90%;
+            }
+            
+            div.signature{
+                padding-top: 40px;
+                text-align: center;
+            }
+        </style>
+    </head>
+
+<apex:form id="statementForm">
+    
+        <apex:outputPanel id="statementPanel" layout="block">
+            <h1>contactId</h1>
+            <h1>{!contact.FirstName} {!contact.LastName}</h1>
+            <p>{!contact.Email}</p>
+            <p>{!contact.Phone}</p>
+            <p>{!contact.Listing_Adquirido__c}</p>
+
+            <apex:repeat value="{!payments}" var="payment">
+                <h3>{!payment.Name} - {!payment.pba_financial__Total_Amount__c}</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cash Name</th>
+                            <th>Amount</th>
+                            <th>Receipt Number</th>
+                            <th>Receipt Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!payment.Cash__r}" var="cash">
+                            <tr>
+                                <td>{!cash.Name}</td>
+                                <td>{!cash.pba_financial__Amount__c}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <!-- <apex:repeat value="{!cash.Receipts}" var="receipt">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{!receipt.Name}</td>
+                                    <td>{!receipt.pba_financial__Allocated_Amount__c}</td>
+                                </tr>
+                            </apex:repeat> -->
+                        </apex:repeat>
+                    </tbody>
+                </table>
+            </apex:repeat>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,131 @@
+<!--
+Component Name : InvoiceGeneration
+Decription : this component call vf page & save PDF page preview as attachment
+-->
+<aura:component controller="InvoiceGenerationController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,lightning:isUrlAddressable" access="global" >
+	<aura:html tag="style">
+        .slds-spinner_container{
+        	background: transparent !important;
+        }
+        .slds-modal__content.slds-p-around--medium {
+        	visibility: hidden;
+        }
+        .modal-body {
+            background: transparent !important;
+            box-shadow: none !important;
+        }    
+        .slds-modal__header--empty {
+        	display: none !important;
+        }
+        .modal-container{
+            width: 85% !important;
+            max-width: initial !important;
+        }
+        .slds-modal__header{
+        	background-color: #14a4b9 !Important;
+        }
+        .title {
+        	color: white !Important;
+        }
+    </aura:html>
+    
+    <!--Attributes-->
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="selectedReceiptId" type="String"/>
+    <aura:attribute name="lstReceipts" type="List"/>
+    <aura:attribute name="isNewTab" type="boolean" default="false"/>
+    <aura:attribute name="isShowSpinner" type="boolean" default="false"/>
+    <aura:attribute name="pageReference" type="Object"/>
+    
+    <!--handler-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:navigation aura:id="navService"/>
+    
+    <!-- Spinner Start, show the loading screen while Client side controller(JS) is communicating with Server Side(APEX) controller -->
+    <aura:if isTrue="{!v.isShowSpinner}">
+        <lightning:spinner alternativeText="Loading" size="large" variant="brand"/>
+    </aura:if>
+    <!-- Spinner End -->
+    
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+        <div class="slds-modal__container">
+            <!--Header-->
+            <header class="slds-modal__header">
+                <h4 class="title slds-text-title_bold">Invoice Generation</h4>
+            </header>
+            <!--Header-->
+            
+            <!--Body-->
+            <div class="slds-modal__content slds-scrollable--y slds-p-around_medium slds-size_1-of-1 slds-is-relative">
+                <lightning:card title="Invoice" class="slds-p-around_large">
+                    <p class="slds-p-horizontal_small">
+                        <!--START: Receipt Selection-->
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" aria-label="Example table of Opportunities with vertical borders">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title=""></div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Receipt #">Receipt #</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Allocated Amount">Allocated Amount</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="To Payment">To Payment</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Fecha de Recibo">Fecha de Recibo</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.lstReceipts}" var="objReceipt" indexVar="rowNumber">
+                                    <tr class="slds-hint-parent">
+                                        <td>
+                                            <lightning:input type="checkbox-button" label="{!objReceipt.Id}" name="input1" variant="label-hidden" checked="{!objReceipt.selected}" onclick="{!c.handleReceiptSelection}"/>
+                                        </td>
+                                        <th data-label="Receipt #" scope="row">
+                                            <div class="slds-truncate" title="{!objReceipt.Name}">
+                                                <a href="{!'/'+objReceipt.Id}" target="_blank">{!objReceipt.Name}</a>
+                                            </div>
+                                        </th>
+                                        <td data-label="Allocated Amount">
+                                            <div class="slds-truncate" title="{!objReceipt.pba_financial__Allocated_Amount__c}">{!objReceipt.pba_financial__Allocated_Amount__c}</div>
+                                        </td>
+                                        <td data-label="To Payment">
+                                            <div class="slds-truncate" title="{!objReceipt.Name}">
+                                                <a href="{!'/'+objReceipt.pba_financial__Payment__c}" target="_blank">{!objReceipt.pba_financial__Payment__r.Name}</a>
+                                            </div>
+                                        </td>
+                                        <td data-label="Allocated Amount">
+                                            <div class="slds-truncate"><lightning:input type="date" value="{!objReceipt.FechadeRecibo__c}" label="Short Date"  dateStyle="short" variant="label-hidden" disabled="true"/></div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                        <!--END: Receipt Selection-->
+                        
+                        <aura:if isTrue="{!not(empty(v.selectedReceiptId))}">
+                            <div class="slds-p-around_large">
+                                <!--IFRAME -->
+                                <iframe src="{!'/apex/InvoicePDF?id='+v.selectedReceiptId}" height="550" width="850"/>
+                            </div>
+                        </aura:if>
+                    </p>
+                </lightning:card>
+            </div>
+            <!--Body-->
+            
+            <!--Footer-->
+            <div class="slds-modal__footer slds-size_1-of-1">
+                <lightning:button variant="brand" label="Save &amp; Email" onclick="{!c.handleSaveAndEmail}"/>
+                <lightning:button variant="Neutral" class="slds-button" label="Cancel" onclick="{!c.handleCancel}"/>
+            </div>
+            <!--Footer-->
+            
+        </div>
+    </section>
+</aura:component>

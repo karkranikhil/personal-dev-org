@@ -1,0 +1,119 @@
+<apex:page standardController="pba_financial__Receipt__c" applyBodyTag="false" showHeader="false" sidebar="false" readOnly="true" renderAs="pdf" docType="html-5.0">
+    <head>
+        <!--Style-->
+        <style type="text/css" media="all">
+            @page {
+                size: a4 portrait;    
+                padding-left: 2px;    
+                padding-right: 2px;                
+            
+                @top-center {
+                    content: element(header);
+                }
+            
+                @bottom-center {
+                 content: element(footer);
+                }
+            }
+    
+            div.header {
+                text-align: center;
+                position: running(header);
+            }
+            
+            div.footer {
+                display: block;
+                padding: 5px;
+                position: running(footer);
+            }
+            
+            div.header hr { 
+              display: block;
+              margin-top: 0.5em;
+              margin-bottom: 0.5em;
+              margin-left: auto;
+              margin-right: auto;
+              border-style: inset;
+              border-width: 0.5px;
+              background-color: gray;
+            } 
+            
+            div.content {
+                padding-top: 280px;
+                margin-left: 50px;
+                margin-right: 50px;
+                font-size:90%;
+            }
+            
+            div.signature{
+                padding-top: 40px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body style="font-family: 'Helvetica', 'Arial', sans-serif !important;">
+        <div class="header">
+            <apex:variable var="imageVar" value="{!'Logos/'+SUBSTITUTE(pba_financial__Receipt__c.pba_financial__From_Cash__r.Proyecto__c,' ','_')+'.png'}"/>
+            <apex:image value="{!URLFOR($Resource.Logos,imageVar)}" height="auto" width="250"/>
+            <p>
+                <!--Spanish Title-->
+                <apex:outputPanel rendered="{!pba_financial__Receipt__c.pba_financial__From_Cash__r.pba_financial__Contact__r.Idioma_de_Preferencia__c == 'Español' }">
+                    <strong>RECIBO DE PAGO</strong>
+                </apex:outputPanel>
+                
+                <!--English Title-->
+                <apex:outputPanel rendered="{!pba_financial__Receipt__c.pba_financial__From_Cash__r.pba_financial__Contact__r.Idioma_de_Preferencia__c != 'Español' }">
+                    <strong>RECEIPT OF PAYMENT</strong>
+                </apex:outputPanel>
+            </p>
+            <hr style="margin-left: 50px;margin-right: 50px;"/>
+        </div>
+        
+        <div class="content">
+            <!--START: Spanish-->
+            <apex:outputPanel rendered="{!pba_financial__Receipt__c.pba_financial__From_Cash__r.pba_financial__Contact__r.Idioma_de_Preferencia__c == 'Español' }">
+                La empresa {!CASE(pba_financial__Receipt__c.pba_financial__From_Cash__r.Proyecto__c,'Blumarina Suites & Plaza','ULTRABLU SRL','Cana Rock Condos','INVERSIONES 40 20 40 SRL','Cana Rock Galaxy','INVERSIONES 384858 SRL','Cana Rock Space','INVERSIONES 152535 SRL','Cana Rock Star','DESARROLLO 50 70 90 SRL','Cana Rock Stelar','SOLENTO INVERSIONES SRL','Cana Rock Terra','DESARROLLOS TURISTICOS DEL CARIBE DETURCA SRL','Cana Rock Universe','PROMOTORA DEPROTUR SRL','Cana Rock Cosmos','SOLENTO INVERSIONES SRL','')} , ha recibido de <strong>{!pba_financial__Receipt__c.pba_financial__From_Cash__r.pba_financial__Contact__r.Name},</strong> en nuestra cuenta de banco 
+                <strong>{!pba_financial__Receipt__c.pba_financial__From_Cash__r.Banco__c}</strong> un importe total de <strong>US ${!pba_financial__Receipt__c.pba_financial__Allocated_Amount__c}</strong> correspondiente a:
+                
+                <div style="margin-top:45px;">
+                    &nbsp;&nbsp;&nbsp;1. {!pba_financial__Receipt__c.pba_financial__From_Cash__r.pba_financial__Description__c} de su unidad {!pba_financial__Receipt__c.pba_financial__From_Cash__r.Unidad__c} en fecha 
+                    <apex:outputText value="{0, date, dd/MM/yyyy}" rendered="{!pba_financial__Receipt__c.FechadeRecibo__c != null}">
+                        <apex:param value="{!pba_financial__Receipt__c.FechadeRecibo__c}" /> 
+                    </apex:outputText>.
+                </div>
+                
+                <div style="margin-top:45px;">
+                    En la ciudad de Punta Cana, La Altagracia R.D. el día 
+                    {!DAY(TODAY())} {!CASE(MONTH(TODAY()),1," enero",2," febrero",3," marzo",4," abril",5," mayo",6," junio",7," julio",8," agosto",9," septiembre",10,"octubre",11,"noviembre",12,"diciembre","")} de {!YEAR(TODAY())}.
+                </div>
+            </apex:outputPanel>
+            <!--Spanish End-->
+             
+            <!--START: English-->
+            <apex:outputPanel rendered="{!pba_financial__Receipt__c.pba_financial__From_Cash__r.pba_financial__Contact__r.Idioma_de_Preferencia__c != 'Español' }">
+                The company {!CASE(pba_financial__Receipt__c.pba_financial__From_Cash__r.Proyecto__c,'Blumarina Suites & Plaza','ULTRABLU SRL','Cana Rock Condos','INVERSIONES 40 20 40 SRL','Cana Rock Galaxy','INVERSIONES 384858 SRL','Cana Rock Space','INVERSIONES 152535 SRL','Cana Rock Star','DESARROLLO 50 70 90 SRL','Cana Rock Stelar','SOLENTO INVERSIONES SRL','Cana Rock Terra','DESARROLLOS TURISTICOS DEL CARIBE DETURCA SRL','Cana Rock Universe','PROMOTORA DEPROTUR SRL','Cana Rock Cosmos','SOLENTO INVERSIONES SRL','')}, has received from <strong>{!pba_financial__Receipt__c.pba_financial__From_Cash__r.pba_financial__Contact__r.Name},</strong> in our bank account  
+                <strong>{!pba_financial__Receipt__c.pba_financial__From_Cash__r.Banco__c}</strong> a total amount of  <strong>US ${!pba_financial__Receipt__c.pba_financial__Allocated_Amount__c}</strong> corresponding to:
+                
+                <div style="margin-top:45px;">
+                    &nbsp;&nbsp;&nbsp;1. {!pba_financial__Receipt__c.pba_financial__From_Cash__r.pba_financial__Description__c} of your apartment {!pba_financial__Receipt__c.pba_financial__From_Cash__r.Unidad__c} on date 
+                    <apex:outputText value="{0, date, dd/MM/yyyy}" rendered="{!pba_financial__Receipt__c.FechadeRecibo__c != null}">
+                        <apex:param value="{!pba_financial__Receipt__c.FechadeRecibo__c}" /> 
+                    </apex:outputText>.
+                </div>
+                
+                <div style="margin-top:45px;">
+                    In the city of Punta Cana, La Altagracia R.D. the day of&nbsp;
+                    <apex:outputText value="{0, date, medium}">
+                        <apex:param value="{!Today()}" /> 
+                    </apex:outputText>. 
+                </div>
+            </apex:outputPanel>
+        </div>
+        
+        <div class="signature">
+            <apex:image value="{!URLFOR($Resource.Logos,'Logos/Signature.jpg')}" height="auto" width="300"/><br/>
+            <apex:variable var="stampVar" value="{!'Logos/Stamp_'+SUBSTITUTE(pba_financial__Receipt__c.pba_financial__From_Cash__r.Proyecto__c,' ','_')+'.png'}"/>
+            <apex:image value="{!URLFOR($Resource.Logos,stampVar)}" height="auto" width="200" style="float:left;padding-left:10%;"/>
+        </div>
+    </body>
+</apex:page>
