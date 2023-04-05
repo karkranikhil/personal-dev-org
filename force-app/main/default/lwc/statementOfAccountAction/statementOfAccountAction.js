@@ -28,9 +28,9 @@ export default class StatementOfAccountAction extends LightningElement {
       );
     } else if (data) {
       this.contact = { ...data };
-      this.isValid = isValid({ contactId: this.recordId }).finally(
-        () => (this.isLoading = false)
-      );
+      isValid({ contactId: this.recordId })
+        .then((valid) => (this.isValid = valid))
+        .finally(() => (this.isLoading = false));
     }
   }
 

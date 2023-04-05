@@ -33,10 +33,13 @@
          background-color: gray;
          } 
          div.content {
-         padding-top: 290px;
+         padding-top: 260px;
          margin-left: 40px;
          margin-right: 42px;
          font-size:75%;
+         }
+         div.content h3 {
+         font-weight: normal;
          }
          div.signature{
          padding-top: 40px;
@@ -46,6 +49,8 @@
          font-size: 1rem;
          text-align: center;
          text-transform: uppercase;
+         margin-top: -25px;
+         font-weight: normal;
          }
          table {
          width: 100%;
@@ -60,105 +65,149 @@
          background-color: #f2f2f2;
          }
          th {
-         font-weight: bold;
+         font-weight:bold;
          }
     </style>
     </head>
-    
-    <body style="font-family: 'Helvetica', 'Arial', sans-serif !important;">
-        <div class="header">
-            <apex:variable var="imageVar" value="{!'Logos/Cana_Rock_Default.png'}" />
-            <apex:image value="{!URLFOR($Resource.Logos,imageVar)}" height="auto" width="250" />
-            <!--Spanish Title-->
-            <apex:outputPanel rendered="{!isSpanish}">
+<body style="font-family: 'Helvetica', 'Arial', sans-serif !important;">
+    <div class="header">
+        <apex:variable var="imageVar" value="{!'Logos/Cana_Rock_Default.png'}" />
+        <apex:image value="{!URLFOR($Resource.Logos,imageVar)}" height="auto" width="250" />
+        <!--Spanish Title-->
+        <apex:outputPanel rendered="{!isSpanish}">
             <h2 class='headline'>
-                ESTADO DE CUENTA
-                <br/>{!contact.FirstName} {!contact.LastName}</h2>
+            <b>ESTADO DE CUENTA</b>
+            <br/>{!contact.FirstName} {!contact.LastName}
+            </h2>
             </apex:outputPanel>
             <!--English Title-->
             <apex:outputPanel rendered="{!isEnglish}">
                 <h2 class='headline'>
-                    STATEMENT OF ACCOUNT
-                    <br/>{!contact.FirstName} {!contact.LastName}</h2>
-                </apex:outputPanel>
-        <hr style="margin-left: 50px;margin-right: 50px;" />
-        </div>
-        <div class="content">
-            <apex:repeat value="{!payments}" var="payment">
-                <apex:outputText rendered="{!isSpanish}">
-                    <h2>Estado de Pago: {!payment.Name}</h2>
-                    <h3>Cantidad Total: {!payment.pba_financial__Total_Amount__c} {!payment.CurrencyIsoCode} </h3>
-                    <h3>Cantidad Pagada: {!payment.pba_financial__Allocated_Cash__c} {!payment.CurrencyIsoCode} </h3>
-                    <h3>Fecha de Vencimiento:
-                        <apex:outputText value="{0, date, dd/MM/yyyy}">
-                            <apex:Param value="{!payment.pba_financial__Due_Date__c}" />
-                        </apex:OutputText>
-                    </h3>
-                </apex:outputText>
-                <apex:outputText rendered="{!isEnglish}">
-                    <h2>Payment: {!payment.Name}</h2>
-                    <h3>Amount: {!payment.pba_financial__Total_Amount__c} {!payment.CurrencyIsoCode} </h3>
-                    <h3>Allocated: {!payment.pba_financial__Allocated_Cash__c} {!payment.CurrencyIsoCode} </h3>
-                    <h3>Due Date:
-                        <apex:outputText value="{0, date, dd/MM/yyyy}">
-                            <apex:Param value="{!payment.pba_financial__Due_Date__c}" />
-                        </apex:OutputText>
-                    </h3>
+                    <b>STATEMENT OF ACCOUNT</b>
+            <br/>{!contact.FirstName} {!contact.LastName}
+            </h2>
+            </apex:outputPanel>
+            </div>
+            <div class="content">
+                <apex:repeat value="{!payments}" var="payment">
+                    <apex:outputText rendered="{!isSpanish}">
+                        <h2>Estado de Pago: {!payment.Tipo_de_pago__c}</h2>
+                        <h3>
+                            <b>Cantidad Total:</b>
+                            <apex:outputText value="{!IF(payment.pba_financial__Total_Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                                <apex:param value="{!payment.pba_financial__Total_Amount__c}" />
+                            </apex:outputText> {!payment.CurrencyIsoCode}
+                        </h3>
+                        <h3>
+                            <b>Cantidad Pagada:</b>
+                            <apex:outputText value="{!IF(payment.pba_financial__Allocated_Cash__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                                <apex:param value="{!payment.pba_financial__Allocated_Cash__c}" />
+                    </apex:outputText> {!payment.CurrencyIsoCode}
+                        </h3>
+                        <h3>
+                            <b>Fecha de Vencimiento:</b>
+                            <apex:outputText value="{0, date, dd/MM/yyyy}">
+                                <apex:Param value="{!payment.pba_financial__Due_Date__c}" />
+                            </apex:OutputText>
+                        </h3>
+                        </apex:outputText>
+                        <apex:outputText rendered="{!isEnglish}">
+                <h2>Payment: {!payment.Tipo_de_pago__c}</h2>
+                <h3>
+                    <b>Amount:</b>
+                    <apex:outputText value="{!IF(payment.pba_financial__Total_Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                        <apex:param value="{!payment.pba_financial__Total_Amount__c}" />
+                            </apex:outputText> {!payment.CurrencyIsoCode}
+                </h3>
+                <h3>
+                    <b>Allocated:</b>
+                    <apex:outputText value="{!IF(payment.pba_financial__Allocated_Cash__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                        <apex:param value="{!payment.pba_financial__Allocated_Cash__c}" />
+                    </apex:outputText> {!payment.CurrencyIsoCode}
+                </h3>
+                <h3>
+                    <b>Due Date:</b>
+                    <apex:outputText value="{0, date, dd/MM/yyyy}">
+                        <apex:Param value="{!payment.pba_financial__Due_Date__c}" />
+                    </apex:OutputText>
+                </h3>
                 </apex:outputText>
             <table>
             <apex:outputPanel rendered="{!AND(isSpanish , payment.Cash__r.size>0)}">
-                <h3>Desglose de pagos</h3>
+                <h3>Desglose de pagos:</h3>
                 <thead>
                     <tr>
                         <th>Descripción</th>
                         <th>Fecha de pago</th>
+                        <th>Cantidad Total</th>
                         <th>Cantidad Inicial</th>
                         <th>Cargo por mora</th>
-                        <th>Asignado</th>
-                        <th>No asignado</th>
+                        <th>Pagado</th>
+                        <th>Balance</th>
                     </tr>
-                </thead>
-            </apex:outputPanel>
-            <apex:outputPanel rendered="{!AND(isEnglish , payment.Cash__r.size>0)}">
-                <h3>Payment breakdown</h3>
-
+                    </thead>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!AND(isEnglish , payment.Cash__r.size>0)}">
+                <h3>Payment breakdown:</h3>
                 <thead>
                     <tr>
                         <th>Description</th>
                         <th>Due date</th>
+                        <th>Total amount</th>
                         <th>Initial amount</th>
                         <th>Late payment fee</th>
-                        <th>Allocated</th>
-                        <th>Not Allocated</th>
+                        <th>Paid</th>
+                        <th>Balance</th>
                     </tr>
-                </thead>
-            </apex:outputPanel>
-            <tbody>
-                <apex:repeat value="{!payment.Cash__r}" var="cash">
-                    <tr>
+                    </thead>
+                    </apex:outputPanel>
+                    <tbody>
+                        <apex:repeat value="{!payment.Cash__r}" var="cash">
+                            <tr>
                         <td>{!cash.pba_financial__Description__c}</td>
                         <td>
-                            <apex:outputText value="{0, date, dd/MM/yyyy}">
-                                <apex:Param value="{!cash.pba_financial__Date__c}" />
-                            </apex:OutputText>
+                        <apex:outputText value="{0, date, dd/MM/yyyy}">
+                            <apex:Param value="{!cash.pba_financial__Date__c}" />
+                        </apex:OutputText>
                         </td>
-                        <td> {!cash.pba_financial__Amount__c} {!cash.CurrencyIsoCode} </td>
-                        <td> {!cash.Late_Payment_Fee__c} {!cash.CurrencyIsoCode}</td>
-                        <td> {!cash.pba_financial__Allocated__c} {!cash.CurrencyIsoCode}</td>
-                        <td> {!cash.pba_financial__Not_Allocated__c} {!cash.CurrencyIsoCode}</td>
-                    </tr>
-                    <!-- <apex:repeat value="{!cash.Receipts}" var="receipt">
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td>{!receipt.Name}</td>
-                                        <td>{!receipt.pba_financial__Allocated_Amount__c}</td>
-                                    </tr>
-                                    </apex:repeat> -->
-                </apex:repeat>
-            </tbody>
+                        <td>
+                            <apex:outputText value="{!IF(cash.pba_financial__Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                                <apex:param value="{!cash.pba_financial__Amount__c}" />
+                            </apex:outputText> {!cash.CurrencyIsoCode}
+                        </td>
+                        <td>
+                            <apex:outputText value="{!IF(cash.Initial_Payment_Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                                <apex:param value="{!cash.Initial_Payment_Amount__c}" />
+                            </apex:outputText> {!cash.CurrencyIsoCode}
+                        </td>
+                        <td>
+                            <apex:outputText value="{!IF(cash.Late_Payment_Fee__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                                <apex:param value="{!cash.Late_Payment_Fee__c}" />
+                            </apex:outputText> {!cash.CurrencyIsoCode}
+                        </td>
+                        <td>
+                            <apex:outputText value="{!IF(cash.pba_financial__Allocated__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                                <apex:param value="{!cash.pba_financial__Allocated__c}" />
+                            </apex:outputText> {!cash.CurrencyIsoCode}
+                        </td>
+                        <td>
+                            <apex:outputText value="{!IF(cash.pba_financial__Not_Allocated__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                                <apex:param value="{!cash.pba_financial__Not_Allocated__c}" />
+                            </apex:outputText> {!cash.CurrencyIsoCode}
+                        </td>
+                        </tr>
+                        <!-- <apex:repeat value="{!cash.Receipts}" var="receipt">
+                                                                                                <tr>
+                                                                                                    <td></td>
+                                                                                                    <td></td>
+                                                                                                    <td>{!receipt.Name}</td>
+                                                                                                    <td>{!receipt.pba_financial__Allocated_Amount__c}</td>
+                                                                                                </tr>
+                                                                                                </apex:repeat> -->
+                        </apex:repeat>
+                        </tbody>
             </table>
-            </apex:repeat>
-            </div>
-            </body>
+        </apex:repeat>
+        </div>
+        </body>
 </apex:page>
