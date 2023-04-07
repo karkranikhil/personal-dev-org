@@ -1,0 +1,94 @@
+<template>
+  <header class="header__wrapper small__container">
+    <div class="header__col">
+      <a href="/" class="logo__wrap">
+        <img class="finger" src={iconUrl} alt="Logo" />
+        <img class="logo" src={logoUrl} alt="Logo" />
+      </a>
+    </div>
+    <div class="header__col">
+      <ul class="header__nav">
+        <template for:each={navigationItems} for:item="item" for:index="index">
+          <li key={item.Id} class="header__nav__item">
+            <a
+              class="item header__nav__itemLinks"
+              name={item.Id}
+              onclick={navigate}
+              >{item.Label}</a
+            >
+          </li>
+        </template>
+        <ul if:true={isGuest} class="subMenu header__nav">
+          <li class="header__nav__item">
+            <a class="header__nav__itemLinks" onclick={login}>Login</a>
+          </li>
+        </ul>
+        <li if:false={isGuest} class="header__nav__item">
+          <a class="header__nav__itemLinks"
+            >{userName}<span aria-hidden="true">&#x25be;</span>
+          </a>
+
+          <div class="subMenuContainer">
+            <ul class="subMenu header__nav">
+              <li class="header__nav__item">
+                <a class="header__nav__itemLinks">My Settings</a>
+              </li>
+            </ul>
+            <ul class="subMenu header__nav">
+              <li class="header__nav__item">
+                <a class="header__nav__itemLinks" onclick={logout}>Logout</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Hamburger Menu -->
+      <div id="open__hamMenu" class="oxy-menu-toggle" onclick={openSideNav}>
+        <div class="oxy-nav-menu-hamburger-wrap">
+          <div class="oxy-nav-menu-hamburger">
+            <div class="oxy-nav-menu-hamburger-line"></div>
+            <div class="oxy-nav-menu-hamburger-line"></div>
+            <div class="oxy-nav-menu-hamburger-line"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Hamburger Menu End -->
+
+      <!-- Mobile Menu -->
+      <aside id="mobileMenuIcon" class="mobile__menuWrap">
+        <ul class="header__nav">
+          <li class="header__nav__item">
+            <a class="header__nav__itemLinks" href="#">Tickets</a>
+          </li>
+          <li class="header__nav__item">
+            <a class="header__nav__itemLinks" href="#">Set Times</a>
+          </li>
+          <li class="header__nav__item">
+            <a class="header__nav__itemLinks" href="#">Info</a>
+          </li>
+          <li class="header__nav__item">
+            <a class="header__nav__itemLinks" href="#">After Parties</a>
+          </li>
+          <li class="header__nav__item">
+            <a class="header__nav__itemLinks" href="#">Talent</a>
+          </li>
+          <li class="header__nav__item">
+            <a class="header__nav__itemLinks" href="#">Map</a>
+          </li>
+        </ul>
+
+        <!-- Close Ham Menu -->
+        <div
+          id="close__hamMenu"
+          class="close__hamMenuWrap"
+          onclick={closeSideNav}
+        >
+          <img src={closeIcon} alt="" class="close__hamMenuIcon" />
+        </div>
+        <!-- Clonse Ham Menu End -->
+      </aside>
+      <!-- Mobile Menu End -->
+    </div>
+  </header>
+</template>
