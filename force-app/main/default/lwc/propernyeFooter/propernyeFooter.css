@@ -1,22 +1,29 @@
 /* Footer */
 .content__section {
-    width: 100%;
-    background-size: cover;
-    background-repeat: repeat;
+  width: 100%;
+  background-size: cover;
+  background-repeat: repeat;
 }
 .content__3 {
-    background-color: #000;
-    text-align: left;
+  background-color: #000;
+  text-align: left;
+  padding: 45px 20px;
 }
 
+.footer_wrap {
+  padding-top: 60px;
+  background-color: #1e1e1e;
+}
+.divider {
+  padding-top: 20px;
+}
 .main__footer.small__container {
   display: flex;
   align-items: center;
-  padding: 2rem 20px 1rem 20px;
+  padding: 20px;
 }
-
 .footer__finger {
-  width: 72px;
+  width: 50px;
   filter: invert(100%);
 }
 .main__footer {
@@ -27,6 +34,8 @@
 .footer__nav_items {
   display: flex;
   list-style-type: none;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 .footer__nav_item a {
   color: #fff;

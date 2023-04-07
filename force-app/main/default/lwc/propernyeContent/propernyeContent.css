@@ -1,0 +1,115 @@
+/* Content */
+.content__2 {
+  background-color: #5c255f;
+}
+
+.content__section {
+  width: 100%;
+  background-size: cover;
+  background-repeat: repeat;
+}
+
+.container {
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 75px;
+  padding-right: 20px;
+  padding-bottom: 75px;
+  padding-left: 20px;
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+.tickets__box {
+  text-align: left;
+  flex-direction: row;
+  display: flex;
+  gap: 10px;
+}
+.tickets__boxBtn {
+  background-color: #fff;
+  border-bottom-color: #5c255f;
+  border-bottom-style: dashed;
+  border-bottom-width: 1px;
+  border-left-color: #5c255f;
+  border-left-style: dashed;
+  border-left-width: 1px;
+  border-radius: 0;
+  border-right-color: #5c255f;
+  border-right-style: dashed;
+  border-right-width: 1px;
+  border-top-color: #5c255f;
+  border-top-style: dashed;
+  border-top-width: 1px;
+  color: #000;
+  font-family: source sans pro;
+  font-size: 24px;
+  font-weight: bolder;
+  letter-spacing: 2px;
+  padding: 10px 16px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  .tickets__boxBtn {
+    padding: 6px 9.6px;
+    font-size: 18px;
+  }
+}
+
+.tickets__col {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  text-align: left;
+  gap: 20px;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 767px) {
+  .tickets__col {
+    text-align: center;
+    flex-direction: column;
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
+.headline-6-14 {
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+@media (max-width: 991px) {
+  .headline-6-14 {
+    font-size: 34px;
+  }
+}
+@media (max-width: 767px) {
+  .headline-6-14 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 479px) {
+  .tickets__col img {
+    display: none;
+  }
+}
+.tickets__boxBtn:hover {
+  text-decoration: none;
+  background-color: #e2e2e2;
+  border: 1px solid #e2e2e2;
+  color: #000;
+}
