@@ -15,6 +15,7 @@ export default class PropernyeHeader extends NavigationMixin(LightningElement) {
   logoUrl = RESOURCES + "/images/logo.png";
   iconUrl = RESOURCES + "/images/fingers.png";
   closeIcon = RESOURCES + "/images/close.svg";
+  herosImageUrl = RESOURCES + "/images/proper-header.jpg";
 
   userId = USER_ID;
   isGuest = IS_GUEST;
@@ -31,6 +32,7 @@ export default class PropernyeHeader extends NavigationMixin(LightningElement) {
 
   //* LIFE CYCLE
   connectedCallback() {
+    console.log("@@ navigation", this.navigation);
     this.baseURL = window.location.origin + BASE_PATH;
     this.setNavigationItems();
   }
@@ -50,7 +52,7 @@ export default class PropernyeHeader extends NavigationMixin(LightningElement) {
         break;
       case "InternalLink":
         window.location.href =
-          window.location.origin + "/portal/s/" + nav.Target.replace("/", "");
+          window.location.origin + "/s/" + nav.Target.replace("/", "");
         break;
       case "ExternalLink":
         window.location.href = nav.Target;
@@ -74,6 +76,18 @@ export default class PropernyeHeader extends NavigationMixin(LightningElement) {
       attributes: {
         objectApiName: object,
         actionName: "home"
+      }
+    });
+  }
+
+  navigateToSettings() {
+    window.location.href = window.location.origin + "/s/profile/" + this.userId;
+  }
+  navigateToHome() {
+    this[NavigationMixin.Navigate]({
+      type: "comm__namedPage",
+      attributes: {
+        name: "Home"
       }
     });
   }
@@ -101,12 +115,13 @@ export default class PropernyeHeader extends NavigationMixin(LightningElement) {
 
   setNavigationItems() {
     getNavigationItems({
-      NavigationDeveleoperName: this.mainNavigation
+      NavigationDeveleoperName: this.navigation
     }).then((response) => {
+      console.log("@@ response: ", response);
       if (response.length > 8) {
         this.notifyUser(
           "Error",
-          "Cannot set more than 8 Navigation Items - " + this.mainNavigation,
+          "Cannot set more than 8 Navigation Items - " + this.navigation,
           "error"
         );
       } else {

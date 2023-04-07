@@ -14,8 +14,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     z-index: 9999;
     top: 0;
     background-color: var(--color-background);
@@ -242,4 +242,8 @@
 }
 .subMenu .header__nav__itemLinks {
     text-align: center;
+}
+
+.content__1 {
+    background-color: #000;
 }

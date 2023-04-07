@@ -1,7 +1,7 @@
 <template>
   <header class="header__wrapper small__container">
     <div class="header__col">
-      <a href="/" class="logo__wrap">
+      <a onclick={navigateToHome} class="logo__wrap">
         <img class="finger" src={iconUrl} alt="Logo" />
         <img class="logo" src={logoUrl} alt="Logo" />
       </a>
@@ -31,7 +31,9 @@
           <div class="subMenuContainer">
             <ul class="subMenu header__nav">
               <li class="header__nav__item">
-                <a class="header__nav__itemLinks">My Settings</a>
+                <a class="header__nav__itemLinks" onclick={navigateToSettings}
+                  >My Settings</a
+                >
               </li>
             </ul>
             <ul class="subMenu header__nav">
@@ -58,23 +60,28 @@
       <!-- Mobile Menu -->
       <aside id="mobileMenuIcon" class="mobile__menuWrap">
         <ul class="header__nav">
-          <li class="header__nav__item">
-            <a class="header__nav__itemLinks" href="#">Tickets</a>
+          <template
+            for:each={navigationItems}
+            for:item="item"
+            for:index="index"
+          >
+            <li key={item.Id} class="header__nav__item">
+              <a
+                class="item header__nav__itemLinks"
+                name={item.Id}
+                onclick={navigate}
+                >{item.Label}</a
+              >
+            </li>
+          </template>
+
+          <li if:false={isGuest} class="header__nav__item">
+            <a class="header__nav__itemLinks" onclick={navigateToSettings}
+              >My Settings</a
+            >
           </li>
-          <li class="header__nav__item">
-            <a class="header__nav__itemLinks" href="#">Set Times</a>
-          </li>
-          <li class="header__nav__item">
-            <a class="header__nav__itemLinks" href="#">Info</a>
-          </li>
-          <li class="header__nav__item">
-            <a class="header__nav__itemLinks" href="#">After Parties</a>
-          </li>
-          <li class="header__nav__item">
-            <a class="header__nav__itemLinks" href="#">Talent</a>
-          </li>
-          <li class="header__nav__item">
-            <a class="header__nav__itemLinks" href="#">Map</a>
+          <li if:false={isGuest} class="header__nav__item">
+            <a class="header__nav__itemLinks" onclick={logout}>Logout</a>
           </li>
         </ul>
 
@@ -91,4 +98,9 @@
       <!-- Mobile Menu End -->
     </div>
   </header>
+  <section class="content__section content__1">
+    <div class="container">
+        <img src={herosImageUrl} alt="" />
+    </div>
+</section>
 </template>

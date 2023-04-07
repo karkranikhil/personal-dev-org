@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
     <apiVersion>56.0</apiVersion>
     <isExposed>true</isExposed>
     <targets>
@@ -8,14 +9,4 @@
         <target>lightningCommunity__Page_Layout</target>
         <target>lightningCommunity__Theme_Layout</target>
     </targets>
-    <targetConfigs>
-        <targetConfig targets="lightningCommunity__Default">
-        <property
-        name="navigation"
-        type="String"
-        label="Navigation Developer Name"
-        default="Header_Navigation"
-      />
-    </targetConfig>
-    </targetConfigs>
 </LightningComponentBundle>
