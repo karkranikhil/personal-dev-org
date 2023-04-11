@@ -3,47 +3,43 @@
       <!--Style-->
       <style type="text/css" media="all">
          @page {
-         size: a4 portrait;    
-         padding-left: 2px;    
-         padding-right: 2px;                
-         @top-center {
+         size: a4 portrait;
+         padding-left: 2px;
+         padding-right: 2px;
+         /* @top-center {
          content: element(header);
          }
-         @bottom-center {
+         @left-middle {
          content: element(footer);
-         }
+         } */
          }
          div.header {
          text-align: center;
-         position: running(header);
+         position: absolute;
+         top: 0;
+         width: 100%;
+         left:0;
+         right: 0;
+         margin-top: -25px;
+
          }
-         div.footer {
-         display: block;
-         padding: 5px;
-         position: running(footer);
+         div.signature {
+         z-index: 9999;
+         position: fixed;
+         min-width: 150px;
+         min-height: 150px;
+         right: 2%;
+         bottom:1%;
+         page-break-inside: avoid;
          }
-         div.header hr { 
-         display: block;
-         margin-top: 0.5em;
-         margin-bottom: 0.5em;
-         margin-left: auto;
-         margin-right: auto;
-         border-style: inset;
-         border-width: 0.5px;
-         background-color: gray;
-         } 
          div.content {
          padding-top: 260px;
-         margin-left: 40px;
-         margin-right: 42px;
+         margin-left: 10px;
+         margin-right: 12px;
          font-size:75%;
          }
          div.content h3 {
          font-weight: normal;
-         }
-         div.signature{
-         padding-top: 40px;
-         text-align: center;
          }
          .headline{
          font-size: 1rem;
@@ -55,17 +51,31 @@
          table {
          width: 100%;
          border-collapse: collapse;
+         z-index: 2 !important;
+         margin-bottom: 10px;
          }
          th, td {
          padding: 8px;
          text-align: left;
          border: 1px solid #ddd;
+         z-index: 2 !important;
          }
          thead tr {
-         background-color: #f2f2f2;
+         background-color: #181818;
+         color:white;
+         z-index: 2 !important;
          }
          th {
          font-weight:bold;
+         z-index: 2 !important;
+         }
+         .cash-row {
+         background-color: #e6e6e6;
+         z-index: 2 !important;
+         }
+         .receipt-row {
+         background-color: #f9f9f9;
+         z-index: 2 !important;
          }
       </style>
    </head>
@@ -89,135 +99,158 @@
          </apex:outputPanel>
       </div>
       <div class="content">
-         <apex:repeat value="{!payments}" var="payment">
+         <apex:repeat value="{!paymentWithCashAndReceiptsList}" var="wrapper">
             <apex:outputText rendered="{!isSpanish}">
-               <h2>Estado de Pago: {!payment.Tipo_de_pago__c}</h2>
+               <h2>Estado de Pago: {!wrapper.payment.Tipo_de_pago__c}</h2>
                <h3>
                   <b>Cantidad Total:</b>
-                  <apex:outputText value="{!IF(payment.pba_financial__Total_Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
-                     <apex:param value="{!payment.pba_financial__Total_Amount__c}" />
+                  <apex:outputText value="{!IF(wrapper.payment.pba_financial__Total_Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                     <apex:param value="{!wrapper.payment.pba_financial__Total_Amount__c}" />
                   </apex:outputText>
-                  {!payment.CurrencyIsoCode}
+                   {!wrapper.payment.CurrencyIsoCode}
                </h3>
                <h3>
                   <b>Cantidad Pagada:</b>
-                  <apex:outputText value="{!IF(payment.pba_financial__Allocated_Cash__c == 0, '0.00', '{0,number,#,##0.00}')}">
-                     <apex:param value="{!payment.pba_financial__Allocated_Cash__c}" />
+                  <apex:outputText value="{!IF(wrapper.payment.pba_financial__Allocated_Cash__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                     <apex:param value="{!wrapper.payment.pba_financial__Allocated_Cash__c}" />
                   </apex:outputText>
-                  {!payment.CurrencyIsoCode}
+                   {!wrapper.payment.CurrencyIsoCode}
                </h3>
                <h3>
                   <b>Fecha de Vencimiento:</b>
                   <apex:outputText value="{0, date, dd/MM/yyyy}">
-                     <apex:Param value="{!payment.pba_financial__Due_Date__c}" />
+                     <apex:Param value="{!wrapper.payment.pba_financial__Due_Date__c}" />
                   </apex:OutputText>
                </h3>
             </apex:outputText>
             <apex:outputText rendered="{!isEnglish}">
-               <h2>Payment: {!payment.Tipo_de_pago__c}</h2>
+               <h2>Payment: {!wrapper.payment.Payment_Type_Translated__c}</h2>
                <h3>
                   <b>Amount:</b>
-                  <apex:outputText value="{!IF(payment.pba_financial__Total_Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
-                     <apex:param value="{!payment.pba_financial__Total_Amount__c}" />
+                  <apex:outputText value="{!IF(wrapper.payment.pba_financial__Total_Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                     <apex:param value="{!wrapper.payment.pba_financial__Total_Amount__c}" />
                   </apex:outputText>
-                  {!payment.CurrencyIsoCode}
+                   {!wrapper.payment.CurrencyIsoCode}
                </h3>
                <h3>
                   <b>Allocated:</b>
-                  <apex:outputText value="{!IF(payment.pba_financial__Allocated_Cash__c == 0, '0.00', '{0,number,#,##0.00}')}">
-                     <apex:param value="{!payment.pba_financial__Allocated_Cash__c}" />
+                  <apex:outputText value="{!IF(wrapper.payment.pba_financial__Allocated_Cash__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                     <apex:param value="{!wrapper.payment.pba_financial__Allocated_Cash__c}" />
                   </apex:outputText>
-                  {!payment.CurrencyIsoCode}
+                   {!wrapper.payment.CurrencyIsoCode}
                </h3>
                <h3>
                   <b>Due Date:</b>
                   <apex:outputText value="{0, date, dd/MM/yyyy}">
-                     <apex:Param value="{!payment.pba_financial__Due_Date__c}" />
+                     <apex:Param value="{!wrapper.payment.pba_financial__Due_Date__c}" />
                   </apex:OutputText>
                </h3>
             </apex:outputText>
             <table>
-               <apex:outputPanel rendered="{!AND(isSpanish , payment.Cash__r.size>0)}">
+               <apex:outputPanel rendered="{!AND(isSpanish , wrapper.cashWithReceiptsList.size>0)}">
                   <h3>Desglose de pagos:</h3>
                   <thead>
                      <tr>
-                        <th>Descripción</th>
+                        <th>Desc./No. Recibo</th>
                         <th>Fecha de pago</th>
                         <th>Cantidad Total</th>
                         <th>Cantidad Inicial</th>
                         <th>Cargo por mora</th>
                         <th>Pagado</th>
+                        <th>Fecha de pago</th>
                         <th>Balance</th>
                      </tr>
                   </thead>
                </apex:outputPanel>
-               <apex:outputPanel rendered="{!AND(isEnglish , payment.Cash__r.size>0)}">
+               <apex:outputPanel rendered="{!AND(isEnglish , wrapper.cashWithReceiptsList.size>0)}">
                   <h3>Payment breakdown:</h3>
                   <thead>
                      <tr>
-                        <th>Description</th>
-                        <th>Due date</th>
+                        <th>Desc./Receipt No.</th>
+                        <th>
+                            Due date
+                           </th>
                         <th>Total amount</th>
                         <th>Initial amount</th>
                         <th>Late payment fee</th>
                         <th>Paid</th>
+                        <th>Paid Date</th>
                         <th>Balance</th>
                      </tr>
-                  </thead>
-               </apex:outputPanel>
-               <tbody>
-                  <apex:repeat value="{!payment.Cash__r}" var="cash">
-                     <tr>
-                        <td>{!cash.pba_financial__Description__c}</td>
-                        <td>
+                     </thead>
+                     </apex:outputPanel>
+                     <tbody>
+                        <apex:repeat value="{!wrapper.cashWithReceiptsList}" var="wrapper">
+                           <tr style="background-color: #f2f2f2;">
+                              <td>{!wrapper.cash.pba_financial__Description__c}</td>
+                              <td>
                            <apex:outputText value="{0, date, dd/MM/yyyy}">
-                              <apex:Param value="{!cash.pba_financial__Date__c}" />
+                              <apex:Param value="{!wrapper.cash.pba_financial__Date__c}" />
                            </apex:OutputText>
                         </td>
                         <td>
-                           <apex:outputText value="{!IF(cash.pba_financial__Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
-                              <apex:param value="{!cash.pba_financial__Amount__c}" />
+                           <apex:outputText value="{!IF(wrapper.cash.pba_financial__Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                              <apex:param value="{!wrapper.cash.pba_financial__Amount__c}" />
                            </apex:outputText>
-                           {!cash.CurrencyIsoCode}
-                        </td>
-                        <td>
-                           <apex:outputText value="{!IF(cash.Initial_Payment_Amount__c != NULL, IF(cash.Initial_Payment_Amount__c == 0, '0.00', '{0,number,#,##0.00}'), IF(cash.pba_financial__Amount__c == 0, '0.00', '{1,number,#,##0.00}'))}">
-                              <apex:param value="{!cash.Initial_Payment_Amount__c}" />
-                              <apex:param value="{!cash.pba_financial__Amount__c}" />
+                            {!wrapper.cash.CurrencyIsoCode}
+                           </td>
+                           <td>
+                              <apex:outputText value="{!IF(wrapper.cash.Initial_Payment_Amount__c != NULL, IF(wrapper.cash.Initial_Payment_Amount__c == 0, '0.00', '{0,number,#,##0.00}'), IF(wrapper.cash.pba_financial__Amount__c == 0, '0.00', '{0,number,#,##0.00}'))}">
+                                 <apex:param value="{!wrapper.cash.Initial_Payment_Amount__c}" />
+                                 <apex:param value="{!wrapper.cash.pba_financial__Amount__c}" />
                            </apex:outputText>
-                           {!cash.CurrencyIsoCode}
-                        </td>
-                        <td>
-                           <apex:outputText value="{!IF(cash.Late_Payment_Fee__c == 0, '0.00', '{0,number,#,##0.00}')}">
-                              <apex:param value="{!cash.Late_Payment_Fee__c}" />
+                            {!wrapper.cash.CurrencyIsoCode}
+                           </td>
+                           <td>
+                           <apex:outputText value="{!IF(wrapper.cash.Late_Payment_Fee__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                              <apex:param value="{!wrapper.cash.Late_Payment_Fee__c}" />
                            </apex:outputText>
-                           {!cash.CurrencyIsoCode}
-                        </td>
-                        <td>
-                           <apex:outputText value="{!IF(cash.pba_financial__Allocated__c == 0, '0.00', '{0,number,#,##0.00}')}">
-                              <apex:param value="{!cash.pba_financial__Allocated__c}" />
+                            {!wrapper.cash.CurrencyIsoCode}
+                           </td>
+                           <td>
+                           <apex:outputText value="{!IF(wrapper.cash.pba_financial__Allocated__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                              <apex:param value="{!wrapper.cash.pba_financial__Allocated__c}" />
                            </apex:outputText>
-                           {!cash.CurrencyIsoCode}
-                        </td>
-                        <td>
-                           <apex:outputText value="{!IF(cash.pba_financial__Not_Allocated__c == 0, '0.00', '{0,number,#,##0.00}')}">
-                              <apex:param value="{!cash.pba_financial__Not_Allocated__c}" />
+                            {!wrapper.cash.CurrencyIsoCode}
+                           </td>
+                           <td></td>
+                           <td>
+                           <apex:outputText value="{!IF(wrapper.cash.pba_financial__Not_Allocated__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                              <apex:param value="{!wrapper.cash.pba_financial__Not_Allocated__c}" />
                            </apex:outputText>
-                           {!cash.CurrencyIsoCode}
-                        </td>
-                     </tr>
-                     <!-- <apex:repeat value="{!cash.Receipts}" var="receipt">
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td>{!receipt.Name}</td>
-                            <td>{!receipt.pba_financial__Allocated_Amount__c}</td>
+                            {!wrapper.cash.CurrencyIsoCode}
+                           </td>
+                           </tr>
+                           <apex:repeat value="{!wrapper.receipts}" var="receipt">
+                              <tr>
+                           <td>{!receipt.Name}</td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td>
+                              <apex:outputText value="{!IF(receipt.pba_financial__Allocated_Amount__c == 0,
+                                  '0.00', '{0,number,#,##0.00}')}">
+                                 <apex:param value="{!receipt.pba_financial__Allocated_Amount__c}" />
+                              </apex:outputText>
+                              {!receipt.CurrencyIsoCode}
+                           </td>
+                           <td>
+                              <apex:outputText value="{0, date, dd/MM/yyyy}">
+                                 <apex:Param value="{!receipt.FechadeRecibo__c}" />
+                              </apex:OutputText>
+                           </td>
+                           <td></td>
                         </tr>
-                        </apex:repeat> -->
-                  </apex:repeat>
-               </tbody>
-            </table>
-         </apex:repeat>
+                     </apex:repeat>
+                     </apex:repeat>
+                     </tbody>
+                     </table>
+                     </apex:repeat>
+                     </div>
+      <div class="signature">
+         <apex:variable var="stampVar" value="{!'Logos/Stamp_'+SUBSTITUTE(project,' ','_')+'_Copy.png'}" />
+         <apex:image value="{!URLFOR($Resource.Logos,stampVar)}" height="auto" width="200" style="float:left;padding-left:10%;" />
       </div>
    </body>
 </apex:page>
