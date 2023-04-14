@@ -11,6 +11,8 @@ public class StatementOfAccountController{
 
     public List<pba_financial__Payment__c> payments{ get; set; }
 
+    public List<pba_financial__Cash__c> nonAssignedCash{ get; set; }
+
     public List<PaymentWithCashAndReceipts> paymentWithCashAndReceiptsList{ get; set; }
 
     public StatementOfAccountController(){
@@ -20,10 +22,14 @@ public class StatementOfAccountController{
             contact = [SELECT Id, FirstName, LastName, Email, Phone, Listing_Adquirido__c, Idioma_de_Preferencia__c
                        FROM Contact
                        WHERE Id = :contactId];
-            payments = [SELECT Id, Name, Tipo_de_pago__c, Payment_Type_Translated__c, pba_financial__Total_Amount__c, pba_financial__Allocated_Cash__c, pba_financial__Balance__c, pba_financial__Status__c, pba_financial__Due_Date__c, CurrencyIsoCode, (SELECT Id, Name, pba_financial__Description__c, pba_financial__Amount__c, pba_financial__Status__c, Proyecto__c, Late_Payment_Fee__c, pba_financial__Allocated__c, pba_financial__Not_Allocated__c, pba_financial__Date__c, Initial_Payment_Amount__c, To_Payment__c, pba_financial__Contact__c, CurrencyIsoCode
+            payments = [SELECT Id, Name, Tipo_de_pago__c, Payment_Type_Translated__c, pba_financial__Total_Amount__c, pba_financial__Allocated_Cash__c, pba_financial__Balance__c, pba_financial__Status__c, pba_financial__Due_Date__c, CurrencyIsoCode, (SELECT Id, Name, Tipo_de_cobro__c, Charge_type_translated__c, pba_financial__Description__c, pba_financial__Amount__c, pba_financial__Status__c, Proyecto__c, Late_Payment_Fee__c, pba_financial__Allocated__c, pba_financial__Not_Allocated__c, pba_financial__Date__c, Initial_Payment_Amount__c, To_Payment__c, pba_financial__Contact__c, CurrencyIsoCode
                                                                                                                                                                                                                                                            FROM Cash__r)
                         FROM pba_financial__Payment__c
                         WHERE pba_financial__Contact__c = :contactId];
+            nonAssignedCash = [SELECT Id, Tipo_de_cobro__c, Charge_type_translated__c, Name, pba_financial__Description__c, pba_financial__Amount__c, pba_financial__Status__c, Proyecto__c, Late_Payment_Fee__c, pba_financial__Allocated__c, pba_financial__Not_Allocated__c, pba_financial__Date__c, Initial_Payment_Amount__c, To_Payment__c, pba_financial__Contact__c, CurrencyIsoCode, (SELECT Id, Name, pba_financial__Allocated_Amount__c, CurrencyIsoCode, FechadeRecibo__c
+                                                                                                                                                                                                                                                                                                                                                                                               FROM pba_financial__CashAllocation2Cash__r)
+                               FROM pba_financial__Cash__c
+                               WHERE pba_financial__Contact__c = :contactId AND To_Payment__c = null];
             project = [SELECT Id, Proyecto__c
                        FROM pba_financial__Cash__c
                        WHERE pba_financial__Contact__c = :contactId
