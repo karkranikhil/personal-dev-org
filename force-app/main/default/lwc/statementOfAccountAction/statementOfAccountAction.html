@@ -19,10 +19,23 @@
         </div>
 
         <div slot="footer">
-          <lightning-button variant="neutral" label="Save"></lightning-button>
           <lightning-button
+            variant="neutral"
+            label="Cancel"
+            onclick={handleCancel}
+          ></lightning-button>
+          <lightning-button
+            if:false={isSending}
             variant="brand"
             label="Save and Email"
+            class="slds-m-left_x-small"
+            onclick={handleSaveAndEmail}
+          ></lightning-button>
+          <lightning-button
+            if:true={isSending}
+            variant="brand"
+            label="Loading..."
+            disabled
             class="slds-m-left_x-small"
           ></lightning-button>
         </div>

@@ -36,6 +36,7 @@
          margin-left: 10px;
          margin-right: 12px;
          font-size:75%;
+         height: 100%;
          }
          div.content h3 {
          font-weight: normal;
@@ -78,7 +79,7 @@
          }
       </style>
    </head>
-   <body style="font-family: 'Helvetica', 'Arial', sans-serif !important;">
+   <body style="font-family: 'Helvetica', 'Arial', sans-serif !important; height: 100% !important;">
       <!--HEADER-->
       <div class="header">
          <apex:variable var="imageVar" value="{!'Logos/Cana_Rock_Default.png'}" />
