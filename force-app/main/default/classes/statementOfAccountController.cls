@@ -26,9 +26,11 @@ public class StatementOfAccountController{
                        FROM Contact
                        WHERE Id = :contactId];
             payments = [SELECT Id, Name, Tipo_de_pago__c, Payment_Type_Translated__c, pba_financial__Total_Amount__c, pba_financial__Allocated_Cash__c, pba_financial__Balance__c, pba_financial__Status__c, pba_financial__Due_Date__c, CurrencyIsoCode, (SELECT Id, Name, Tipo_de_cobro__c, Charge_type_translated__c, pba_financial__Description__c, pba_financial__Amount__c, pba_financial__Status__c, Proyecto__c, Late_Payment_Fee__c, pba_financial__Allocated__c, pba_financial__Not_Allocated__c, pba_financial__Date__c, Initial_Payment_Amount__c, To_Payment__c, pba_financial__Contact__c, CurrencyIsoCode
-                                                                                                                                                                                                                                                           FROM Cash__r)
+                                                                                                                                                                                                                                                           FROM Cash__r
+                                                                                                                                                                                                                                                           ORDER BY CreatedDate ASC)
                         FROM pba_financial__Payment__c
-                        WHERE pba_financial__Contact__c = :contactId];
+                        WHERE pba_financial__Contact__c = :contactId
+                        ORDER BY CreatedDate ASC];
             nonAssignedCash = [SELECT Id, Tipo_de_cobro__c, Charge_type_translated__c, Name, pba_financial__Description__c, pba_financial__Amount__c, pba_financial__Status__c, Proyecto__c, Late_Payment_Fee__c, pba_financial__Allocated__c, pba_financial__Not_Allocated__c, pba_financial__Date__c, Initial_Payment_Amount__c, To_Payment__c, pba_financial__Contact__c, CurrencyIsoCode, (SELECT Id, Name, pba_financial__Allocated_Amount__c, CurrencyIsoCode, FechadeRecibo__c
                                                                                                                                                                                                                                                                                                                                                                                                FROM pba_financial__CashAllocation2Cash__r)
                                FROM pba_financial__Cash__c
@@ -49,7 +51,8 @@ public class StatementOfAccountController{
                     CashWithReceipts cashWithReceipts = new CashWithReceipts(cash);
                     cashWithReceipts.receipts = [SELECT Id, Name, pba_financial__Allocated_Amount__c, CurrencyIsoCode, FechadeRecibo__c
                                                  FROM pba_financial__Receipt__c
-                                                 WHERE pba_financial__From_Cash__c = :cash.Id];
+                                                 WHERE pba_financial__From_Cash__c = :cash.Id
+                                                 ORDER BY CreatedDate ASC];
                     paymentWithCashAndReceipts.cashWithReceiptsList.add(cashWithReceipts);
                 }
                 paymentWithCashAndReceiptsList.add(paymentWithCashAndReceipts);
@@ -68,10 +71,12 @@ public class StatementOfAccountController{
         try{
             List<pba_financial__Payment__c> payments = [SELECT Id
                                                         FROM pba_financial__Payment__c
-                                                        WHERE pba_financial__Contact__c = :contactId];
+                                                        WHERE pba_financial__Contact__c = :contactId
+                                                        ORDER BY CreatedDate ASC];
             List<pba_financial__Cash__c> cashs = [SELECT Id
                                                   FROM pba_financial__Cash__c
-                                                  WHERE pba_financial__Contact__c = :contactId];
+                                                  WHERE pba_financial__Contact__c = :contactId
+                                                  ORDER BY CreatedDate ASC];
             return !cashs.isEmpty() && !payments.isEmpty();
         } catch (Exception e){
             throw new AuraHandledException(e.getMessage());
@@ -110,7 +115,9 @@ public class StatementOfAccountController{
      **/
     @AuraEnabled
     public static void saveAndEmail(String recordId){
-        Contact currentContact = [SELECT Id ,Email, Name, Idioma_de_Preferencia__c FROM Contact WHERE Id = :recordId];
+        Contact currentContact = [SELECT Id, Email, Name, Idioma_de_Preferencia__c
+                                  FROM Contact
+                                  WHERE Id = :recordId];
 
         PageReference pdf = Page.statementOfAccountPDF;
         // add parent id to the parameters for standardcontroller
@@ -119,10 +126,10 @@ public class StatementOfAccountController{
         if (!Test.isRunningTest()){
             pdfBody = pdf.getContent();
         }
-        String today = Date.today().format().replace('/','_');
+        String today = Date.today().format().replace('/', '_');
         String fileName = currentContact.Idioma_de_Preferencia__c == 'Español' ? 'Estado_de_cuenta_' : 'Statement_of_account_';
-        fileName += currentContact.Name;
-        fileName += '_'+today;
+        fileName += currentContact.Name.replace(' ', '_');
+        fileName += '_' + today;
         fileName = fileName.trim();
 
         //save as file
@@ -162,7 +169,6 @@ public class StatementOfAccountController{
         cdl.ContentDocumentId = conDocId;
         cdl.shareType = 'V';
         Insert cdl;
-
     }
 
     /**
