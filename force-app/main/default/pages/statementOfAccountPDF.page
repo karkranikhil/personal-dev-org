@@ -40,6 +40,9 @@
          div.content h3 {
          font-weight: normal;
          }
+         div.content .payment-info {
+         page-break-inside: avoid;
+         }
          .headline{
          font-size: 1rem;
          text-align: center;
@@ -51,7 +54,8 @@
          width: 100%;
          border-collapse: collapse;
          z-index: 2 !important;
-         margin-bottom: 10px;
+         margin-bottom: 20px;
+         page-break-inside: avoid;
          }
          th, td {
          padding: 8px;
@@ -71,10 +75,12 @@
          .cash-row {
          background-color: #e6e6e6;
          z-index: 2 !important;
+         page-break-inside: avoid;
          }
          .receipt-row {
          background-color: #f9f9f9;
          z-index: 2 !important;
+         page-break-inside: avoid;
          }
       </style>
    </head>
@@ -102,8 +108,9 @@
       <div class="content">
          <apex:repeat value="{!paymentWithCashAndReceiptsList}" var="wrapper">
             <!--Spanish summary-->
+            <div class="payment-info">
             <apex:outputText rendered="{!isSpanish}">
-               <h2>Estado de Pago: {!wrapper.payment.Tipo_de_pago__c}</h2>
+                  <h2>Estado de Pago: {!wrapper.payment.Tipo_de_pago__c}</h2>
                <h3>
                   <b>Cantidad Total:</b>
                   <apex:outputText value="{!IF(wrapper.payment.pba_financial__Total_Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
@@ -137,6 +144,7 @@
                    {!wrapper.payment.CurrencyIsoCode}
                </h3>
             </apex:outputText>
+         </div>
             <table>
                <!--Spanish BreakDown-->
                <apex:outputPanel rendered="{!AND(isSpanish , wrapper.cashWithReceiptsList.size>0)}">
