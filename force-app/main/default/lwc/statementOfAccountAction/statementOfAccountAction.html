@@ -10,6 +10,8 @@
     <template if:false={isLoading}>
       <section if:true={isValid} class="content">
         Generación de estado de cuenta del cliente <b>{firstName} {lastName}</b>
+        <br>
+        Email del contacto: <b>{email}</b>
 
         <div class="pdf-container">
           <div class="slds-p-around_large">
@@ -21,20 +23,20 @@
         <div slot="footer">
           <lightning-button
             variant="neutral"
-            label="Cancel"
+            label="Cancelar"
             onclick={handleCancel}
           ></lightning-button>
           <lightning-button
             if:false={isSending}
             variant="brand"
-            label="Save and Email"
+            label="Guardar y Enviar"
             class="slds-m-left_x-small"
             onclick={handleSaveAndEmail}
           ></lightning-button>
           <lightning-button
             if:true={isSending}
             variant="brand"
-            label="Loading..."
+            label="Cargando..."
             disabled
             class="slds-m-left_x-small"
           ></lightning-button>

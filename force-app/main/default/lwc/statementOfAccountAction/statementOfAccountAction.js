@@ -2,6 +2,7 @@ import { LightningElement, api, wire, track } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
 import FIRSTNAME_FIELD from "@salesforce/schema/Contact.FirstName";
 import LASTNAME_FIELD from "@salesforce/schema/Contact.LastName";
+import EMAIL_FIELD from "@salesforce/schema/Contact.Email";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
 import isValid from "@salesforce/apex/StatementOfAccountController.isValid";
@@ -17,7 +18,7 @@ export default class StatementOfAccountAction extends LightningElement {
 
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [FIRSTNAME_FIELD, LASTNAME_FIELD]
+    fields: [FIRSTNAME_FIELD, LASTNAME_FIELD, EMAIL_FIELD]
   })
   wiredContact({ error, data }) {
     if (error) {
@@ -42,6 +43,9 @@ export default class StatementOfAccountAction extends LightningElement {
 
   get lastName() {
     return this.contact ? this.contact.fields.LastName.value : null;
+  }
+  get email() {
+    return this.contact ? this.contact.fields.Email.value : null;
   }
 
   get invoicePdfUrl() {
