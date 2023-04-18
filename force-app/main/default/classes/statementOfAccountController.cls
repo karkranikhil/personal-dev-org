@@ -126,10 +126,13 @@ public class StatementOfAccountController{
      **/
     @AuraEnabled
     public static void saveAndEmail(String recordId){
-        Contact currentContact = [SELECT Id, Email, Name, Idioma_de_Preferencia__c
+        Contact currentContact = [SELECT Id, Email, Name,Listing_Adquirido__c, Idioma_de_Preferencia__c
                                   FROM Contact
                                   WHERE Id = :recordId];
 
+        String listing = [SELECT Id, Name
+                          FROM pba__Listing__c
+                          WHERE Id = :currentContact.Listing_Adquirido__c]?.Name;
         PageReference pdf = Page.statementOfAccountPDF;
         // add parent id to the parameters for standardcontroller
         pdf.getParameters().put('contactId', currentContact.Id);
@@ -140,6 +143,7 @@ public class StatementOfAccountController{
         String today = Date.today().format().replace('/', '_');
         String fileName = currentContact.Idioma_de_Preferencia__c == 'Español' ? 'Estado_de_cuenta_' : 'Statement_of_account_';
         fileName += currentContact.Name.replace(' ', '_');
+        fileName += listing.replace(' ', '_');
         fileName += '_' + today;
         fileName = fileName.trim();
 
