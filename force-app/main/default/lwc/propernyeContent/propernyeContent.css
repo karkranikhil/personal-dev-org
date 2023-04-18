@@ -87,7 +87,7 @@
   justify-content: center;
 }
 .tickets__col {
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 .tickets__col *{
   width: fit-content;
