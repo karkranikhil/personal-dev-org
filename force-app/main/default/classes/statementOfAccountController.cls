@@ -8,6 +8,10 @@ public class StatementOfAccountController{
 
     public String project{ get; set; }
 
+    public String listing{ get; set; }
+
+    public Date currentDate{ get; set; }
+
     public Boolean isSpanish{ get; set; }
 
     public Boolean isEnglish{ get; set; }
@@ -21,10 +25,17 @@ public class StatementOfAccountController{
     public StatementOfAccountController(){
         contactId = ApexPages.currentPage().getParameters().get('contactId');
 
+        currentDate = Date.today();
+
         if (contactId != null){
             contact = [SELECT Id, FirstName, LastName, Email, Phone, Listing_Adquirido__c, Idioma_de_Preferencia__c
                        FROM Contact
                        WHERE Id = :contactId];
+
+            listing = [SELECT Id, Name
+                       FROM pba__Listing__c
+                       WHERE Id = :contact.Listing_Adquirido__c]?.Name;
+
             payments = [SELECT Id, Name, Tipo_de_pago__c, Payment_Type_Translated__c, pba_financial__Total_Amount__c, pba_financial__Allocated_Cash__c, pba_financial__Balance__c, pba_financial__Status__c, pba_financial__Due_Date__c, CurrencyIsoCode, (SELECT Id, Name, Tipo_de_cobro__c, Charge_type_translated__c, pba_financial__Description__c, pba_financial__Amount__c, pba_financial__Status__c, Proyecto__c, Late_Payment_Fee__c, pba_financial__Allocated__c, pba_financial__Not_Allocated__c, pba_financial__Date__c, Initial_Payment_Amount__c, To_Payment__c, pba_financial__Contact__c, CurrencyIsoCode
                                                                                                                                                                                                                                                            FROM Cash__r
                                                                                                                                                                                                                                                            ORDER BY CreatedDate ASC)

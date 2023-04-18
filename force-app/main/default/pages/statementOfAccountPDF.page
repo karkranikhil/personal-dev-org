@@ -31,7 +31,7 @@
          page-break-inside: avoid;
          }
          div.content {
-         padding-top: 260px;
+         padding-top: 300px;
          margin-left: 10px;
          margin-right: 12px;
          font-size:75%;
@@ -47,8 +47,15 @@
          font-size: 1rem;
          text-align: center;
          text-transform: uppercase;
-         margin-top: -25px;
+         margin-top: -45px;
          font-weight: normal;
+         }
+         .sub-headline{
+         font-size: 0.85rem;
+         text-align: left;
+         font-weight: normal;
+         margin-left: 14px;
+         margin-right: 12px;
          }
          table {
          width: 100%;
@@ -89,20 +96,36 @@
       <div class="header">
          <apex:variable var="imageVar" value="{!'Logos/Cana_Rock_Default.png'}" />
          <apex:image value="{!URLFOR($Resource.Logos,imageVar)}" height="auto" width="250" />
-         <!--Spanish Title-->
-         <apex:outputPanel rendered="{!isSpanish}">
-            <h2 class='headline'>
-               <b>ESTADO DE CUENTA</b>
-               <br/>{!contact.FirstName} {!contact.LastName}
-            </h2>
-         </apex:outputPanel>
-         <!--English Title-->
-         <apex:outputPanel rendered="{!isEnglish}">
-            <h2 class='headline'>
-               <b>STATEMENT OF ACCOUNT</b>
-               <br/>{!contact.FirstName} {!contact.LastName}
-            </h2>
-         </apex:outputPanel>
+      <!-- Spanish Title -->
+      <apex:outputPanel rendered="{!isSpanish}">
+         <h2 class='headline'>
+            <b>ESTADO DE CUENTA</b>
+            <br/>{!contact.FirstName} {!contact.LastName}
+         </h2>
+   <h3 class='sub-headline'>
+      Relacionado al listado:
+      <b>{!listing}</b>
+      <br/> Emitido el:
+      <apex:outputText value="{0, date, dd/MM/yyyy}">
+         <apex:param value="{!currentDate}" />
+      </apex:outputText>
+   </h3>
+</apex:outputPanel>
+<!-- English Title -->
+<apex:outputPanel rendered="{!isEnglish}">
+   <h2 class='headline'>
+      <b>STATEMENT OF ACCOUNT</b>
+      <br/>{!contact.FirstName} {!contact.LastName}
+   </h2>
+   <h3 class='sub-headline'>
+      Related to listing:
+      <b>{!listing}</b>
+      <br/> Issued on:
+      <apex:outputText value="{0, date, MMMM dd', 'yyyy}">
+         <apex:param value="{!currentDate}" />
+      </apex:outputText>
+   </h3>
+</apex:outputPanel>
       </div>
       <!--CONTENT-->
       <div class="content">
