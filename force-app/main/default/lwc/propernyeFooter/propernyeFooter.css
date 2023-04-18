@@ -8,8 +8,15 @@
   background-color: #000;
   text-align: center;
   padding: 45px 20px;
+}
+.content__3 .container {
+  align-items: stretch;
+  flex-direction: column;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  margin: 0 auto;
   max-width: 1120px;
-
 }
 
 .footer_wrap {
