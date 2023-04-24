@@ -7,14 +7,44 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
 import isValid from "@salesforce/apex/StatementOfAccountController.isValid";
 import SaveAndEmail from "@salesforce/apex/StatementOfAccountController.saveAndEmail";
+import USER_ID from "@salesforce/user/Id";
+
+const ENABLED_PROFILES = [
+  "System Administrator",
+  "PB Cana Rock Finanzas",
+  "PB Administrator"
+];
 
 export default class StatementOfAccountAction extends LightningElement {
   @api recordId;
   @api objectApiName;
   @track contact;
+  @track isButtonDisabled = true;
+  profileName;
   isValid = false;
   isLoading = true;
   isSending = false;
+
+  @wire(getRecord, {
+    recordId: USER_ID,
+    fields: ["User.Profile.Name"]
+  })
+  wiredProfile({ error, data }) {
+    if (error) {
+      this.dispatchEvent(
+        new ShowToastEvent({
+          title: "Error",
+          message: "There was an error getting the profile information.",
+          variant: "error"
+        })
+      );
+    } else if (data) {
+      console.log("data: ", data);
+      this.profileName = data.fields.Profile.value.fields.Name.value;
+      console.log("@@ profileName: ", this.profileName);
+      this.isButtonDisabled = !ENABLED_PROFILES.includes(this.profileName);
+    }
+  }
 
   @wire(getRecord, {
     recordId: "$recordId",
