@@ -62,13 +62,23 @@
          border-collapse: collapse;
          z-index: 2 !important;
          margin-bottom: 20px;
+         border-collapse: collapse;
          }
          th, td {
-         padding: 8px;
-         text-align: left;
          border: 1px solid #ddd;
+         box-decoration-break: clone; /* Add this line */
+         padding: 8px;
+         page-break-inside: avoid;
+         text-align: left;
          z-index: 2 !important;
+         }       
+
+         tr, td {
+         break-after: auto;
+         break-inside: auto;
+         line-height: 1;
          }
+
          thead tr {
          background-color: #181818;
          color:white;
@@ -81,12 +91,10 @@
          .cash-row {
          background-color: #e6e6e6;
          z-index: 2 !important;
-         page-break-inside: avoid;
          }
          .receipt-row {
          background-color: #f9f9f9;
          z-index: 2 !important;
-         page-break-inside: avoid;
          }
       </style>
    </head>
