@@ -66,11 +66,13 @@
          }
          th, td {
          border: 1px solid #ddd;
-         box-decoration-break: clone; /* Add this line */
          padding: 8px;
          page-break-inside: avoid;
          text-align: left;
          z-index: 2 !important;
+         break-after: auto;
+         break-inside: auto;
+         line-height: 1;
          }       
 
          tr, td {
