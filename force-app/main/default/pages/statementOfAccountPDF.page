@@ -90,6 +90,10 @@
          font-weight:bold;
          z-index: 2 !important;
          }
+         table { page-break-inside:auto; }
+         tr    { page-break-inside:avoid; page-break-after:auto; }
+         thead { display:table-header-group; }
+         tfoot { display:table-footer-group; }
          .cash-row {
          background-color: #e6e6e6;
          z-index: 2 !important;
