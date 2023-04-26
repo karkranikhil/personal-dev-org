@@ -18,11 +18,9 @@
             >
           </li>
         </template>
-        <ul if:true={isGuest} class="subMenu header__nav">
-          <li class="header__nav__item">
-            <a class="header__nav__itemLinks" onclick={login}>Login</a>
-          </li>
-        </ul>
+        <li if:true={isGuest} class="header__nav__item">
+          <a class="header__nav__itemLinks" onclick={login}>Login</a>
+        </li>
         <li if:false={isGuest} class="header__nav__item">
           <a class="header__nav__itemLinks"
             >{userName}<span aria-hidden="true">&#x25be;</span>
