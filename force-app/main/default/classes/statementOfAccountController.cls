@@ -218,7 +218,7 @@ public class StatementOfAccountController{
         mail.setToAddresses(new List<String>{ con.Email });
         mail.setOrgWideEmailAddressId(objOrgWideEmailAddress.Id);
         mail.setReplyTo(REPLAY_TO_EMAIL);
-        mail.setCcAddresses(new List<String>{ REPLAY_TO_EMAIL });
+        // mail.setCcAddresses(new List<String>{ REPLAY_TO_EMAIL });
         mail.setTemplateId(objEmailTemplate.Id);
         mail.setTargetObjectId(con.Id);
         mail.setSaveAsActivity(true);

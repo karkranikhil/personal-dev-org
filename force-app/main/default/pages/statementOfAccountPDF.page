@@ -141,36 +141,50 @@
             <apex:outputText rendered="{!isSpanish}">
                   <h2>Estado de Pago: {!wrapper.payment.Tipo_de_pago__c}</h2>
                <h3>
-                  <b>Cantidad Total:</b>
+                  <b>Cantidad Total: </b>
                   <apex:outputText value="{!IF(wrapper.payment.pba_financial__Total_Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
                      <apex:param value="{!wrapper.payment.pba_financial__Total_Amount__c}" />
                   </apex:outputText>
                    {!wrapper.payment.CurrencyIsoCode}
                </h3>
                <h3>
-                  <b>Cantidad Pagada:</b>
+                  <b>Cantidad Pagada: </b>
                   <apex:outputText value="{!IF(wrapper.payment.pba_financial__Allocated_Cash__c == 0, '0.00', '{0,number,#,##0.00}')}">
                      <apex:param value="{!wrapper.payment.pba_financial__Allocated_Cash__c}" />
                   </apex:outputText>
                    {!wrapper.payment.CurrencyIsoCode}
+               </h3>
+               <h3>
+                  <b>Balance: </b>
+                  <apex:outputText value="{!IF(wrapper.payment.pba_financial__Balance__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                     <apex:param value="{!wrapper.payment.pba_financial__Balance__c}" />
+                  </apex:outputText>
+                  {!wrapper.payment.CurrencyIsoCode}
                </h3>
             </apex:outputText>
             <!--English summary-->
             <apex:outputText rendered="{!isEnglish}">
                <h2>Payment: {!wrapper.payment.Payment_Type_Translated__c}</h2>
                <h3>
-                  <b>Amount:</b>
+                  <b>Amount: </b>
                   <apex:outputText value="{!IF(wrapper.payment.pba_financial__Total_Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
                      <apex:param value="{!wrapper.payment.pba_financial__Total_Amount__c}" />
                   </apex:outputText>
                    {!wrapper.payment.CurrencyIsoCode}
                </h3>
                <h3>
-                  <b>Allocated:</b>
+                  <b>Allocated: </b>
                   <apex:outputText value="{!IF(wrapper.payment.pba_financial__Allocated_Cash__c == 0, '0.00', '{0,number,#,##0.00}')}">
                      <apex:param value="{!wrapper.payment.pba_financial__Allocated_Cash__c}" />
                   </apex:outputText>
                    {!wrapper.payment.CurrencyIsoCode}
+               </h3>
+               <h3>
+                  <b>Balance: </b>
+                  <apex:outputText value="{!IF(wrapper.payment.pba_financial__Balance__c == 0, '0.00', '{0,number,#,##0.00}')}">
+                     <apex:param value="{!wrapper.payment.pba_financial__Balance__c}" />
+                  </apex:outputText>
+                  {!wrapper.payment.CurrencyIsoCode}
                </h3>
             </apex:outputText>
          </div>
