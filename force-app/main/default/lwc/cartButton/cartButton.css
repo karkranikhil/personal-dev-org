@@ -1,0 +1,17 @@
+:host {
+    --color-primary: #5c255f;
+    --color-text: white;
+  }
+.slds-icon_container {
+    position: relative;
+}
+
+.badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: var(--color-text);
+}
