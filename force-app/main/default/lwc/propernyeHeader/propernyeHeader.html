@@ -18,6 +18,11 @@
             >
           </li>
         </template>
+        <li class="header__nav__item">
+          <a class="header__nav__itemLinks" >
+            <c-cart-button user-id={userId}></c-cart-button>
+          </a>
+        </li>
         <li if:true={isGuest} class="header__nav__item">
           <a class="header__nav__itemLinks" onclick={login}>Login</a>
         </li>
