@@ -11,18 +11,17 @@
         <template for:each={navigationItems} for:item="item" for:index="index">
           <li key={item.Id} class="header__nav__item">
             <a
+              if:false={item.isCart}
               class="item header__nav__itemLinks"
               name={item.Id}
               onclick={navigate}
               >{item.Label}</a
             >
+            <a if:true={item.isCart} class="header__nav__itemLinks">
+              <c-cart-button user-id={userId}></c-cart-button>
+            </a>
           </li>
         </template>
-        <li class="header__nav__item">
-          <a class="header__nav__itemLinks" >
-            <c-cart-button user-id={userId}></c-cart-button>
-          </a>
-        </li>
         <li if:true={isGuest} class="header__nav__item">
           <a class="header__nav__itemLinks" onclick={login}>Login</a>
         </li>
@@ -103,7 +102,7 @@
   </header>
   <section class="content__section content__1">
     <div class="container">
-        <img src={herosImageUrl} alt="" />
+      <img src={herosImageUrl} alt="" />
     </div>
-</section>
+  </section>
 </template>

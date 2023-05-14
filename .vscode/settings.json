@@ -6,11 +6,11 @@
   },
   "editor.formatOnSave": true,
   "workbench.colorCustomizations": {
-    "statusBar.background": "#28ccb7",
-    "statusBar.foreground": "#000000",
+    "statusBar.background": "#E8476A",
+    "statusBar.foreground": "#FFFFDD",
     "statusBarItem.hoverBackground": "#8b8680",
     "statusBarItem.activeBackground": "#8b8680",
-    "statusBar.border": "#28ccb7"
+    "statusBar.border": "#E8476A"
   },
   "salesforcedx-vscode-core.show-cli-success-msg": false
 }

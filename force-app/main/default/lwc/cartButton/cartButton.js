@@ -40,20 +40,17 @@ export default class CartButton extends LightningElement {
 
   checkCookies() {
     var result = this.retrieveCookie();
-    console.log("found cookie?" + result);
 
     if (result == "") {
       var newUuid = crypto.randomUUID();
       this.createCookie(this.cookieName, newUuid, 5);
       this.sessionStorageId = newUuid;
     } else {
-      console.log("cookie found!");
       this.sessionStorageId = result;
     }
   }
 
   retrieveCookie() {
-    console.log("getting cookies");
     console.log(document.cookie);
 
     var cookieString = "; " + document.cookie;
@@ -62,8 +59,6 @@ export default class CartButton extends LightningElement {
   }
 
   createCookie(name, value, daysToLive) {
-    console.log("creating new cookie");
-
     var expires;
 
     if (daysToLive) {

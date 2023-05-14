@@ -125,7 +125,10 @@ export default class PropernyeHeader extends NavigationMixin(LightningElement) {
           "error"
         );
       } else {
-        this.navigationItems = [...response];
+        this.navigationItems = response.map((navItem) => ({
+          ...navItem,
+          isCart: navItem.Label.toLowerCase() === "cart"
+        }));
       }
     });
   }
