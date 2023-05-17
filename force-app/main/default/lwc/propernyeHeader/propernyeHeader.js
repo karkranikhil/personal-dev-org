@@ -25,14 +25,12 @@ export default class PropernyeHeader extends NavigationMixin(LightningElement) {
   @wire(getRecord, { recordId: "$userId", fields: ["User.Name"] })
   wiredUser({ error, data }) {
     if (data) {
-      console.log("@@ UserData: ", data);
       this.userName = data.fields.Name.value;
     }
   }
 
   //* LIFE CYCLE
   connectedCallback() {
-    console.log("@@ navigation", this.navigation);
     this.baseURL = window.location.origin + BASE_PATH;
     this.setNavigationItems();
   }
@@ -117,7 +115,6 @@ export default class PropernyeHeader extends NavigationMixin(LightningElement) {
     getNavigationItems({
       NavigationDeveleoperName: this.navigation
     }).then((response) => {
-      console.log("@@ response: ", response);
       if (response.length > 8) {
         this.notifyUser(
           "Error",

@@ -17,7 +17,7 @@
               onclick={navigate}
               >{item.Label}</a
             >
-            <a if:true={item.isCart} class="header__nav__itemLinks">
+            <a if:true={item.isCart} name={item.Id} class="header__nav__itemLinks" onclick={navigate}>
               <c-cart-button user-id={userId}></c-cart-button>
             </a>
           </li>
