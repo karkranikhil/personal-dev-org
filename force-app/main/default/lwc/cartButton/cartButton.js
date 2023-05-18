@@ -7,29 +7,29 @@ import cometDLib from "@salesforce/resourceUrl/cometd";
 
 function reduceErrors(errors) {
   if (!Array.isArray(errors)) {
-      errors = [errors];
+    errors = [errors];
   }
 
   return (
-      errors
+    errors
       // Remove null/undefined items
       .filter((error) => !!error)
       // Extract an error message
       .map((error) => {
-          // UI API read errors
-          if (Array.isArray(error.body)) {
-              return error.body.map((e) => e.message);
-          }
-          // UI API write errors
-          else if (error.body && typeof error.body.message === 'string') {
-              return error.body.message;
-          }
-          // JS errors
-          else if (typeof error.message === 'string') {
-              return error.message;
-          }
-          // Unknown error shape so try HTTP status text
-          return error.statusText;
+        // UI API read errors
+        if (Array.isArray(error.body)) {
+          return error.body.map((e) => e.message);
+        }
+        // UI API write errors
+        else if (error.body && typeof error.body.message === "string") {
+          return error.body.message;
+        }
+        // JS errors
+        else if (typeof error.message === "string") {
+          return error.message;
+        }
+        // Unknown error shape so try HTTP status text
+        return error.statusText;
       })
       // Flatten
       .reduce((prev, curr) => prev.concat(curr), [])
@@ -96,7 +96,7 @@ export default class CartButton extends LightningElement {
           if (status.successful) {
             cometdlib.subscribe(this.channelName, (event) => {
               console.log(
-                "Received Message!",
+                "@@ Received Message!",
                 JSON.parse(JSON.stringify(event))
               );
               if (
@@ -112,7 +112,10 @@ export default class CartButton extends LightningElement {
         this.cometdInitialized = true;
       })
       .catch((error) => {
-        console.error("An error occurred during CometD initialization", error);
+        console.error(
+          "@@ An error occurred during CometD initialization",
+          error
+        );
       });
   }
 
@@ -122,14 +125,14 @@ export default class CartButton extends LightningElement {
 
   getBadgeCount() {
     let inputVariables = {
-      userID: this.userId,
-      sessionID: this.sessionStorageId
+      UserID: this.userId,
+      BookingSessionID: this.sessionStorageId
     };
 
     getCount({ flowName: this.flowName, inputVariables: inputVariables })
       .then((result) => {
-        console.log("BadgeCount: ", result);
-        this.badgeCount = Math.trunc(result);
+        console.log("@@ BadgeCount: ", result);
+        this.badgeCount = Math.trunc(result) > 99 ? "+99" : Math.trunc(result);
       })
       .catch((error) => {
         console.error(error.body.message);
@@ -147,8 +150,8 @@ export default class CartButton extends LightningElement {
     } else {
       this.sessionStorageId = result;
     }
-    console.log("UserId", this.userId);
-    console.log("BookingSessionId", this.sessionStorageId);
+    console.log("@@ UserId", this.userId);
+    console.log("@@ BookingSessionId", this.sessionStorageId);
   }
 
   // Retrieve a cookie

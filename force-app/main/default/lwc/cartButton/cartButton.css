@@ -9,17 +9,17 @@
 
 .badge {
     position: absolute;
-    top: -12px;
-    right: -15px;
-    width: 25px;
+    top: -16px;
+    right: -23px;
+    width: 28px;
     height: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     border-radius: 50%;
-    font-size: 12px;
-    background-color: var(--color-primary);
+    font-size: 14px;
+    font-weight: normal;
+    background-color: #5c255fe3;
     color: var(--color-text);
-
 }
