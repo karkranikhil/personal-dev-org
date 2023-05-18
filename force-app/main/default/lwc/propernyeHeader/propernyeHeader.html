@@ -17,7 +17,12 @@
               onclick={navigate}
               >{item.Label}</a
             >
-            <a if:true={item.isCart} name={item.Id} class="header__nav__itemLinks" onclick={navigate}>
+            <a
+              if:true={item.isCart}
+              name={item.Id}
+              class="header__nav__itemLinks"
+              onclick={navigate}
+            >
               <c-cart-button user-id={userId}></c-cart-button>
             </a>
           </li>
@@ -67,7 +72,23 @@
             for:item="item"
             for:index="index"
           >
-            <li key={item.Id} class="header__nav__item">
+            <li if:true={item.isCart} key={item.Id} class="header__nav__item">
+              <a
+                name={item.Id}
+                class="header__nav__itemLinks"
+                onclick={navigate}
+              >
+                <c-cart-button user-id={userId}></c-cart-button>
+              </a>
+              >
+            </li>
+          </template>
+          <template
+            for:each={navigationItems}
+            for:item="item"
+            for:index="index"
+          >
+            <li if:false={item.isCart} key={item.Id} class="header__nav__item">
               <a
                 class="item header__nav__itemLinks"
                 name={item.Id}

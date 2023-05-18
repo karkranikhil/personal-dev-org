@@ -1,52 +1,140 @@
 import { LightningElement, track, api } from "lwc";
-import {
-  subscribe,
-  unsubscribe,
-  onError,
-  setDebugFlag,
-  isEmpEnabled
-} from "lightning/empApi";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import getSessionData from "@salesforce/apex/CartButtonController.getSessionData";
 import getCount from "@salesforce/apex/CartButtonController.getCount";
+import { loadScript } from "lightning/platformResourceLoader";
+import cometDLib from "@salesforce/resourceUrl/cometd";
+
+function reduceErrors(errors) {
+  if (!Array.isArray(errors)) {
+      errors = [errors];
+  }
+
+  return (
+      errors
+      // Remove null/undefined items
+      .filter((error) => !!error)
+      // Extract an error message
+      .map((error) => {
+          // UI API read errors
+          if (Array.isArray(error.body)) {
+              return error.body.map((e) => e.message);
+          }
+          // UI API write errors
+          else if (error.body && typeof error.body.message === 'string') {
+              return error.body.message;
+          }
+          // JS errors
+          else if (typeof error.message === 'string') {
+              return error.message;
+          }
+          // Unknown error shape so try HTTP status text
+          return error.statusText;
+      })
+      // Flatten
+      .reduce((prev, curr) => prev.concat(curr), [])
+      // Remove empty strings
+      .filter((message) => !!message)
+  );
+}
 
 export default class CartButton extends LightningElement {
-  // Public properties
   @api userId;
   @api sessionStorageId;
   @api flowName = "Get_Product_Count_Invokable"; // Default flow name
-
-  // Tracked properties
   @track badgeCount = 0;
+  cometdInitialized = false;
 
-  // Constants
+  channelName = "/event/Add_Product_to_Basket__e";
   cookieName = "artSessionStorageId";
-  eventChannel = "/event/Add_Product_to_Basket__e";
+  cookieVal = "";
 
-  // Variables
-  subscription = {};
-
-  // Executed when component is inserted into the DOM - lifecycle hook
   connectedCallback() {
-    // Cookie handling
     this.checkCookies();
-    // Get initial badge count
     this.getBadgeCount();
-    // Register error listener for platform event
-    this.registerErrorListener();
-    // Subscribe to platform event
-    this.subscribeToPlatformEvent();
+    this.initializeCometD();
   }
 
-  // Executed when component is removed from the DOM - lifecycle hook
-  disconnectedCallback() {
-    // Unsubscribe from the platform event
-    this.unsubscribeFromPlatformEvent();
+  initializeCometD() {
+    if (!this.cometdInitialized) {
+      Promise.all([loadScript(this, cometDLib)])
+        .then(() => {
+          this.initializeCometDConnection();
+        })
+        .catch((error) => {
+          console.log(JSON.stringify(error));
+          this.dispatchEvent(
+            new ShowToastEvent({
+              title: "Error loading CometD",
+              message: reduceErrors(error).join(", "),
+              variant: "error"
+            })
+          );
+        });
+    }
   }
 
-  // Getter to determine if badge should be displayed
+  initializeCometDConnection() {
+    getSessionData()
+      .then((result) => {
+        //let cometdUrl = result.instanceUrl + "/cometd/56.0/";
+        let cometdUrl =
+          window.location.protocol +
+          "//" +
+          window.location.hostname +
+          "/cometd/56.0/";
+        let cometdlib = new window.org.cometd.CometD();
+        cometdlib.configure({
+          url: cometdUrl,
+          requestHeaders: { Authorization: "OAuth " + result.sessionId },
+          appendMessageTypeToURL: false,
+          logLevel: "debug"
+        });
+        cometdlib.websocketEnabled = false;
+        cometdlib.handshake((status) => {
+          console.log("@@ status: ", status);
+          if (status.successful) {
+            cometdlib.subscribe(this.channelName, (event) => {
+              console.log(
+                "Received Message!",
+                JSON.parse(JSON.stringify(event))
+              );
+              if (
+                event.data.payload.UserID__c === this.userId ||
+                event.data.payload.Booking_Session_ID__c ===
+                  this.sessionStorageId
+              ) {
+                this.getBadgeCount();
+              }
+            });
+          }
+        });
+        this.cometdInitialized = true;
+      })
+      .catch((error) => {
+        console.error("An error occurred during CometD initialization", error);
+      });
+  }
+
   get isDisplayBadge() {
     return this.badgeCount != null && this.badgeCount > 0;
   }
 
+  getBadgeCount() {
+    let inputVariables = {
+      userID: this.userId,
+      sessionID: this.sessionStorageId
+    };
+
+    getCount({ flowName: this.flowName, inputVariables: inputVariables })
+      .then((result) => {
+        console.log("BadgeCount: ", result);
+        this.badgeCount = Math.trunc(result);
+      })
+      .catch((error) => {
+        console.error(error.body.message);
+      });
+  }
   // Cookie Handling Methods
 
   // Check if there's a valid cookie present, else create a new one
@@ -59,6 +147,8 @@ export default class CartButton extends LightningElement {
     } else {
       this.sessionStorageId = result;
     }
+    console.log("UserId", this.userId);
+    console.log("BookingSessionId", this.sessionStorageId);
   }
 
   // Retrieve a cookie
@@ -84,78 +174,5 @@ export default class CartButton extends LightningElement {
   // Delete a cookie
   deleteCookie(cookieName) {
     this.createCookie(cookieName, "", null);
-  }
-
-  // Platform Event Methods
-
-  // Message handler
-  handleMessage(data) {
-    const eventFields = data.payload;
-    if (
-      eventFields.UserID__c === this.userId ||
-      eventFields.Booking_Session_ID__c === this.sessionStorageId
-    ) {
-      // Re-fetch the badge count on valid event
-      this.getBadgeCount();
-    }
-  }
-
-  // Subscribe to the platform event
-  subscribeToPlatformEvent() {
-    // Callback invoked whenever a new event message is received
-    const messageCallback = (response) => {
-      console.log("New message received: ", JSON.stringify(response));
-      // Handle the event message
-      this.handleMessage(response);
-    };
-    // Subscribe to the platform event
-    console.log("Executing subscribe", this.eventChannel);
-    subscribe(this.eventChannel, -1, messageCallback)
-      .then((response) => {
-        console.log(
-          "Successfully subscribed to : ",
-          JSON.stringify(response.channel)
-        );
-        this.subscription = response;
-      })
-      .catch((error) => {
-        console.log("Error in subscription: ", error);
-      });
-  }
-
-  // Unsubscribe from the platform event
-  unsubscribeFromPlatformEvent() {
-    // Unsubscribe from the platform event if a subscription exists
-    if (this.subscription) {
-      unsubscribe(this.subscription, (response) => {
-        console.log("unsubscribe() response: ", JSON.stringify(response));
-        // Response is true for successful unsubscribe
-      });
-    }
-  }
-
-  // Register an error listener for the platform event
-  registerErrorListener() {
-    onError((error) => {
-      console.log("Received error from server: ", JSON.stringify(error));
-      // Error contains the server-side error
-    });
-  }
-
-  // Apex Call
-
-  // Get the badge count from the server
-  getBadgeCount() {
-    let inputVariables = {
-      userID: this.userId,
-      sessionID: this.sessionStorageId
-    };
-    getCount({ flowName: this.flowName, inputVariables: inputVariables })
-      .then((result) => {
-        this.badgeCount = Math.trunc(result);
-      })
-      .catch((error) => {
-        console.error(error.body.message);
-      });
   }
 }

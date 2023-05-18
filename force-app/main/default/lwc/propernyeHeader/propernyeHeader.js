@@ -40,7 +40,7 @@ export default class PropernyeHeader extends NavigationMixin(LightningElement) {
   navigate(event) {
     event.stopPropagation();
 
-    let id = event.target.name;
+    let id = event.currentTarget.name;
 
     let nav = this.navigationItems.find((item) => item.Id === id);
 
