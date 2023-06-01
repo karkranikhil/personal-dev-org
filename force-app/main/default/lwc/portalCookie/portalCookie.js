@@ -25,6 +25,7 @@ export default class PortalCookie extends LightningElement {
             console.log('cookie found!');
             this.bookingSession = result;
         }
+        console.log("@@ Cookie from BrowseFLOW", this.bookingSession);
     }
 
     retrieveCookie(){

@@ -46,7 +46,7 @@ export default class CartButton extends LightningElement {
   cometdInitialized = false;
 
   channelName = "/event/Add_Product_to_Basket__e";
-  cookieName = "artSessionStorageId";
+  cookieName = "artBookingSession";
   cookieVal = "";
 
   connectedCallback() {
@@ -77,6 +77,7 @@ export default class CartButton extends LightningElement {
   initializeCometDConnection() {
     getSessionData()
       .then((result) => {
+        console.log("@@SessionData: ", JSON.parse(JSON.stringify(result)));
         //let cometdUrl = result.instanceUrl + "/cometd/56.0/";
         let cometdUrl =
           window.location.protocol +
