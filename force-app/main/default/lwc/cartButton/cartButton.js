@@ -1,9 +1,16 @@
-import { LightningElement, track, api } from "lwc";
+import { LightningElement, track, api, wire } from "lwc";
+import {
+  subscribe,
+  unsubscribe,
+  MessageContext
+} from "lightning/messageService";
+import MESSAGE_CHANNEL from "@salesforce/messageChannel/BasketUpdateChannel__c";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import getSessionData from "@salesforce/apex/CartButtonController.getSessionData";
 import getCount from "@salesforce/apex/CartButtonController.getCount";
 import { loadScript } from "lightning/platformResourceLoader";
 import cometDLib from "@salesforce/resourceUrl/cometd";
+import IS_GUEST from "@salesforce/user/isGuest";
 
 function reduceErrors(errors) {
   if (!Array.isArray(errors)) {
@@ -44,7 +51,7 @@ export default class CartButton extends LightningElement {
   @api flowName = "Get_Product_Count_Invokable"; // Default flow name
   @track badgeCount = 0;
   cometdInitialized = false;
-
+  subscription = null;
   channelName = "/event/Add_Product_to_Basket__e";
   cookieName = "artBookingSession";
   cookieVal = "";
@@ -52,7 +59,10 @@ export default class CartButton extends LightningElement {
   connectedCallback() {
     this.checkCookies();
     this.getBadgeCount();
-    this.initializeCometD();
+    this.subscribeToChannel();
+    if (!IS_GUEST) {
+      this.initializeCometD();
+    }
   }
 
   initializeCometD() {
@@ -178,5 +188,34 @@ export default class CartButton extends LightningElement {
   // Delete a cookie
   deleteCookie(cookieName) {
     this.createCookie(cookieName, "", null);
+  }
+
+  @wire(MessageContext)
+  messageContext;
+
+  subscribeToChannel() {
+    if (!this.subscription) {
+      this.subscription = subscribe(
+        this.messageContext,
+        MESSAGE_CHANNEL,
+        (message) => {
+          this.handleMessageReceived(message);
+        }
+      );
+    }
+  }
+
+  handleMessageReceived(message) {
+    console.log("@@messageReceived: ", JSON.parse(JSON.stringify(message)));
+    this.getBadgeCount();
+  }
+
+  disconnectedCallback() {
+    this.unsubscribeFromChannel();
+  }
+
+  unsubscribeFromChannel() {
+    unsubscribe(this.subscription);
+    this.subscription = null;
   }
 }
