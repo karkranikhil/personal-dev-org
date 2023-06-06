@@ -5,45 +5,7 @@ import {
   MessageContext
 } from "lightning/messageService";
 import MESSAGE_CHANNEL from "@salesforce/messageChannel/BasketUpdateChannel__c";
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
-import getSessionData from "@salesforce/apex/CartButtonController.getSessionData";
 import getCount from "@salesforce/apex/CartButtonController.getCount";
-import { loadScript } from "lightning/platformResourceLoader";
-import cometDLib from "@salesforce/resourceUrl/cometd";
-import IS_GUEST from "@salesforce/user/isGuest";
-
-function reduceErrors(errors) {
-  if (!Array.isArray(errors)) {
-    errors = [errors];
-  }
-
-  return (
-    errors
-      // Remove null/undefined items
-      .filter((error) => !!error)
-      // Extract an error message
-      .map((error) => {
-        // UI API read errors
-        if (Array.isArray(error.body)) {
-          return error.body.map((e) => e.message);
-        }
-        // UI API write errors
-        else if (error.body && typeof error.body.message === "string") {
-          return error.body.message;
-        }
-        // JS errors
-        else if (typeof error.message === "string") {
-          return error.message;
-        }
-        // Unknown error shape so try HTTP status text
-        return error.statusText;
-      })
-      // Flatten
-      .reduce((prev, curr) => prev.concat(curr), [])
-      // Remove empty strings
-      .filter((message) => !!message)
-  );
-}
 
 export default class CartButton extends LightningElement {
   @api userId;
@@ -60,74 +22,6 @@ export default class CartButton extends LightningElement {
     this.checkCookies();
     this.getBadgeCount();
     this.subscribeToChannel();
-    if (!IS_GUEST) {
-      this.initializeCometD();
-    }
-  }
-
-  initializeCometD() {
-    if (!this.cometdInitialized) {
-      Promise.all([loadScript(this, cometDLib)])
-        .then(() => {
-          this.initializeCometDConnection();
-        })
-        .catch((error) => {
-          console.log(JSON.stringify(error));
-          this.dispatchEvent(
-            new ShowToastEvent({
-              title: "Error loading CometD",
-              message: reduceErrors(error).join(", "),
-              variant: "error"
-            })
-          );
-        });
-    }
-  }
-
-  initializeCometDConnection() {
-    getSessionData()
-      .then((result) => {
-        console.log("@@SessionData: ", JSON.parse(JSON.stringify(result)));
-        //let cometdUrl = result.instanceUrl + "/cometd/56.0/";
-        let cometdUrl =
-          window.location.protocol +
-          "//" +
-          window.location.hostname +
-          "/cometd/56.0/";
-        let cometdlib = new window.org.cometd.CometD();
-        cometdlib.configure({
-          url: cometdUrl,
-          requestHeaders: { Authorization: "OAuth " + result.sessionId },
-          appendMessageTypeToURL: false,
-          logLevel: "debug"
-        });
-        cometdlib.websocketEnabled = false;
-        cometdlib.handshake((status) => {
-          console.log("@@ status: ", status);
-          if (status.successful) {
-            cometdlib.subscribe(this.channelName, (event) => {
-              console.log(
-                "@@ Received Message!",
-                JSON.parse(JSON.stringify(event))
-              );
-              if (
-                event.data.payload.UserID__c === this.userId ||
-                event.data.payload.Booking_Session_ID__c ===
-                  this.sessionStorageId
-              ) {
-                this.getBadgeCount();
-              }
-            });
-          }
-        });
-        this.cometdInitialized = true;
-      })
-      .catch((error) => {
-        console.error(
-          "@@ An error occurred during CometD initialization",
-          error
-        );
-      });
   }
 
   get isDisplayBadge() {
