@@ -20,13 +20,4 @@ public with sharing class CartButtonController{
         return data;
     }
 
-    @AuraEnabled
-    public static void fireEvent(String userId, String sessionId) {
-        Add_Product_to_Basket__e event = new Add_Product_to_Basket__e();
-        event.UserID__c = userId;
-        event.Booking_Session_ID__c = sessionId;
-        // Fire the event
-        EventBus.publish(event);
-    }
-
 }
