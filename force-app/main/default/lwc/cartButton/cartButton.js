@@ -36,7 +36,6 @@ export default class CartButton extends LightningElement {
 
     getCount({ flowName: this.flowName, inputVariables: inputVariables })
       .then((result) => {
-        console.log("@@ BadgeCount: ", result);
         this.badgeCount = Math.trunc(result) > 99 ? "+99" : Math.trunc(result);
       })
       .catch((error) => {
@@ -55,8 +54,6 @@ export default class CartButton extends LightningElement {
     } else {
       this.sessionStorageId = result;
     }
-    console.log("@@ UserId", this.userId);
-    console.log("@@ BookingSessionId", this.sessionStorageId);
   }
 
   // Retrieve a cookie
@@ -100,7 +97,6 @@ export default class CartButton extends LightningElement {
   }
 
   handleMessageReceived(message) {
-    console.log("@@messageReceived: ", JSON.parse(JSON.stringify(message)));
     this.getBadgeCount();
   }
 

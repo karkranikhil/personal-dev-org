@@ -22,7 +22,6 @@ export default class FireBasketUpdateMessage extends LightningElement {
         const message = {
           messageToSend: "Update Basket"
         };
-        console.log("@@ Firingmessage: ", message);
         publish(this.messageContext, BASKET_UPDATE_CHANNEL, message);
       }
 }
