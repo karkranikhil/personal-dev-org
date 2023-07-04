@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <available>true</available>
+    <description>Visualforce template to send Lesson Confirmations with a table</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Individual Lesson Confirmation for Parent and Teacher Visualforce</name>
+    <style>none</style>
+    <subject>Crowden Student Attendance Summary</subject>
+    <type>visualforce</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,22 @@
+<apex:component controller="OccurrencesController" access="global">
+    <apex:attribute name="enrollmentIdAttribute" description="The ID of the Enrollment__c record" type="Id" required="true" access="global" assignTo="{!enrollmentId}"/>
+    <apex:attribute name="lessonsRemaining" description="The remaining lessons count" type="Integer" required="true" access="global"/>
+    
+    <apex:outputPanel >
+        <table>
+            <tr>
+                <th>Lesson Date</th>
+                <th>Lesson Status</th>
+            </tr>
+            <apex:repeat var="o" value="{!occurrences}">
+                <tr>
+                    <td><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!o.Date__c}" /></apex:outputText></td>
+                    <td>{!o.Individual_Lesson_Status__c}</td>
+                </tr>
+            </apex:repeat>
+            <tr class="highlight">
+                <td colspan="2">Lessons Remaining: {!FLOOR(lessonsRemaining)}</td>
+            </tr>
+        </table>
+    </apex:outputPanel>
+</apex:component>

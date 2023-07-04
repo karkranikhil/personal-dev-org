@@ -1,0 +1,64 @@
+<messaging:emailTemplate subject="Crowden Student Attendance Summary" recipientType="Contact" relatedToType="Enrollment__c">
+    <messaging:htmlEmailBody >
+        <html>
+            <head>
+                <title>Attendance Summary</title>
+                <style type="text/css">
+                    body {
+                        font-family: Arial, sans-serif;
+                        color: #333;
+                        height: auto;
+                        min-height: auto;
+                    }
+                    th, td {
+                        text-align: left;
+                    }
+                    .wrapper {
+                        width: 80%;
+                        margin: 0 auto;
+                        padding: 20px;
+                    }
+                    .header-img {
+                        width: 100%;
+                        max-width: 259px;
+                        margin-bottom: 20px;
+                    }
+                    .content {
+                        margin-bottom: 20px;
+                    }
+                    .contact {
+                        font-weight: bold;
+                    }
+                    a {
+                        color: #337ab7;
+                        text-decoration: none;
+                    }
+                    table {
+                        width: 100%;
+                    }
+                    .highlight {
+                        background-color: lightblue;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="wrapper">
+                    <img alt="Crowden Logo" class="header-img" src="https://www.crowden.org/wp-content/uploads/2019/11/crowden-pl-logo2-259x90.png" />
+                    <div class="content">
+                        <p>Attached below is the attendance summary for {!relatedTo.Contact_Full_Name__c} with {!relatedTo.Current_Teacher_Name__c}. 
+                           The number of current lessons remaining is {!FLOOR(relatedTo.Lessons_Remaining__c)}. If you notice any discrepancies, 
+                           please discuss them with the teacher and alert Crowden to any questions or concerns.
+                        </p>
+                        <c:OccurrencesTable enrollmentIdAttribute="{!relatedTo.Id}" lessonsRemaining="{!FLOOR(relatedTo.Lessons_Remaining__c)}" />
+                    </div>
+                    <div class="contact">
+                        Best,<br /><br />
+                        Crowden Music Center<br /><br />
+                        <a href="mailto:communityed@crowden.org">communityed@crowden.org</a><br /><br />
+                        <a href="tel:5105596910">510-559-6910</a> ext. 108
+                    </div>
+                </div>
+            </body>
+        </html>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>
