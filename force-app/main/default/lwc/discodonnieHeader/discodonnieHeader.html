@@ -1,0 +1,52 @@
+<template>
+  <header>
+    <div class="container">
+      <a onclick={navigateToHome}>
+        <img src={logoUrl} class="logo" />
+      </a>
+
+      <a class="nav-collapse-mobile">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <ul class="menu">
+        <template for:each={navigationItems} for:item="item" for:index="index">
+          <li key={item.Id}>
+            <a name={item.Id} onclick={navigate}>{item.Label}</a>
+          </li>
+        </template>
+        <li if:true={isGuest}>
+          <a class="header__nav__itemLinks" onclick={login}>Login</a>
+        </li>
+        <li if:false={isGuest} class="header__nav__item">
+          <a class="header__nav__itemLinks"
+            >{userName}<span aria-hidden="true">&#x25be;</span>
+          </a>
+
+          <div class="subMenuContainer">
+            <ul class="subMenu header__nav">
+              <li class="header__nav__item">
+                <a class="header__nav__itemLinks" onclick={navigateToSettings}
+                  >My Settings</a
+                >
+              </li>
+            </ul>
+            <ul class="subMenu header__nav">
+              <li class="header__nav__item">
+                <a class="header__nav__itemLinks" onclick={logout}>Logout</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <nav class="breadcrumb">
+      <div>
+        <a href="#" class="home_link" onclick={navigateToHome}></a>
+        <span if:true={pageTitle} class="divider">»</span>
+        <h3 if:true={pageTitle}>{pageTitle}</h3>
+      </div>
+    </nav>
+  </header>
+</template>
