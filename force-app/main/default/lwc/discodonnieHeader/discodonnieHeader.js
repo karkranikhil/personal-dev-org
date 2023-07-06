@@ -38,7 +38,6 @@ export default class DiscodonnieHeader extends NavigationMixin(LightningElement)
 
   //* LIFE CYCLE
   connectedCallback() {
-    console.log(this.logoUrl);
     this.baseURL = window.location.origin + BASE_PATH;
     this.setNavigationItems();
   }
@@ -49,6 +48,7 @@ export default class DiscodonnieHeader extends NavigationMixin(LightningElement)
     }
     this.hamMenuListeners();
     this.setIconSet();
+    this.hasRendered = true;
   }
   //* NAVIGATION
 
@@ -97,12 +97,7 @@ export default class DiscodonnieHeader extends NavigationMixin(LightningElement)
     window.location.href = window.location.origin + "/s/profile/" + this.userId;
   }
   navigateToHome() {
-    this[NavigationMixin.Navigate]({
-      type: "comm__namedPage",
-      attributes: {
-        name: "Home"
-      }
-    });
+    window.location.href = window.location.origin + "/s/";
   }
   logout() {
     this[NavigationMixin.Navigate]({
@@ -158,8 +153,6 @@ export default class DiscodonnieHeader extends NavigationMixin(LightningElement)
   }
   setIconSet() {
     let host = this.template.querySelector("*");
-    console.log(this.iconSetUrl);
-    console.log(this.baseURL);
     host.style.setProperty(
       "--icon-set-url",
       `url(${window.location.origin + this.iconSetUrl})`

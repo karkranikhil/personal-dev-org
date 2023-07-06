@@ -1,0 +1,211 @@
+:host {
+  --footer-background: #111719;
+  --footer-text-color: #74787e;
+  --footer-border-color: #253e4a;
+  --footer-link-color: #bebebe;
+  --footer-link-hover-color: #a0d1da ;
+  --footer-header-color: white;
+  --footer-border-bottom-color: #2c3037;
+  --footer-link-font-size: 12px;
+}
+
+/* replace these color codes with your actual color codes */
+/* 
+--t-color: #xxxxxx;
+--t-hover-color: #xxxxxx;
+--f-color: #xxxxxx;
+--f-hover-color: #xxxxxx;
+--y-color: #xxxxxx;
+--y-hover-color: #xxxxxx;
+--g-color: #xxxxxx;
+--g-hover-color: #xxxxxx;
+*/
+
+footer {
+  margin-top: 30px;
+  background: var(--footer-background);
+  display: block;
+  padding: 30px 0;
+  min-height: 200px;
+  color: var(--footer-text-color);
+  border-top: 1px solid var(--footer-border-color);
+}
+
+footer .footer-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+footer .footer-container .footer-top {
+  padding-bottom: 20px;
+  display: flex;
+  gap: 2%;
+  justify-content: space-between;
+}
+
+footer .footer-container .footer-top .left {
+  width: 52%;
+}
+
+footer .footer-container .footer-top .left p {
+  margin: 20px 0;
+  font-size: var(--footer-link-font-size);
+  line-height: 18px;
+}
+
+footer .footer-container .footer-top .left a {
+  color: var(--footer-link-color);
+  text-decoration: none;
+  font-size: var(--footer-link-font-size);
+  transition: 0.2s;
+}
+
+footer a:hover {
+  color: var(--footer-link-hover-color);
+}
+
+footer .social {
+  width: 32%;
+}
+
+footer .social h5 {
+  border-bottom: 1px solid var(--footer-border-bottom-color);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: var(--footer-header-color);
+  font-weight: 300;
+}
+
+footer .social .row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  width: fit-content;
+}
+
+footer .social a {
+  display: block;
+  height: 40px;
+  width: 119px;
+}
+
+footer .social .t {
+  background: var(--t-image);
+  transition: 0.3s;
+}
+
+footer .social .t:hover {
+  background: var(--t-hover-image);
+  transition: 0.3s;
+}
+
+footer .social .f:hover {
+  background: var(--f-hover-image);
+}
+
+footer .social .f {
+  background: var(--f-image);
+  transition: 0.3s;
+}
+
+footer .social .y:hover {
+  background: var(--y-hover-image);
+}
+
+footer .social .y {
+  background: var(--y-image);
+  transition: 0.3s;
+}
+
+footer .social .g:hover {
+  background: var(--g-hover-image);
+}
+
+footer .social .g {
+  background: var(--g-image);
+  transition: 0.3s;
+}
+
+footer hr {
+  border: 0;
+  border-top: 1px solid var(--footer-border-bottom-color);
+}
+
+footer .footer-bottom {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-gap: 40px;
+  padding-top: 20px;
+}
+
+footer .footer-bottom > div {
+  width: 100%;
+}
+
+footer .footer-bottom .footer-menu {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+footer .footer-bottom .footer-menu a {
+  color: var(--footer-header-color);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 19px;
+  margin-right: 15px;
+}
+
+footer .footer-bottom p {
+  font-weight: 300;
+  margin-top: 6px;
+  font-size: var(--footer-link-font-size);
+}
+
+footer .footer-bottom .right-side {
+  font-weight: 300;
+  margin-top: 6px;
+  font-size: var(--footer-link-font-size);
+  display: flex;
+  align-items: center;
+}
+
+footer .footer-bottom .right-side .small-text {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  padding-right: 10px;
+}
+
+footer .footer-bottom .right-side .small-text span:first-child {
+  font-size: 17px;
+  color: var(--footer-header-color);
+  font-weight: bold;
+}
+
+footer .footer-bottom .right-side img {
+  max-width: 60%;
+}
+
+@media (max-width: 1024px) {
+  footer .footer-container {
+    padding: 10px 20px;
+  }
+  footer .footer-container .footer-top {
+    flex-direction: column;
+    gap: 20px;
+  }
+  footer .footer-container .footer-top .left {
+    width: 100%;
+  }
+  footer .footer-container .footer-top .social {
+    width: 100%;
+    margin-top: 20px;
+  }
+  footer .footer-container .footer-bottom {
+    grid-template-columns: 1fr;
+  }
+}

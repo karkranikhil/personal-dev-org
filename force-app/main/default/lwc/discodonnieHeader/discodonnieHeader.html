@@ -19,9 +19,15 @@
         <li if:true={isGuest}>
           <a class="header__nav__itemLinks" onclick={login}>Login</a>
         </li>
-        <li if:false={isGuest} class="header__nav__item">
-          <a class="header__nav__itemLinks"
-            >{userName}<span aria-hidden="true">&#x25be;</span>
+        <!-- This element will only show on mobile screens -->
+        <li if:false={isGuest} class="slds-hide_medium">
+          <a class="header__nav__itemLinks" onclick={logout}>Logout</a>
+        </li>
+
+        <!-- This element will hide on mobile screens and will show on tablet, desktop and larger screens -->
+        <li if:false={isGuest} class="slds-show_medium header__nav__item">
+          <a class="header__nav__itemLinks">
+            {userName}<span aria-hidden="true">&#x25be;</span>
           </a>
 
           <div class="subMenuContainer">
