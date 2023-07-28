@@ -1,10 +1,27 @@
 <template>
     <lightning-card title={title} icon-name="standard:account">
-        <lightning-datatable
-            key-field="id"
-            data={accounts}
-            columns={columns}
-            hide-checkbox-column>
-        </lightning-datatable>
+      <template if:true={isLoading}>
+        <div class="message slds-align_absolute-center">
+          <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </div>
+      </template>
+      <template if:true={errorMessage}>
+        <div class="message slds-align_absolute-center slds-text-color_error">
+          {errorMessage}
+        </div>
+      </template>
+      <template if:false={isLoading}>
+        <template if:false={errorMessage}>
+          <template if:true={noAccountsMessage}>
+            <div class="message slds-align_absolute-center">
+              {noAccountsMessage}
+            </div>
+          </template>
+          <template if:false={noAccountsMessage}>
+            <lightning-datatable data={accounts} columns={columns} key-field="Id"></lightning-datatable>
+          </template>
+        </template>
+      </template>
     </lightning-card>
-</template>
+  </template>
+  

@@ -10,6 +10,9 @@ export default class AccountPayerWidget extends LightningElement {
   @api payerFieldApiName;
   accounts;
   payerId;
+  isLoading = false;
+  errorMessage;
+  noAccountsMessage;
 
   // Define columns for datatable
   columns = [
@@ -19,6 +22,7 @@ export default class AccountPayerWidget extends LightningElement {
   ];
 
   connectedCallback() {
+    this.isLoading = true;
     getPayerIdFromRecord({
       recordId: this.recordId,
       objectApiName: this.objectApiName,
@@ -26,15 +30,22 @@ export default class AccountPayerWidget extends LightningElement {
     })
       .then((result) => {
         this.payerId = result;
+        if (!result) {
+          this.errorMessage = "No Pverify Payer Selected";
+        }
       })
       .catch((error) => {
+        this.errorMessage = "Error loading payer ID: " + error.body.message;
         this.dispatchEvent(
           new ShowToastEvent({
-            title: "Error loading payer ID",
-            message: error.body.message,
+            title: "Error",
+            message: this.errorMessage,
             variant: "error"
           })
         );
+      })
+      .finally(() => {
+        this.isLoading = false;
       });
   }
 
@@ -42,12 +53,15 @@ export default class AccountPayerWidget extends LightningElement {
   wiredAccounts({ error, data }) {
     if (data) {
       this.accounts = data;
-      this.error = undefined;
+      if (data.length === 0) {
+        this.noAccountsMessage = "No related B2B Accounts";
+      }
     } else if (error) {
+      this.errorMessage = "Error loading accounts: " + error.body.message;
       this.dispatchEvent(
         new ShowToastEvent({
-          title: "Error loading accounts",
-          message: error.body.message,
+          title: "Error",
+          message: this.errorMessage,
           variant: "error"
         })
       );
