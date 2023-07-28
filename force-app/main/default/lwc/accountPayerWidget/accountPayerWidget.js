@@ -1,6 +1,6 @@
 import { LightningElement, api, wire } from "lwc";
-import getPayerIdFromRecord from "@salesforce/apex/AccountPayerController.getPayerIdFromRecord";
 import getAccounts from "@salesforce/apex/AccountPayerController.getAccounts";
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 export default class AccountPayerWidget extends LightningElement {
@@ -21,21 +21,42 @@ export default class AccountPayerWidget extends LightningElement {
     { label: "Phone", fieldName: "Phone", type: "phone" }
   ];
 
-  connectedCallback() {
+  get fields() {
+    return [this.objectApiName + "." + this.payerFieldApiName];
+  }
+
+  @wire(getRecord, { recordId: "$recordId", fields: "$fields" })
+  wiredRecord({ error, data }) {
+    if (data) {
+      this.payerId = getFieldValue(data, this.fields[0]);
+      if (!this.payerId) {
+        this.errorMessage = "No Pverify Payer Selected";
+      } else {
+        this.getRelatedAccounts();
+      }
+    } else if (error) {
+      this.errorMessage = "Error loading payer ID: " + error.body.message;
+      this.dispatchEvent(
+        new ShowToastEvent({
+          title: "Error",
+          message: this.errorMessage,
+          variant: "error"
+        })
+      );
+    }
+  }
+
+  getRelatedAccounts() {
     this.isLoading = true;
-    getPayerIdFromRecord({
-      recordId: this.recordId,
-      objectApiName: this.objectApiName,
-      payerFieldApiName: this.payerFieldApiName
-    })
+    getAccounts({ payerId: this.payerId })
       .then((result) => {
-        this.payerId = result;
-        if (!result) {
-          this.errorMessage = "No Pverify Payer Selected";
+        this.accounts = result;
+        if (result.length === 0) {
+          this.noAccountsMessage = "No related B2B Accounts";
         }
       })
       .catch((error) => {
-        this.errorMessage = "Error loading payer ID: " + error.body.message;
+        this.errorMessage = "Error loading accounts: " + error.body.message;
         this.dispatchEvent(
           new ShowToastEvent({
             title: "Error",
@@ -47,24 +68,5 @@ export default class AccountPayerWidget extends LightningElement {
       .finally(() => {
         this.isLoading = false;
       });
-  }
-
-  @wire(getAccounts, { payerId: "$payerId" })
-  wiredAccounts({ error, data }) {
-    if (data) {
-      this.accounts = data;
-      if (data.length === 0) {
-        this.noAccountsMessage = "No related B2B Accounts";
-      }
-    } else if (error) {
-      this.errorMessage = "Error loading accounts: " + error.body.message;
-      this.dispatchEvent(
-        new ShowToastEvent({
-          title: "Error",
-          message: this.errorMessage,
-          variant: "error"
-        })
-      );
-    }
   }
 }
