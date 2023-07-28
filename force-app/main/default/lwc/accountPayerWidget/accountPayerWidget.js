@@ -21,6 +21,7 @@ export default class AccountPayerWidget extends LightningElement {
       label: "Name",
       fieldName: "nameUrl",
       type: "url",
+      wrapText: true,
       typeAttributes: { label: { fieldName: "Name" }, target: "_blank" }
     },
     {
