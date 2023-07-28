@@ -16,6 +16,7 @@
             </objects>
             <property name="title" type="String" label="Card Title" default="B2B Accounts" description="Set the title of the card."/>
             <property name="payerFieldApiName" default="pVerify_Payer__c" type="String" label="Payer Field API Name" description="API name of the field that contains the pVerify_Payer__c ID."/>
+            <property name="limit" default="10" type="Integer" label="Query Limit" description="Max number of records to display in the table. By default is 10"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

@@ -1,8 +1,8 @@
-public with sharing class AccountPayerController {
-    @AuraEnabled(cacheable=true)
-    public static String getPayerIdFromRecord(String recordId, String objectApiName, String payerFieldApiName) {
+public with sharing class AccountPayerController{
+    @AuraEnabled(cacheable = true)
+    public static String getPayerIdFromRecord(String recordId, String objectApiName, String payerFieldApiName){
         String payerId;
-        
+
         // Create a dynamic SOQL query
         String queryString = 'SELECT ' + payerFieldApiName + ' FROM ' + objectApiName + ' WHERE Id = :recordId';
 
@@ -14,13 +14,46 @@ public with sharing class AccountPayerController {
 
         return payerId;
     }
-    
-    @AuraEnabled(cacheable=true)
-    public static List<Account> getAccounts(String payerId) {
-        return [SELECT Name, Type, Phone 
-                FROM Account 
-                WHERE Id IN (SELECT Account__c 
-                             FROM Account_Payer__c 
-                             WHERE pVerify_Payer__c = :payerId)];
+
+    @AuraEnabled(cacheable = true)
+    public static List<AccountWrapper> getAccounts(String payerId, Integer maxLimit){
+        List<Account> accounts = [SELECT Id, Name, Account_Type__c, Phone, Preferred_Partner__c
+                                  FROM Account
+                                  WHERE Id IN (SELECT Account__c
+                                               FROM Account_Payer__c
+                                               WHERE pVerify_Payer__c = :payerId)
+                                  ORDER BY Preferred_Partner__c DESC, Name ASC LIMIT :maxLimit];
+
+        List<AccountWrapper> accountWrappers = new List<AccountWrapper>();
+
+        for (Account a : accounts){
+            AccountWrapper aw = new AccountWrapper();
+            aw.Id = a.Id;
+            aw.Name = a.Name;
+            aw.AccountType = a.Account_Type__c;
+            aw.Phone = a.Phone;
+            aw.PreferredPartner = a.Preferred_Partner__c;
+            aw.nameUrl = '/' + a.Id;
+            accountWrappers.add(aw);
+        }
+
+        return accountWrappers;
     }
+
+    public class AccountWrapper{
+        @AuraEnabled
+        public String Id;
+        @AuraEnabled
+        public String Name;
+        @AuraEnabled
+        public String nameUrl;
+        @AuraEnabled
+        public String AccountType;
+        @AuraEnabled
+        public String Phone;
+        @AuraEnabled
+        public Boolean PreferredPartner;
+
+    }
+
 }

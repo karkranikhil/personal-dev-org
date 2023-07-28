@@ -8,6 +8,7 @@ export default class AccountPayerWidget extends LightningElement {
   @api title;
   @api objectApiName;
   @api payerFieldApiName;
+  @api limit = 10;
   accounts;
   payerId;
   isLoading = false;
@@ -16,9 +17,24 @@ export default class AccountPayerWidget extends LightningElement {
 
   // Define columns for datatable
   columns = [
-    { label: "Account Name", fieldName: "Name" },
-    { label: "Account Type", fieldName: "Type" },
-    { label: "Phone", fieldName: "Phone", type: "phone" }
+    {
+      label: "Name",
+      fieldName: "nameUrl",
+      type: "url",
+      typeAttributes: { label: { fieldName: "Name" }, target: "_blank" }
+    },
+    {
+      label: "Type",
+      fieldName: "AccountType",
+      type: "text",
+      wrapText: true
+    },
+    { label: "Phone", fieldName: "Phone", type: "phone" },
+    {
+      label: "Is Preffered",
+      fieldName: "PreferredPartner",
+      type: "boolean"
+    }
   ];
 
   get fields() {
@@ -27,11 +43,9 @@ export default class AccountPayerWidget extends LightningElement {
 
   @wire(getRecord, { recordId: "$recordId", fields: "$fields" })
   wiredRecord({ error, data }) {
-    console.log("Wiring Record: ", this.fields);
     if (data) {
-      console.log("wired record data: ", JSON.parse(JSON.stringify(data)));
       this.payerId = getFieldValue(data, this.fields[0]);
-      console.log("this.payerId: ", this.payerId);
+
       if (!this.payerId) {
         this.errorMessage = "No Pverify Payer Selected";
       } else {
@@ -52,7 +66,7 @@ export default class AccountPayerWidget extends LightningElement {
 
   getRelatedAccounts() {
     this.isLoading = true;
-    getAccounts({ payerId: this.payerId })
+    getAccounts({ payerId: this.payerId, maxLimit: this.limit })
       .then((result) => {
         this.accounts = result;
         if (result.length === 0) {
