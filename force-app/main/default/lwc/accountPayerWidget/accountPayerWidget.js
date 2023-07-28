@@ -27,11 +27,15 @@ export default class AccountPayerWidget extends LightningElement {
 
   @wire(getRecord, { recordId: "$recordId", fields: "$fields" })
   wiredRecord({ error, data }) {
+    console.log("Wiring Record: ", this.fields);
     if (data) {
+      console.log("wired record data: ", JSON.parse(JSON.stringify(data)));
       this.payerId = getFieldValue(data, this.fields[0]);
+      console.log("this.payerId: ", this.payerId);
       if (!this.payerId) {
         this.errorMessage = "No Pverify Payer Selected";
       } else {
+        this.errorMessage = null;
         this.getRelatedAccounts();
       }
     } else if (error) {
@@ -53,6 +57,8 @@ export default class AccountPayerWidget extends LightningElement {
         this.accounts = result;
         if (result.length === 0) {
           this.noAccountsMessage = "No related B2B Accounts";
+        } else {
+          this.noAccountsMessage = null;
         }
       })
       .catch((error) => {

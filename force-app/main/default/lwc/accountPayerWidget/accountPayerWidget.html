@@ -18,7 +18,7 @@
             </div>
           </template>
           <template if:false={noAccountsMessage}>
-            <lightning-datatable data={accounts} columns={columns} key-field="Id"></lightning-datatable>
+            <lightning-datatable hide-checkbox-column data={accounts} columns={columns} key-field="Id"></lightning-datatable>
           </template>
         </template>
       </template>
