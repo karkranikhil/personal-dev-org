@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>B2B Accounts related to Payer</masterLabel>
+    <description>Widget to show related B2B Accounts based on the Pvery Payer</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Lead</object>
+                <object>Account</object>
+                <object>Opportunity</object>
+            </objects>
+            <property name="title" type="String" label="Card Title" default="B2B Accounts" description="Set the title of the card."/>
+            <property name="payerFieldApiName" default="pVerify_Payer__c" type="String" label="Payer Field API Name" description="API name of the field that contains the pVerify_Payer__c ID."/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
