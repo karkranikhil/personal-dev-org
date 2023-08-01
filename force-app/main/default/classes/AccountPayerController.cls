@@ -17,12 +17,12 @@ public with sharing class AccountPayerController{
 
     @AuraEnabled(cacheable = true)
     public static List<AccountWrapper> getAccounts(String payerId, Integer maxLimit){
-        List<Account> accounts = [SELECT Id, Name, Account_Type__c, Phone, Preferred_Partner__c
+        List<Account> accounts = [SELECT Id, Name, Account_Type__c, Phone, Preferred_Partner__c,True_Aftercares_Last_60_Days__c
                                   FROM Account
                                   WHERE Id IN (SELECT Account__c
                                                FROM Account_Payer__c
                                                WHERE pVerify_Payer__c = :payerId)
-                                  ORDER BY Preferred_Partner__c DESC, Name ASC LIMIT :maxLimit];
+                                  ORDER BY Preferred_Partner__c DESC, True_Aftercares_Last_60_Days__c DESC LIMIT :maxLimit];
 
         List<AccountWrapper> accountWrappers = new List<AccountWrapper>();
 
@@ -33,6 +33,7 @@ public with sharing class AccountPayerController{
             aw.AccountType = a.Account_Type__c;
             aw.Phone = a.Phone;
             aw.PreferredPartner = a.Preferred_Partner__c;
+            aw.Aftercares = a.True_Aftercares_Last_60_Days__c;
             aw.nameUrl = '/' + a.Id;
             accountWrappers.add(aw);
         }
@@ -53,6 +54,8 @@ public with sharing class AccountPayerController{
         public String Phone;
         @AuraEnabled
         public Boolean PreferredPartner;
+        @AuraEnabled
+        public Decimal Aftercares;
 
     }
 
