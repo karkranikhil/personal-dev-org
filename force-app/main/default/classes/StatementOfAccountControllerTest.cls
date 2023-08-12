@@ -16,7 +16,7 @@ private class StatementOfAccountControllerTest{
         insert testPayment;
 
         // Create a test Cash
-        pba_financial__Cash__c testCash = new pba_financial__Cash__c(pba_financial__Contact__c = testContact.Id, Tipo_de_cobro__c='Bloqueo',To_Payment__c = testPayment.Id,  pba_financial__Amount__c=25);
+        pba_financial__Cash__c testCash = new pba_financial__Cash__c(pba_financial__Contact__c = testContact.Id, Tipo_de_pago__c='Apartamento' ,Tipo_de_cobro__c='Bloqueo',To_Payment__c = testPayment.Id,  pba_financial__Amount__c=25);
         insert testCash;
 
         // Create a StandardController and set its parameters
@@ -52,9 +52,8 @@ private class StatementOfAccountControllerTest{
         insert testPayment;
 
         // Create a test Cash
-        pba_financial__Cash__c testCash = new pba_financial__Cash__c(pba_financial__Contact__c = testContact.Id, Tipo_de_cobro__c='Bloqueo',To_Payment__c = testPayment.Id,  pba_financial__Amount__c=25);
+        pba_financial__Cash__c testCash = new pba_financial__Cash__c(pba_financial__Contact__c = testContact.Id,Tipo_de_pago__c='Apartamento' ,Tipo_de_cobro__c='Bloqueo',To_Payment__c = testPayment.Id,  pba_financial__Amount__c=25);
         insert testCash;
-
         StatementOfAccountController.saveAndEmail(testContact.Id);
 
     }
