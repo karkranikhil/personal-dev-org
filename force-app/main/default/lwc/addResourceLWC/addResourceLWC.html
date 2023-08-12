@@ -1,0 +1,63 @@
+<template>
+  <lightning-card>
+    <template if:true={viewRecords}>
+      <section
+        role="dialog"
+        tabindex="-1"
+        aria-modal="true"
+        aria-labelledby="modal-heading-01"
+        class="slds-modal slds-fade-in-open slds-modal_large"
+      >
+        <template if:true={Loading}>
+          <div class="exampleHolder">
+            <lightning-spinner
+              alternative-text="Loading"
+              variant="brand"
+              size="large"
+            ></lightning-spinner>
+          </div>
+        </template>
+        <div class="slds-modal__container">
+          <div class="slds-modal__header">
+            <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+              Select Resource
+            </h1>
+          </div>
+          <div
+            class="slds-modal__content slds-p-around_medium"
+            id="modal-content-id-1"
+          >
+            <div class="slds-align_absolute-center">{norecordsFound}</div>
+            <template if:true={viewResource}>
+              <div style="height: 300px">
+                <lightning-datatable
+                  key-field="id"
+                  data={data}
+                  columns={columns}
+                  sorted-by={sortBy}
+                  sorted-direction={sortDirection}
+                  onsort={doSorting}
+                  default-sort-direction={defaultSortDirection}
+                >
+                </lightning-datatable>
+              </div>
+            </template>
+          </div>
+          <div class="slds-modal__footer">
+            <button
+              class="slds-button slds-button_neutral"
+              onclick={handleclose}
+              aria-label="Close"
+            >
+              Close
+            </button>
+            <button class="slds-button slds-button_brand" onclick={handleSave}>
+              Save
+            </button>
+          </div>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+  </lightning-card>
+</template>
