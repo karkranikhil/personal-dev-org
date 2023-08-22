@@ -30,7 +30,11 @@ export default class AccountPayerWidget extends LightningElement {
       type: "text",
       wrapText: true
     },
-    { label: "Phone", fieldName: "Phone", type: "phone" },
+    {
+      label: "Refer-Outs 60",
+      fieldName: "Aftercares",
+      type: "Integer"
+    },
     {
       label: "Is Preffered",
       fieldName: "PreferredPartner",
