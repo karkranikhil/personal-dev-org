@@ -11,4 +11,9 @@
         <target>lightningCommunity__Page</target>
         <target>lightningCommunity__Default</target>
     </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="narrowContainerInput" type="Boolean" default="false" label="Narrow Container"/>
+        </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>

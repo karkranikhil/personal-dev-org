@@ -1,4 +1,4 @@
-import { LightningElement, wire } from "lwc";
+import { LightningElement, wire, api } from "lwc";
 import {
   subscribe,
   APPLICATION_SCOPE,
@@ -9,6 +9,16 @@ import BASKET_UPDATE_CHANNEL from "@salesforce/messageChannel/BasketUpdateChanne
 export default class ViewCartWrapper extends LightningElement {
   subscription = null;
   showFlow = true; // Variable to control rendering
+  @api narrowContainerInput = false;
+  get inputVariables() {
+    return [
+      {
+        name: "NarrowContainer",
+        type: "Boolean",
+        value: this.narrowContainerInput
+      }
+    ];
+  }
 
   @wire(MessageContext)
   messageContext;
