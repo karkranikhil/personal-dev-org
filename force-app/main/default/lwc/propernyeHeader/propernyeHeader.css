@@ -255,8 +255,13 @@
   max-width: 1120px;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 75px;
+  padding-top: 25px;
   padding-right: 20px;
-  padding-bottom: 75px;
+  padding-bottom: 25px;
   padding-left: 20px;
+}
+.container img {
+  width: -moz-available;    /* For Mozilla Firefox */
+  width: -webkit-fill-available;  /* For WebKit Browsers */
+  width: stretch;  /* For other standard browsers, may not be fully supported */
 }

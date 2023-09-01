@@ -15,7 +15,7 @@ export default class PropernyeHeader extends NavigationMixin(LightningElement) {
   logoUrl = RESOURCES + "/images/logo.png";
   iconUrl = RESOURCES + "/images/fingers.png";
   closeIcon = RESOURCES + "/images/close.svg";
-  herosImageUrl = RESOURCES + "/images/proper-header.jpg";
+  herosImageUrl = RESOURCES + "/images/proper-header.png";
 
   userId = USER_ID;
   isGuest = IS_GUEST;
@@ -32,6 +32,7 @@ export default class PropernyeHeader extends NavigationMixin(LightningElement) {
   //* LIFE CYCLE
   connectedCallback() {
     this.baseURL = window.location.origin + BASE_PATH;
+    console.log("@@baseURL: ", this.baseURL);
     this.setNavigationItems();
   }
 
@@ -39,18 +40,20 @@ export default class PropernyeHeader extends NavigationMixin(LightningElement) {
 
   navigate(event) {
     event.stopPropagation();
+    event.preventDefault();
 
     let id = event.currentTarget.name;
 
     let nav = this.navigationItems.find((item) => item.Id === id);
+    console.log("@@nav: ", JSON.parse(JSON.stringify(nav)));
 
     switch (nav.Type) {
       case "SalesforceObject":
         this.navigateToObject(nav.Target);
         break;
       case "InternalLink":
-        window.location.href =
-          window.location.origin + "/s/" + nav.Target.replace("/", "");
+        console.log("@@Redirect to: ", this.baseURL + nav.Target);
+        window.location.href = this.baseURL + nav.Target;
         break;
       case "ExternalLink":
         window.location.href = nav.Target;
