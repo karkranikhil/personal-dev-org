@@ -10,10 +10,20 @@
     <template if:false={isLoading}>
       <section if:true={isValid} class="content">
         Generación de estado de cuenta del cliente <b>{firstName} {lastName}</b>
-        <br>
+        <br />
         Email del contacto: <b>{email}</b>
 
-        <div class="pdf-container">
+        <div if:false={showPdf} class="slds-p-around_large">
+          <lightning-datatable
+            hide-checkbox-column
+            key-field="Id"
+            data={paymentList}
+            columns={columns}
+            onrowaction={handleRowAction}
+          >
+          </lightning-datatable>
+        </div>
+        <div if:true={showPdf} class="pdf-container">
           <div class="slds-p-around_large">
             <!--IFRAME -->
             <iframe src={invoicePdfUrl} height="550" width="550"></iframe>
@@ -21,26 +31,50 @@
         </div>
 
         <div slot="footer">
+          <!--* CANCEL -->
           <lightning-button
             variant="neutral"
             label="Cancelar"
             onclick={handleCancel}
           ></lightning-button>
-          <lightning-button
-            if:false={isSending}
-            variant="brand"
-            label="Guardar y Enviar"
-            disabled={isButtonDisabled}
-            class="slds-m-left_x-small"
-            onclick={handleSaveAndEmail}
-          ></lightning-button>
-          <lightning-button
-            if:true={isSending}
-            variant="brand"
-            label="Cargando..."
-            disabled
-            class="slds-m-left_x-small"
-          ></lightning-button>
+
+          <!--* TABLE STEP BUTTONS -->
+          <template if:false={showPdf}>
+            <lightning-button
+                variant="brand-outline"
+                label="Generar PDF Sin Recibos"
+                disabled={isNextStepButtonDisabled}
+                class="slds-m-left_x-small"
+                onclick={handleGeneratePDFWithoutReceipts}
+            ></lightning-button>
+            <lightning-button
+                variant="brand"
+                label="Generar PDF Con Recibos"
+                disabled={isNextStepButtonDisabled}
+                class="slds-m-left_x-small"
+                onclick={handleGeneratePDFWithReceipts}
+            ></lightning-button>
+        </template>
+        
+
+          <!--* PDF STEP BUTTONS -->
+          <template if:true={showPdf}>
+            <lightning-button
+              if:false={isSending}
+              variant="brand"
+              label="Guardar y Enviar"
+              disabled={isSendButtonDisabled}
+              class="slds-m-left_x-small"
+              onclick={handleSaveAndEmail}
+            ></lightning-button>
+            <lightning-button
+              if:true={isSending}
+              variant="brand"
+              label="Cargando..."
+              disabled
+              class="slds-m-left_x-small"
+            ></lightning-button>
+          </template>
         </div>
       </section>
 

@@ -7,6 +7,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
 import isValid from "@salesforce/apex/StatementOfAccountController.isValid";
 import SaveAndEmail from "@salesforce/apex/StatementOfAccountController.saveAndEmail";
+import fetchPaymentsByContact from "@salesforce/apex/StatementOfAccountController.fetchPaymentsByContact";
 import USER_ID from "@salesforce/user/Id";
 
 const ENABLED_PROFILES = [
@@ -19,11 +20,44 @@ export default class StatementOfAccountAction extends LightningElement {
   @api recordId;
   @api objectApiName;
   @track contact;
-  @track isButtonDisabled = true;
+  @track isSendButtonDisabled = true;
+  @track isNextStepButtonDisabled = true;
+  @track includeReceipts = false; // Variable to decide if receipts should be included in the PDF  @track paymentList;
+  @track paymentList;
+  @track selectedPaymentIds = [];
   profileName;
   isValid = false;
   isLoading = true;
   isSending = false;
+  showPdf = false;
+
+  columns = [
+    {
+      label: "Incluir?",
+      type: "button-icon",
+      fixedWidth: 75,
+      typeAttributes: {
+        label: "Include",
+        iconName: { fieldName: "toggleIcon" },
+        class: "slds-current-color",
+        name: "toggle",
+        variant: { fieldName: "toggleIconVariant" }
+      }
+    },
+    { label: "Titulo", fieldName: "Name" },
+    {
+      label: "Listing Adquirido",
+      fieldName: "Listing_Adquirido_Name__c",
+      type: "text",
+      initialWidth: 200
+    },
+    {
+      label: "Cantidad Total",
+      fieldName: "pba_financial__Total_Amount__c",
+      type: "currency",
+      initialWidth: 180
+    }
+  ];
 
   @wire(getRecord, {
     recordId: USER_ID,
@@ -42,7 +76,7 @@ export default class StatementOfAccountAction extends LightningElement {
       console.log("data: ", data);
       this.profileName = data.fields.Profile.value.fields.Name.value;
       console.log("@@ profileName: ", this.profileName);
-      this.isButtonDisabled = !ENABLED_PROFILES.includes(this.profileName);
+      this.isSendButtonDisabled = !ENABLED_PROFILES.includes(this.profileName);
     }
   }
 
@@ -62,8 +96,40 @@ export default class StatementOfAccountAction extends LightningElement {
     } else if (data) {
       this.contact = { ...data };
       isValid({ contactId: this.recordId })
-        .then((valid) => (this.isValid = valid))
-        .finally(() => (this.isLoading = false));
+        .then((valid) => {
+          this.isValid = valid;
+          fetchPaymentsByContact({ contactId: this.recordId })
+            .then((result) => {
+              console.log("@@ paymentresult: ", result);
+              this.paymentList = result.map((row) => {
+                row.toggleIcon = this.selectedPaymentIds.includes(row.Id)
+                  ? "utility:check"
+                  : "utility:add";
+                row.toggleIconVariant = this.selectedPaymentIds.includes(row.Id)
+                  ? "brand"
+                  : "border";
+                return row;
+              });
+              console.log(
+                "@@ paymentList: ",
+                JSON.parse(JSON.stringify(this.paymentList))
+              );
+            })
+            .catch((error) => {
+              console.error(error);
+              this.dispatchEvent(
+                new ShowToastEvent({
+                  title: "Error",
+                  message:
+                    "There was an error getting the Payments information.",
+                  variant: "error"
+                })
+              );
+            });
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     }
   }
 
@@ -80,6 +146,66 @@ export default class StatementOfAccountAction extends LightningElement {
 
   get invoicePdfUrl() {
     return `/apex/statementOfAccountPDF?contactId=${this.recordId}`;
+  }
+  // Helper Function to Update selectedPaymentIds Array
+  updateSelectedPaymentIds(rowId) {
+    const index = this.selectedPaymentIds.indexOf(rowId);
+    if (index > -1) {
+      this.selectedPaymentIds.splice(index, 1);
+    } else {
+      this.selectedPaymentIds.push(rowId);
+    }
+    // Trigger reactivity by assigning a new copy of the array
+    this.isNextStepButtonDisabled = this.selectedPaymentIds.length == 0;
+    return [...this.selectedPaymentIds];
+  }
+
+  // Helper Function to Force Data Table Rerender
+  forceRerender(data) {
+    this.paymentList = undefined;
+    return this.updateToggleIcons(data);
+  }
+
+  handleRowAction(event) {
+    const actionName = event.detail.action.name;
+    const rowId = event.detail.row.Id;
+
+    if (actionName === "toggle") {
+      // Update selectedPaymentIds and rerender datatable
+      this.selectedPaymentIds = this.updateSelectedPaymentIds(rowId);
+      this.paymentList = this.forceRerender([...this.paymentList]);
+      console.log(
+        "@@ selectedPaymentIds: ",
+        JSON.parse(JSON.stringify(this.selectedPaymentIds))
+      );
+    }
+  }
+
+  updateToggleIcons(paymentData) {
+    return paymentData.map((row) => {
+      row.toggleIcon = this.selectedPaymentIds.includes(row.Id)
+        ? "utility:check"
+        : "utility:add";
+      row.toggleIconVariant = this.selectedPaymentIds.includes(row.Id)
+        ? "brand"
+        : "border";
+      return row;
+    });
+  }
+
+  handleGeneratePDFWithoutReceipts() {
+    this.includeReceipts = false;
+    this.navigateToNextStep();
+  }
+
+  handleGeneratePDFWithReceipts() {
+    this.includeReceipts = true;
+    this.navigateToNextStep();
+  }
+
+  // Method to navigate to the next step. Implementation depends on your specific requirement
+  navigateToNextStep() {
+    this.showPdf = true;
   }
 
   handleCancel() {

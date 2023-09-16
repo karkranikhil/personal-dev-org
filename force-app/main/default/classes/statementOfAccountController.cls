@@ -36,7 +36,7 @@ public class StatementOfAccountController{
                        FROM pba__Listing__c
                        WHERE Id = :contact.Listing_Adquirido__c]?.Name;
 
-            payments = [SELECT Id, Name, Tipo_de_pago__c, Payment_Type_Translated__c, pba_financial__Total_Amount__c, pba_financial__Allocated_Cash__c, pba_financial__Balance__c, pba_financial__Status__c, pba_financial__Due_Date__c, CurrencyIsoCode, (SELECT Id, Name, Tipo_de_cobro__c, Charge_type_translated__c, pba_financial__Description__c, pba_financial__Amount__c, pba_financial__Status__c, Proyecto__c, Late_Payment_Fee__c, pba_financial__Allocated__c, pba_financial__Not_Allocated__c, pba_financial__Date__c, Initial_Payment_Amount__c, To_Payment__c, pba_financial__Contact__c, CurrencyIsoCode
+            payments = [SELECT Id, Name, Tipo_de_pago__c, Listing_Adquirido_Name__c, Payment_Type_Translated__c, pba_financial__Total_Amount__c, pba_financial__Allocated_Cash__c, pba_financial__Balance__c, pba_financial__Status__c, pba_financial__Due_Date__c, CurrencyIsoCode, (SELECT Id, Name, Tipo_de_cobro__c, Charge_type_translated__c, pba_financial__Description__c, pba_financial__Amount__c, pba_financial__Status__c, Proyecto__c, Late_Payment_Fee__c, pba_financial__Allocated__c, pba_financial__Not_Allocated__c, pba_financial__Date__c, Initial_Payment_Amount__c, To_Payment__c, pba_financial__Contact__c, CurrencyIsoCode
                                                                                                                                                                                                                                                            FROM Cash__r
                                                                                                                                                                                                                                                            ORDER BY CreatedDate ASC)
                         FROM pba_financial__Payment__c
@@ -126,7 +126,7 @@ public class StatementOfAccountController{
      **/
     @AuraEnabled
     public static void saveAndEmail(String recordId){
-        Contact currentContact = [SELECT Id, Email, Name,Listing_Adquirido__c, Idioma_de_Preferencia__c
+        Contact currentContact = [SELECT Id, Email, Name, Listing_Adquirido__c, Idioma_de_Preferencia__c
                                   FROM Contact
                                   WHERE Id = :recordId];
 
@@ -143,7 +143,7 @@ public class StatementOfAccountController{
         String today = Date.today().format().replace('/', '_');
         String fileName = currentContact.Idioma_de_Preferencia__c == 'Español' ? 'Estado_de_cuenta_' : 'Statement_of_account_';
         fileName += currentContact.Name.replace(' ', '_');
-        fileName += listing.replace(' ', '_');
+        //fileName += listing.replace(' ', '_');
         fileName += '_' + today;
         fileName = fileName.trim();
 
@@ -229,6 +229,14 @@ public class StatementOfAccountController{
         if (!lstSingleEmailMessage.isEmpty()){
             Messaging.SendEmailResult[] results = Messaging.sendEmail(lstSingleEmailMessage);
         }
+    }
+
+    // Apex Controller - Additional Method to Fetch Payments
+    @AuraEnabled
+    public static List<pba_financial__Payment__c> fetchPaymentsByContact(Id contactId){
+        return [SELECT Id, Name, Listing_Adquirido_Name__c, pba_financial__Total_Amount__c
+                FROM pba_financial__Payment__c
+                WHERE pba_financial__Contact__c = :contactId];
     }
 
 }
