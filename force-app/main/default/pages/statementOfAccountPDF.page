@@ -109,9 +109,7 @@
             <br/>{!contact.FirstName} {!contact.LastName}
          </h2>
    <h3 class='sub-headline'>
-      Relacionado al listado:
-      <b>{!listing}</b>
-      <br/> Emitido el:
+       Emitido el:
       <apex:outputText value="{0, date, dd/MM/yyyy}">
          <apex:param value="{!currentDate}" />
       </apex:outputText>
@@ -124,9 +122,7 @@
       <br/>{!contact.FirstName} {!contact.LastName}
    </h2>
    <h3 class='sub-headline'>
-      Related to listing:
-      <b>{!listing}</b>
-      <br/> Issued on:
+       Issued on:
       <apex:outputText value="{0, date, MMMM dd', 'yyyy}">
          <apex:param value="{!currentDate}" />
       </apex:outputText>
@@ -140,6 +136,9 @@
             <div class="payment-info">
             <apex:outputText rendered="{!isSpanish}">
                   <h2>Estado de Pago: {!wrapper.payment.Tipo_de_pago__c}</h2>
+               <h3>
+                  <b>Relacionado al apartamento: {!wrapper.payment.Listing_Adquirido_Name__c} </b>
+               </h3>
                <h3>
                   <b>Cantidad Total: </b>
                   <apex:outputText value="{!IF(wrapper.payment.pba_financial__Total_Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
@@ -165,6 +164,9 @@
             <!--English summary-->
             <apex:outputText rendered="{!isEnglish}">
                <h2>Payment: {!wrapper.payment.Payment_Type_Translated__c}</h2>
+               <h3>
+                  <b>Related to Listing: {!wrapper.payment.Listing_Adquirido_Name__c} </b>
+               </h3>
                <h3>
                   <b>Amount: </b>
                   <apex:outputText value="{!IF(wrapper.payment.pba_financial__Total_Amount__c == 0, '0.00', '{0,number,#,##0.00}')}">
@@ -229,7 +231,7 @@
                         <td>
                            <apex:outputText rendered="{!isEnglish}" value="{!wrapper.cash.Charge_type_translated__c}">
                            </apex:OutputText>
-                           <apex:outputText rendered="{!isSpanish}" value="{!wrapper.cash.Tipo_de_cobro__c}">
+                           <apex:outputText rendered="{!isSpanish}" value="{!wrapper.cash.Tipo_de_Cobro__c}">
                            </apex:OutputText>
                         </td>
                         <td>
@@ -344,7 +346,7 @@
                      <td>
                         <apex:outputText rendered="{!isEnglish}" value="{!cash.Charge_type_translated__c}">
                         </apex:OutputText>
-                        <apex:outputText rendered="{!isSpanish}" value="{!cash.Tipo_de_cobro__c}">
+                        <apex:outputText rendered="{!isSpanish}" value="{!cash.Tipo_de_Cobro__c}">
                         </apex:OutputText>
                      </td>
                      <td>
