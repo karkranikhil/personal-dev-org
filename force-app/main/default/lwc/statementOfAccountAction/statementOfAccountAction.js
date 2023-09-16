@@ -195,12 +195,12 @@ export default class StatementOfAccountAction extends LightningElement {
 
   handleGeneratePDFWithoutReceipts() {
     this.includeReceipts = false;
-    this.showPdf = true;
+    //this.showPdf = true;
   }
 
   handleGeneratePDFWithReceipts() {
     this.includeReceipts = true;
-    this.showPdf = true;
+    //this.showPdf = true;
   }
 
   handleCancel() {
