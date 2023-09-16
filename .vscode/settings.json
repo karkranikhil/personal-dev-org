@@ -7,5 +7,6 @@
   "editor.formatOnSave": true,
   "workbench.colorCustomizations": {},
   "salesforcedx-vscode-core.show-cli-success-msg": false,
-  "salesforcedx-vscode-apex.java.home": "/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home"
+  "salesforcedx-vscode-apex.java.home": "/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home",
+  "salesforcedx-vscode-core.retrieve-test-code-coverage": true
 }
