@@ -413,9 +413,9 @@
             </tbody>
          </table>
       </div>
-      <div class="signature">
+      <!-- <div class="signature">
          <apex:variable var="stampVar" value="{!'Logos/Stamp_'+SUBSTITUTE(project,' ','_')+'_Copy.png'}" />
          <apex:image value="{!URLFOR($Resource.Logos,stampVar)}" height="auto" width="200" style="float:left;padding-left:10%;" />
-      </div>
+      </div> -->
    </body>
 </apex:page>
