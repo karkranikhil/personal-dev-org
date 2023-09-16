@@ -24,7 +24,7 @@ public without sharing class InvoiceGenerationController {
     **/
     @AuraEnabled
     public static List<pba_financial__Receipt__c> fetchAllReceiptsToGenerateInvoice(String recordId){
-        return [select id,Name,pba_financial__Allocated_Amount__c,pba_financial__Payment__r.Name,FechadeRecibo__c from pba_financial__Receipt__c where pba_financial__From_Cash__c =: recordId];
+        return [SELECT id,Name,pba_financial__Allocated_Amount__c,pba_financial__Payment__r.Name,FechadeRecibo__c from pba_financial__Receipt__c where pba_financial__From_Cash__c =: recordId];
     }
     
     /**
@@ -35,7 +35,7 @@ public without sharing class InvoiceGenerationController {
     **/
     @AuraEnabled
     public static void saveAndEmailInvoice(String recordId, String receiptId){
-        pba_financial__Cash__c objFinancialCash = [select id,pba_financial__Contact__r.Listing_Adquirido__r.Name,pba_financial__Contact__c,pba_financial__Contact__r.Email,pba_financial__Contact__r.Name,pba_financial__Contact__r.Idioma_de_Preferencia__c
+        pba_financial__Cash__c objFinancialCash = [SELECT id,pba_financial__Contact__r.Listing_Adquirido__r.Name, To_Payment__c, To_Payment__r.Listing_Adquirido__r.Name, pba_financial__Contact__c,pba_financial__Contact__r.Email,pba_financial__Contact__r.Name,pba_financial__Contact__r.Idioma_de_Preferencia__c
                                                    from pba_financial__Cash__c 
                                                    where Id=: recordId ];
         
@@ -48,7 +48,7 @@ public without sharing class InvoiceGenerationController {
         }
         
         String fileName = objFinancialCash.pba_financial__Contact__r.Idioma_de_Preferencia__c == 'Español' ? 'Factura : ' : 'Invoice : ';
-        fileName += objFinancialCash.pba_financial__Contact__r.Listing_Adquirido__r.Name;
+        fileName += objFinancialCash?.To_Payment__r?.Listing_Adquirido__r?.Name;
         fileName = fileName.trim();
         
         //save as file

@@ -22,13 +22,10 @@ public class InvoiceGenerationControllerTest {
     **/
     @TestSetup
     public static void setUpData(){
-        Contact contact = new contact(FirstName = 'Test',LastName ='Test',Email = 'test@test.com',pba__CompanyName__c = 'Test',LeadSource = 'Web');
+        Contact contact = new contact(FirstName = 'Test',Lead_Ranking__c='New',Idioma_de_Preferencia__c='Ruso', LastName ='Test',Email = 'test@test.com',pba__CompanyName__c = 'Test',LeadSource = 'Web');
         insert contact;
         
-        pba_financial__Cash__c objCash = new pba_financial__Cash__c(RecordTypeId = CASH_IN_RECORDTYPEID, pba_financial__Amount__c = 100, pba_financial__Contact__c = contact.Id, pba_financial__Date__c = System.today(),Proyecto__c = 'Blumarina Suites & Plaza');
-        insert objCash;
-        
-        pba__Listing__c objListing = new pba__Listing__c(Name = 'Test',Sale_Price__c = 10000,Payment_Plan_Delivery_Date__c = System.today().addMonths(16), Proyecto__c = 'Cana Rock Condos');
+        pba__Listing__c objListing = new pba__Listing__c(Name = 'Test',Sale_Price__c = 10000,Payment_Plan_Delivery_Date__c = System.today().addMonths(16), Proyecto__c = 'Star');
         insert objListing;
         
         pba_financial__Payment__c objPayment = new pba_financial__Payment__c();
@@ -39,14 +36,19 @@ public class InvoiceGenerationControllerTest {
         objPayment.pba_financial__Net_Amount__c = objListing.Sale_Price__c;
         objPayment.pba_financial__Status__c = 'Pending';
         objPayment.Payment_Plan_Type__c = 'Plan de Pago Estandar';
-        objPayment.Listing__c = objListing.Id;
+        objPayment.Listing_Adquirido__c = objListing.Id;
+        objPayment.Tipo_de_Pago__c='Apartamento';
         insert objPayment;
+
+        pba_financial__Cash__c objCash = new pba_financial__Cash__c(RecordTypeId = CASH_IN_RECORDTYPEID, To_Payment__c=objPayment.Id, Tipo_de_Pago__c='Apartamento',Tipo_de_Cobro__c='Bloqueo', pba_financial__Amount__c = 100, pba_financial__Contact__c = contact.Id, pba_financial__Date__c = System.today(),Proyecto__c = 'Cana Rock Universe');
+        insert objCash;
         
         pba_financial__Receipt__c objReceipt = new pba_financial__Receipt__c();
         objReceipt.pba_financial__Payment__c = objPayment.Id;
         objReceipt.pba_financial__From_Cash__c = objCash.Id;
         objReceipt.FechadeRecibo__c = SYstem.today();
         objReceipt.pba_financial__Allocated_Amount__c = 100;
+        objReceipt.Cuenta_de_Banco__c = 'ABANCA 32000006550 USD';
         insert objReceipt;
     }
     
@@ -77,3 +79,7 @@ public class InvoiceGenerationControllerTest {
         }
     }
 }
+
+
+//Listing Adquirido 
+//
