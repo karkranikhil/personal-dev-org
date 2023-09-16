@@ -145,7 +145,7 @@ export default class StatementOfAccountAction extends LightningElement {
   }
 
   get invoicePdfUrl() {
-    return `/apex/statementOfAccountPDF?contactId=${this.recordId}`;
+    return `/apex/statementOfAccountPDF?contactId=${this.recordId}&paymentIds=${this.selectedPaymentIds}&includeReceipts=${this.includeReceipts}`;
   }
   // Helper Function to Update selectedPaymentIds Array
   updateSelectedPaymentIds(rowId) {
@@ -195,16 +195,11 @@ export default class StatementOfAccountAction extends LightningElement {
 
   handleGeneratePDFWithoutReceipts() {
     this.includeReceipts = false;
-    this.navigateToNextStep();
+    this.showPdf = true;
   }
 
   handleGeneratePDFWithReceipts() {
     this.includeReceipts = true;
-    this.navigateToNextStep();
-  }
-
-  // Method to navigate to the next step. Implementation depends on your specific requirement
-  navigateToNextStep() {
     this.showPdf = true;
   }
 

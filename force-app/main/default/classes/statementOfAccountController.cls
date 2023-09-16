@@ -4,6 +4,10 @@ public class StatementOfAccountController{
     public static final String SPANISH_EMAIL_TEMPLATE_NAME = 'StatementOfAccount_ES';
     public String contactId{ get; set; }
 
+    public List<String> paymentIds{ get; set; }
+
+    public Boolean includeReceipts{ get; set; }
+
     public Contact contact{ get; set; }
 
     public String project{ get; set; }
@@ -24,6 +28,15 @@ public class StatementOfAccountController{
 
     public StatementOfAccountController(){
         contactId = ApexPages.currentPage().getParameters().get('contactId');
+        String paymentIdsParam = ApexPages.currentPage().getParameters().get('paymentIds');
+        String includeReceiptsParam = ApexPages.currentPage().getParameters().get('includeReceipts');
+
+        if (String.isNotBlank(paymentIdsParam)){
+            paymentIds = paymentIdsParam.split(',');
+        }
+        if (String.isNotBlank(includeReceiptsParam)){
+            includeReceipts = Boolean.valueOf(includeReceiptsParam);
+        }
 
         currentDate = Date.today();
 
@@ -37,10 +50,10 @@ public class StatementOfAccountController{
                        WHERE Id = :contact.Listing_Adquirido__c]?.Name;
 
             payments = [SELECT Id, Name, Tipo_de_pago__c, Listing_Adquirido_Name__c, Payment_Type_Translated__c, pba_financial__Total_Amount__c, pba_financial__Allocated_Cash__c, pba_financial__Balance__c, pba_financial__Status__c, pba_financial__Due_Date__c, CurrencyIsoCode, (SELECT Id, Name, Tipo_de_cobro__c, Charge_type_translated__c, pba_financial__Description__c, pba_financial__Amount__c, pba_financial__Status__c, Proyecto__c, Late_Payment_Fee__c, pba_financial__Allocated__c, pba_financial__Not_Allocated__c, pba_financial__Date__c, Initial_Payment_Amount__c, To_Payment__c, pba_financial__Contact__c, CurrencyIsoCode
-                                                                                                                                                                                                                                                           FROM Cash__r
-                                                                                                                                                                                                                                                           ORDER BY CreatedDate ASC)
+                                                                                                                                                                                                                                                                                      FROM Cash__r
+                                                                                                                                                                                                                                                                                      ORDER BY CreatedDate ASC)
                         FROM pba_financial__Payment__c
-                        WHERE pba_financial__Contact__c = :contactId
+                        WHERE Id IN:paymentIds
                         ORDER BY CreatedDate ASC];
             nonAssignedCash = [SELECT Id, Tipo_de_cobro__c, Charge_type_translated__c, Name, pba_financial__Description__c, pba_financial__Amount__c, pba_financial__Status__c, Proyecto__c, Late_Payment_Fee__c, pba_financial__Allocated__c, pba_financial__Not_Allocated__c, pba_financial__Date__c, Initial_Payment_Amount__c, To_Payment__c, pba_financial__Contact__c, CurrencyIsoCode, (SELECT Id, Name, pba_financial__Allocated_Amount__c, CurrencyIsoCode, FechadeRecibo__c
                                                                                                                                                                                                                                                                                                                                                                                                FROM pba_financial__CashAllocation2Cash__r)
@@ -60,14 +73,19 @@ public class StatementOfAccountController{
                 PaymentWithCashAndReceipts paymentWithCashAndReceipts = new PaymentWithCashAndReceipts(payment);
                 for (pba_financial__Cash__c cash : payment.Cash__r){
                     CashWithReceipts cashWithReceipts = new CashWithReceipts(cash);
-                    cashWithReceipts.receipts = [SELECT Id, Name, pba_financial__Allocated_Amount__c, CurrencyIsoCode, FechadeRecibo__c
-                                                 FROM pba_financial__Receipt__c
-                                                 WHERE pba_financial__From_Cash__c = :cash.Id
-                                                 ORDER BY CreatedDate ASC];
+                    if (includeReceipts){
+                        cashWithReceipts.receipts = [SELECT Id, Name, pba_financial__Allocated_Amount__c, CurrencyIsoCode, FechadeRecibo__c
+                                                     FROM pba_financial__Receipt__c
+                                                     WHERE pba_financial__From_Cash__c = :cash.Id
+                                                     ORDER BY CreatedDate ASC];
+                    }
+
                     paymentWithCashAndReceipts.cashWithReceiptsList.add(cashWithReceipts);
                 }
                 paymentWithCashAndReceiptsList.add(paymentWithCashAndReceipts);
             }
+
+
         }
     }
 
