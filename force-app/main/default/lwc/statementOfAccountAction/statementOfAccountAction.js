@@ -35,7 +35,7 @@ export default class StatementOfAccountAction extends LightningElement {
     {
       label: "Incluir?",
       type: "button-icon",
-      fixedWidth: 75,
+      fixedWidth: 70,
       typeAttributes: {
         label: "Include",
         iconName: { fieldName: "toggleIcon" },
@@ -48,14 +48,17 @@ export default class StatementOfAccountAction extends LightningElement {
     {
       label: "Listing Adquirido",
       fieldName: "Listing_Adquirido_Name__c",
-      type: "text",
-      initialWidth: 200
+      type: "text"
+    },
+    {
+      label: "Tipo de pago",
+      fieldName: "Tipo_de_pago__c",
+      type: "text"
     },
     {
       label: "Cantidad Total",
       fieldName: "pba_financial__Total_Amount__c",
-      type: "currency",
-      initialWidth: 180
+      type: "currency"
     }
   ];
 
@@ -195,12 +198,12 @@ export default class StatementOfAccountAction extends LightningElement {
 
   handleGeneratePDFWithoutReceipts() {
     this.includeReceipts = false;
-    //this.showPdf = true;
+    this.showPdf = true;
   }
 
   handleGeneratePDFWithReceipts() {
     this.includeReceipts = true;
-    //this.showPdf = true;
+    this.showPdf = true;
   }
 
   handleCancel() {

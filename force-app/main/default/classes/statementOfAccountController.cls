@@ -252,7 +252,7 @@ public class StatementOfAccountController{
     // Apex Controller - Additional Method to Fetch Payments
     @AuraEnabled
     public static List<pba_financial__Payment__c> fetchPaymentsByContact(Id contactId){
-        return [SELECT Id, Name, Listing_Adquirido_Name__c, pba_financial__Total_Amount__c
+        return [SELECT Id, Name, Listing_Adquirido_Name__c, pba_financial__Total_Amount__c, Tipo_de_pago__c
                 FROM pba_financial__Payment__c
                 WHERE pba_financial__Contact__c = :contactId];
     }

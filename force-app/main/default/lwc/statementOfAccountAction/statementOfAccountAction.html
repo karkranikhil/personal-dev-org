@@ -42,14 +42,14 @@
           <template if:false={showPdf}>
             <lightning-button
                 variant="brand-outline"
-                label="Generar PDF Sin Recibos"
+                label="Estado de Cuenta Resumido"
                 disabled={isNextStepButtonDisabled}
                 class="slds-m-left_x-small"
                 onclick={handleGeneratePDFWithoutReceipts}
             ></lightning-button>
             <lightning-button
                 variant="brand"
-                label="Generar PDF Con Recibos"
+                label="Estado de Cuenta"
                 disabled={isNextStepButtonDisabled}
                 class="slds-m-left_x-small"
                 onclick={handleGeneratePDFWithReceipts}
