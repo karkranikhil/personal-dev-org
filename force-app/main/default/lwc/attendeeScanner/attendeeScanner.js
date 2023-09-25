@@ -49,17 +49,18 @@ export default class AttendeeScanner extends LightningElement {
       const scanningOptions = {
         barcodeTypes: [this.sessionScanner.barcodeTypes.QR],
         instructionText: SCANNER_INSTRUCTIONS,
-        successText: SCANNER_SUCCESS_MESSAGE
+        successText: SCANNER_SUCCESS_MESSAGE,
+        enableBulkScan: true,
+        enableMultiScan: true
       };
       this.sessionScanner
-        .beginCapture(scanningOptions)
-        .then((scannedBarcode) => {
-          this.processScannedBarcode(scannedBarcode);
-          this.continueScanning();
+        .scan(scanningOptions)
+        .then((scannedBarcodes) => {
+          this.processScannedBarcodes(scannedBarcodes);
         })
         .catch((error) => {
           this.processError(error);
-          this.sessionScanner.endCapture();
+          this.sessionScanner.dismiss();
         });
     } else {
       this.isScanDisabled = true;
@@ -93,12 +94,13 @@ export default class AttendeeScanner extends LightningElement {
   processScannedBarcode(barcode) {
     console.log(JSON.stringify(barcode));
     //?If the QR Is not the one we defined
-    if (!barcode.value.includes(VALID_QR_IDENTIFIER)) {
-      this.showToast("Invalid", "Invalid QR for Attendee", "error");
-      return;
-    }
+    // if (!barcode.value.includes(VALID_QR_IDENTIFIER)) {
+    //   this.showToast("Invalid", "Invalid QR for Attendee", "error");
+    //   return;
+    // }
     //?Get the contactId
-    const recordId = barcode.value.substring(barcode.value.indexOf(":") + 1);
+    // const recordId = barcode.value.substring(barcode.value.indexOf(":") + 1);
+    const recordId = barcode.value;
     //?Contact already scanned on this session
     if (this.scannedIds.includes(recordId)) {
       this.showToast(
