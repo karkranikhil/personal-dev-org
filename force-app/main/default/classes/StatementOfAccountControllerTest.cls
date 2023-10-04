@@ -7,7 +7,7 @@ private class StatementOfAccountControllerTest{
         insert testListing;
 
         // Create a test contact
-        Contact testContact = new Contact(FirstName = 'John', LeadSource='Other', LastName = 'Doe', Email = 'john.doe@example.com', Phone = '1234567890', Listing_Adquirido__c = testListing.Id,  // Use the Id of the test listing
+        Contact testContact = new Contact(FirstName = 'John', Lead_Ranking__c='New', LeadSource='Other', LastName = 'Doe', Email = 'john.doe@example.com', Phone = '1234567890', Listing_Adquirido__c = testListing.Id,  // Use the Id of the test listing
         Idioma_de_Preferencia__c = 'Español');
         insert testContact;
 
@@ -43,7 +43,7 @@ private class StatementOfAccountControllerTest{
         insert testListing;
 
         // Create a test contact
-        Contact testContact = new Contact(FirstName = 'John', LeadSource='Other', LastName = 'Doe', Email = 'john.doe@example.com', Phone = '1234567890', Listing_Adquirido__c = testListing.Id,  // Use the Id of the test listing
+        Contact testContact = new Contact(FirstName = 'John', Lead_Ranking__c='New', LeadSource='Other', LastName = 'Doe', Email = 'john.doe@example.com', Phone = '1234567890', Listing_Adquirido__c = testListing.Id,  // Use the Id of the test listing
         Idioma_de_Preferencia__c = 'Español');
         insert testContact;
 
