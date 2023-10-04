@@ -44,17 +44,17 @@ export default class StatementOfAccountAction extends LightningElement {
         variant: { fieldName: "toggleIconVariant" }
       }
     },
-    { label: "Titulo", fieldName: "Name" },
-    {
-      label: "Listing Adquirido",
-      fieldName: "Listing_Adquirido_Name__c",
-      type: "text"
-    },
     {
       label: "Tipo de pago",
       fieldName: "Tipo_de_pago__c",
       type: "text"
     },
+    {
+      label: "Listing Adquirido",
+      fieldName: "Listing_Adquirido_Name__c",
+      type: "text"
+    },
+
     {
       label: "Cantidad Total",
       fieldName: "pba_financial__Total_Amount__c",
