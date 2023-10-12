@@ -2,6 +2,76 @@
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
         <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Name</fieldItem>
+                <identifier>RecordNameField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CreatedById</fieldItem>
+                <identifier>RecordCreatedByIdField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-5955bb5a-3c83-4481-ae38-951479fc5395</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-5955bb5a-3c83-4481-ae38-951479fc5395</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-bfad23ea-900d-4d07-b3ac-ccb3908d4b60</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-bfad23ea-900d-4d07-b3ac-ccb3908d4b60</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Information</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
+                
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
                     <name>collapsed</name>
@@ -17,6 +87,24 @@
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
                 <identifier>force_highlightsPanel</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -31,6 +119,24 @@
                 </componentInstanceProperties>
                 <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
                 <identifier>runtime_sales_pathassistant_pathAssistant</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -361,6 +467,24 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -376,6 +500,24 @@
                 </componentInstanceProperties>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
                 <identifier>runtime_sales_activities_activityPanel</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -479,6 +621,24 @@
                 </componentInstanceProperties>
                 <componentName>runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
                 <identifier>runtime_sales_merge_mergeCandidatesPreviewCard2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -542,6 +702,24 @@
                 </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -558,6 +736,24 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -585,7 +781,7 @@
                 <componentName>detectAndLaunch</componentName>
                 <identifier>c_detectAndLaunch</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>(1 AND 2) AND (3 OR (4 AND 5))</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Cedula_File__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -593,6 +789,21 @@
                     <criteria>
                         <leftValue>{!Record.Pasaporte_File__c}</leftValue>
                         <operator>EQUAL</operator>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Proceso Legal</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -625,14 +836,29 @@
                 <componentName>detectAndLaunch</componentName>
                 <identifier>c_detectAndLaunch2</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>(1 AND 2) AND (3 OR (4 AND 5))</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Cedula_File__c}</leftValue>
+                        <operator>EQUAL</operator>
+                    </criteria>
                     <criteria>
                         <leftValue>{!Record.Pasaporte_File__c}</leftValue>
                         <operator>EQUAL</operator>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.Cedula_File__c}</leftValue>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Proceso Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
                         <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Ranking__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Proceso Legal</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
