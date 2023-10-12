@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legal_Data_Access__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+    OR(
+        Profile.Name = &quot;System Administrator&quot;,
+        Profile.Name = &quot;PB Administrator&quot;,
+        Profile.Name = &quot;PB Cana Rock Legal&quot;
+    ),
+    TRUE,
+    FALSE
+)</formula>
+    <inlineHelpText>Permite el acceso a record pages cuando estan en fase &quot;Legal&quot;</inlineHelpText>
+    <label>Legal Data Access</label>
+    <type>Checkbox</type>
+</CustomField>
