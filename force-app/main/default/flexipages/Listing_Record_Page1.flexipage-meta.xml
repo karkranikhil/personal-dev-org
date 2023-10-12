@@ -17,6 +17,24 @@
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
                 <identifier>force_highlightsPanel</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -31,6 +49,24 @@
                 </componentInstanceProperties>
                 <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
                 <identifier>runtime_sales_pathassistant_pathAssistant</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -64,6 +100,24 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:visualforcePage</componentName>
                 <identifier>flexipage_visualforcePage</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -140,6 +194,24 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:visualforcePage</componentName>
                 <identifier>flexipage_visualforcePage4</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>facet-4af7d1c7-e217-4d2e-b836-07fa1f934621</name>
@@ -166,6 +238,24 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:visualforcePage</componentName>
                 <identifier>flexipage_visualforcePage3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>facet-d77a9c20-79e8-4ec3-93cc-cdd5bb1b6531</name>
@@ -259,6 +349,24 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -274,6 +382,24 @@
                 </componentInstanceProperties>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
                 <identifier>runtime_sales_activities_activityPanel</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -390,6 +516,24 @@
                 </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -453,6 +597,24 @@
                 </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -463,6 +625,24 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.pba__Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
