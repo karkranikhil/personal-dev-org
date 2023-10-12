@@ -25,6 +25,24 @@
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
                 <identifier>force_highlightsPanel</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.LeadRanking_pb__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.LeadRanking_pb__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -39,6 +57,24 @@
                 </componentInstanceProperties>
                 <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
                 <identifier>runtime_sales_pathassistant_pathAssistant</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.LeadRanking_pb__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.LeadRanking_pb__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -1031,6 +1067,24 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.LeadRanking_pb__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.LeadRanking_pb__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1057,6 +1111,24 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer4</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR ( 2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.LeadRanking_pb__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.LeadRanking_pb__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-3cd921a5-cdc2-410c-9d72-cfc02c3e5ac0</name>
@@ -1388,6 +1460,24 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR (2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.LeadRanking_pb__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.LeadRanking_pb__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -1457,6 +1547,24 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR (2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.LeadRanking_pb__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.LeadRanking_pb__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1467,6 +1575,24 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR (2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.LeadRanking_pb__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Legal_Data_Access__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.LeadRanking_pb__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
