@@ -21,7 +21,7 @@
  */
 global class ExpenditureEmailBatch implements Database.Batchable<sObject>{
     global Database.QueryLocator start(Database.BatchableContext BC){
-        String query = 'SELECT Id, Affiliation__r.npe5__Contact__c FROM Expenditure__c'; // Adjust the WHERE clause as necessary: WHERE End_Date__c = YESTERDAY
+        String query = 'SELECT Id, Formatted_Pay_Period__c,Affiliation__r.npe5__Contact__c FROM Expenditure__c'; // Adjust the WHERE clause as necessary: WHERE End_Date__c = YESTERDAY
         return Database.getQueryLocator(query);
     }
 
@@ -50,7 +50,7 @@ global class ExpenditureEmailBatch implements Database.Batchable<sObject>{
         }
 
         for (sObject record : scope){
-            Expenditure__c currentExpenditure = (Expenditure__c)record;
+            Expenditure__c currentExpenditure = (Expenditure__c) record;
 
             Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
             email.setOrgWideEmailAddressId(owea[0].Id);
@@ -62,7 +62,12 @@ global class ExpenditureEmailBatch implements Database.Batchable<sObject>{
             // Generate the PDF content and add as attachment
             PageReference pdfPage = Page.ReportedHoursReport;
             pdfPage.getParameters().put('id', currentExpenditure.Id);
-            Blob pdfBlob = pdfPage.getContentAsPDF();
+            Blob pdfBlob;
+            if (!Test.isRunningTest()){
+                pdfBlob = pdfPage.getContentAsPDF();
+            } else{
+                pdfBlob = Blob.valueOf('Test PDF Content');  // Mocked content
+            }
 
             Messaging.EmailFileAttachment attachment = new Messaging.EmailFileAttachment();
             attachment.setFileName('ReportedHours-' + currentExpenditure.Formatted_Pay_Period__c + '.pdf');
