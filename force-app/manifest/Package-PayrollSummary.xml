@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+	<types>
+		<members>ExpenditureEmailBatch</members>
+		<members>ReportedHoursReportController</members>
+		<name>ApexClass</name>
+	</types>
+	<types>
+		<members>Contact.Upcoming_Payroll_Deadline__c</members>
+		<members>Expenditure__c.Formatted_Pay_Period__c</members>
+		<name>CustomField</name>
+	</types>
+	<version>58.0</version>
+</Package>

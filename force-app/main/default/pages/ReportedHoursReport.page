@@ -1,0 +1,49 @@
+<apex:page standardController="Expenditure__c" extensions="ReportedHoursReportController" renderAs="pdf" showHeader="false" applyHtmlTag="false" applyBodyTag="false">
+    <html>
+    <head>
+        <style>
+            .tableStyle {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .tableStyle th, .tableStyle td {
+                border: 1px solid black;
+                padding: 8px;
+            }
+            .header {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <img src="{!$Resource.CrowdenLogo}" alt="Logo" width="200" />
+            <h2>Reported Hours Overview</h2>
+        </div>
+        
+        <table class="tableStyle">
+            <thead>
+                <tr>
+                    <th>Class Name</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!occurrences}" var="o">
+                    <tr>
+                        <td>{!o.Class__r.Name}</td>
+                        <td>{!o.Date__c}</td>
+                        <td>{!o.Individual_Lesson_Status__c}</td>
+                    </tr>
+                </apex:repeat>
+            </tbody>
+        </table>
+        
+        <p>
+             Note: This is an overview of the hours you have reported for the program "{!Expenditure__c.Program__r.Name}" for the pay period "{!Expenditure__c.Formatted_Pay_Period__c}". Please review the hours and contact Crowden Music Center if you have any discrepancies.
+        </p>
+    </body>
+    </html>
+</apex:page>
