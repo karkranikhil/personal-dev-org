@@ -21,8 +21,7 @@
  */
 global class ExpenditureEmailBatch implements Database.Batchable<sObject>{
     global Database.QueryLocator start(Database.BatchableContext BC){
-        Id testId = 'a1oNq000000P53AIAS';
-        String query = 'SELECT Id, Formatted_Pay_Period__c,Affiliation__r.npe5__Contact__c FROM Expenditure__c WHERE Id=:testId'; // Adjust the WHERE clause as necessary: WHERE End_Date__c = YESTERDAY
+        String query = 'SELECT Id, Formatted_Pay_Period__c,Affiliation__r.npe5__Contact__c FROM Expenditure__c  WHERE End_Date__c = YESTERDAY'; // Adjust the WHERE clause as necessary: WHERE End_Date__c = YESTERDAY
         return Database.getQueryLocator(query);
     }
 
