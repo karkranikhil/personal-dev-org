@@ -43,7 +43,7 @@ public class SendPayrollSummaryTest{
         System.debug('@@ Created Program: ' + program);
 
         // Create an Expenditure record related to Affiliation
-        Expenditure__c expenditure = new Expenditure__c(Affiliation__c = affiliation.Id, Division_Term__c = division.Id, Period_Start_Date__c = Date.today().addDays(-5), Period_End_Date__c = Date.today().addDays(5), Program__c = program.Id);
+        Expenditure__c expenditure = new Expenditure__c(Affiliation__c = affiliation.Id, Division_Term__c = division.Id, Period_Start_Date__c = Date.today().addDays(-5), Period_End_Date__c = Date.today().addDays(-1), Program__c = program.Id);
         insert expenditure;
         System.debug('@@ Created Expenditure: ' + expenditure);
 

@@ -21,7 +21,7 @@
  */
 global class ExpenditureEmailBatch implements Database.Batchable<sObject>{
     global Database.QueryLocator start(Database.BatchableContext BC){
-        String query = 'SELECT Id, Formatted_Pay_Period__c,Affiliation__r.npe5__Contact__c FROM Expenditure__c  WHERE End_Date__c = YESTERDAY'; // Adjust the WHERE clause as necessary: WHERE End_Date__c = YESTERDAY
+        String query = 'SELECT Id, Formatted_Pay_Period__c,Affiliation__r.npe5__Contact__c FROM Expenditure__c  WHERE Period_End_Date__c = YESTERDAY'; // Adjust the WHERE clause as necessary: WHERE End_Date__c = YESTERDAY
         return Database.getQueryLocator(query);
     }
 
@@ -94,8 +94,7 @@ global class ExpenditureEmailBatch implements Database.Batchable<sObject>{
         // Prepare summary email
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
         email.setOrgWideEmailAddressId(owea[0].Id);
-        email.setToAddresses(new List<String>{ 'sixto.developer@gmail.com' });// ! REPLACE WHEN DEPLOYED TO PROD
-        //email.setToAddresses(new List<String>{ 'stornow@crowden.org' });
+        email.setToAddresses(new List<String>{ 'communityed@crowden.org' });
 
         // HTML body for the email
         String emailBody = '<h2>Batch Process Summary for Upcoming Payroll</h2>';
