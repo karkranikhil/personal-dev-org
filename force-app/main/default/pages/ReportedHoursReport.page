@@ -34,7 +34,10 @@
                 <apex:repeat value="{!occurrences}" var="o">
                     <tr>
                         <td>{!o.Class__r.Name}</td>
-                        <td>{!o.Date__c}</td>
+                        <td>
+                            <apex:outputText value="{0,date,MM/dd/yyyy}">
+                                <apex:param value="{!o.Date__c}" /></apex:outputText>
+                        </td>
                         <td>{!o.Individual_Lesson_Status__c}</td>
                     </tr>
                 </apex:repeat>
@@ -42,7 +45,7 @@
         </table>
         
         <p>
-             Note: This is an overview of the hours you have reported for the program "{!Expenditure__c.Program__r.Name}" for the pay period "{!Expenditure__c.Formatted_Pay_Period__c}". Please review the hours and contact Crowden Music Center if you have any discrepancies.
+             Note: This is an overview of the hours you have reported for the program "{!Expenditure__c.Program__r.Name}" for the "{!Expenditure__c.Division_Term__r.Name}". Please review the hours and contact Crowden Music Center if you have any discrepancies.
         </p>
     </body>
     </html>
