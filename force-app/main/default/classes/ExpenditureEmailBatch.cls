@@ -15,11 +15,14 @@
  * Always ensure the existence of the specified email template and org-wide email address
  * before executing this batch job.
  *
- * Developed by: : ErickSixto
+ * Developed by: ErickSixto
  * Date:  10-28-2023
- * Last Modified:  10-28-2023
+ * Last Modified:  11-01-2023
  */
-global class ExpenditureEmailBatch implements Database.Batchable<sObject>{
+global class ExpenditureEmailBatch implements Database.Batchable<sObject>, Database.Stateful{
+    // Global counters for emails sent and failures
+    global Integer totalEmailsSent = 0;
+    global Integer totalFailures = 0;
     global Database.QueryLocator start(Database.BatchableContext BC){
         String query = 'SELECT Id, Formatted_Pay_Period__c,Affiliation__r.npe5__Contact__c FROM Expenditure__c  WHERE Period_End_Date__c = YESTERDAY'; // Adjust the WHERE clause as necessary: WHERE End_Date__c = YESTERDAY
         return Database.getQueryLocator(query);
@@ -28,7 +31,12 @@ global class ExpenditureEmailBatch implements Database.Batchable<sObject>{
     global void execute(Database.BatchableContext BC, List<sObject> scope){
         List<Messaging.SingleEmailMessage> emailsToSend = prepareEmails(scope);
         if (emailsToSend.size() > 0){
-            Messaging.sendEmail(emailsToSend);
+            try{
+                Messaging.sendEmail(emailsToSend);
+                totalEmailsSent += emailsToSend.size();
+            } catch (Exception e){
+                totalFailures += emailsToSend.size();
+            }
         }
     }
 
@@ -45,7 +53,8 @@ global class ExpenditureEmailBatch implements Database.Batchable<sObject>{
 
         // Check if necessary resources are found
         if (owea.size() == 0 || emailTemplate == null){
-            // Handle error: perhaps log it or send an alert
+            // Handle error: increase totalFailures counter
+            totalFailures += scope.size();
             return emailsToSend;
         }
 
@@ -86,11 +95,6 @@ global class ExpenditureEmailBatch implements Database.Batchable<sObject>{
                                       WHERE Address = 'communityed@crowden.org'
                                       LIMIT 1];
 
-        // Get the number of processed items using BC.getJobId()
-        AsyncApexJob job = [SELECT TotalJobItems, NumberOfErrors
-                            FROM AsyncApexJob
-                            WHERE Id = :BC.getJobId()];
-
         // Prepare summary email
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
         email.setOrgWideEmailAddressId(owea[0].Id);
@@ -100,8 +104,8 @@ global class ExpenditureEmailBatch implements Database.Batchable<sObject>{
         String emailBody = '<h2>Batch Process Summary for Upcoming Payroll</h2>';
         emailBody += '<p>Date: ' + DateTime.now().format() + '</p>';
         emailBody += '<p>Objective: Upcoming Payroll Summary</p>';
-        emailBody += '<p>Total records processed: <strong>' + job.TotalJobItems + '</strong></p>';
-        emailBody += '<p>Total errors encountered: <span style="color:red;">' + job.NumberOfErrors + '</span></p>';
+        emailBody += '<p>Total emails sent: <strong>' + totalEmailsSent + '</strong></p>';
+        emailBody += '<p>Total failures: <span style="color:red;">' + totalFailures + '</span></p>';
 
         email.setHtmlBody(emailBody);
         email.setSubject('Batch Process Summary for Upcoming Payroll');
