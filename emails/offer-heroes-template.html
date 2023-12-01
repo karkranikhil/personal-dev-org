@@ -117,8 +117,8 @@
               </td>
             </tr>
             <tr>
-              <td align="center" valign="top" >
-                <h1 style="font-weight: bold; color:white">
+              <td align="center" valign="top">
+                <h1 style="font-weight: bold; color: white">
                   Exclusive Property Listing Just for You
                 </h1>
               </td>
@@ -144,7 +144,7 @@
               valign="top"
               style="font-size: 12px; text-align: left"
             >
-              <p class="poppins">Hello [Client's Name],</p>
+              <p class="poppins">Hello {{{Recipient.FirstName}}},</p>
               <p class="poppins">
                 The real estate market is bustling with activity, and I've
                 noticed a surge in properties that align with your preferences.
@@ -202,8 +202,9 @@
                         >
                           <tr>
                             <td style="padding: 0 10px 10px 0">
+                              <!-- Property Image -->
                               <img
-                                src="https://image-cdn.carrot.com/uploads/sites/73528/2023/10/1-web-or-mls-TW-622-B-Finals-1-1600x1066.jpg"
+                                src="{{{Left_Main__Transactions__c.Property_Marketing_Photo_URL__c}}}"
                                 alt="Property Image"
                                 width="100%"
                                 style="
@@ -246,38 +247,48 @@
                                 cellspacing="0"
                                 width="100%"
                               >
-                                <!-- Property Detail Rows Start -->
+                                <!-- Property Details -->
+
                                 <tr>
-                                  <td class="poppins" style="padding: 6px 0">
-                                    <b> Price:</b> {Wholesale Marketing Price}
+                                  <td style="padding: 6px 0" class="poppins">
+                                    <b>Price:</b>
+                                    {{{Left_Main__Transactions__c.WholeSale_Marketing_Price__c}}}
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td class="poppins" style="padding: 6px 0">
-                                    <b> Address:</b> {Street Address}
+                                  <td style="padding: 6px 0" class="poppins">
+                                    <b>Address:</b>
+                                    {{{Left_Main__Transactions__c.Left_Main__Street_Address__c}}}
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td class="poppins" style="padding: 6px 0">
-                                    <b> City:</b> {City}, {State}, {Zipcode}
+                                  <td style="padding: 6px 0" class="poppins">
+                                    <b>City:</b>
+                                    {{{Left_Main__Transactions__c.Left_Main__City__c}}},
+                                    {{{Left_Main__Transactions__c.Left_Main__State__c}}}
+                                    {{{Left_Main__Transactions__c.Left_Main__Zipcode__c}}}
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td class="poppins" style="padding: 6px 0">
-                                    <b> Square Feet:</b> {sqft}
+                                  <td style="padding: 6px 0" class="poppins">
+                                    <b>Square Feet:</b>
+                                    {{{Left_Main__Transactions__c.Square_Feet__c}}}
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td class="poppins" style="padding: 6px 0">
-                                    <b> Bedrooms:</b> {Bedrooms}
+                                  <td style="padding: 6px 0" class="poppins">
+                                    <b>Bedrooms:</b>
+                                    {{{Left_Main__Transactions__c.Left_Main__Bedrooms__c}}}
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td class="poppins" style="padding: 6px 0">
-                                    <b> Bathrooms:</b> {Bathrooms}
+                                  <td style="padding: 6px 0" class="poppins">
+                                    <b>Bathrooms:</b>
+                                    {{{Left_Main__Transactions__c.Left_Main__Bathrooms__c}}}
                                   </td>
                                 </tr>
-                                <!-- Property Detail Rows End -->
+
+                                <!-- Property Details End -->
                               </table>
                             </td>
                           </tr>
@@ -306,9 +317,9 @@
                     <td align="center" style="padding: 25px 0 25px 0">
                       <a
                         class="button"
-                        href="https://www.offerheroesdeals.com/property/flip-opportunity-in-taft-heights/"
+                        href="{{{Left_Main__Transactions__c.Property_Website_URL__c}}}"
                         target="_blank"
-                        style="font-size: 18px"
+                        style="font-size: 18px; cursor:pointer;"
                         >Explore This Property Now</a
                       >
                     </td>
@@ -376,8 +387,17 @@
                   href="https://www.offer-heroes.com/privacy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style="color:#08a2d7"
+                  style="color: #08a2d7"
                   >Privacy Policy.</a
+                >
+                <br />
+                Review our
+                <a
+                  href="https://www.offer-heroes.com/terms-of-service"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="color: #08a2d7"
+                  >Terms & Conditions.</a
                 >
               </td>
             </tr>
