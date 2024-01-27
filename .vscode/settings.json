@@ -5,7 +5,13 @@
     "**/.sfdx": true
   },
   "editor.formatOnSave": true,
-  "workbench.colorCustomizations": {},
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#28ccb7",
+    "statusBar.foreground": "#000000",
+    "statusBarItem.hoverBackground": "#8b8680",
+    "statusBarItem.activeBackground": "#8b8680",
+    "statusBar.border": "#28ccb7"
+  },
   "salesforcedx-vscode-core.show-cli-success-msg": false,
   "salesforcedx-vscode-apex.java.home": "/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home",
   "salesforcedx-vscode-core.retrieve-test-code-coverage": true
