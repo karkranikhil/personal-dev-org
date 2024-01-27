@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Notification</name>
+        <label>Send Notification</label>
+        <locationX>50</locationX>
+        <locationY>1308</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>EmailBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>Get_Contact.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>cuentasporcobrar@canarock.info</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Cana Rock - Notificación Cuotas en Atraso</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Notification_English</name>
+        <label>Send Notification English</label>
+        <locationX>314</locationX>
+        <locationY>1308</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>EmailBodyEnglish</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>Get_Contact.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>cuentasporcobrar@canarock.info</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Cana Rock - Due Payments Notification</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>56.0</apiVersion>
+    <assignments>
+        <name>Add_overdue</name>
+        <label>Add overdue</label>
+        <locationX>270</locationX>
+        <locationY>900</locationY>
+        <assignmentItems>
+            <assignToReference>TotalPaymentOverdue</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_cash_records.pba_financial__Not_Allocated__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CurrentFeeCounter</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_cash_records</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Count</name>
+        <label>Assign Count</label>
+        <locationX>182</locationX>
+        <locationY>1092</locationY>
+        <assignmentItems>
+            <assignToReference>DuePaymentsCount</assignToReference>
+            <operator>AssignCount</operator>
+            <value>
+                <elementReference>Get_Overdue_Cash</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Language_Selector</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Build_Summary</name>
+        <label>Build Summary</label>
+        <locationX>270</locationX>
+        <locationY>792</locationY>
+        <assignmentItems>
+            <assignToReference>CashSummary</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>ChargeHeader</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CashSummary</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>CashDescription</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CashSummary</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>InitialPayment</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CashSummary</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>PaymentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CashSummary</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>FeeCharge</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CashSummary</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Subtotal</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CashSummary</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>AllocatedAmmount</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CashSummary</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>PaymentPending</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Add_overdue</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>IS_THIS_MOST_RECENT_OVERDUE_CASH</name>
+        <label>IS THIS MOST RECENT OVERDUE CASH?</label>
+        <locationX>380</locationX>
+        <locationY>468</locationY>
+        <defaultConnectorLabel>NO</defaultConnectorLabel>
+        <rules>
+            <name>YES</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Most_Recent_Overdue_Cash.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Desactivar_Email__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Overdue_Cash</targetReference>
+            </connector>
+            <label>YES</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Language_Selector</name>
+        <label>Language Selector</label>
+        <locationX>182</locationX>
+        <locationY>1200</locationY>
+        <defaultConnector>
+            <targetReference>Send_Notification_English</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>ENGLISH</defaultConnectorLabel>
+        <rules>
+            <name>SPANISH</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Contact.Idioma_de_Preferencia__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Español</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Notification</targetReference>
+            </connector>
+            <label>SPANISH</label>
+        </rules>
+    </decisions>
+    <description>-- Added &apos;Desactivar Email&apos; validation
+-- Updated template to show Total pending amount first 
+-- Added a condition to only target late payment fees as trigger
+-- Skipped Rescinded Contact
+-- Added several items to cash summary</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>AllocatedAmmount</name>
+        <dataType>String</dataType>
+        <expression>&apos;&lt;p style=&quot;text-align: left; font-size: 16px&quot; align=&quot;left&quot;&gt;&apos;+IF(ISPICKVAL(  {!Get_Contact.Idioma_de_Preferencia__c},&apos;Español&apos;), &apos;Abono:  &apos;, &apos;Allocated: &apos;)+ TEXT({!Loop_cash_records.CurrencyIsoCode})+ &apos; &apos;+TEXT({!Loop_cash_records.pba_financial__Allocated__c})+&apos;&lt;/p&gt;&apos;</expression>
+    </formulas>
+    <formulas>
+        <name>CashDescription</name>
+        <dataType>String</dataType>
+        <expression>&apos;&lt;p style=&quot;text-align: left; font-size: 16px&quot; align=&quot;left&quot;&gt;&apos;+IF(ISPICKVAL(  {!Get_Contact.Idioma_de_Preferencia__c},&apos;Español&apos;), &apos;Descripción: &apos;, &apos;Description: &apos;)  +{!Loop_cash_records.Charge_type_translated__c}+&apos; &lt;/p&gt;&apos;</expression>
+    </formulas>
+    <formulas>
+        <name>ChargeHeader</name>
+        <dataType>String</dataType>
+        <expression>&apos;&lt;p style=&quot;text-align: left; font-size: 16px&quot; align=&quot;left&quot;&gt;&lt;b&gt;- &apos;+IF(ISPICKVAL(  {!Get_Contact.Idioma_de_Preferencia__c},&apos;Español&apos;), &apos;Cuota &apos;, &apos;Fee &apos;)  +TEXT( {!CurrentFeeCounter}) +&apos; - &lt;/b&gt;&lt;/p&gt;&apos;</expression>
+    </formulas>
+    <formulas>
+        <name>FeeCharge</name>
+        <dataType>String</dataType>
+        <expression>&apos;&lt;p style=&quot;text-align: left; font-size: 16px&quot; align=&quot;left&quot;&gt;&apos;+IF(ISPICKVAL(  {!Get_Contact.Idioma_de_Preferencia__c},&apos;Español&apos;), &apos;Cargo por mora:  &apos;, &apos;Late fee: &apos;)+ TEXT({!Loop_cash_records.CurrencyIsoCode})+ &apos; &apos;+TEXT({!Loop_cash_records.Late_Payment_Fee__c})+&apos;&lt;/p&gt;&apos;</expression>
+    </formulas>
+    <formulas>
+        <name>InitialPayment</name>
+        <dataType>String</dataType>
+        <expression>&apos;&lt;p style=&quot;text-align: left; font-size: 16px&quot; align=&quot;left&quot;&gt;&apos;+IF(ISPICKVAL(  {!Get_Contact.Idioma_de_Preferencia__c},&apos;Español&apos;), &apos;Cuota:  &apos;, &apos;Fee:  &apos;)+ TEXT({!Loop_cash_records.CurrencyIsoCode})+ &apos; &apos;+TEXT({!Loop_cash_records.Initial_Payment_Amount__c} )+&apos;&lt;/p&gt;&apos;</expression>
+    </formulas>
+    <formulas>
+        <name>PaymentDate</name>
+        <dataType>String</dataType>
+        <expression>&apos;&lt;p style=&quot;text-align: left; font-size: 16px&quot; align=&quot;left&quot;&gt;&apos;+ 
+IF(ISPICKVAL({!Get_Contact.Idioma_de_Preferencia__c},&apos;Español&apos;), 
+  &apos;Fecha de pago: &apos; +
+  TEXT(DAY({!Loop_cash_records.pba_financial__Date__c})) + &apos;/&apos; + 
+  TEXT(MONTH({!Loop_cash_records.pba_financial__Date__c})) + &apos;/&apos; + 
+  TEXT(YEAR({!Loop_cash_records.pba_financial__Date__c})), 
+  &apos;Payment date: &apos; + 
+  TEXT(MONTH({!Loop_cash_records.pba_financial__Date__c})) + &apos;/&apos; +
+  TEXT(DAY({!Loop_cash_records.pba_financial__Date__c})) + &apos;/&apos; + 
+  TEXT(YEAR({!Loop_cash_records.pba_financial__Date__c}))
+) +
+&apos;&lt;/p&gt;&apos;</expression>
+    </formulas>
+    <formulas>
+        <name>PaymentPending</name>
+        <dataType>String</dataType>
+        <expression>&apos;&lt;p style=&quot;text-align: left; font-size: 16px&quot; align=&quot;left&quot;&gt;&lt;b&gt; &apos;+IF(ISPICKVAL(  {!Get_Contact.Idioma_de_Preferencia__c},&apos;Español&apos;), &apos;Pendiente de pago:  &apos;, &apos;Pending amount:  &apos;)+TEXT({!Loop_cash_records.CurrencyIsoCode})+ &apos; &apos;+TEXT({!Loop_cash_records.pba_financial__Not_Allocated__c})+&apos;&lt;/b&gt;&lt;/p&gt;&apos;</expression>
+    </formulas>
+    <formulas>
+        <name>Subtotal</name>
+        <dataType>String</dataType>
+        <expression>&apos;&lt;p style=&quot;text-align: left; font-size: 16px&quot; align=&quot;left&quot;&gt;&apos;+IF(ISPICKVAL(  {!Get_Contact.Idioma_de_Preferencia__c},&apos;Español&apos;), &apos;Subtotal:  &apos;, &apos;Subtotal: &apos;)+ TEXT({!Loop_cash_records.CurrencyIsoCode})+ &apos; &apos;+TEXT({!Loop_cash_records.pba_financial__Amount__c})+&apos;&lt;/p&gt;&apos;</expression>
+    </formulas>
+    <interviewLabel>Cash: Send late payment notification {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Cash: Send late payment notification</label>
+    <loops>
+        <name>Loop_cash_records</name>
+        <label>Loop cash records</label>
+        <locationX>182</locationX>
+        <locationY>684</locationY>
+        <collectionReference>Get_Overdue_Cash</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Build_Summary</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Assign_Count</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Contact</name>
+        <label>Get Contact</label>
+        <locationX>380</locationX>
+        <locationY>252</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Most_Recent_Overdue_Cash</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.pba_financial__Contact__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Lead_Ranking__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Rescindido</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Most_Recent_Overdue_Cash</name>
+        <label>Get Most Recent Overdue Cash</label>
+        <locationX>380</locationX>
+        <locationY>360</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>IS_THIS_MOST_RECENT_OVERDUE_CASH</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>pba_financial__Contact__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.pba_financial__Contact__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>pba_financial__Allocated_Percent__c</field>
+            <operator>LessThan</operator>
+            <value>
+                <numberValue>100.0</numberValue>
+            </value>
+        </filters>
+        <filters>
+            <field>pba_financial__Allocated_Percent__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>pba_financial__Date__c</field>
+            <operator>LessThan</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Desactivar_Email__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Activate_Late_Payment_Fee__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>pba_financial__Cash__c</object>
+        <sortField>pba_financial__Date__c</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Overdue_Cash</name>
+        <label>Get Overdue Cash</label>
+        <locationX>182</locationX>
+        <locationY>576</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_cash_records</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>pba_financial__Contact__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.pba_financial__Contact__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>pba_financial__Allocated_Percent__c</field>
+            <operator>LessThan</operator>
+            <value>
+                <numberValue>100.0</numberValue>
+            </value>
+        </filters>
+        <filters>
+            <field>pba_financial__Allocated_Percent__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>pba_financial__Date__c</field>
+            <operator>LessThan</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>pba_financial__Cash__c</object>
+        <sortField>pba_financial__Date__c</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>254</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Contact</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Trigger_Payment_Fee_Increase__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>pba_financial__Allocated_Percent__c</field>
+            <operator>LessThan</operator>
+            <value>
+                <numberValue>100.0</numberValue>
+            </value>
+        </filters>
+        <filters>
+            <field>pba_financial__Allocated_Percent__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Record_Type_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Cash In</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Desactivar_Email__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>pba_financial__Cash__c</object>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2023-03-03</startDate>
+            <startTime>11:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>EmailBody</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; align=&quot;center&quot; border=&quot;0&quot; width=&quot;100%&quot; style=&quot;background-color: #CA9F47; max-width: 670px; margin: 0 auto&quot;&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;height: 20px&quot;&gt;&amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;table role=&quot;presentation&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; style=&quot;border-spacing: 0 !important; border-collapse: collapse; margin: 0; padding: 0; width: 100% !important; min-width: 320px !important; height: 100% !important&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td valign=&quot;top&quot; style=&quot;border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; font-size: 14px; word-break: break-word&quot;&gt;
+                &lt;div id=&quot;m_670836895579583600m_8130120487424808951hs_cos_wrapper_main&quot; style=&quot;color: inherit; font-size: inherit; line-height: inherit&quot;&gt;
+                  &lt;div id=&quot;m_670836895579583600m_8130120487424808951section-0&quot; style=&quot;padding-left: 10px; padding-right: 10px&quot;&gt;
+                    &lt;div style=&quot;min-width: 280px; max-width: 600px; width: 100%; margin-left: auto; margin-right: auto; border-collapse: collapse; border-spacing: 0; background-color: #fafafa&quot; bgcolor=&quot;#fafafa&quot;&gt;
+                      &lt;div id=&quot;m_670836895579583600m_8130120487424808951column-0-0&quot;&gt;
+                        &lt;table role=&quot;presentation&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot; style=&quot;border-spacing: 0 !important; border-collapse: collapse&quot;&gt;
+                          &lt;tbody&gt;
+                            &lt;tr&gt;
+                              &lt;td style=&quot;border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; font-size: 14px; word-break: break-word&quot;&gt;
+                                &lt;div id=&quot;m_670836895579583600m_8130120487424808951hs_cos_wrapper_module_16486733581392&quot; style=&quot;color: inherit; font-size: inherit; line-height: inherit&quot;&gt;
+                                  &lt;table role=&quot;presentation&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; style=&quot;border-spacing: 0 !important; border-collapse: collapse&quot;&gt;
+                                    &lt;tbody&gt;
+                                      &lt;tr&gt;
+                                        &lt;td align=&quot;center&quot; valign=&quot;top&quot; style=&quot;border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; color: #222222; word-break: break-word; text-align: center; padding: 0 20px; font-size: 0px&quot;&gt;
+                                          &lt;a href=&quot;https://canarock.info/es/&quot; target=&quot;_blank&quot;&gt;
+                                            &lt;img alt=&quot;Cana Rock&quot; src=&quot;https://canarock--developer.sandbox.file.force.com/servlet/servlet.ImageServer?id=015050000005imW&amp;oid=00D050000008koI&amp;lastMod=1664821619000&quot; style=&quot;outline: none; text-decoration: none; max-width: 100%; font-size: 16px&quot; width=&quot;250&quot; align=&quot;middle&quot; class=&quot;CToWUd&quot; data-bit=&quot;iit&quot; /&gt;
+                                          &lt;/a&gt;
+                                        &lt;/td&gt;
+                                      &lt;/tr&gt;
+                                    &lt;/tbody&gt;
+                                  &lt;/table&gt;
+                                &lt;/div&gt;
+                              &lt;/td&gt;
+                            &lt;/tr&gt;
+                          &lt;/tbody&gt;
+                        &lt;/table&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div id=&quot;m_670836895579583600m_8130120487424808951section_1652722732214&quot; style=&quot;padding-left: 10px; padding-right: 10px&quot;&gt;
+                    &lt;div style=&quot;min-width: 280px; max-width: 600px; width: 100%; margin-left: auto; margin-right: auto; border-collapse: collapse; border-spacing: 0; background-color: #ffffff&quot; bgcolor=&quot;#FFFFFF&quot;&gt;
+                      &lt;div id=&quot;m_670836895579583600m_8130120487424808951column_1652722732214_0&quot;&gt;
+                        &lt;table role=&quot;presentation&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot; style=&quot;border-spacing: 0 !important; border-collapse: collapse&quot;&gt;
+                          &lt;tbody&gt;
+                            &lt;tr&gt;
+                              &lt;td style=&quot;border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; font-size: 14px; word-break: break-word; padding: 20px 40px 0px&quot;&gt;
+                                &lt;div id=&quot;m_670836895579583600m_8130120487424808951hs_cos_wrapper_module_16299276132622&quot; style=&quot;color: inherit; font-size: inherit; line-height: inherit&quot;&gt;
+                                  &lt;div id=&quot;m_670836895579583600m_8130120487424808951hs_cos_wrapper_module_16299276132622_&quot; style=&quot;color: inherit; font-size: inherit; line-height: inherit&quot;&gt;
+                                    &lt;div style=&quot;line-height: 150%; font-size: 16px; text-align: center&quot; align=&quot;center&quot;&gt;
+                                      &lt;h2 style=&quot;margin: 0; line-height: 125%; font-size: 28px; text-align: center&quot; align=&quot;center&quot;&gt;Notificacion Cuotas en Atraso&lt;/h2&gt;
+                                      &lt;div style=&quot;line-height: 100%; text-align: left&quot; align=&quot;left&quot;&gt;
+                                        &lt;p style=&quot;text-align: left; font-size: 18px; line-height: 175%&quot; align=&quot;left&quot;&gt;Fecha: {!$Flow.CurrentDate}&lt;/p&gt;
+                                        &lt;p style=&quot;text-align: left; font-size: 18px; line-height: 175%&quot; align=&quot;left&quot;&gt;Estimado {!Get_Contact.Name}, {!$Record.Unidad__c}&lt;/p&gt;
+                                        &lt;p style=&quot;text-align: left; font-size: 18px; line-height: 175%&quot; align=&quot;left&quot;&gt;La presente es para notificar que usted tiene &lt;b&gt;{!DuePaymentsCount}&lt;/b&gt; cuotas vencidas con el siguiente detalle:&lt;/p&gt;
+                                         &lt;p style=&quot;text-align: left; font-size: 18px&quot; align=&quot;left&quot;&gt;&lt;b&gt;- Total pendiente de pago - &lt;/b&gt;&lt;/p&gt;
+                                        &lt;p style=&quot;text-align: left; font-size: 18px&quot; align=&quot;left&quot;&gt;Pendiente de pago: &lt;b&gt; {!$Record.CurrencyIsoCode} {!TotalPaymentOverdue}&lt;/b&gt;&lt;/p&gt;
+                                        &lt;p style=&quot;text-align: left; font-size: 18px; line-height: 175%&quot; align=&quot;left&quot;&gt;Desglose de Cuotas&lt;/p&gt;
+                                        {!CashSummary}
+                                        &lt;p style=&quot;line-height: 100%; text-align: left&quot; align=&quot;left&quot;&gt;&amp;nbsp;&lt;/p&gt;
+                                      &lt;/div&gt;
+                                    &lt;/div&gt;
+                                  &lt;/div&gt;
+                                &lt;/div&gt;
+                              &lt;/td&gt;
+                            &lt;/tr&gt;
+                          &lt;/tbody&gt;
+                        &lt;/table&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+
+                  &lt;div id=&quot;m_670836895579583600m_8130120487424808951section_1640934669567&quot; style=&quot;padding-left: 10px; padding-right: 10px&quot;&gt;
+                    &lt;div style=&quot;min-width: 280px; max-width: 600px; width: 100%; margin-left: auto; margin-right: auto; border-collapse: collapse; border-spacing: 0; background-color: #ffffff&quot; bgcolor=&quot;#FFFFFF&quot;&gt;
+                      &lt;div id=&quot;m_670836895579583600m_8130120487424808951column_1640934669567_0&quot;&gt;
+                        &lt;table role=&quot;presentation&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot; style=&quot;border-spacing: 0 !important; border-collapse: collapse&quot;&gt;
+                          &lt;tbody&gt;
+                            &lt;tr&gt;
+                              &lt;td style=&quot;border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; font-size: 14px; word-break: break-word; padding: 20px 40px 30px&quot;&gt;
+                                &lt;div id=&quot;m_670836895579583600m_8130120487424808951hs_cos_wrapper_module_164093465513713&quot; style=&quot;color: inherit; font-size: inherit; line-height: inherit&quot;&gt;
+                                  &lt;div id=&quot;m_670836895579583600m_8130120487424808951hs_cos_wrapper_module_164093465513713_&quot; style=&quot;color: inherit; font-size: inherit; line-height: inherit&quot;&gt;
+                                    &lt;div style=&quot;line-height: 150%; font-size: 16px; text-align: center&quot; align=&quot;center&quot;&gt;
+                                      &lt;div style=&quot;line-height: 150%; text-align: left&quot; align=&quot;left&quot;&gt;
+                                        &lt;p style=&quot;font-size: 18px; line-height: 175%&quot;&gt;&lt;span&gt;Favor de realizar su pago a la mayor brevedad para evitar generar más recargos.&lt;/span&gt;&lt;/p&gt;
+                                        &lt;p style=&quot;font-size: 18px; line-height: 175%&quot;&gt;&lt;span&gt;Si tiene alguna duda, favor de contactarnos al siguiente correo:&lt;/span&gt;&lt;a href=&quot;mailto:cuentasporcobrar@canarock.info&quot;&gt;cuentasporcobrar@canarock.info&lt;/a&gt;&lt;/p&gt;
+                                        &lt;p style=&quot;font-size: 18px; line-height: 100%&quot;&gt;
+                                          &lt;span&gt;El equipo Cana Rock.&lt;br /&gt;&lt;/span&gt;
+                                        &lt;/p&gt;
+                                      &lt;/div&gt;
+                                    &lt;/div&gt;
+                                  &lt;/div&gt;
+                                &lt;/div&gt;
+                              &lt;/td&gt;
+                            &lt;/tr&gt;
+                          &lt;/tbody&gt;
+                        &lt;/table&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div id=&quot;m_670836895579583600m_8130120487424808951section-3&quot; style=&quot;padding-left: 10px; padding-right: 10px&quot;&gt;
+                    &lt;div style=&quot;min-width: 280px; max-width: 600px; width: 100%; margin-left: auto; margin-right: auto; border-collapse: collapse; border-spacing: 0; background-color: #f7f7f7; padding-top: 20px&quot; bgcolor=&quot;#f7f7f7&quot;&gt;
+                      &lt;div id=&quot;m_670836895579583600m_8130120487424808951column-3-0&quot;&gt;
+                        &lt;table role=&quot;presentation&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot; style=&quot;border-spacing: 0 !important; border-collapse: collapse&quot;&gt;
+                          &lt;tbody&gt;
+                            &lt;tr&gt;
+                              &lt;td style=&quot;border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; font-size: 14px; word-break: break-word; padding: 10px 40px 0px&quot;&gt;
+                                &lt;div id=&quot;m_670836895579583600m_8130120487424808951hs_cos_wrapper_module_16486733089651&quot; style=&quot;color: inherit; font-size: inherit; line-height: inherit&quot;&gt;
+                                  &lt;p style=&quot;font-size: 12px; line-height: 125%; text-align: center&quot; align=&quot;center&quot;&gt;
+                                    Cana Rock | Av. Hard Rock, Punta Cana 23000
+                                    &lt;br /&gt;
+                                  &lt;/p&gt;
+
+                                  &lt;p style=&quot;font-size: 12px; line-height: 125%; text-align: center&quot; align=&quot;center&quot;&gt;
+                                    &lt;a href=&quot;mailto:cuentasporcobrar@canarock.info&quot;&gt;cuentasporcobrar@canarock.info&lt;/a&gt;
+                                    &lt;br /&gt;
+                                    &lt;br /&gt;
+                                  &lt;/p&gt;
+                                &lt;/div&gt;
+                              &lt;/td&gt;
+                            &lt;/tr&gt;
+                          &lt;/tbody&gt;
+                        &lt;/table&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;height: 20px&quot;&gt;&amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>EmailBodyEnglish</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; align=&quot;center&quot; border=&quot;0&quot; width=&quot;100%&quot; style=&quot;background-color: #CA9F47; max-width: 670px; margin: 0 auto&quot;&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;height: 20px&quot;&gt;&amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;table role=&quot;presentation&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; style=&quot;border-spacing: 0 !important; border-collapse: collapse; margin: 0; padding: 0; width: 100% !important; min-width: 320px !important; height: 100% !important&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td valign=&quot;top&quot; style=&quot;border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; font-size: 14px; word-break: break-word&quot;&gt;
+                &lt;div id=&quot;m_670836895579583600m_8130120487424808951hs_cos_wrapper_main&quot; style=&quot;color: inherit; font-size: inherit; line-height: inherit&quot;&gt;
+                  &lt;div id=&quot;m_670836895579583600m_8130120487424808951section-0&quot; style=&quot;padding-left: 10px; padding-right: 10px&quot;&gt;
+                    &lt;div style=&quot;min-width: 280px; max-width: 600px; width: 100%; margin-left: auto; margin-right: auto; border-collapse: collapse; border-spacing: 0; background-color: #fafafa&quot; bgcolor=&quot;#fafafa&quot;&gt;
+                      &lt;div id=&quot;m_670836895579583600m_8130120487424808951column-0-0&quot;&gt;
+                        &lt;table role=&quot;presentation&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot; style=&quot;border-spacing: 0 !important; border-collapse: collapse&quot;&gt;
+                          &lt;tbody&gt;
+                            &lt;tr&gt;
+                              &lt;td style=&quot;border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; font-size: 14px; word-break: break-word&quot;&gt;
+                                &lt;div id=&quot;m_670836895579583600m_8130120487424808951hs_cos_wrapper_module_16486733581392&quot; style=&quot;color: inherit; font-size: inherit; line-height: inherit&quot;&gt;
+                                  &lt;table role=&quot;presentation&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; style=&quot;border-spacing: 0 !important; border-collapse: collapse&quot;&gt;
+                                    &lt;tbody&gt;
+                                      &lt;tr&gt;
+                                        &lt;td align=&quot;center&quot; valign=&quot;top&quot; style=&quot;border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; color: #222222; word-break: break-word; text-align: center; padding: 0 20px; font-size: 0px&quot;&gt;
+                                          &lt;a href=&quot;https://canarock.info/es/&quot; target=&quot;_blank&quot;&gt;
+                                            &lt;img alt=&quot;Cana Rock&quot; src=&quot;https://canarock--developer.sandbox.file.force.com/servlet/servlet.ImageServer?id=015050000005imW&amp;oid=00D050000008koI&amp;lastMod=1664821619000&quot; style=&quot;outline: none; text-decoration: none; max-width: 100%; font-size: 16px&quot; width=&quot;250&quot; align=&quot;middle&quot; class=&quot;CToWUd&quot; data-bit=&quot;iit&quot; /&gt;
+                                          &lt;/a&gt;
+                                        &lt;/td&gt;
+                                      &lt;/tr&gt;
+                                    &lt;/tbody&gt;
+                                  &lt;/table&gt;
+                                &lt;/div&gt;
+                              &lt;/td&gt;
+                            &lt;/tr&gt;
+                          &lt;/tbody&gt;
+                        &lt;/table&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div id=&quot;m_670836895579583600m_8130120487424808951section_1652722732214&quot; style=&quot;padding-left: 10px; padding-right: 10px&quot;&gt;
+                    &lt;div style=&quot;min-width: 280px; max-width: 600px; width: 100%; margin-left: auto; margin-right: auto; border-collapse: collapse; border-spacing: 0; background-color: #ffffff&quot; bgcolor=&quot;#FFFFFF&quot;&gt;
+                      &lt;div id=&quot;m_670836895579583600m_8130120487424808951column_1652722732214_0&quot;&gt;
+                        &lt;table role=&quot;presentation&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot; style=&quot;border-spacing: 0 !important; border-collapse: collapse&quot;&gt;
+                          &lt;tbody&gt;
+                            &lt;tr&gt;
+                              &lt;td style=&quot;border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; font-size: 14px; word-break: break-word; padding: 20px 40px 0px&quot;&gt;
+                                &lt;div id=&quot;m_670836895579583600m_8130120487424808951hs_cos_wrapper_module_16299276132622&quot; style=&quot;color: inherit; font-size: inherit; line-height: inherit&quot;&gt;
+                                  &lt;div id=&quot;m_670836895579583600m_8130120487424808951hs_cos_wrapper_module_16299276132622_&quot; style=&quot;color: inherit; font-size: inherit; line-height: inherit&quot;&gt;
+                                    &lt;div style=&quot;line-height: 150%; font-size: 16px; text-align: center&quot; align=&quot;center&quot;&gt;
+                                      &lt;h2 style=&quot;margin: 0; line-height: 125%; font-size: 28px; text-align: center&quot; align=&quot;center&quot;&gt;Due Payments Notification&lt;/h2&gt;
+                                      &lt;div style=&quot;line-height: 100%; text-align: left&quot; align=&quot;left&quot;&gt;
+                                        &lt;p style=&quot;text-align: left; font-size: 18px; line-height: 175%&quot; align=&quot;left&quot;&gt;Date: {!$Flow.CurrentDate}&lt;/p&gt;
+                                        &lt;p style=&quot;text-align: left; font-size: 18px; line-height: 175%&quot; align=&quot;left&quot;&gt;Dear {!Get_Contact.Name}, {!$Record.Unidad__c}&lt;/p&gt;
+                                        &lt;p style=&quot;text-align: left; font-size: 18px; line-height: 175%&quot; align=&quot;left&quot;&gt;This is to notify that you have &lt;b&gt;{!DuePaymentsCount}&lt;/b&gt; due payments with the following detail:&lt;/p&gt;
+                                            &lt;p style=&quot;text-align: left; font-size: 18px&quot; align=&quot;left&quot;&gt;&lt;b&gt;- Total Pending amount - &lt;/b&gt;&lt;/p&gt;
+                                        &lt;p style=&quot;text-align: left; font-size: 18px&quot; align=&quot;left&quot;&gt;Pending amount: &lt;b&gt; {!$Record.CurrencyIsoCode} {!TotalPaymentOverdue}&lt;/b&gt;&lt;/p&gt;
+                                        &lt;p style=&quot;text-align: left; font-size: 18px; line-height: 175%&quot; align=&quot;left&quot;&gt;Breakdown of Fees&lt;/p&gt;
+                                        {!CashSummary}
+                                        &lt;p style=&quot;line-height: 100%; text-align: left&quot; align=&quot;left&quot;&gt;&amp;nbsp;&lt;/p&gt;
+                                      &lt;/div&gt;
+                                    &lt;/div&gt;
+                                  &lt;/div&gt;
+                                &lt;/div&gt;
+                              &lt;/td&gt;
+                            &lt;/tr&gt;
+                          &lt;/tbody&gt;
+                        &lt;/table&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+
+                  &lt;div id=&quot;m_670836895579583600m_8130120487424808951section_1640934669567&quot; style=&quot;padding-left: 10px; padding-right: 10px&quot;&gt;
+                    &lt;div style=&quot;min-width: 280px; max-width: 600px; width: 100%; margin-left: auto; margin-right: auto; border-collapse: collapse; border-spacing: 0; background-color: #ffffff&quot; bgcolor=&quot;#FFFFFF&quot;&gt;
+                      &lt;div id=&quot;m_670836895579583600m_8130120487424808951column_1640934669567_0&quot;&gt;
+                        &lt;table role=&quot;presentation&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot; style=&quot;border-spacing: 0 !important; border-collapse: collapse&quot;&gt;
+                          &lt;tbody&gt;
+                            &lt;tr&gt;
+                              &lt;td style=&quot;border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; font-size: 14px; word-break: break-word; padding: 20px 40px 30px&quot;&gt;
+                                &lt;div id=&quot;m_670836895579583600m_8130120487424808951hs_cos_wrapper_module_164093465513713&quot; style=&quot;color: inherit; font-size: inherit; line-height: inherit&quot;&gt;
+                                  &lt;div id=&quot;m_670836895579583600m_8130120487424808951hs_cos_wrapper_module_164093465513713_&quot; style=&quot;color: inherit; font-size: inherit; line-height: inherit&quot;&gt;
+                                    &lt;div style=&quot;line-height: 150%; font-size: 16px; text-align: center&quot; align=&quot;center&quot;&gt;
+                                      &lt;div style=&quot;line-height: 150%; text-align: left&quot; align=&quot;left&quot;&gt;
+                                        &lt;p style=&quot;font-size: 18px; line-height: 175%&quot;&gt;&lt;span&gt;Please make your payments as soon as possible to avoid generating more surcharges.&lt;/span&gt;&lt;/p&gt;
+                                        &lt;p style=&quot;font-size: 18px; line-height: 175%&quot;&gt;&lt;span&gt;If you have any questions please contact us at the following email:&lt;/span&gt;&lt;a href=&quot;mailto:cuentasporcobrar@canarock.info&quot;&gt;cuentasporcobrar@canarock.info&lt;/a&gt;&lt;/p&gt;
+                                        &lt;p style=&quot;font-size: 18px; line-height: 100%&quot;&gt;
+                                          &lt;span&gt;Cana Rock Team.&lt;br /&gt;&lt;/span&gt;
+                                        &lt;/p&gt;
+                                      &lt;/div&gt;
+                                    &lt;/div&gt;
+                                  &lt;/div&gt;
+                                &lt;/div&gt;
+                              &lt;/td&gt;
+                            &lt;/tr&gt;
+                          &lt;/tbody&gt;
+                        &lt;/table&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div id=&quot;m_670836895579583600m_8130120487424808951section-3&quot; style=&quot;padding-left: 10px; padding-right: 10px&quot;&gt;
+                    &lt;div style=&quot;min-width: 280px; max-width: 600px; width: 100%; margin-left: auto; margin-right: auto; border-collapse: collapse; border-spacing: 0; background-color: #f7f7f7; padding-top: 20px&quot; bgcolor=&quot;#f7f7f7&quot;&gt;
+                      &lt;div id=&quot;m_670836895579583600m_8130120487424808951column-3-0&quot;&gt;
+                        &lt;table role=&quot;presentation&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot; style=&quot;border-spacing: 0 !important; border-collapse: collapse&quot;&gt;
+                          &lt;tbody&gt;
+                            &lt;tr&gt;
+                              &lt;td style=&quot;border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; font-size: 14px; word-break: break-word; padding: 10px 40px 0px&quot;&gt;
+                                &lt;div id=&quot;m_670836895579583600m_8130120487424808951hs_cos_wrapper_module_16486733089651&quot; style=&quot;color: inherit; font-size: inherit; line-height: inherit&quot;&gt;
+                                  &lt;p style=&quot;font-size: 12px; line-height: 125%; text-align: center&quot; align=&quot;center&quot;&gt;
+                                    Cana Rock | Av. Hard Rock, Punta Cana 23000
+                                    &lt;br /&gt;
+                                  &lt;/p&gt;
+
+                                  &lt;p style=&quot;font-size: 12px; line-height: 125%; text-align: center&quot; align=&quot;center&quot;&gt;
+                                    &lt;a href=&quot;mailto:cuentasporcobrar@canarock.info&quot;&gt;cuentasporcobrar@canarock.info&lt;/a&gt;
+                                    &lt;br /&gt;
+                                    &lt;br /&gt;
+                                  &lt;/p&gt;
+                                &lt;/div&gt;
+                              &lt;/td&gt;
+                            &lt;/tr&gt;
+                          &lt;/tbody&gt;
+                        &lt;/table&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;height: 20px&quot;&gt;&amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</text>
+    </textTemplates>
+    <variables>
+        <name>CashSummary</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>CurrentFeeCounter</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>1.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <name>DuePaymentsCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <name>TotalOverdue</name>
+        <dataType>Currency</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <name>TotalPaymentOverdue</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+</Flow>
