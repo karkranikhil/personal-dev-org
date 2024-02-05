@@ -62,7 +62,6 @@
             <label>YES</label>
         </rules>
     </decisions>
-    <environments>Default</environments>
     <interviewLabel>Cash: Update Payment on cash amount change {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Cash: Update Payment on cash amount change</label>
     <loops>
